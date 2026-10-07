@@ -419,7 +419,7 @@ export class HeroEngine {
 
     const gl = this.gl;
     if (gl && this.program && this.dustProgram) {
-      gl.clearColor(0.04, 0.07, 0.06, 1.0);
+      gl.clearColor(0.0, 0.0, 0.0, 0.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
 
       const proj = this.getOrthoProjection(this.W, this.H);

@@ -98,9 +98,9 @@ export function InnerHero({
           </div>
 
           {/* Right Column: Particle WebGL Canvas Stage */}
-          <div className="min-[900px]:col-span-6 min-[1200px]:col-span-7 relative w-full aspect-[4/3] sm:aspect-[16/11] min-[900px]:aspect-auto min-[900px]:h-[560px] min-[1200px]:h-[600px] max-h-[72vh] flex items-center justify-center">
+          <div className="min-[900px]:col-span-6 min-[1200px]:col-span-7 relative w-full aspect-[4/3] sm:aspect-[16/11] min-[900px]:aspect-auto min-[900px]:h-[560px] min-[1200px]:h-[600px] max-h-[72vh] flex items-center justify-center pointer-events-auto">
             <Parallax speed={16} className="w-full h-full relative">
-              <div className="relative w-full h-full rounded-[24px] overflow-hidden">
+              <div className="relative w-full h-full">
                 <HeroCanvas seed={seed} showReplay={showReplay} />
               </div>
             </Parallax>
