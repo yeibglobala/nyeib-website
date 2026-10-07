@@ -110,9 +110,9 @@ export function VideoStory() {
           Houses Headline on the Left, and Paragraph + CTA on the Right.
           ========================================================================= */}
       <div className="relative z-10 w-full backdrop-blur-[36px] bg-[rgba(10,24,20,0.68)] border-t border-[rgba(238,246,242,0.14)] shadow-[0_-12px_48px_rgba(0,0,0,0.35)] py-[clamp(28px,3.5vw,48px)] px-6 sm:px-10 lg:px-16 pb-[calc(env(safe-area-inset-bottom,0px)+clamp(24px,3.5vw,40px))]">
-        <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 min-[900px]:grid-cols-12 gap-6 min-[900px]:gap-12 items-end">
+        <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 min-[900px]:grid-cols-12 gap-6 min-[900px]:gap-12 items-center">
           {/* Left Column: Headline */}
-          <div className="min-[900px]:col-span-7 flex flex-col justify-end">
+          <div className="min-[900px]:col-span-7 flex flex-col justify-center">
             <HeaderReveal delay={100} duration={1000} parallaxSpeed={12}>
               <h1
                 className="text-[clamp(28px,3.6vw,52px)] font-bold leading-[1.12] tracking-tight text-[var(--fg-main)] m-0"
@@ -128,7 +128,7 @@ export function VideoStory() {
           </div>
 
           {/* Right Column: Paragraph + CTA */}
-          <div className="min-[900px]:col-span-5 flex flex-col justify-end gap-5 sm:gap-6">
+          <div className="min-[900px]:col-span-5 flex flex-col justify-center gap-5 sm:gap-6">
             <HeaderReveal delay={220} duration={950} mask={false} parallaxSpeed={8}>
               <p
                 className="text-[15px] sm:text-[16.5px] font-normal text-[#e1c9b3]/95 leading-[1.65] m-0 max-w-[48ch]"
