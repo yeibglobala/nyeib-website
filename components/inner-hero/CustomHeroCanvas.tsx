@@ -8,12 +8,71 @@ import {
 import { generateLogoCloud, generateRibbonCloud } from "@/lib/hero/targets";
 import { createPRNG } from "@/lib/hero/config";
 
-const PARTICLE_COLOR_VALUES = [
-  "rgb(0, 190, 147)",   // 0: Emerald #00BE93
-  "rgb(46, 183, 140)",  // 1: Mint #2EB78C
-  "rgb(248, 132, 4)",   // 2: Tiger Orange #F88404
-  "rgb(225, 201, 179)", // 3: Starlight #E1C9B3
-];
+// Pre-render luminous particle sprite textures for WebGL-identical glowing cores & light falloff
+interface ParticleSprites {
+  emerald: HTMLCanvasElement;
+  mint: HTMLCanvasElement;
+  orange: HTMLCanvasElement;
+  starlight: HTMLCanvasElement;
+}
+
+function createGlowingSprite(coreColor: string, midColor: string, outerColor: string): HTMLCanvasElement {
+  const size = 32;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return canvas;
+
+  const center = size / 2;
+  const radius = size / 2;
+
+  const grad = ctx.createRadialGradient(center, center, 0, center, center, radius);
+  grad.addColorStop(0, coreColor);
+  grad.addColorStop(0.35, midColor);
+  grad.addColorStop(0.75, outerColor);
+  grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, size, size);
+  return canvas;
+}
+
+let CACHED_SPRITES: ParticleSprites | null = null;
+
+function getParticleSprites(): ParticleSprites | null {
+  if (typeof document === "undefined") return null;
+  if (CACHED_SPRITES) return CACHED_SPRITES;
+
+  CACHED_SPRITES = {
+    // 0: Emerald with bright mint core
+    emerald: createGlowingSprite(
+      "rgba(224, 255, 245, 1.0)",
+      "rgba(46, 183, 140, 0.95)",
+      "rgba(0, 190, 147, 0.35)"
+    ),
+    // 1: Mint with diamond white core
+    mint: createGlowingSprite(
+      "rgba(255, 255, 255, 1.0)",
+      "rgba(63, 240, 200, 0.95)",
+      "rgba(46, 183, 140, 0.40)"
+    ),
+    // 2: Tiger Orange with warm amber core
+    orange: createGlowingSprite(
+      "rgba(255, 240, 210, 1.0)",
+      "rgba(248, 132, 4, 0.95)",
+      "rgba(230, 95, 0, 0.40)"
+    ),
+    // 3: Starlight Diamond White
+    starlight: createGlowingSprite(
+      "rgba(255, 255, 255, 1.0)",
+      "rgba(225, 245, 240, 0.95)",
+      "rgba(180, 225, 215, 0.45)"
+    ),
+  };
+
+  return CACHED_SPRITES;
+}
 
 interface CustomHeroCanvasProps {
   slug: string;
@@ -32,6 +91,7 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const sprites = getParticleSprites();
     const generator = HERO_SHAPE_REGISTRY[slug] || HERO_SHAPE_REGISTRY["who-we-serve"];
     const rnd = createPRNG(42);
 
@@ -61,6 +121,7 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     let currentY: Float32Array;
     let velocityX: Float32Array;
     let velocityY: Float32Array;
+    let particleSizes: Float32Array;
 
     const pointer = {
       x: -9999,
@@ -92,6 +153,7 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       currentY = new Float32Array(count);
       velocityX = new Float32Array(count);
       velocityY = new Float32Array(count);
+      particleSizes = new Float32Array(count);
 
       // 1. Calculate actual geometric bounding box of the shape points to find true center
       let minX = Infinity, maxX = -Infinity;
@@ -111,7 +173,6 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       const shapeCenterY = (minY + maxY) * 0.5;
 
       // 2. Compute proportional scaling factor to centralize and fill stage prominently
-      // Desktop: target ~80% width/height, mobile: target ~85% width/height
       const targetWidth = isMobile ? width * 0.86 : width * 0.82;
       const targetHeight = isMobile ? height * 0.78 : height * 0.82;
       const scale = Math.min(targetWidth / shapeWidth, targetHeight / shapeHeight);
@@ -121,9 +182,13 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
         // Perfectly center custom shape at (0, 0)
         shapeX[i] = (vx - shapeCenterX) * scale;
         shapeY[i] = (vy - shapeCenterY) * scale;
+
+        // Size matching WebGL point sizing (1.8px to 3.2px radius, with glowing core falloff)
+        const baseSize = cloud.sizes[i] || 1.0;
+        particleSizes[i] = (1.8 + baseSize * 0.75) * (isMobile ? 0.9 : 1.05);
       }
 
-      // 3. Generate 3D Ribbon and YEIB Logo target arrays (both already centered at 0, 0)
+      // 3. Generate 3D Ribbon and YEIB Logo target arrays
       ribbonPts = generateRibbonCloud(count, width, height, rnd);
       logoPts = generateLogoCloud(count, width, height, rnd);
 
@@ -200,6 +265,10 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       return c * c * (3 - 2 * c);
     };
 
+    const spriteList = sprites
+      ? [sprites.emerald, sprites.mint, sprites.orange, sprites.starlight]
+      : [];
+
     const render = (time: number) => {
       if (!isRunning || !cloud || !ribbonPts || !logoPts) return;
 
@@ -237,12 +306,13 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       }
 
       ctx.clearRect(0, 0, width, height);
+      // Direct additive light emission identical to WebGL gl.blendFunc(gl.ONE, gl.ONE)
       ctx.globalCompositeOperation = "lighter";
 
       const ptrX = pointer.x;
       const ptrY = pointer.y;
-      const ptrRadius = isMobile ? 80 : 130;
-      const ptrForce = 35;
+      const ptrRadius = isMobile ? 85 : 140;
+      const ptrForce = 38;
 
       const cx = width * 0.5;
       const cy = height * 0.5;
@@ -305,7 +375,7 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
         currentY[i] += velocityY[i];
 
         // Fade calculation
-        let alpha = cloud.alphas[i] * easeAssembly;
+        let alpha = (0.55 + cloud.alphas[i] * 0.45) * easeAssembly;
 
         // Twinkle calculation
         if (!prefersReducedMotion) {
@@ -315,24 +385,22 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
 
         if (alpha <= 0.01) continue;
 
-        // Color blending during morph
-        const colorIdx = cloud.colors[i];
-        ctx.fillStyle = PARTICLE_COLOR_VALUES[colorIdx];
-        ctx.globalAlpha = alpha;
+        ctx.globalAlpha = Math.min(1.0, alpha);
 
-        const size = cloud.sizes[i];
+        const colorIdx = cloud.colors[i];
+        const sprite = spriteList[colorIdx] || spriteList[0];
+        const pRadius = particleSizes[i];
+        const diameter = pRadius * 2.8;
+
         const px = currentX[i];
         const py = currentY[i];
 
-        ctx.beginPath();
-        ctx.arc(px, py, size, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Soft halo on bright accent particles
-        if (size > 1.3 && alpha > 0.6) {
+        if (sprite) {
+          ctx.drawImage(sprite, px - diameter * 0.5, py - diameter * 0.5, diameter, diameter);
+        } else {
+          ctx.fillStyle = "rgb(0, 190, 147)";
           ctx.beginPath();
-          ctx.arc(px, py, size * 2.0, 0, Math.PI * 2);
-          ctx.globalAlpha = alpha * 0.22;
+          ctx.arc(px, py, pRadius, 0, Math.PI * 2);
           ctx.fill();
         }
       }
