@@ -70,7 +70,7 @@ export function DustCanvas({
     let pointerY = -9999;
     let isPointerActive = false;
 
-    const POINTER_RADIUS = 48; // virtual px
+    const POINTER_RADIUS = 52; // virtual px
     const POINTER_RADIUS_SQ = POINTER_RADIUS * POINTER_RADIUS;
 
     const resize = () => {
@@ -78,7 +78,7 @@ export function DustCanvas({
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       const rect = container.getBoundingClientRect();
       clientWidth = Math.round(rect.width || canvas.clientWidth || 320);
-      clientHeight = Math.round(rect.height || canvas.clientHeight || 190);
+      clientHeight = Math.round(rect.height || canvas.clientHeight || 260);
 
       if (clientWidth === 0 || clientHeight === 0) return;
 
@@ -121,7 +121,7 @@ export function DustCanvas({
 
             if (distSq < POINTER_RADIUS_SQ && distSq > 0.001) {
               const dist = Math.sqrt(distSq);
-              const force = Math.pow(1 - dist / POINTER_RADIUS, 1.5) * 22;
+              const force = Math.pow(1 - dist / POINTER_RADIUS, 1.5) * 24;
               targetOffX = (dx / dist) * force;
               targetOffY = (dy / dist) * force;
             }
@@ -146,14 +146,16 @@ export function DustCanvas({
           }
 
           // Subtle organic breathing drift
-          const dx = isReducedMotion ? 0 : Math.sin(timeSec + phases[i]) * 0.85;
-          const dy = isReducedMotion ? 0 : Math.cos(timeSec * 0.9 + phases[i] * 1.2) * 0.85;
+          const dx = isReducedMotion ? 0 : Math.sin(timeSec + phases[i]) * 0.9;
+          const dy = isReducedMotion ? 0 : Math.cos(timeSec * 0.9 + phases[i] * 1.2) * 0.9;
 
           const finalX = ox + (baseX + dx + offsetX[i]) * scale;
           const finalY = oy + (baseY + dy + offsetY[i]) * scale;
 
           ctx.globalAlpha = alphas[i];
-          ctx.fillRect(finalX, finalY, sizes[i] * 1.15, sizes[i] * 1.15);
+          // Prominent, solid, bold particle dots (approx 2.8px to 3.7px)
+          const dotSize = sizes[i] * 1.55;
+          ctx.fillRect(finalX, finalY, dotSize, dotSize);
         }
       }
 
@@ -257,7 +259,7 @@ export function DustCanvas({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-[190px] overflow-hidden select-none touch-none ${className}`}
+      className={`relative w-full h-[250px] sm:h-[280px] overflow-hidden select-none touch-none rounded-xl bg-white/20 border border-[rgba(18,32,27,0.08)] my-2 ${className}`}
       style={{ touchAction: "none" }}
     >
       <canvas
