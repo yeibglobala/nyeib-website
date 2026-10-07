@@ -8,71 +8,120 @@ import {
 import { generateLogoCloud, generateRibbonCloud } from "@/lib/hero/targets";
 import { createPRNG } from "@/lib/hero/config";
 
-// Pre-render luminous particle sprite textures for WebGL-identical glowing cores & light falloff
-interface ParticleSprites {
-  emerald: HTMLCanvasElement;
-  mint: HTMLCanvasElement;
-  orange: HTMLCanvasElement;
-  starlight: HTMLCanvasElement;
-}
+const VS_CUSTOM_SOURCE = `
+  precision highp float;
 
-function createGlowingSprite(coreColor: string, midColor: string, outerColor: string): HTMLCanvasElement {
-  const size = 32;
-  const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return canvas;
+  attribute vec3 aPosShape;
+  attribute vec3 aPosRibbon;
+  attribute vec3 aPosLogo;
+  attribute float aDelay;
+  attribute float aSize;
+  attribute float aColorIdx;
 
-  const center = size / 2;
-  const radius = size / 2;
+  uniform mat4 uProjection;
+  uniform float uTime;
+  uniform float uMorphPhase; // 0.0 = shape, 0.5 = ribbon, 1.0 = logo
+  uniform float uMotionEnabled;
+  uniform vec2 uPointer;
+  uniform float uPointerRadius;
+  uniform float uPointerForce;
+  uniform vec2 uResolution;
+  uniform float uDpr;
 
-  const grad = ctx.createRadialGradient(center, center, 0, center, center, radius);
-  grad.addColorStop(0, coreColor);
-  grad.addColorStop(0.35, midColor);
-  grad.addColorStop(0.75, outerColor);
-  grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+  varying float vAlpha;
+  varying float vDepth;
+  varying float vColorIdx;
 
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, size, size);
-  return canvas;
-}
+  float ease(float t) {
+    t = clamp(t, 0.0, 1.0);
+    return t * t * (3.0 - 2.0 * t);
+  }
 
-let CACHED_SPRITES: ParticleSprites | null = null;
+  void main() {
+    float localDelay = aDelay * 0.22;
+    float phase = clamp((uMorphPhase - localDelay) / (1.0 - 0.22), 0.0, 1.0);
 
-function getParticleSprites(): ParticleSprites | null {
-  if (typeof document === "undefined") return null;
-  if (CACHED_SPRITES) return CACHED_SPRITES;
+    vec3 pos;
+    if (phase < 0.5) {
+      float t = ease(phase * 2.0);
+      pos = mix(aPosShape, aPosRibbon, t);
+    } else {
+      float t = ease((phase - 0.5) * 2.0);
+      pos = mix(aPosRibbon, aPosLogo, t);
+    }
 
-  CACHED_SPRITES = {
-    // 0: Emerald with bright mint core
-    emerald: createGlowingSprite(
-      "rgba(224, 255, 245, 1.0)",
-      "rgba(46, 183, 140, 0.95)",
-      "rgba(0, 190, 147, 0.35)"
-    ),
-    // 1: Mint with diamond white core
-    mint: createGlowingSprite(
-      "rgba(255, 255, 255, 1.0)",
-      "rgba(63, 240, 200, 0.95)",
-      "rgba(46, 183, 140, 0.40)"
-    ),
-    // 2: Tiger Orange with warm amber core
-    orange: createGlowingSprite(
-      "rgba(255, 240, 210, 1.0)",
-      "rgba(248, 132, 4, 0.95)",
-      "rgba(230, 95, 0, 0.40)"
-    ),
-    // 3: Starlight Diamond White
-    starlight: createGlowingSprite(
-      "rgba(255, 255, 255, 1.0)",
-      "rgba(225, 245, 240, 0.95)",
-      "rgba(180, 225, 215, 0.45)"
-    ),
-  };
+    // Continuous subtle drift
+    if (uMotionEnabled > 0.5) {
+      float wave = sin(uTime * 1.3 + pos.x * 0.015 + aDelay * 6.28) * 1.4;
+      float waveZ = cos(uTime * 1.1 + pos.y * 0.015) * 2.2;
+      pos.y += wave;
+      pos.z += waveZ;
+    }
 
-  return CACHED_SPRITES;
-}
+    // Interactive pointer repulsion
+    vec2 screenPos = pos.xy;
+    vec2 diff = screenPos - uPointer;
+    float dist = length(diff);
+    if (dist < uPointerRadius && dist > 0.001 && uPointerForce > 0.005) {
+      float normDist = dist / uPointerRadius;
+      float f = smoothstep(1.0, 0.0, normDist) * uPointerForce;
+      vec2 push = (diff / dist) * f * 42.0;
+      pos.xy += push;
+      pos.z += f * 28.0;
+    }
+
+    vec4 clip = uProjection * vec4(pos, 1.0);
+    gl_Position = clip;
+
+    // Crisp micro-point sizing (identical to Bridge / YEIB logo, no blur)
+    float pSize = aSize * uDpr * (480.0 / (480.0 - pos.z));
+    gl_PointSize = clamp(pSize, 1.2 * uDpr, 4.0 * uDpr);
+
+    vDepth = (pos.z + 60.0) / 120.0;
+    vAlpha = clamp(0.40 + vDepth * 0.55, 0.25, 1.25);
+    vColorIdx = aColorIdx;
+  }
+`;
+
+const FS_CUSTOM_SOURCE = `
+  precision highp float;
+
+  varying float vAlpha;
+  varying float vDepth;
+  varying float vColorIdx;
+
+  void main() {
+    // Round point with sharp, crisp falloff - NO BLUR
+    vec2 coord = gl_PointCoord - vec2(0.5);
+    float distSq = dot(coord, coord);
+    if (distSq > 0.25) discard;
+
+    float edge = 1.0 - (distSq * 4.0);
+    edge = pow(edge, 0.65);
+
+    // Exact Brand Palette (Direct Additive Light Emission)
+    vec3 colDeep = vec3(0.18, 0.78, 0.58);       // Emerald #2eb78c
+    vec3 colTeal = vec3(0.28, 0.96, 0.82);       // Luminous Aqua #3ff0c8
+    vec3 colMint = vec3(0.92, 1.0, 0.96);        // Mint Photon Core #e0fff5
+    vec3 colOrangeDeep = vec3(0.98, 0.52, 0.02); // Tiger Orange #f88404
+    vec3 colOrangeCore = vec3(1.0, 0.85, 0.50);  // Warm Amber Core
+    vec3 colStarlight = vec3(0.96, 0.98, 1.0);   // Starlight White
+
+    vec3 baseColor = mix(colDeep, colTeal, clamp(vDepth, 0.0, 1.0));
+    baseColor = mix(baseColor, colMint, edge * 0.70);
+
+    if (vColorIdx > 1.5 && vColorIdx < 2.5) {
+      // Tiger Orange Accent
+      baseColor = mix(colOrangeDeep, colOrangeCore, edge * 0.85);
+    } else if (vColorIdx > 2.5) {
+      // Starlight Accent
+      baseColor = mix(colTeal, colStarlight, edge * 0.90);
+    }
+
+    // Direct additive emission
+    gl_FragColor = vec4(baseColor * (vAlpha * edge), 1.0);
+  }
+`;
 
 interface CustomHeroCanvasProps {
   slug: string;
@@ -88,10 +137,11 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const gl = (canvas.getContext("webgl", { alpha: true, antialias: false, depth: false }) ||
+      canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
 
-    const sprites = getParticleSprites();
+    if (!gl) return;
+
     const generator = HERO_SHAPE_REGISTRY[slug] || HERO_SHAPE_REGISTRY["who-we-serve"];
     const rnd = createPRNG(42);
 
@@ -99,7 +149,7 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     let isRunning = true;
     let width = 0;
     let height = 0;
-    let isMobile = false;
+    let dpr = 1;
 
     // Check prefers-reduced-motion
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -109,108 +159,160 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     };
     mediaQuery.addEventListener("change", onMotionChange);
 
-    // Particle state buffers
-    let count = 7200;
-    let cloud: ShapeCloudData | null = null;
-    let shapeX: Float32Array;
-    let shapeY: Float32Array;
-    let ribbonPts: Float32Array;
-    let logoPts: Float32Array;
-
-    let currentX: Float32Array;
-    let currentY: Float32Array;
-    let velocityX: Float32Array;
-    let velocityY: Float32Array;
-    let particleSizes: Float32Array;
+    // High density particle counts matching Bridge/YEIB logo feel
+    const isMobileViewport = window.innerWidth < 768;
+    const count = isMobileViewport ? 22000 : 42000;
 
     const pointer = {
       x: -9999,
       y: -9999,
+      targetX: -9999,
+      targetY: -9999,
+      force: 0,
       active: false,
+      lastTime: 0,
     };
 
-    let startTime = performance.now();
+    // Compile Shaders
+    const createShader = (type: number, src: string) => {
+      const s = gl.createShader(type);
+      if (!s) return null;
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        gl.deleteShader(s);
+        return null;
+      }
+      return s;
+    };
 
-    const initCloud = () => {
+    const createProgram = (vsSrc: string, fsSrc: string) => {
+      const vs = createShader(gl.VERTEX_SHADER, vsSrc);
+      const fs = createShader(gl.FRAGMENT_SHADER, fsSrc);
+      if (!vs || !fs) return null;
+      const p = gl.createProgram();
+      if (!p) return null;
+      gl.attachShader(p, vs);
+      gl.attachShader(p, fs);
+      gl.linkProgram(p);
+      return p;
+    };
+
+    const program = createProgram(VS_CUSTOM_SOURCE, FS_CUSTOM_SOURCE);
+    if (!program) return;
+
+    // WebGL Buffers
+    const posShapeBuffer = gl.createBuffer();
+    const posRibbonBuffer = gl.createBuffer();
+    const posLogoBuffer = gl.createBuffer();
+    const delayBuffer = gl.createBuffer();
+    const sizeBuffer = gl.createBuffer();
+    const colorIdxBuffer = gl.createBuffer();
+
+    let cloudData: ShapeCloudData | null = null;
+    let shapePts = new Float32Array(count * 3);
+    let ribbonPts = new Float32Array(count * 3);
+    let logoPts = new Float32Array(count * 3);
+    let delayArray = new Float32Array(count);
+    let sizeArray = new Float32Array(count);
+    let colorArray = new Float32Array(count);
+
+    const initBuffers = () => {
       if (!canvas || !container) return;
       const rect = container.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-      width = rect.width || window.innerWidth;
-      height = rect.height || window.innerHeight;
-      isMobile = width < 700;
-      count = isMobile ? 3600 : 7200;
+      width = Math.round(rect.width || window.innerWidth);
+      height = Math.round(rect.height || window.innerHeight);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
 
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      gl.viewport(0, 0, canvas.width, canvas.height);
 
-      cloud = generator(count);
+      cloudData = generator(count);
 
-      shapeX = new Float32Array(count);
-      shapeY = new Float32Array(count);
-      currentX = new Float32Array(count);
-      currentY = new Float32Array(count);
-      velocityX = new Float32Array(count);
-      velocityY = new Float32Array(count);
-      particleSizes = new Float32Array(count);
-
-      // 1. Calculate actual geometric bounding box of the shape points to find true center
+      // Find shape bounding box for exact (0,0) centering
       let minX = Infinity, maxX = -Infinity;
       let minY = Infinity, maxY = -Infinity;
-
       for (let i = 0; i < count; i++) {
-        const [vx, vy] = cloud.targets[i];
+        const [vx, vy] = cloudData.targets[i];
         if (vx < minX) minX = vx;
         if (vx > maxX) maxX = vx;
         if (vy < minY) minY = vy;
         if (vy > maxY) maxY = vy;
       }
 
-      const shapeWidth = Math.max(100, maxX - minX);
-      const shapeHeight = Math.max(100, maxY - minY);
+      const shapeW = Math.max(100, maxX - minX);
+      const shapeH = Math.max(100, maxY - minY);
       const shapeCenterX = (minX + maxX) * 0.5;
       const shapeCenterY = (minY + maxY) * 0.5;
 
-      // 2. Compute proportional scaling factor to centralize and fill stage prominently
-      const targetWidth = isMobile ? width * 0.86 : width * 0.82;
-      const targetHeight = isMobile ? height * 0.78 : height * 0.82;
-      const scale = Math.min(targetWidth / shapeWidth, targetHeight / shapeHeight);
+      const isMobile = width < 700;
+      const targetW = isMobile ? width * 0.88 : width * 0.82;
+      const targetH = isMobile ? height * 0.80 : height * 0.82;
+      const scale = Math.min(targetW / shapeW, targetH / shapeH);
 
+      // Shape points (centered at 0, 0 in WebGL orthographic coordinates)
       for (let i = 0; i < count; i++) {
-        const [vx, vy] = cloud.targets[i];
-        // Perfectly center custom shape at (0, 0)
-        shapeX[i] = (vx - shapeCenterX) * scale;
-        shapeY[i] = (vy - shapeCenterY) * scale;
+        const [vx, vy] = cloudData.targets[i];
+        shapePts[i * 3] = (vx - shapeCenterX) * scale;
+        shapePts[i * 3 + 1] = (vy - shapeCenterY) * scale;
+        shapePts[i * 3 + 2] = (rnd() - 0.5) * 16.0; // subtle 3D depth
 
-        // Size matching WebGL point sizing (1.8px to 3.2px radius, with glowing core falloff)
-        const baseSize = cloud.sizes[i] || 1.0;
-        particleSizes[i] = (1.8 + baseSize * 0.75) * (isMobile ? 0.9 : 1.05);
+        delayArray[i] = cloudData.delays[i];
+        sizeArray[i] = 1.1 + rnd() * 0.8; // Crisp micro sizing (1.1 - 1.9)
+        colorArray[i] = cloudData.colors[i];
       }
 
-      // 3. Generate 3D Ribbon and YEIB Logo target arrays
-      ribbonPts = generateRibbonCloud(count, width, height, rnd);
-      logoPts = generateLogoCloud(count, width, height, rnd);
+      // Generate 3D Ribbon and YEIB Logo targets (both centered at 0,0)
+      const rawRibbon = generateRibbonCloud(count, width, height, rnd);
+      const rawLogo = generateLogoCloud(count, width, height, rnd);
+      ribbonPts.set(rawRibbon);
+      logoPts.set(rawLogo);
 
-      // 4. Initialize positions with intro scatter around the stage center (cx, cy)
-      const cx = width * 0.5;
-      const cy = height * 0.5;
+      // Upload to WebGL buffers
+      gl.bindBuffer(gl.ARRAY_BUFFER, posShapeBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, shapePts, gl.STATIC_DRAW);
 
-      for (let i = 0; i < count; i++) {
-        const tx = cx + shapeX[i];
-        const ty = cy + shapeY[i];
+      gl.bindBuffer(gl.ARRAY_BUFFER, posRibbonBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, ribbonPts, gl.STATIC_DRAW);
 
-        const delay = cloud.delays[i];
-        currentX[i] = tx + (Math.sin(i * 1.7) * 80 + (1 - delay) * 40);
-        currentY[i] = ty + (Math.cos(i * 2.3) * 60 + (1 - delay) * 50);
-      }
+      gl.bindBuffer(gl.ARRAY_BUFFER, posLogoBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, logoPts, gl.STATIC_DRAW);
 
-      startTime = performance.now();
+      gl.bindBuffer(gl.ARRAY_BUFFER, delayBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, delayArray, gl.STATIC_DRAW);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, sizeArray, gl.STATIC_DRAW);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, colorIdxBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, colorArray, gl.STATIC_DRAW);
     };
 
-    initCloud();
+    initBuffers();
 
-    // Event listeners for pointer push
+    // Orthographic projection matrix centered at (0, 0)
+    const getOrthoProjection = (w: number, h: number): Float32Array => {
+      const left = -w / 2;
+      const right = w / 2;
+      const bottom = h / 2;
+      const top = -h / 2;
+      const near = -500;
+      const far = 500;
+
+      const lr = 1 / (right - left);
+      const bt = 1 / (top - bottom);
+      const nf = 1 / (near - far);
+
+      return new Float32Array([
+        2 * lr, 0, 0, 0,
+        0, 2 * bt, 0, 0,
+        0, 0, 2 * nf, 0,
+        -(right + left) * lr, -(top + bottom) * bt, (far + near) * nf, 1
+      ]);
+    };
+
+    // Event listeners
     const onPointerMove = (e: MouseEvent | TouchEvent) => {
       let clientX = 0, clientY = 0;
       if ("touches" in e && e.touches.length > 0) {
@@ -219,32 +321,34 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       } else if ("clientX" in e) {
         clientX = e.clientX;
         clientY = e.clientY;
+      } else {
+        return;
       }
       const rect = canvas.getBoundingClientRect();
-      pointer.x = clientX - rect.left;
-      pointer.y = clientY - rect.top;
+      pointer.targetX = (clientX - rect.left) - width * 0.5;
+      pointer.targetY = (clientY - rect.top) - height * 0.5;
       pointer.active = true;
+      pointer.lastTime = performance.now();
     };
 
-    const onPointerLeave = () => {
+    const onPointerClear = () => {
+      pointer.targetX = -9999;
+      pointer.targetY = -9999;
       pointer.active = false;
-      pointer.x = -9999;
-      pointer.y = -9999;
     };
 
     window.addEventListener("mousemove", onPointerMove, { passive: true });
     window.addEventListener("touchmove", onPointerMove, { passive: true });
-    window.addEventListener("mouseleave", onPointerLeave);
-    window.addEventListener("touchend", onPointerLeave);
+    window.addEventListener("mouseleave", onPointerClear);
+    window.addEventListener("touchend", onPointerClear);
 
     let resizeTimer: NodeJS.Timeout | null = null;
     const onResize = () => {
       if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(initCloud, 100);
+      resizeTimer = setTimeout(initBuffers, 80);
     };
     window.addEventListener("resize", onResize, { passive: true });
 
-    // IntersectionObserver to pause when off-screen
     const observer = new IntersectionObserver(
       ([entry]) => {
         isRunning = entry.isIntersecting;
@@ -257,31 +361,27 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     );
     observer.observe(container);
 
+    let startTime = performance.now();
     let lastFrame = performance.now();
 
-    // Smooth cubic easing
-    const ease = (t: number) => {
-      const c = Math.max(0, Math.min(1, t));
-      return c * c * (3 - 2 * c);
-    };
-
-    const spriteList = sprites
-      ? [sprites.emerald, sprites.mint, sprites.orange, sprites.starlight]
-      : [];
-
     const render = (time: number) => {
-      if (!isRunning || !cloud || !ribbonPts || !logoPts) return;
+      if (!isRunning) return;
 
-      lastFrame = time;
-      const elapsed = (time - startTime) / 1000;
-      const introProgress = Math.min(1.0, elapsed / 1.4); // 1.4s smooth intro assembly
+      const elapsed = (time - startTime) * 0.001;
 
-      // --- Morphing Cycle: Shape (4.0s) -> Ribbon (1.8s) -> Logo (1.8s) -> Hold Logo (3.0s) -> Ribbon (1.6s) -> Return (1.8s) ---
+      // Pointer spring lerp
+      pointer.x += (pointer.targetX - pointer.x) * 0.12;
+      pointer.y += (pointer.targetY - pointer.y) * 0.12;
+      const pointerActive = (time - pointer.lastTime < 3000 && pointer.targetX > -5000);
+      const targetForce = pointerActive ? 1.4 : 0.0;
+      pointer.force += (targetForce - pointer.force) * 0.15;
+
+      // Morphing cycle (14.0s total)
       const totalCycle = 14.0;
       const cycleTime = prefersReducedMotion ? 0 : elapsed % totalCycle;
-      let morphPhase = 0.0; // 0.0: Custom Shape, 0.5: Ribbon, 1.0: YEIB Logo
+      let morphPhase = 0.0;
 
-      const t1 = 4.0;  // hold custom shape
+      const t1 = 4.0;  // hold shape
       const t2 = 5.8;  // morph to ribbon
       const t3 = 7.6;  // morph to logo
       const t4 = 10.6; // hold logo
@@ -305,108 +405,66 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
         morphPhase = 0.5 - t * 0.5;
       }
 
-      ctx.clearRect(0, 0, width, height);
-      // Direct additive light emission identical to WebGL gl.blendFunc(gl.ONE, gl.ONE)
-      ctx.globalCompositeOperation = "lighter";
+      // WebGL Rendering with Direct Additive Blending (gl.ONE, gl.ONE)
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE);
+      gl.clearColor(0.0, 0.0, 0.0, 0.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
 
-      const ptrX = pointer.x;
-      const ptrY = pointer.y;
-      const ptrRadius = isMobile ? 85 : 140;
-      const ptrForce = 38;
+      gl.useProgram(program);
 
-      const cx = width * 0.5;
-      const cy = height * 0.5;
+      const proj = getOrthoProjection(width, height);
+      gl.uniformMatrix4fv(gl.getUniformLocation(program, "uProjection"), false, proj);
+      gl.uniform1f(gl.getUniformLocation(program, "uTime"), elapsed);
+      gl.uniform1f(gl.getUniformLocation(program, "uMorphPhase"), morphPhase);
+      gl.uniform1f(gl.getUniformLocation(program, "uMotionEnabled"), prefersReducedMotion ? 0.0 : 1.0);
+      gl.uniform2f(gl.getUniformLocation(program, "uPointer"), pointer.x, pointer.y);
+      gl.uniform1f(gl.getUniformLocation(program, "uPointerRadius"), 120.0);
+      gl.uniform1f(gl.getUniformLocation(program, "uPointerForce"), pointer.force);
+      gl.uniform2f(gl.getUniformLocation(program, "uResolution"), width, height);
+      gl.uniform1f(gl.getUniformLocation(program, "uDpr"), dpr);
 
-      for (let i = 0; i < count; i++) {
-        const delay = cloud.delays[i];
-        const pAssembly = Math.max(0, Math.min(1, (introProgress - delay * 0.35) / 0.65));
-        const easeAssembly = pAssembly * pAssembly * (3 - 2 * pAssembly);
+      // Attribute pointers
+      const locShape = gl.getAttribLocation(program, "aPosShape");
+      const locRibbon = gl.getAttribLocation(program, "aPosRibbon");
+      const locLogo = gl.getAttribLocation(program, "aPosLogo");
+      const locDelay = gl.getAttribLocation(program, "aDelay");
+      const locSize = gl.getAttribLocation(program, "aSize");
+      const locColor = gl.getAttribLocation(program, "aColorIdx");
 
-        // Particle morph calculation with local delay
-        const localDelay = delay * 0.22;
-        const phase = Math.max(0, Math.min(1, (morphPhase - localDelay) / (1.0 - 0.22)));
+      gl.enableVertexAttribArray(locShape);
+      gl.bindBuffer(gl.ARRAY_BUFFER, posShapeBuffer);
+      gl.vertexAttribPointer(locShape, 3, gl.FLOAT, false, 0, 0);
 
-        let targetRelX = 0;
-        let targetRelY = 0;
+      gl.enableVertexAttribArray(locRibbon);
+      gl.bindBuffer(gl.ARRAY_BUFFER, posRibbonBuffer);
+      gl.vertexAttribPointer(locRibbon, 3, gl.FLOAT, false, 0, 0);
 
-        if (phase < 0.5) {
-          const t = ease(phase * 2.0);
-          targetRelX = shapeX[i] * (1 - t) + ribbonPts[i * 3] * t;
-          targetRelY = shapeY[i] * (1 - t) + ribbonPts[i * 3 + 1] * t;
-        } else {
-          const t = ease((phase - 0.5) * 2.0);
-          targetRelX = ribbonPts[i * 3] * (1 - t) + logoPts[i * 3] * t;
-          targetRelY = ribbonPts[i * 3 + 1] * (1 - t) + logoPts[i * 3 + 1] * t;
-        }
+      gl.enableVertexAttribArray(locLogo);
+      gl.bindBuffer(gl.ARRAY_BUFFER, posLogoBuffer);
+      gl.vertexAttribPointer(locLogo, 3, gl.FLOAT, false, 0, 0);
 
-        // Continuous subtle ambient drift
-        const pPhase = cloud.phases[i];
-        const driftX = prefersReducedMotion ? 0 : Math.sin(time * 0.0015 + pPhase) * 1.8;
-        const driftY = prefersReducedMotion ? 0 : Math.cos(time * 0.0012 + pPhase) * 2.2;
+      gl.enableVertexAttribArray(locDelay);
+      gl.bindBuffer(gl.ARRAY_BUFFER, delayBuffer);
+      gl.vertexAttribPointer(locDelay, 1, gl.FLOAT, false, 0, 0);
 
-        const baseTx = cx + targetRelX + driftX;
-        const baseTy = cy + targetRelY + driftY;
+      gl.enableVertexAttribArray(locSize);
+      gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuffer);
+      gl.vertexAttribPointer(locSize, 1, gl.FLOAT, false, 0, 0);
 
-        // Interactive pointer repulsion
-        let pushX = 0;
-        let pushY = 0;
-        if (pointer.active && !prefersReducedMotion) {
-          const dx = currentX[i] - ptrX;
-          const dy = currentY[i] - ptrY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < ptrRadius && dist > 0.01) {
-            const factor = (1 - dist / ptrRadius) * ptrForce;
-            pushX = (dx / dist) * factor;
-            pushY = (dy / dist) * factor;
-          }
-        }
+      gl.enableVertexAttribArray(locColor);
+      gl.bindBuffer(gl.ARRAY_BUFFER, colorIdxBuffer);
+      gl.vertexAttribPointer(locColor, 1, gl.FLOAT, false, 0, 0);
 
-        // Spring dynamics towards target
-        const goalX = baseTx + pushX;
-        const goalY = baseTy + pushY;
+      // Draw all crisp micro-particles directly
+      gl.drawArrays(gl.POINTS, 0, count);
 
-        const k = 0.12; // Spring stiffness
-        const damp = 0.82; // Damping
-
-        velocityX[i] = (velocityX[i] + (goalX - currentX[i]) * k) * damp;
-        velocityY[i] = (velocityY[i] + (goalY - currentY[i]) * k) * damp;
-
-        currentX[i] += velocityX[i];
-        currentY[i] += velocityY[i];
-
-        // Fade calculation
-        let alpha = (0.55 + cloud.alphas[i] * 0.45) * easeAssembly;
-
-        // Twinkle calculation
-        if (!prefersReducedMotion) {
-          const twinkle = 0.85 + 0.15 * Math.sin(time * 0.003 + pPhase * 2);
-          alpha *= twinkle;
-        }
-
-        if (alpha <= 0.01) continue;
-
-        ctx.globalAlpha = Math.min(1.0, alpha);
-
-        const colorIdx = cloud.colors[i];
-        const sprite = spriteList[colorIdx] || spriteList[0];
-        const pRadius = particleSizes[i];
-        const diameter = pRadius * 2.8;
-
-        const px = currentX[i];
-        const py = currentY[i];
-
-        if (sprite) {
-          ctx.drawImage(sprite, px - diameter * 0.5, py - diameter * 0.5, diameter, diameter);
-        } else {
-          ctx.fillStyle = "rgb(0, 190, 147)";
-          ctx.beginPath();
-          ctx.arc(px, py, pRadius, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      ctx.globalAlpha = 1.0;
-      ctx.globalCompositeOperation = "source-over";
+      gl.disableVertexAttribArray(locShape);
+      gl.disableVertexAttribArray(locRibbon);
+      gl.disableVertexAttribArray(locLogo);
+      gl.disableVertexAttribArray(locDelay);
+      gl.disableVertexAttribArray(locSize);
+      gl.disableVertexAttribArray(locColor);
 
       animId = requestAnimationFrame(render);
     };
@@ -418,12 +476,20 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       cancelAnimationFrame(animId);
       window.removeEventListener("mousemove", onPointerMove);
       window.removeEventListener("touchmove", onPointerMove);
-      window.removeEventListener("mouseleave", onPointerLeave);
-      window.removeEventListener("touchend", onPointerLeave);
+      window.removeEventListener("mouseleave", onPointerClear);
+      window.removeEventListener("touchend", onPointerClear);
       window.removeEventListener("resize", onResize);
       mediaQuery.removeEventListener("change", onMotionChange);
       if (resizeTimer) clearTimeout(resizeTimer);
       observer.disconnect();
+
+      if (posShapeBuffer) gl.deleteBuffer(posShapeBuffer);
+      if (posRibbonBuffer) gl.deleteBuffer(posRibbonBuffer);
+      if (posLogoBuffer) gl.deleteBuffer(posLogoBuffer);
+      if (delayBuffer) gl.deleteBuffer(delayBuffer);
+      if (sizeBuffer) gl.deleteBuffer(sizeBuffer);
+      if (colorIdxBuffer) gl.deleteBuffer(colorIdxBuffer);
+      if (program) gl.deleteProgram(program);
     };
   }, [slug]);
 
@@ -433,7 +499,7 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none z-10 ${className}`}
       aria-hidden="true"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block touch-none" style={{ pointerEvents: "auto" }} />
     </div>
   );
 }
