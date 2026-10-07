@@ -4,6 +4,7 @@ import React from "react";
 import { INNER_HERO_DATA, InnerHeroData } from "./config";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
 import { HeroCanvas } from "@/components/hero/HeroCanvas";
+import { StarfieldBackground } from "./StarfieldBackground";
 import { Parallax } from "@/shared/components/Parallax";
 
 export interface InnerHeroProps {
@@ -39,33 +40,36 @@ export function InnerHero({
       id="hero"
       data-theme="dark"
       aria-label={headline}
-      className="relative w-full overflow-hidden bg-[#0b1310] flex flex-col justify-center min-h-[100vh] min-h-[100svh] min-h-[100dvh] pt-24 min-[900px]:pt-28 pb-12 sm:pb-16"
+      className="relative w-full overflow-hidden bg-[#07100d] flex flex-col justify-center min-h-[100vh] min-h-[100svh] min-h-[100dvh] pt-24 min-[900px]:pt-28 pb-12 sm:pb-16"
     >
-      {/* Ambient Radial Vignette & Lighting */}
+      {/* Full-Bleed Outer Space Starfield Background */}
+      <StarfieldBackground />
+
+      {/* Ambient Lighting & Depth Gradients */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
         {/* Soft radial emerald aura in top-right behind particles */}
         <div
-          className="absolute -top-[10%] right-[0%] w-[650px] h-[650px] rounded-full opacity-25 blur-[140px] pointer-events-none"
+          className="absolute -top-[10%] right-[0%] w-[650px] h-[650px] rounded-full opacity-30 blur-[140px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(0, 190, 147, 0.45) 0%, rgba(11, 19, 16, 0) 70%)",
+            background: "radial-gradient(circle, rgba(0, 190, 147, 0.45) 0%, rgba(7, 16, 13, 0) 70%)",
           }}
         />
         {/* Soft amber / gold aura in center-right */}
         <div
-          className="absolute top-[40%] right-[15%] w-[450px] h-[450px] rounded-full opacity-15 blur-[120px] pointer-events-none"
+          className="absolute top-[40%] right-[15%] w-[450px] h-[450px] rounded-full opacity-20 blur-[120px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(248, 132, 4, 0.35) 0%, rgba(11, 19, 16, 0) 70%)",
+            background: "radial-gradient(circle, rgba(248, 132, 4, 0.35) 0%, rgba(7, 16, 13, 0) 70%)",
           }}
         />
 
         {/* Top Navbar Dimmer */}
         <div
-          className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[rgba(11,19,16,0.85)] via-[rgba(11,19,16,0.35)] to-transparent pointer-events-none"
+          className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[rgba(7,16,13,0.9)] via-[rgba(7,16,13,0.4)] to-transparent pointer-events-none"
         />
 
-        {/* Bottom Edge Fade */}
+        {/* Bottom Edge Fade into Page */}
         <div
-          className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-b from-transparent via-[rgba(11,19,16,0.65)] to-[#0b1310] pointer-events-none"
+          className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[rgba(7,16,13,0.75)] to-[#0b1310] pointer-events-none"
         />
       </div>
 
