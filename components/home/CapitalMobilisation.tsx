@@ -47,7 +47,7 @@ export function CapitalMobilisation() {
       <div className="max-w-[1400px] mx-auto flex flex-col gap-16 relative z-10">
         {/* Header */}
         <div className="max-w-3xl flex flex-col gap-4">
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#0b523b]">
+          <span className="font-sans text-xs uppercase tracking-[0.2em] font-semibold text-[#0b523b]">
             CAPITAL DEPLOYMENT AT SCALE
           </span>
           <HeaderReveal

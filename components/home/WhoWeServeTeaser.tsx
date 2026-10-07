@@ -95,7 +95,7 @@ export function WhoWeServeTeaser() {
             <ArrowButton
               text="See Who We Serve"
               href="/who-we-serve"
-              variant="emerald"
+              variant="orange"
             />
           </div>
         </div>
@@ -108,22 +108,22 @@ export function WhoWeServeTeaser() {
               href="/who-we-serve"
               className={`group relative flex flex-col p-6 lg:p-8 rounded-2xl transition-all duration-500 ease-out overflow-hidden ${
                 card.isFeatured
-                  ? "bg-[rgba(238,246,242,0.05)] hover:bg-[rgba(238,246,242,0.08)] border border-[rgba(46,183,140,0.28)] hover:border-[rgba(46,183,140,0.55)] shadow-[0_4px_24px_rgba(46,183,140,0.08)]"
-                  : "bg-[rgba(238,246,242,0.03)] hover:bg-[rgba(238,246,242,0.06)] border border-[rgba(238,246,242,0.08)] hover:border-[rgba(46,183,140,0.4)]"
+                  ? "bg-[rgba(238,246,242,0.05)] hover:bg-[rgba(238,246,242,0.08)] border border-[rgba(46,183,140,0.28)] hover:border-[rgba(248,132,4,0.55)] shadow-[0_4px_24px_rgba(46,183,140,0.08)]"
+                  : "bg-[rgba(238,246,242,0.03)] hover:bg-[rgba(238,246,242,0.06)] border border-[rgba(238,246,242,0.08)] hover:border-[rgba(248,132,4,0.4)]"
               }`}
             >
               {/* Subtle top indicator bar on hover */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#2eb78c] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#f88404] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Card Image at Top (~40% height) */}
               <CardImage src={card.imageSrc} />
 
               <div className="flex flex-col gap-3">
-                <span className="font-mono text-xs tracking-widest text-[#2eb78c]">
+                <span className="font-sans font-semibold text-xs tracking-widest text-[#2eb78c]">
                   {card.number}
                 </span>
 
-                <h3 className="font-sans text-xl lg:text-2xl font-semibold text-[#eef6f2] group-hover:text-[#4fd1b0] transition-colors duration-300 leading-snug">
+                <h3 className="font-sans text-xl lg:text-2xl font-semibold text-[#eef6f2] group-hover:text-[#f88404] transition-colors duration-300 leading-snug">
                   {card.title}
                 </h3>
 

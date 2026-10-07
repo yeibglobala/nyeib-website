@@ -302,7 +302,7 @@ export function Navbar() {
           {/* Bottom Capsule Footer with Copyright & Socials */}
           <div className="w-full max-w-[640px] min-h-[56px] sm:min-h-[64px] bg-[rgba(10,22,18,0.85)] border border-[rgba(238,246,242,0.15)] rounded-full px-6 sm:px-8 py-3.5 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 shadow-2xl backdrop-blur-xl animate-in slide-in-from-bottom-4 duration-300">
             {/* Copyright */}
-            <p className="font-mono text-[0.66rem] sm:text-[0.72rem] text-[#7f978d] tracking-wider uppercase text-center sm:text-left">
+            <p className="font-sans text-[0.66rem] sm:text-[0.72rem] text-[#7f978d] tracking-wider uppercase text-center sm:text-left">
               Copyright © 2026 NYEIB. All Rights Reserved
             </p>
 

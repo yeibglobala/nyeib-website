@@ -87,7 +87,7 @@ export function ApplyProcessSection({ onOpenModal }: ApplyProcessSectionProps) {
                   <button
                     type="button"
                     onClick={() => onOpenModal?.("business")}
-                    className="group/btn inline-flex items-center gap-2 font-mono text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-[#008f6e] hover:text-[#005a45] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] rounded"
+                    className="group/btn inline-flex items-center gap-2 font-sans text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-[#008f6e] hover:text-[#005a45] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] rounded"
                   >
                     <span>Start Application</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1.5" />
@@ -120,7 +120,7 @@ export function ApplyProcessSection({ onOpenModal }: ApplyProcessSectionProps) {
                       e.preventDefault();
                       document.getElementById("partnership-accordion")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className="group/btn inline-flex items-center gap-2 font-mono text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-[#cf6900] hover:text-[#a04e00] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] rounded"
+                    className="group/btn inline-flex items-center gap-2 font-sans text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-[#cf6900] hover:text-[#a04e00] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] rounded"
                   >
                     <span>Explore Partnership</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1.5" />

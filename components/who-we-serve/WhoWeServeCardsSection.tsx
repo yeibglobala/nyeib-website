@@ -121,7 +121,7 @@ export function WhoWeServeCardsSection() {
           <HeaderReveal delay={0} duration={800} mask={false} parallaxSpeed={10}>
             <span
               className="text-[13px] font-semibold tracking-[0.16em] uppercase text-[#008f6e] block"
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             >
               WHO WE SERVE
             </span>

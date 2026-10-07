@@ -83,7 +83,7 @@ export function EsgFrameworkSection() {
           <HeaderReveal delay={0} duration={800} mask={false} parallaxSpeed={10}>
             <span
               className="text-[13px] font-semibold tracking-[0.16em] uppercase text-[#008f6e] block"
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             >
               OUR ESG APPROACH
             </span>
@@ -163,7 +163,7 @@ export function EsgFrameworkSection() {
                       >
                         {card.name}
                       </h3>
-                      <div className="absolute bottom-6 flex items-center gap-1.5 opacity-75 text-xs tracking-wider uppercase font-mono text-inherit">
+                      <div className="absolute bottom-6 flex items-center gap-1.5 opacity-75 text-xs tracking-wider uppercase font-sans font-semibold text-inherit">
                         <span>Hover to explore</span>
                         <svg className="w-3.5 h-3.5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -186,7 +186,7 @@ export function EsgFrameworkSection() {
                           {card.name}
                         </span>
                         <span
-                          className={`text-[12px] font-mono tracking-widest uppercase opacity-75 ${card.textColor}`}
+                          className={`text-[12px] font-sans font-semibold tracking-widest uppercase opacity-75 ${card.textColor}`}
                         >
                           DIMENSION
                         </span>
@@ -226,7 +226,7 @@ export function EsgFrameworkSection() {
                 <HeaderReveal delay={0} duration={800} mask={false}>
                   <span
                     className="text-[12px] font-semibold tracking-[0.16em] uppercase text-[#008f6e] block"
-                    style={{ fontFamily: "var(--font-mono, monospace)" }}
+                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     ESG AND INVESTABILITY
                   </span>
@@ -256,7 +256,7 @@ export function EsgFrameworkSection() {
                 <HeaderReveal delay={0} duration={800} mask={false}>
                   <span
                     className="text-[12px] font-semibold tracking-[0.16em] uppercase text-[#F88404] block"
-                    style={{ fontFamily: "var(--font-mono, monospace)" }}
+                    style={{ fontFamily: "var(--font-body)" }}
                   >
                     REPORTING & ACCOUNTABILITY
                   </span>

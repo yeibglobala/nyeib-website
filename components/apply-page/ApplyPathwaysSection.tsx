@@ -80,7 +80,7 @@ export function ApplyPathwaysSection({ onOpenModal }: ApplyPathwaysSectionProps)
           <HeaderReveal delay={0} duration={800} mask={false} parallaxSpeed={10}>
             <span
               className="text-[13px] font-semibold tracking-[0.16em] uppercase text-[#008f6e] block"
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             >
               APPLICATION & PARTNERSHIP PATHWAYS
             </span>
@@ -151,7 +151,7 @@ export function ApplyPathwaysSection({ onOpenModal }: ApplyPathwaysSectionProps)
                         </p>
                       </div>
 
-                      <div className={`flex items-center justify-between pt-6 border-t ${card.borderColor} opacity-80 text-xs tracking-wider uppercase font-mono ${card.frontTextColor}`}>
+                      <div className={`flex items-center justify-between pt-6 border-t ${card.borderColor} opacity-80 text-xs tracking-wider uppercase font-sans font-semibold ${card.frontTextColor}`}>
                         <span>Hover or tap to view details</span>
                         <ArrowRight className="w-4 h-4 animate-pulse" />
                       </div>
@@ -171,7 +171,7 @@ export function ApplyPathwaysSection({ onOpenModal }: ApplyPathwaysSectionProps)
                         >
                           {card.name}
                         </span>
-                        <span className={`text-[11px] font-mono tracking-widest uppercase opacity-75 ${card.backTextColor}`}>
+                        <span className={`text-[11px] font-sans font-semibold tracking-widest uppercase opacity-75 ${card.backTextColor}`}>
                           DETAILS
                         </span>
                       </div>

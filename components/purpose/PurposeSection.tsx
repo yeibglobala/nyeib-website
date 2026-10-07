@@ -79,22 +79,22 @@ export function PurposeSection() {
     <section
       ref={sectionRef}
       id="purpose"
-      data-theme="dark"
+      data-theme="light"
       aria-label="Purpose"
-      className="relative w-full h-auto min-h-0 bg-[var(--bg-deep)] text-[var(--fg-main)] py-[clamp(80px,10vw,140px)] overflow-x-clip"
+      className="relative w-full h-auto min-h-0 bg-[#e3ece7] text-[#12201b] py-[clamp(80px,10vw,140px)] overflow-x-clip border-t border-[rgba(18,32,27,0.08)]"
       style={{
-        backgroundColor: "var(--bg-deep, #0b1310)",
+        backgroundColor: "#e3ece7",
       }}
     >
       {/* =========================================================================
           DESKTOP LAYOUT (900px and wider)
           ========================================================================= */}
       <div className="hidden min-[900px]:block relative w-full">
-        {/* Banner and Overlapping Headline Container */}
+        {/* Banner and In-Card Headline Container */}
         <div className="relative w-full">
           {/* Centered Video Banner with Subtle Parallax Floating Depth */}
-          <Parallax speed={35} className="relative w-[69%] mx-auto">
-            <div className="relative w-full aspect-[3.3/1] rounded-[32px] overflow-hidden shadow-2xl bg-[#0b1310]">
+          <Parallax speed={35} className="relative w-[78%] lg:w-[74%] mx-auto">
+            <div className="relative w-full aspect-[2.6/1] min-h-[350px] rounded-[32px] overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.22)] bg-[#0b1310]">
               {/* Poster Fallback Image */}
               <img
                 src={PURPOSE_CONFIG.media.poster}
@@ -126,108 +126,94 @@ export function PurposeSection() {
                 </video>
               )}
 
-              {/* Soft Dark Green Gradient Overlay (25-30% edges, lighter center) */}
+              {/* Rich Dark Vignette Overlay for High Typography Legibility */}
               <div
                 className="absolute inset-0 pointer-events-none z-[1]"
                 style={{
                   background:
-                    "linear-gradient(90deg, rgba(11,19,16,0.30) 0%, rgba(11,19,16,0.10) 50%, rgba(11,19,16,0.30) 100%), radial-gradient(ellipse at center, rgba(11,19,16,0.05) 0%, rgba(11,19,16,0.28) 100%)",
+                    "linear-gradient(135deg, rgba(11,19,16,0.65) 0%, rgba(11,19,16,0.20) 45%, rgba(11,19,16,0.65) 100%), radial-gradient(ellipse at center, rgba(11,19,16,0.15) 0%, rgba(11,19,16,0.45) 100%)",
                 }}
                 aria-hidden="true"
               />
+
+              {/* Headline H2: Positioned over the video for high contrast and readability */}
+              <h2 className="m-0 p-0 absolute inset-0 z-10 pointer-events-none p-8 lg:p-12 flex flex-col justify-between select-text">
+                {/* Top-Left: "Ambition was never the problem;" */}
+                <div className="self-start text-left">
+                  <HeaderReveal delay={80} duration={1000} mask={false} parallaxSpeed={14}>
+                    <span
+                      className="block font-normal text-[clamp(18px,2.2vw,30px)] tracking-[0.03em] text-[#eef6f2]/90 mb-1"
+                      style={{ fontFamily: "var(--font-headline)" }}
+                    >
+                      {PURPOSE_CONFIG.heading.part1Small}
+                    </span>
+                    <span
+                      className="block font-bold text-[clamp(40px,5.8vw,92px)] leading-none tracking-[-0.01em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]"
+                      style={{
+                        fontFamily: "var(--font-headline)",
+                      }}
+                    >
+                      {PURPOSE_CONFIG.heading.part1Big}
+                    </span>
+                  </HeaderReveal>
+                </div>
+
+                {/* Bottom-Right: "access was." */}
+                <div className="self-end text-right">
+                  <HeaderReveal delay={180} duration={1000} mask={false} parallaxSpeed={14}>
+                    <span
+                      className="block font-bold text-[clamp(40px,5.8vw,92px)] leading-none tracking-[-0.01em] text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]"
+                      style={{
+                        fontFamily: "var(--font-headline)",
+                      }}
+                    >
+                      <span className="text-[#2eb78c] drop-shadow-[0_0_28px_rgba(46,183,140,0.6)]">
+                        access
+                      </span>{" "}
+                      was.
+                    </span>
+                  </HeaderReveal>
+                </div>
+              </h2>
             </div>
           </Parallax>
-
-          {/* Headline H2: ONE H2 in DOM for accessibility with two positioned visual spans */}
-          <h2 className="m-0 p-0">
-            {/* Left Part: Top-Left (left edge ~4.5vw, top ~12% down from banner top) */}
-            <span
-              className="absolute z-20 pointer-events-none select-text"
-              style={{
-                left: "4.5vw",
-                top: "12%",
-              }}
-            >
-              <HeaderReveal delay={80} duration={1000} mask={false} parallaxSpeed={14}>
-                <span
-                  className="block font-normal text-[clamp(18px,2.2vw,34px)] tracking-[0.03em] text-[#eef6f2] opacity-80 mb-1"
-                  style={{ fontFamily: "var(--font-headline)" }}
-                >
-                  {PURPOSE_CONFIG.heading.part1Small}
-                </span>
-                <span
-                  className="block font-bold text-[clamp(40px,6.4vw,108px)] leading-none tracking-[-0.01em] text-white"
-                  style={{
-                    fontFamily: "var(--font-headline)",
-                    textShadow: "0 2px 24px rgba(0,0,0,0.35)",
-                  }}
-                >
-                  {PURPOSE_CONFIG.heading.part1Big}
-                </span>
-              </HeaderReveal>
-            </span>
-
-            {/* Right Part: Bottom-Right (right edge ~4.5vw, bottom ~14% up from banner bottom) */}
-            <span
-              className="absolute z-20 pointer-events-none select-text text-right"
-              style={{
-                right: "4.5vw",
-                bottom: "14%",
-              }}
-            >
-              <HeaderReveal delay={180} duration={1000} mask={false} parallaxSpeed={14}>
-                <span
-                  className="block font-bold text-[clamp(40px,6.4vw,108px)] leading-none tracking-[-0.01em] text-white"
-                  style={{
-                    fontFamily: "var(--font-headline)",
-                    textShadow: "0 2px 24px rgba(0,0,0,0.35)",
-                  }}
-                >
-                  <span className="text-[#2eb78c] drop-shadow-[0_0_28px_rgba(46,183,140,0.45)]">
-                    access
-                  </span>{" "}
-                  was.
-                </span>
-              </HeaderReveal>
-            </span>
-          </h2>
         </div>
 
-        {/* 1px Horizontal Line (Same width as banner: 69%, gradient mint #4fd1b0 center fade to transparent) */}
+        {/* 1px Horizontal Line */}
         <div
-          className="w-[69%] mx-auto h-[1px] mt-[clamp(48px,6vw,96px)]"
+          className="w-[78%] lg:w-[74%] mx-auto h-[1px] mt-[clamp(48px,6vw,84px)]"
           style={{
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(79, 209, 176, 0.4) 50%, transparent 100%)",
+              "linear-gradient(90deg, transparent 0%, rgba(18, 32, 27, 0.16) 50%, transparent 100%)",
           }}
           aria-hidden="true"
         />
 
         {/* Two Columns Grid directly below the line (Matches banner grid width) */}
-        <div className="w-[69%] mx-auto mt-[clamp(28px,3.5vw,48px)] flex items-start justify-between">
+        <div className="w-[78%] lg:w-[74%] mx-auto mt-[clamp(28px,3.5vw,44px)] flex items-start justify-between">
           {/* Left Column: Purpose Label with 4 Corner Brackets */}
           <div className="flex-shrink-0">
             <HeaderReveal delay={100} duration={800} mask={false}>
               <div className="relative inline-flex items-center justify-center px-[28px] py-[18px]">
-                {/* Corner Brackets (14px long, 1px, mint #4fd1b0 at 40% opacity) */}
+                {/* Corner Brackets */}
                 <span
                   aria-hidden="true"
-                  className="absolute top-0 left-0 w-[14px] h-[14px] border-t border-l border-[#4fd1b0]/40 pointer-events-none"
+                  className="absolute top-0 left-0 w-[14px] h-[14px] border-t border-l border-[#003124]/30 pointer-events-none"
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute top-0 right-0 w-[14px] h-[14px] border-t border-r border-[#4fd1b0]/40 pointer-events-none"
+                  className="absolute top-0 right-0 w-[14px] h-[14px] border-t border-r border-[#003124]/30 pointer-events-none"
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute bottom-0 left-0 w-[14px] h-[14px] border-b border-l border-[#4fd1b0]/40 pointer-events-none"
+                  className="absolute bottom-0 left-0 w-[14px] h-[14px] border-b border-l border-[#003124]/30 pointer-events-none"
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute bottom-0 right-0 w-[14px] h-[14px] border-b border-r border-[#4fd1b0]/40 pointer-events-none"
+                  className="absolute bottom-0 right-0 w-[14px] h-[14px] border-b border-r border-[#003124]/30 pointer-events-none"
                 />
                 <span
-                  className="text-[16px] font-normal tracking-wider text-white"
+                  className="text-[16px] font-normal tracking-wider text-[#12201b]"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
                   {PURPOSE_CONFIG.label}
@@ -240,7 +226,7 @@ export function PurposeSection() {
           <div className="w-[48%] max-w-[44ch] pt-1">
             <HeaderReveal delay={200} duration={900} mask={false} parallaxSpeed={8}>
               <p
-                className="text-[clamp(15px,1.25vw,19px)] leading-[1.6] text-[var(--c-pale-oak,#e1c9b3)] opacity-90 font-normal m-0"
+                className="text-[clamp(15px,1.25vw,19px)] leading-[1.6] text-[#12201b]/80 font-normal m-0"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 {PURPOSE_CONFIG.paragraph}
@@ -259,28 +245,26 @@ export function PurposeSection() {
         <h2 className="text-left m-0 p-0">
           <HeaderReveal delay={80} duration={900} mask={false}>
             <span
-              className="block font-normal text-[clamp(16px,4.5vw,22px)] tracking-[0.03em] text-[#eef6f2] opacity-80 mb-2"
+              className="block font-normal text-[clamp(16px,4.5vw,22px)] tracking-[0.03em] text-[#12201b]/80 mb-2"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               {PURPOSE_CONFIG.heading.part1Small}
             </span>
             <span
-              className="block font-bold text-[clamp(36px,11vw,64px)] leading-[1.05] tracking-[-0.01em] text-white"
+              className="block font-bold text-[clamp(36px,11vw,64px)] leading-[1.05] tracking-[-0.01em] text-[#12201b]"
               style={{
                 fontFamily: "var(--font-headline)",
-                textShadow: "0 2px 20px rgba(0,0,0,0.4)",
               }}
             >
               {PURPOSE_CONFIG.heading.part1Big}
             </span>
             <span
-              className="block font-bold text-[clamp(36px,11vw,64px)] leading-[1.05] tracking-[-0.01em] text-white mt-1"
+              className="block font-bold text-[clamp(36px,11vw,64px)] leading-[1.05] tracking-[-0.01em] text-[#12201b] mt-1"
               style={{
                 fontFamily: "var(--font-headline)",
-                textShadow: "0 2px 20px rgba(0,0,0,0.4)",
               }}
             >
-              <span className="text-[#2eb78c] drop-shadow-[0_0_24px_rgba(46,183,140,0.45)]">
+              <span className="text-[#008f6e] drop-shadow-[0_0_20px_rgba(0,190,147,0.25)]">
                 access
               </span>{" "}
               was.
@@ -289,7 +273,7 @@ export function PurposeSection() {
         </h2>
 
         {/* 2. Video Banner (Full width with 32px radius, aspect ratio 4/3) */}
-        <div className="relative w-full aspect-[4/3] rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-2xl bg-[#0b1310]">
+        <div className="relative w-full aspect-[4/3] rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-xl bg-[#0b1310]">
           <img
             src={PURPOSE_CONFIG.media.poster}
             alt=""
@@ -334,7 +318,7 @@ export function PurposeSection() {
           className="w-full h-[1px] my-2"
           style={{
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(79, 209, 176, 0.4) 50%, transparent 100%)",
+              "linear-gradient(90deg, transparent 0%, rgba(18, 32, 27, 0.16) 50%, transparent 100%)",
           }}
           aria-hidden="true"
         />
@@ -345,22 +329,22 @@ export function PurposeSection() {
             <div className="relative inline-flex items-center justify-center px-[24px] py-[14px]">
               <span
                 aria-hidden="true"
-                className="absolute top-0 left-0 w-[14px] h-[14px] border-t border-l border-[#4fd1b0]/40 pointer-events-none"
+                className="absolute top-0 left-0 w-[14px] h-[14px] border-t border-l border-[#003124]/30 pointer-events-none"
               />
               <span
                 aria-hidden="true"
-                className="absolute top-0 right-0 w-[14px] h-[14px] border-t border-r border-[#4fd1b0]/40 pointer-events-none"
+                className="absolute top-0 right-0 w-[14px] h-[14px] border-t border-r border-[#003124]/30 pointer-events-none"
               />
               <span
                 aria-hidden="true"
-                className="absolute bottom-0 left-0 w-[14px] h-[14px] border-b border-l border-[#4fd1b0]/40 pointer-events-none"
+                className="absolute bottom-0 left-0 w-[14px] h-[14px] border-b border-l border-[#003124]/30 pointer-events-none"
               />
               <span
                 aria-hidden="true"
-                className="absolute bottom-0 right-0 w-[14px] h-[14px] border-b border-r border-[#4fd1b0]/40 pointer-events-none"
+                className="absolute bottom-0 right-0 w-[14px] h-[14px] border-b border-r border-[#003124]/30 pointer-events-none"
               />
               <span
-                className="text-[15px] font-normal tracking-wider text-white"
+                className="text-[15px] font-normal tracking-wider text-[#12201b]"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 {PURPOSE_CONFIG.label}
@@ -373,7 +357,7 @@ export function PurposeSection() {
         <div className="w-full">
           <HeaderReveal delay={200} duration={900} mask={false}>
             <p
-              className="text-[clamp(15px,3.8vw,18px)] leading-[1.6] text-[var(--c-pale-oak,#e1c9b3)] opacity-90 font-normal m-0 max-w-[48ch]"
+              className="text-[clamp(15px,3.8vw,18px)] leading-[1.6] text-[#12201b]/80 font-normal m-0 max-w-[48ch]"
               style={{ fontFamily: "var(--font-body)" }}
             >
               {PURPOSE_CONFIG.paragraph}

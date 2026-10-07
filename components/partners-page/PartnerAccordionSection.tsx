@@ -107,7 +107,7 @@ export function PartnerAccordionSection() {
                   >
                     <span
                       className="font-semibold text-[#f88404] text-[0.95rem] pt-[0.2em]"
-                      style={{ fontFamily: "var(--font-mono, monospace)" }}
+                      style={{ fontFamily: "var(--font-body)" }}
                     >
                       {item.number}
                     </span>

@@ -19,7 +19,7 @@
   /* Typography */
   --font-headline: 'Asul', Georgia, serif;
   --font-body: 'Chivo', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: 'Chivo', system-ui, -apple-system, sans-serif;
 
   /* Transitions */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -146,7 +146,7 @@ canvas#c {
 }
 
 .nav-brand-sub {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -275,7 +275,7 @@ canvas#c {
   background: rgba(18, 32, 27, 0.75);
   border: 1px solid rgba(46, 183, 140, 0.35);
   color: var(--c-pale-oak);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.45rem 1rem;

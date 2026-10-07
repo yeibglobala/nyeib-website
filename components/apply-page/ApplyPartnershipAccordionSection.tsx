@@ -75,7 +75,7 @@ export function ApplyPartnershipAccordionSection({
           <HeaderReveal delay={0} duration={800} mask={false} parallaxSpeed={10}>
             <span
               className="text-[13px] font-semibold tracking-[0.16em] uppercase text-[#F88404] block"
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             >
               PATHWAY 2 — PARTNER WITH NYEIB
             </span>

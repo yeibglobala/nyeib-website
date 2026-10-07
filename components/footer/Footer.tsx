@@ -46,8 +46,8 @@ export function Footer() {
               <div key={column.title} className="flex flex-col">
                 {/* Column Header: Small uppercase mono label */}
                 <h3
-                  className="font-mono text-[11px] sm:text-[12px] font-semibold tracking-[0.22em] text-[#7f978d] uppercase mb-4 sm:mb-6 select-none"
-                  style={{ fontFamily: "var(--font-mono, monospace)" }}
+                  className="font-sans text-[11px] sm:text-[12px] font-semibold tracking-[0.22em] text-[#7f978d] uppercase mb-4 sm:mb-6 select-none"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {column.title}
                 </h3>

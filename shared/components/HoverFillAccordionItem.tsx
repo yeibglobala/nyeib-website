@@ -193,7 +193,7 @@ export function HoverFillAccordionItem({
         <div className="flex items-center gap-4 sm:gap-6 flex-1 min-w-0">
           {/* Number Badge */}
           <span
-            className={`text-xs sm:text-sm font-mono font-bold tracking-wider px-2.5 py-1 rounded-md transition-all duration-300 ${
+            className={`text-xs sm:text-sm font-sans font-bold tracking-wider px-2.5 py-1 rounded-md transition-all duration-300 ${
               isFilled
                 ? currentColorConfig.badgeClass
                 : "bg-[#FAF7F2] text-[#003124]/70 border border-[#003124]/10"

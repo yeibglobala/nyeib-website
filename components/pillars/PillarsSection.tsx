@@ -224,7 +224,7 @@ export function PillarsSection({ config = PILLARS_CONFIG }: PillarsSectionProps 
           <HeaderReveal delay={0} duration={800} mask={false} parallaxSpeed={10}>
             <div
               className="text-[12px] sm:text-[13px] font-semibold tracking-[0.16em] uppercase text-[#1f9d74] mb-5"
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             >
               {config.intro.tag}
             </div>
@@ -292,7 +292,7 @@ export function PillarsSection({ config = PILLARS_CONFIG }: PillarsSectionProps 
                   >
                     <b
                       className="font-semibold text-[#f88404] text-[0.9rem] pt-[0.45em]"
-                      style={{ fontFamily: "var(--font-mono, monospace)" }}
+                      style={{ fontFamily: "var(--font-body)" }}
                     >
                       {pillar.number}
                     </b>
@@ -393,7 +393,7 @@ export function PillarsSection({ config = PILLARS_CONFIG }: PillarsSectionProps 
                   <div className="flex items-baseline gap-3.5 text-left">
                     <b
                       className="font-semibold text-[#f88404] text-[0.95rem] shrink-0"
-                      style={{ fontFamily: "var(--font-mono, monospace)" }}
+                      style={{ fontFamily: "var(--font-body)" }}
                     >
                       {pillar.number}
                     </b>

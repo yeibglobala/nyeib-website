@@ -41,7 +41,7 @@
   /* Typography */
   --font-headline: 'Asul', Georgia, serif;
   --font-body: 'Chivo', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono: 'Chivo', system-ui, -apple-system, sans-serif;
 
   /* Elevation Shadows & Glows */
   --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.35);

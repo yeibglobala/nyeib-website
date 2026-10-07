@@ -34,7 +34,7 @@ export function GovernanceSection({ config = GOVERNANCE_CONFIG }: GovernanceSect
           <HeaderReveal delay={0} duration={800} mask={false} parallaxSpeed={10}>
             <span
               className="text-[13px] font-semibold tracking-[0.16em] uppercase text-[#4fd1b0]"
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
+              style={{ fontFamily: "var(--font-body)" }}
             >
               {config.topArea.tag}
             </span>
