@@ -1,0 +1,57 @@
+/* ==========================================================================
+   NIGERIA YEIB INVESTMENT FUNDS — DESIGN SYSTEM TOKENS
+   Brand Guidelines: Evergreen / Mint Leaf / Tiger Orange / Pale Oak
+   ========================================================================== */
+
+:root {
+  /* Brand Core Colors */
+  --bg-deep: #0b1310;
+  --bg-surface: #101c18;
+  --bg-surface-elevated: #162621;
+  --bg-card: rgba(16, 28, 24, 0.7);
+  --bg-card-hover: rgba(22, 38, 33, 0.85);
+
+  --fg-main: #eef6f2;
+  --fg-muted: #c4d1cb;
+  --fg-subtle: #7f978d;
+
+  /* Brand Accents */
+  --c-accent: #2eb78c;
+  --c-accent-hover: #3ff0c8;
+  --c-mint-leaf: #11b981;
+  --c-mint-light: #b8f5df;
+  
+  --c-tiger-orange: #f88404;
+  --c-tiger-orange-hover: #ff9626;
+  --c-tiger-orange-glow: rgba(248, 132, 4, 0.25);
+  
+  --c-pale-oak: #e1c9b3;
+  --c-pale-oak-subtle: rgba(225, 201, 179, 0.15);
+
+  /* Glassmorphism Capsule Nav */
+  --c-capsule-bg: #dcebe5;
+  --c-capsule-text: #003124;
+  --c-capsule-hover: #cbe0d9;
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(46, 183, 140, 0.15);
+  --border-light: rgba(238, 246, 242, 0.1);
+  --border-focus: rgba(46, 183, 140, 0.4);
+
+  /* Typography */
+  --font-headline: 'Asul', Georgia, serif;
+  --font-body: 'Chivo', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Elevation Shadows & Glows */
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --shadow-elevated: 0 12px 36px rgba(0, 0, 0, 0.5);
+  --glow-mint: 0 0 30px rgba(46, 183, 140, 0.18);
+  --glow-orange: 0 0 30px rgba(248, 132, 4, 0.2);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.15s var(--ease-out);
+  --transition-normal: 0.3s var(--ease-out);
+  --transition-slow: 0.6s var(--ease-out);
+}

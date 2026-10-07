@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nigeria YEIB Investment Funds — Unlocking Pathways for Investable Businesses</title>
+  <meta name="description" content="NYEIB connect growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.">
+  <meta name="keywords" content="Nigeria YEIB, YEIB Investment Funds, NYEIB, capital bridge, investable businesses, youth, women entrepreneurs">
+
+  <!-- Typography: Asul (Headlines) & Chivo (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Chivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Particle Canvas -->
+  <canvas id="c"></canvas>
+
+  <!-- Ambient Luxury Overlay -->
+  <div class="ambient-vignette" aria-hidden="true"></div>
+
+  <!-- Page Layout Wrapper -->
+  <div class="page-wrapper">
+    
+    <!-- Top Floating Capsule Navigation Bar -->
+    <header class="navbar-wrapper" role="banner">
+      <nav class="nav-capsule" aria-label="Primary Navigation">
+        
+        <!-- Left: Official Logo -->
+        <a href="#" class="nav-brand" aria-label="Nigeria YEIB Investment Funds Home">
+          <img src="logo.svg" alt="Nigeria YEIB Logo" class="nav-logo-svg" width="28" height="24">
+          <div class="nav-brand-text">
+            <span class="nav-brand-main">NIGERIA YEIB</span>
+            <span class="nav-brand-sub">INVESTMENT FUNDS</span>
+          </div>
+        </a>
+
+        <!-- Center: Navigation Links -->
+        <div class="nav-links">
+          <a href="#what-we-do" class="nav-link">What We Do</a>
+          <a href="#who-we-serve" class="nav-link">Who We Serve</a>
+          <a href="#impact" class="nav-link">Impact</a>
+          <a href="#partners" class="nav-link">Partners</a>
+          <a href="#esg" class="nav-link">ESG</a>
+          <a href="#contact" class="nav-link">Contact Us</a>
+        </div>
+
+        <!-- Right: Apply Button -->
+        <div class="nav-cta-wrap">
+          <a href="#apply" class="nav-btn-apply">Apply for funding</a>
+        </div>
+
+      </nav>
+    </header>
+
+    <!-- Hero Content Layout (Headline on Left, Subtext on Right, Particles in Middle) -->
+    <main class="hero-layout" id="hero">
+      <div class="hero-col-left">
+        <h1 class="hero-headline">
+          Unlocking <span class="highlight-green">pathways</span> for investable businesses
+        </h1>
+      </div>
+
+      <div class="hero-col-right">
+        <p class="hero-subtext">
+          NYEIB connect growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.
+        </p>
+      </div>
+    </main>
+
+    <!-- Replay / Stage Controller -->
+    <footer class="hero-bottom-bar" role="region" aria-label="Animation Controls">
+      <button id="btnReplay" class="replay-pill-btn" title="Replay Bridge to Logo Transition">
+        <span class="replay-icon">⟳</span>
+        <span class="replay-label" id="stageLabel">Bridge → Logo</span>
+      </button>
+    </footer>
+
+  </div>
+
+  <!-- Vanilla Canvas Particle Engine (Bridge to Logo Morphing + Spring/Repel Physics) -->
+  <script src="main.js"></script>
+</body>
+</html>

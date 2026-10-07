@@ -1,0 +1,41 @@
+import React from "react";
+import { VideoStory } from "@/components/video-story/VideoStory";
+import { PurposeSection } from "@/components/purpose/PurposeSection";
+import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
+import { PillarsSection } from "@/components/pillars/PillarsSection";
+import { CapitalMobilisation } from "@/components/home/CapitalMobilisation";
+import { GovernanceSection } from "@/components/governance/GovernanceSection";
+import { ImpactSection } from "@/components/impact/ImpactSection";
+import {
+  HOMEPAGE_PILLARS_CONFIG,
+  HOMEPAGE_GOVERNANCE_CONFIG,
+} from "@/components/home/config";
+
+export default function HomePage() {
+  return (
+    <div className="w-full bg-[var(--bg-deep)] flex flex-col">
+      <main className="w-full flex-1">
+        {/* Primary Video Story Hero */}
+        <VideoStory />
+
+        {/* Problem / Purpose Section */}
+        <PurposeSection />
+
+        {/* Who We Serve Overview & Pathways Teaser */}
+        <WhoWeServeTeaser />
+
+        {/* A Blended Platform for Capital and Growth (3 Financing Instruments) */}
+        <PillarsSection config={HOMEPAGE_PILLARS_CONFIG} />
+
+        {/* Built to Mobilise Capital at Scale (US$300M / US$100M / 3 Instruments) */}
+        <CapitalMobilisation />
+
+        {/* Institutional Credibility & Anchor Partners */}
+        <GovernanceSection config={HOMEPAGE_GOVERNANCE_CONFIG} />
+
+        {/* Measurable Economic Impact Targets (Pinned Ring Stage) */}
+        <ImpactSection />
+      </main>
+    </div>
+  );
+}

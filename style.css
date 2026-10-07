@@ -1,0 +1,390 @@
+/* ==========================================================================
+   NIGERIA YEIB INVESTMENT FUNDS — HERO PARTICLE BRIDGE & LOGO MORPH
+   Layout: Raised Hero Copy + Floating Capsule Navbar + Full Bottom Canvas
+   ========================================================================== */
+
+:root {
+  /* Brand Palette */
+  --bg-deep: #0b1310;
+  --fg-main: #eef6f2;
+  --c-accent: #2eb78c;
+  --c-mint-leaf: #00be93;
+  --c-pale-oak: #e1c9b3;
+  
+  --c-capsule-bg: #dcebe5;
+  --c-capsule-text: #003124;
+  --c-tiger-orange: #f88404;
+  --c-tiger-orange-hover: #ff9626;
+
+  /* Typography */
+  --font-headline: 'Asul', Georgia, serif;
+  --font-body: 'Chivo', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease-out);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-color: var(--bg-deep);
+  color: var(--fg-main);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 2D/3D Particle Canvas */
+canvas#c {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  z-index: 1;
+}
+
+/* Ambient Soft Vignette Behind Headline (Leaves Particle Canvas Fully Crisp & Bright) */
+.ambient-vignette {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle at 50% 25%, rgba(11, 19, 16, 0.65) 0%, rgba(11, 19, 16, 0.15) 50%, rgba(11, 19, 16, 0) 80%);
+}
+
+/* Page Layout Wrapper */
+.page-wrapper {
+  position: relative;
+  z-index: 10;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem clamp(1.25rem, 4vw, 3.5rem) 1.5rem;
+  max-width: 1540px;
+  margin: 0 auto;
+  pointer-events: none; /* Let pointer events pass to canvas */
+}
+
+/* Re-enable pointer events on interactive UI */
+.navbar-wrapper,
+.hero-cta-group,
+.hero-bottom-bar {
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   TOP FLOATING CAPSULE NAVBAR
+   ========================================================================== */
+.navbar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 0.25rem);
+}
+
+.nav-capsule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1180px;
+  background: var(--c-capsule-bg);
+  border-radius: 9999px;
+  padding: 0.6rem 0.85rem 0.6rem 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  gap: 1.25rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: var(--c-capsule-text);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.nav-brand:hover {
+  transform: scale(1.02);
+}
+
+.nav-logo-svg {
+  display: block;
+}
+
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.08;
+}
+
+.nav-brand-main {
+  font-family: var(--font-headline);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--c-capsule-text);
+}
+
+.nav-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #0d4a39;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 1.8vw, 2.25rem);
+}
+
+.nav-link {
+  color: var(--c-capsule-text);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.885rem;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #000000;
+}
+
+.nav-btn-apply {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-tiger-orange);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.885rem;
+  font-weight: 700;
+  padding: 0.6rem 1.4rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(248, 132, 4, 0.4);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-btn-apply:hover {
+  background: var(--c-tiger-orange-hover);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   HERO SPLIT LAYOUT (HEADLINE ON LEFT, SUBTEXT ON RIGHT, PARTICLES IN MIDDLE)
+   ========================================================================== */
+.hero-layout {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hero-col-left {
+  position: absolute;
+  left: 4vw;
+  top: 40%;
+  transform: translateY(-50%);
+  width: min(100%, 17vw);
+  max-width: 17vw;
+  text-align: left;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.hero-headline {
+  font-family: var(--font-headline);
+  font-size: clamp(28px, 2.9vw, 46px);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--fg-main);
+  text-align: left;
+  margin: 0;
+}
+
+.hero-headline .highlight-green {
+  color: var(--c-accent);
+  text-shadow: 0 0 35px rgba(46, 183, 140, 0.4);
+}
+
+.hero-col-right {
+  position: absolute;
+  right: 4vw;
+  top: 40%;
+  transform: translateY(-50%);
+  width: min(100%, 17vw);
+  max-width: 17vw;
+  text-align: left;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.hero-subtext {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.15vw, 18px);
+  line-height: 1.55;
+  color: var(--c-pale-oak);
+  opacity: 0.90;
+  text-align: left;
+  margin: 0;
+}
+
+/* ==========================================================================
+   REPLAY ANIMATION CONTROLLER (ANCHORED IN BOTTOM RIGHT CORNER)
+   ========================================================================== */
+.hero-bottom-bar {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 1.25rem);
+  right: clamp(1.25rem, 3vw, 2.5rem);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+}
+
+.replay-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(18, 32, 27, 0.75);
+  border: 1px solid rgba(46, 183, 140, 0.35);
+  color: var(--c-pale-oak);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all var(--transition-fast);
+}
+
+.replay-pill-btn:hover {
+  background: rgba(46, 183, 140, 0.2);
+  color: #ffffff;
+  border-color: var(--c-accent);
+}
+
+.replay-icon {
+  font-size: 0.95rem;
+  display: inline-block;
+  transition: transform 0.6s ease;
+}
+
+.replay-pill-btn:hover .replay-icon {
+  transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (TABLETS & PHONES UNDER 900PX)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .nav-capsule {
+    flex-wrap: wrap;
+    border-radius: 20px;
+    padding: 0.75rem 1.25rem;
+    gap: 0.85rem;
+    justify-content: space-between;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .hero-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1rem 3.5rem;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .hero-col-left {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 580px;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(22px, 5.5vw, 32px);
+    text-align: center;
+  }
+
+  .hero-col-right {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-subtext {
+    font-size: clamp(13px, 3.2vw, 15px);
+    text-align: center;
+  }
+
+  .hero-bottom-bar {
+    right: 1.25rem;
+    bottom: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .page-wrapper {
+    padding: 0.75rem 1rem 1rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero-headline {
+    font-size: 1.65rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.875rem;
+  }
+
+  .hero-bottom-bar {
+    right: 1rem;
+    bottom: 0.85rem;
+  }
+}
