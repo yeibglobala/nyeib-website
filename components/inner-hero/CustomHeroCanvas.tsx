@@ -4,8 +4,9 @@ import React, { useEffect, useRef } from "react";
 import {
   HERO_SHAPE_REGISTRY,
   ShapeCloudData,
-  HeroShapeSlug,
 } from "@/lib/hero/heroShapes";
+import { generateLogoCloud, generateRibbonCloud } from "@/lib/hero/targets";
+import { createPRNG } from "@/lib/hero/config";
 
 const PARTICLE_COLOR_VALUES = [
   "rgb(0, 190, 147)",   // 0: Emerald #00BE93
@@ -32,6 +33,7 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     if (!ctx) return;
 
     const generator = HERO_SHAPE_REGISTRY[slug] || HERO_SHAPE_REGISTRY["who-we-serve"];
+    const rnd = createPRNG(42);
 
     let animId: number;
     let isRunning = true;
@@ -50,12 +52,15 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
     // Particle state buffers
     let count = 7200;
     let cloud: ShapeCloudData | null = null;
+    let shapeX: Float32Array;
+    let shapeY: Float32Array;
+    let ribbonPts: Float32Array;
+    let logoPts: Float32Array;
+
     let currentX: Float32Array;
     let currentY: Float32Array;
     let velocityX: Float32Array;
     let velocityY: Float32Array;
-    let targetX: Float32Array;
-    let targetY: Float32Array;
 
     const pointer = {
       x: -9999,
@@ -81,52 +86,55 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
 
       cloud = generator(count);
 
+      shapeX = new Float32Array(count);
+      shapeY = new Float32Array(count);
       currentX = new Float32Array(count);
       currentY = new Float32Array(count);
       velocityX = new Float32Array(count);
       velocityY = new Float32Array(count);
-      targetX = new Float32Array(count);
-      targetY = new Float32Array(count);
 
-      // Compute Stage Transformation
-      let scale = 1;
-      let ox = 0;
-      let oy = 0;
+      // 1. Calculate actual geometric bounding box of the shape points to find true center
+      let minX = Infinity, maxX = -Infinity;
+      let minY = Infinity, maxY = -Infinity;
 
-      if (!isMobile) {
-        // Desktop / Tablet Landscape: x from 36% to 99%, y from 5% to 96%
-        const stageX0 = width * 0.36;
-        const stageX1 = width * 0.99;
-        const stageW = stageX1 - stageX0;
-        const stageY0 = height * 0.05;
-        const stageY1 = height * 0.96;
-        const stageH = stageY1 - stageY0;
-
-        scale = Math.min(stageW / 1000, stageH / 700);
-        // Anchor to the right
-        ox = stageX1 - 1000 * scale;
-        oy = stageY0 + (stageH - 700 * scale) / 2;
-      } else {
-        // Phone / Portrait: stage is full width, y from 4% to 56%
-        const stageW = width;
-        const stageY0 = height * 0.04;
-        const stageY1 = height * 0.56;
-        const stageH = stageY1 - stageY0;
-
-        scale = Math.min(stageW / 1000, stageH / 700);
-        ox = (width - 1000 * scale) / 2;
-        oy = stageY0 + (stageH - 700 * scale) / 2;
-      }
-
-      // Initialize positions with intro scatter
       for (let i = 0; i < count; i++) {
         const [vx, vy] = cloud.targets[i];
-        const tx = ox + vx * scale;
-        const ty = oy + vy * scale;
-        targetX[i] = tx;
-        targetY[i] = ty;
+        if (vx < minX) minX = vx;
+        if (vx > maxX) maxX = vx;
+        if (vy < minY) minY = vy;
+        if (vy > maxY) maxY = vy;
+      }
 
-        // Intro start position (scattered along growth delay direction)
+      const shapeWidth = Math.max(100, maxX - minX);
+      const shapeHeight = Math.max(100, maxY - minY);
+      const shapeCenterX = (minX + maxX) * 0.5;
+      const shapeCenterY = (minY + maxY) * 0.5;
+
+      // 2. Compute proportional scaling factor to centralize and fill stage prominently
+      // Desktop: target ~80% width/height, mobile: target ~85% width/height
+      const targetWidth = isMobile ? width * 0.86 : width * 0.82;
+      const targetHeight = isMobile ? height * 0.78 : height * 0.82;
+      const scale = Math.min(targetWidth / shapeWidth, targetHeight / shapeHeight);
+
+      for (let i = 0; i < count; i++) {
+        const [vx, vy] = cloud.targets[i];
+        // Perfectly center custom shape at (0, 0)
+        shapeX[i] = (vx - shapeCenterX) * scale;
+        shapeY[i] = (vy - shapeCenterY) * scale;
+      }
+
+      // 3. Generate 3D Ribbon and YEIB Logo target arrays (both already centered at 0, 0)
+      ribbonPts = generateRibbonCloud(count, width, height, rnd);
+      logoPts = generateLogoCloud(count, width, height, rnd);
+
+      // 4. Initialize positions with intro scatter around the stage center (cx, cy)
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+
+      for (let i = 0; i < count; i++) {
+        const tx = cx + shapeX[i];
+        const ty = cy + shapeY[i];
+
         const delay = cloud.delays[i];
         currentX[i] = tx + (Math.sin(i * 1.7) * 80 + (1 - delay) * 40);
         currentY[i] = ty + (Math.cos(i * 2.3) * 60 + (1 - delay) * 50);
@@ -139,17 +147,17 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
 
     // Event listeners for pointer push
     const onPointerMove = (e: MouseEvent | TouchEvent) => {
-      let cx = 0, cy = 0;
+      let clientX = 0, clientY = 0;
       if ("touches" in e && e.touches.length > 0) {
-        cx = e.touches[0].clientX;
-        cy = e.touches[0].clientY;
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
       } else if ("clientX" in e) {
-        cx = e.clientX;
-        cy = e.clientY;
+        clientX = e.clientX;
+        clientY = e.clientY;
       }
       const rect = canvas.getBoundingClientRect();
-      pointer.x = cx - rect.left;
-      pointer.y = cy - rect.top;
+      pointer.x = clientX - rect.left;
+      pointer.y = clientY - rect.top;
       pointer.active = true;
     };
 
@@ -186,14 +194,47 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
 
     let lastFrame = performance.now();
 
+    // Smooth cubic easing
+    const ease = (t: number) => {
+      const c = Math.max(0, Math.min(1, t));
+      return c * c * (3 - 2 * c);
+    };
+
     const render = (time: number) => {
-      if (!isRunning || !cloud) return;
+      if (!isRunning || !cloud || !ribbonPts || !logoPts) return;
 
-      const dt = Math.min(0.05, (time - lastFrame) / 1000);
       lastFrame = time;
-
       const elapsed = (time - startTime) / 1000;
       const introProgress = Math.min(1.0, elapsed / 1.4); // 1.4s smooth intro assembly
+
+      // --- Morphing Cycle: Shape (4.0s) -> Ribbon (1.8s) -> Logo (1.8s) -> Hold Logo (3.0s) -> Ribbon (1.6s) -> Return (1.8s) ---
+      const totalCycle = 14.0;
+      const cycleTime = prefersReducedMotion ? 0 : elapsed % totalCycle;
+      let morphPhase = 0.0; // 0.0: Custom Shape, 0.5: Ribbon, 1.0: YEIB Logo
+
+      const t1 = 4.0;  // hold custom shape
+      const t2 = 5.8;  // morph to ribbon
+      const t3 = 7.6;  // morph to logo
+      const t4 = 10.6; // hold logo
+      const t5 = 12.2; // morph back to ribbon
+
+      if (cycleTime < t1) {
+        morphPhase = 0.0;
+      } else if (cycleTime < t2) {
+        const t = (cycleTime - t1) / (t2 - t1);
+        morphPhase = t * 0.5;
+      } else if (cycleTime < t3) {
+        const t = (cycleTime - t2) / (t3 - t2);
+        morphPhase = 0.5 + t * 0.5;
+      } else if (cycleTime < t4) {
+        morphPhase = 1.0;
+      } else if (cycleTime < t5) {
+        const t = (cycleTime - t4) / (t5 - t4);
+        morphPhase = 1.0 - t * 0.5;
+      } else {
+        const t = (cycleTime - t5) / (totalCycle - t5);
+        morphPhase = 0.5 - t * 0.5;
+      }
 
       ctx.clearRect(0, 0, width, height);
       ctx.globalCompositeOperation = "lighter";
@@ -203,20 +244,38 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
       const ptrRadius = isMobile ? 80 : 130;
       const ptrForce = 35;
 
-      const textBoundaryX = width * 0.36;
+      const cx = width * 0.5;
+      const cy = height * 0.5;
 
       for (let i = 0; i < count; i++) {
         const delay = cloud.delays[i];
         const pAssembly = Math.max(0, Math.min(1, (introProgress - delay * 0.35) / 0.65));
         const easeAssembly = pAssembly * pAssembly * (3 - 2 * pAssembly);
 
-        // Continuous subtle ambient drift
-        const phase = cloud.phases[i];
-        const driftX = prefersReducedMotion ? 0 : Math.sin(time * 0.0015 + phase) * 1.8;
-        const driftY = prefersReducedMotion ? 0 : Math.cos(time * 0.0012 + phase) * 2.2;
+        // Particle morph calculation with local delay
+        const localDelay = delay * 0.22;
+        const phase = Math.max(0, Math.min(1, (morphPhase - localDelay) / (1.0 - 0.22)));
 
-        const baseTx = targetX[i] + driftX;
-        const baseTy = targetY[i] + driftY;
+        let targetRelX = 0;
+        let targetRelY = 0;
+
+        if (phase < 0.5) {
+          const t = ease(phase * 2.0);
+          targetRelX = shapeX[i] * (1 - t) + ribbonPts[i * 3] * t;
+          targetRelY = shapeY[i] * (1 - t) + ribbonPts[i * 3 + 1] * t;
+        } else {
+          const t = ease((phase - 0.5) * 2.0);
+          targetRelX = ribbonPts[i * 3] * (1 - t) + logoPts[i * 3] * t;
+          targetRelY = ribbonPts[i * 3 + 1] * (1 - t) + logoPts[i * 3 + 1] * t;
+        }
+
+        // Continuous subtle ambient drift
+        const pPhase = cloud.phases[i];
+        const driftX = prefersReducedMotion ? 0 : Math.sin(time * 0.0015 + pPhase) * 1.8;
+        const driftY = prefersReducedMotion ? 0 : Math.cos(time * 0.0012 + pPhase) * 2.2;
+
+        const baseTx = cx + targetRelX + driftX;
+        const baseTy = cy + targetRelY + driftY;
 
         // Interactive pointer repulsion
         let pushX = 0;
@@ -250,20 +309,15 @@ export function CustomHeroCanvas({ slug, className = "" }: CustomHeroCanvasProps
 
         // Twinkle calculation
         if (!prefersReducedMotion) {
-          const twinkle = 0.85 + 0.15 * Math.sin(time * 0.003 + phase * 2);
+          const twinkle = 0.85 + 0.15 * Math.sin(time * 0.003 + pPhase * 2);
           alpha *= twinkle;
-        }
-
-        // Smoothly lower alpha if point falls into left text area on desktop
-        if (!isMobile && currentX[i] < textBoundaryX) {
-          const distIntoText = textBoundaryX - currentX[i];
-          const fadeFactor = Math.max(0.08, 1 - distIntoText / 140);
-          alpha *= fadeFactor;
         }
 
         if (alpha <= 0.01) continue;
 
-        ctx.fillStyle = PARTICLE_COLOR_VALUES[cloud.colors[i]];
+        // Color blending during morph
+        const colorIdx = cloud.colors[i];
+        ctx.fillStyle = PARTICLE_COLOR_VALUES[colorIdx];
         ctx.globalAlpha = alpha;
 
         const size = cloud.sizes[i];
