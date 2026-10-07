@@ -111,9 +111,9 @@ export function WhoWeServeCardsSection() {
       id="who-we-serve-pathways"
       data-theme="light"
       aria-label="Who We Serve Pathways"
-      className="relative w-full bg-[#FAF7F2] text-[#003124] py-20 sm:py-28 px-6 sm:px-8 lg:px-12 border-t border-[#003124]/10 overflow-hidden"
+      className="relative w-full bg-[#FAF7F2] text-[#003124] py-20 sm:py-28 px-6 sm:px-10 lg:px-16 border-t border-[#003124]/10 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto flex flex-col space-y-16 sm:space-y-20">
+      <div className="max-w-[1400px] w-full mx-auto flex flex-col space-y-16 sm:space-y-20">
         {/* =========================================================================
             TOP AREA: Header (Heading Left, Paragraph Right)
             ========================================================================= */}

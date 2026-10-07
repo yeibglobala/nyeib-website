@@ -102,53 +102,53 @@ export function VideoStory() {
         />
       </div>
 
-      {/* =========================================================================
-          MOBILE TOP SPACER (Keeps top ~45% clear for sharp video display on small screens)
-          ========================================================================= */}
-      <div className="lg:hidden w-full h-[40svh] sm:h-[45svh] pointer-events-none" aria-hidden="true" />
+      {/* Flexible Spacer pushing content to bottom */}
+      <div className="flex-1 w-full min-h-[20vh] pointer-events-none" aria-hidden="true" />
 
       {/* =========================================================================
-          UNIFIED FROSTED GLASS CONTENT PANEL:
-          Houses Headline, Subtext, and CTA Button in a single glass surface.
+          HORIZONTAL FROSTED GLASS BOTTOM BAR:
+          Houses Headline on the Left, and Paragraph + CTA on the Right.
           ========================================================================= */}
-      <div
-        className="relative z-10 w-full lg:w-[48%] xl:w-[45%] min-w-[320px] lg:max-w-[660px] lg:h-full flex flex-col justify-center px-[6vw] pb-[calc(env(safe-area-inset-bottom,0px)+2rem)] pt-6 lg:p-[4vw] lg:pt-[7.5rem] lg:backdrop-blur-[36px] lg:bg-[rgba(10,24,20,0.58)] lg:border-r lg:border-[rgba(238,246,242,0.12)] lg:shadow-2xl text-left"
-      >
-        <div className="w-full max-w-[560px] space-y-5 sm:space-y-6">
-          {/* Headline Group */}
-          <HeaderReveal delay={100} duration={1000} parallaxSpeed={12}>
-            <h1
-              className="text-[clamp(30px,4.5vw,58px)] font-bold leading-[1.08] tracking-tight text-[var(--fg-main)]"
-              style={{ fontFamily: "var(--font-headline)" }}
-            >
-              Unlocking{" "}
-              <span className="text-[var(--c-accent)] drop-shadow-[0_0_35px_rgba(46,183,140,0.55)]">
-                pathways
-              </span>{" "}
-              for investable businesses
-            </h1>
-          </HeaderReveal>
-
-          {/* Subtext Body */}
-          <HeaderReveal delay={220} duration={950} mask={false} parallaxSpeed={8}>
-            <p
-              className="text-[15px] sm:text-[16.5px] font-normal text-[#e1c9b3]/95 leading-[1.65]"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {VIDEO_STORY_CONFIG.content.body}
-            </p>
-          </HeaderReveal>
-
-          {/* CTA Button Group */}
-          <div className="pt-2 sm:pt-4">
-            <HeaderReveal delay={340} duration={900} mask={false}>
-              <ArrowButton
-                href="/apply"
-                text={VIDEO_STORY_CONFIG.content.ctaText}
-                variant="orange"
-                arrowType="diagonal"
-              />
+      <div className="relative z-10 w-full backdrop-blur-[36px] bg-[rgba(10,24,20,0.68)] border-t border-[rgba(238,246,242,0.14)] shadow-[0_-12px_48px_rgba(0,0,0,0.35)] py-[clamp(28px,3.5vw,48px)] px-6 sm:px-10 lg:px-16 pb-[calc(env(safe-area-inset-bottom,0px)+clamp(24px,3.5vw,40px))]">
+        <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 min-[900px]:grid-cols-12 gap-6 min-[900px]:gap-12 items-end">
+          {/* Left Column: Headline */}
+          <div className="min-[900px]:col-span-7 flex flex-col justify-end">
+            <HeaderReveal delay={100} duration={1000} parallaxSpeed={12}>
+              <h1
+                className="text-[clamp(28px,3.6vw,52px)] font-bold leading-[1.12] tracking-tight text-[var(--fg-main)] m-0"
+                style={{ fontFamily: "var(--font-headline)" }}
+              >
+                Unlocking{" "}
+                <span className="text-[var(--c-accent)] drop-shadow-[0_0_35px_rgba(46,183,140,0.55)]">
+                  pathways
+                </span>{" "}
+                for investable businesses.
+              </h1>
             </HeaderReveal>
+          </div>
+
+          {/* Right Column: Paragraph + CTA */}
+          <div className="min-[900px]:col-span-5 flex flex-col justify-end gap-5 sm:gap-6">
+            <HeaderReveal delay={220} duration={950} mask={false} parallaxSpeed={8}>
+              <p
+                className="text-[15px] sm:text-[16.5px] font-normal text-[#e1c9b3]/95 leading-[1.65] m-0 max-w-[48ch]"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                {VIDEO_STORY_CONFIG.content.body}
+              </p>
+            </HeaderReveal>
+
+            {/* CTA Button Group */}
+            <div>
+              <HeaderReveal delay={340} duration={900} mask={false}>
+                <ArrowButton
+                  href="/apply"
+                  text={VIDEO_STORY_CONFIG.content.ctaText}
+                  variant="orange"
+                  arrowType="diagonal"
+                />
+              </HeaderReveal>
+            </div>
           </div>
         </div>
       </div>

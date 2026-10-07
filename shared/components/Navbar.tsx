@@ -142,7 +142,7 @@ export function Navbar() {
     <>
       {/* Top Split Header Bar */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between w-full px-6 sm:px-8 lg:px-12 transition-all duration-200 pointer-events-none ${
+        className={`fixed top-0 left-0 right-0 z-50 w-full px-6 sm:px-10 lg:px-16 transition-all duration-200 pointer-events-none ${
           isScrolled
             ? isLightBg
               ? "bg-[#FAF7F2]/85 backdrop-blur-[12px] border-b border-[#E1C9B3] py-4 shadow-sm"
@@ -156,71 +156,73 @@ export function Navbar() {
           style={{ width: `${scrollProgress}%` }}
         />
 
-        {/* Top Left: Responsive Brand Logo */}
-        <Link
-          href="/"
-          className="pointer-events-auto relative flex items-center hover:opacity-85 transition-opacity focus:outline-none h-[28px] sm:h-[33px]"
-          aria-label="Nigeria YEIB Investment Funds Home"
-        >
-          {/* White Logo (for Dark Backgrounds) */}
-          <img
-            src="/brand/logo-white.png"
-            alt="Nigeria YEIB Investment Funds"
-            className={`h-[28px] sm:h-[33px] w-auto object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] transition-opacity duration-300 ${
-              isLightBg ? "opacity-0 pointer-events-none" : "opacity-100"
-            }`}
-          />
-          {/* Green Logo (for Light / White / Bright Backgrounds) */}
-          <img
-            src="/brand/logo-green.png"
-            alt="Nigeria YEIB Investment Funds"
-            className={`absolute left-0 top-0 h-[28px] sm:h-[33px] w-auto object-contain drop-shadow-[0_2px_12px_rgba(0,49,36,0.15)] transition-opacity duration-300 ${
-              isLightBg ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-          />
-        </Link>
-
-        {/* Top Right: Minimalist Menu Capsule */}
-        <div className="pointer-events-auto flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className={`flex items-center gap-2.5 rounded-full px-4 py-2 backdrop-blur-md transition-all duration-300 shadow-lg focus:outline-none group ${
-              isLightBg
-                ? "bg-white/85 hover:bg-white border border-[rgba(18,32,27,0.18)] text-[#12201b]"
-                : "bg-[rgba(10,24,20,0.72)] hover:bg-[rgba(15,35,30,0.9)] border border-[rgba(238,246,242,0.22)] hover:border-[var(--c-accent)] text-[#eef6f2]"
-            }`}
-            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={isOpen}
+        <div className="max-w-[1400px] w-full mx-auto flex items-center justify-between pointer-events-none">
+          {/* Top Left: Responsive Brand Logo */}
+          <Link
+            href="/"
+            className="pointer-events-auto relative flex items-center hover:opacity-85 transition-opacity focus:outline-none h-[28px] sm:h-[33px]"
+            aria-label="Nigeria YEIB Investment Funds Home"
           >
-            <span
-              className={`font-['Chivo',sans-serif] text-[0.78rem] font-bold tracking-[0.14em] uppercase transition-colors ${
-                isLightBg
-                  ? "text-[#12201b]"
-                  : "text-[#cde3dc] group-hover:text-white"
+            {/* White Logo (for Dark Backgrounds) */}
+            <img
+              src="/brand/logo-white.png"
+              alt="Nigeria YEIB Investment Funds"
+              className={`h-[28px] sm:h-[33px] w-auto object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] transition-opacity duration-300 ${
+                isLightBg ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
-            >
-              Menu
-            </span>
+            />
+            {/* Green Logo (for Light / White / Bright Backgrounds) */}
+            <img
+              src="/brand/logo-green.png"
+              alt="Nigeria YEIB Investment Funds"
+              className={`absolute left-0 top-0 h-[28px] sm:h-[33px] w-auto object-contain drop-shadow-[0_2px_12px_rgba(0,49,36,0.15)] transition-opacity duration-300 ${
+                isLightBg ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
+            />
+          </Link>
 
-            {/* Two-line Hamburger Icon */}
-            <span
-              className={`w-5 h-5 rounded-full flex flex-col justify-center items-center gap-1 p-1 ${
-                isLightBg ? "bg-[rgba(18,32,27,0.08)]" : "bg-[rgba(0,0,0,0.35)]"
+          {/* Top Right: Minimalist Menu Capsule */}
+          <div className="pointer-events-auto flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className={`flex items-center gap-2.5 rounded-full px-4 py-2 backdrop-blur-md transition-all duration-300 shadow-lg focus:outline-none group ${
+                isLightBg
+                  ? "bg-white/85 hover:bg-white border border-[rgba(18,32,27,0.18)] text-[#12201b]"
+                  : "bg-[rgba(10,24,20,0.72)] hover:bg-[rgba(15,35,30,0.9)] border border-[rgba(238,246,242,0.22)] hover:border-[var(--c-accent)] text-[#eef6f2]"
               }`}
+              aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isOpen}
             >
               <span
-                className={`w-3 h-[1.5px] transition-transform duration-200 ${
-                  isLightBg ? "bg-[#12201b]" : "bg-[#eef6f2]"
-                } ${isOpen ? "rotate-45 translate-y-[2.5px]" : ""}`}
-              />
+                className={`font-['Chivo',sans-serif] text-[0.78rem] font-bold tracking-[0.14em] uppercase transition-colors ${
+                  isLightBg
+                    ? "text-[#12201b]"
+                    : "text-[#cde3dc] group-hover:text-white"
+                }`}
+              >
+                Menu
+              </span>
+
+              {/* Two-line Hamburger Icon */}
               <span
-                className={`w-3 h-[1.5px] transition-transform duration-200 ${
-                  isLightBg ? "bg-[#12201b]" : "bg-[#eef6f2]"
-                } ${isOpen ? "-rotate-45 -translate-y-[2.5px]" : ""}`}
-              />
-            </span>
-          </button>
+                className={`w-5 h-5 rounded-full flex flex-col justify-center items-center gap-1 p-1 ${
+                  isLightBg ? "bg-[rgba(18,32,27,0.08)]" : "bg-[rgba(0,0,0,0.35)]"
+                }`}
+              >
+                <span
+                  className={`w-3 h-[1.5px] transition-transform duration-200 ${
+                    isLightBg ? "bg-[#12201b]" : "bg-[#eef6f2]"
+                  } ${isOpen ? "rotate-45 translate-y-[2.5px]" : ""}`}
+                />
+                <span
+                  className={`w-3 h-[1.5px] transition-transform duration-200 ${
+                    isLightBg ? "bg-[#12201b]" : "bg-[#eef6f2]"
+                  } ${isOpen ? "-rotate-45 -translate-y-[2.5px]" : ""}`}
+                />
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 

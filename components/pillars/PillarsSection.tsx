@@ -213,9 +213,9 @@ export function PillarsSection({ config = PILLARS_CONFIG }: PillarsSectionProps 
       id="pillars"
       data-theme="light"
       aria-label={config.intro.tag}
-      className="relative w-full bg-[#e3ece7] text-[#12201b] py-[clamp(88px,10vw,160px)] px-[clamp(24px,5.5vw,96px)] min-[900px]:min-h-[100svh] min-[900px]:flex min-[900px]:flex-col min-[900px]:justify-center select-none"
+      className="relative w-full bg-[#e3ece7] text-[#12201b] py-[clamp(88px,10vw,160px)] px-6 sm:px-10 lg:px-16 min-[900px]:min-h-[100svh] min-[900px]:flex min-[900px]:flex-col min-[900px]:justify-center select-none"
     >
-      <div className="max-w-[1440px] w-full mx-auto">
+      <div className="max-w-[1400px] w-full mx-auto">
         {/* =========================================================================
             HEADER AT THE TOP (Full-width intro header with 20px tag gap)
             ========================================================================= */}
@@ -238,7 +238,7 @@ export function PillarsSection({ config = PILLARS_CONFIG }: PillarsSectionProps 
                 style={{ fontFamily: "var(--font-headline, serif)" }}
               >
                 {config.intro.headline.before}
-                <em className="not-italic text-[#1f9d74]">
+                <em className="not-italic text-[#f88404]">
                   {config.intro.headline.highlight}
                 </em>
                 {config.intro.headline.after}

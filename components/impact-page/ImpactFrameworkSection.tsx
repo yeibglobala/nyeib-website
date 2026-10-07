@@ -72,9 +72,9 @@ export function ImpactFrameworkSection() {
       id="impact-framework"
       data-theme="light"
       aria-label="How We Measure Impact"
-      className="relative w-full bg-[#FAF7F2] text-[#003124] py-[clamp(72px,10vw,140px)] px-[clamp(20px,4.5vw,64px)] overflow-hidden border-t border-[#003124]/10"
+      className="relative w-full bg-[#FAF7F2] text-[#003124] py-[clamp(72px,10vw,140px)] px-6 sm:px-10 lg:px-16 overflow-hidden border-t border-[#003124]/10"
     >
-      <div className="max-w-[1240px] mx-auto flex flex-col space-y-16 sm:space-y-20">
+      <div className="max-w-[1400px] w-full mx-auto flex flex-col space-y-16 sm:space-y-20">
         {/* =========================================================================
             TOP AREA: Header (Heading Left, Paragraph Right on Desktop)
             ========================================================================= */}

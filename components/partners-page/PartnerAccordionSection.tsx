@@ -46,9 +46,9 @@ export function PartnerAccordionSection() {
       id="partner-pathways"
       data-theme="light"
       aria-label="Choose the pathway that fits your mandate"
-      className="relative w-full bg-[#e3ece7] text-[#12201b] py-[clamp(88px,10vw,160px)] px-[clamp(24px,5.5vw,96px)] select-none overflow-hidden border-t border-[rgba(18,32,27,0.08)]"
+      className="relative w-full bg-[#e3ece7] text-[#12201b] py-[clamp(88px,10vw,160px)] px-6 sm:px-10 lg:px-16 select-none overflow-hidden border-t border-[rgba(18,32,27,0.08)]"
     >
-      <div className="max-w-[1440px] w-full mx-auto">
+      <div className="max-w-[1400px] w-full mx-auto">
         {/* =========================================================================
             HEADER AT THE TOP (Full-width intro header)
             ========================================================================= */}

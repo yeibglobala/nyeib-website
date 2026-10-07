@@ -65,9 +65,9 @@ export function ApplyPartnershipAccordionSection({
     <section
       id="partnership-accordion"
       data-theme="light"
-      className="relative w-full bg-white py-20 sm:py-28 px-6 sm:px-8 lg:px-12 text-[#003124] border-b border-[#003124]/10 overflow-hidden"
+      className="relative w-full bg-white py-20 sm:py-28 px-6 sm:px-10 lg:px-16 text-[#003124] border-b border-[#003124]/10 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto space-y-14 sm:space-y-16">
+      <div className="max-w-[1400px] w-full mx-auto space-y-14 sm:space-y-16">
         {/* =========================================================================
             HEADER: Clean Evergreen Headline with HeaderReveal
             ========================================================================= */}

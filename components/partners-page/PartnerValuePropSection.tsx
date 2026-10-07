@@ -11,9 +11,9 @@ export function PartnerValuePropSection() {
       id="investor-value-prop"
       data-theme="light"
       aria-label="Investor Value Proposition"
-      className="relative w-full bg-[#e3ece7] text-[#12201b] py-[clamp(80px,9vw,144px)] px-[clamp(24px,5.5vw,96px)] overflow-hidden border-t border-[rgba(18,32,27,0.08)]"
+      className="relative w-full bg-[#e3ece7] text-[#12201b] py-[clamp(80px,9vw,144px)] px-6 sm:px-10 lg:px-16 overflow-hidden border-t border-[rgba(18,32,27,0.08)]"
     >
-      <div className="max-w-[1440px] w-full mx-auto">
+      <div className="max-w-[1400px] w-full mx-auto">
         <div className="grid grid-cols-1 min-[900px]:grid-cols-[5fr_7fr] gap-12 min-[900px]:gap-[5vw] items-center">
           {/* Left Column: Heading & Body Copy */}
           <div className="flex flex-col space-y-6">

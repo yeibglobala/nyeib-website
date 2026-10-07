@@ -14,9 +14,9 @@ export function ApplyProcessSection({ onOpenModal }: ApplyProcessSectionProps) {
     <section
       id="process"
       data-theme="light"
-      className="relative w-full bg-[#FAF7F2] py-16 md:py-24 px-6 sm:px-8 lg:px-12 text-[#003124] overflow-hidden"
+      className="relative w-full bg-[#FAF7F2] py-16 md:py-24 px-6 sm:px-10 lg:px-16 text-[#003124] overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto space-y-16 md:space-y-24">
+      <div className="max-w-[1400px] w-full mx-auto space-y-16 md:space-y-24">
         {/* =========================================================================
             2. APPLICATION REASSURANCE CARD
             ========================================================================= */}

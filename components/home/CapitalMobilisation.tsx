@@ -42,9 +42,9 @@ export function CapitalMobilisation() {
       id="capital-mobilisation"
       data-theme="light"
       aria-label="Built to Mobilise Capital at Scale"
-      className="w-full bg-[#e3ece7] text-[#12201b] py-24 lg:py-32 px-6 lg:px-12 relative overflow-hidden border-t border-[rgba(18,32,27,0.08)]"
+      className="w-full bg-[#e3ece7] text-[#12201b] py-24 lg:py-32 px-6 sm:px-10 lg:px-16 relative overflow-hidden border-t border-[rgba(18,32,27,0.08)]"
     >
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-16 relative z-10">
+      <div className="max-w-[1400px] w-full mx-auto flex flex-col gap-16 relative z-10">
         {/* Header */}
         <div className="max-w-3xl flex flex-col gap-4">
           <span className="font-sans text-xs uppercase tracking-[0.2em] font-semibold text-[#0b523b]">
@@ -52,7 +52,7 @@ export function CapitalMobilisation() {
           </span>
           <HeaderReveal
             as="h2"
-            className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal leading-[1.15] text-[#12201b]"
+            className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.12] tracking-tight text-[#12201b]"
           >
             Built to Mobilise Capital at Scale
           </HeaderReveal>

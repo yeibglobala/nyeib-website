@@ -81,7 +81,7 @@ export function PurposeSection() {
       id="purpose"
       data-theme="light"
       aria-label="Purpose"
-      className="relative w-full h-auto min-h-0 bg-[#e3ece7] text-[#12201b] py-[clamp(80px,10vw,140px)] overflow-x-clip border-t border-[rgba(18,32,27,0.08)]"
+      className="relative w-full h-auto min-h-0 bg-[#e3ece7] text-[#12201b] py-[clamp(80px,10vw,140px)] px-6 sm:px-10 lg:px-16 overflow-x-clip border-t border-[rgba(18,32,27,0.08)]"
       style={{
         backgroundColor: "#e3ece7",
       }}
@@ -89,11 +89,11 @@ export function PurposeSection() {
       {/* =========================================================================
           DESKTOP LAYOUT (900px and wider)
           ========================================================================= */}
-      <div className="hidden min-[900px]:block relative w-full">
+      <div className="hidden min-[900px]:block max-w-[1400px] w-full mx-auto">
         {/* Banner and In-Card Headline Container */}
         <div className="relative w-full">
           {/* Centered Video Banner with Subtle Parallax Floating Depth */}
-          <Parallax speed={35} className="relative w-[78%] lg:w-[74%] mx-auto">
+          <Parallax speed={35} className="relative w-full">
             <div className="relative w-full aspect-[2.6/1] min-h-[350px] rounded-[32px] overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.22)] bg-[#0b1310]">
               {/* Poster Fallback Image */}
               <img
@@ -181,7 +181,7 @@ export function PurposeSection() {
 
         {/* 1px Horizontal Line */}
         <div
-          className="w-[78%] lg:w-[74%] mx-auto h-[1px] mt-[clamp(48px,6vw,84px)]"
+          className="w-full h-[1px] mt-[clamp(48px,6vw,84px)]"
           style={{
             background:
               "linear-gradient(90deg, transparent 0%, rgba(18, 32, 27, 0.16) 50%, transparent 100%)",
@@ -190,7 +190,7 @@ export function PurposeSection() {
         />
 
         {/* Two Columns Grid directly below the line (Matches banner grid width) */}
-        <div className="w-[78%] lg:w-[74%] mx-auto mt-[clamp(28px,3.5vw,44px)] flex items-start justify-between">
+        <div className="w-full mt-[clamp(28px,3.5vw,44px)] flex items-start justify-between">
           {/* Left Column: Purpose Label with 4 Corner Brackets */}
           <div className="flex-shrink-0">
             <HeaderReveal delay={100} duration={800} mask={false}>
@@ -240,7 +240,7 @@ export function PurposeSection() {
           PHONE & TABLET LAYOUT (under 900px)
           Stacked Order: Headline -> Video Banner -> Line -> Label -> Paragraph
           ========================================================================= */}
-      <div className="block min-[900px]:hidden px-[6vw] flex flex-col space-y-[6vw]">
+      <div className="block min-[900px]:hidden max-w-[1400px] w-full mx-auto flex flex-col space-y-6">
         {/* 1. Headline (No overlap, left aligned, small line then big line, then 'access was.') */}
         <h2 className="text-left m-0 p-0">
           <HeaderReveal delay={80} duration={900} mask={false}>

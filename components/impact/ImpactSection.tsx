@@ -244,10 +244,10 @@ export const ImpactSection: React.FC = () => {
     return (
       <section
         id="impact"
-        className="w-full bg-[#e3ece7] text-[#12201b] py-24 px-6 sm:px-12 relative"
+        className="w-full bg-[#e3ece7] text-[#12201b] py-24 px-6 sm:px-10 lg:px-16 relative"
         aria-label="Measurable Economic Impact Targets"
       >
-        <div className="max-w-6xl mx-auto flex flex-col items-center">
+        <div className="max-w-[1400px] w-full mx-auto flex flex-col items-center">
           <div className="text-center mb-16 max-w-3xl">
             <span className="text-[11px] font-semibold tracking-[0.22em] text-[#12201b]/60 uppercase mb-3 block">
               TARGET IMPACT
@@ -323,7 +323,7 @@ export const ImpactSection: React.FC = () => {
       </ul>
 
       {/* Pinned Sticky Stage */}
-      <div className="sticky top-0 h-screen h-[100svh] w-full flex flex-col items-center justify-between py-8 sm:py-12 md:py-14 px-6 sm:px-10 max-w-7xl mx-auto overflow-hidden pointer-events-none">
+      <div className="sticky top-0 h-screen h-[100svh] w-full flex flex-col items-center justify-between py-8 sm:py-12 md:py-14 px-6 sm:px-10 lg:px-16 max-w-[1400px] w-full mx-auto overflow-hidden pointer-events-none">
         {/* Top Header Area: Scrolls in naturally and remains cleanly centered */}
         <div className="w-full text-center flex flex-col items-center pt-2 sm:pt-4 z-10">
           <HeaderReveal delay={0} duration={800} mask={false}>

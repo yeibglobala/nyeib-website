@@ -66,7 +66,7 @@ export function CtaSection({
       id="partner"
       data-theme="dark"
       aria-label="Partner with NYEIB"
-      className="relative w-full bg-[#0b1310] pt-12 sm:pt-16 pb-12 sm:pb-16 px-[4vw] sm:px-[5vw]"
+      className="relative w-full bg-[#0b1310] pt-12 sm:pt-16 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-16"
     >
       <div className="max-w-[1400px] w-full mx-auto">
         {/* Rounded Card with subtle floating parallax depth */}

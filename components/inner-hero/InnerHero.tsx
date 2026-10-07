@@ -159,27 +159,29 @@ export function InnerHero({
       {/* =========================================================================
           HERO TEXT CONTENT (HEADLINE + SUBTEXT WITH SMOOTH HEADER REVEAL)
           ========================================================================= */}
-      <div className="relative z-10 w-full px-6 min-[700px]:px-[5vw] pt-28 min-[700px]:pt-32 min-[1100px]:pt-36 pb-12 min-[700px]:pb-16 flex flex-col justify-end min-[700px]:justify-center">
-        {/* Main H1 Headline */}
-        <HeaderReveal delay={80} duration={1000} parallaxSpeed={12}>
-          <h1
-            className="text-white font-normal text-left tracking-[-0.015em] leading-[1.1] max-w-full min-[700px]:max-w-[60vw] min-[1100px]:max-w-[42vw] text-[clamp(30px,7.5vw,36px)] min-[700px]:text-[clamp(32px,3.6vw,58px)] m-0"
-            style={{ fontFamily: "var(--font-headline, serif)" }}
-          >
-            {headline}
-          </h1>
-        </HeaderReveal>
-
-        {/* Subtext */}
-        <div className="mt-5 sm:mt-6">
-          <HeaderReveal delay={200} duration={950} mask={false} parallaxSpeed={8}>
-            <p
-              className="text-[#e1c9b3] text-left leading-[1.55] max-w-full min-[700px]:max-w-[58vw] min-[1100px]:max-w-[36vw] text-[clamp(15px,3.8vw,17px)] min-[700px]:text-[clamp(15px,1.25vw,19px)] font-normal m-0"
-              style={{ fontFamily: "var(--font-body, sans-serif)" }}
+      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 pt-28 min-[700px]:pt-32 min-[1100px]:pt-36 pb-12 min-[700px]:pb-16 flex flex-col justify-end min-[700px]:justify-center">
+        <div className="max-w-[1400px] w-full mx-auto">
+          {/* Main H1 Headline */}
+          <HeaderReveal delay={80} duration={1000} parallaxSpeed={12}>
+            <h1
+              className="text-white font-normal text-left tracking-[-0.015em] leading-[1.1] max-w-full min-[700px]:max-w-[60vw] min-[1100px]:max-w-[42vw] text-[clamp(30px,7.5vw,36px)] min-[700px]:text-[clamp(32px,3.6vw,58px)] m-0"
+              style={{ fontFamily: "var(--font-headline, serif)" }}
             >
-              {subtext}
-            </p>
+              {headline}
+            </h1>
           </HeaderReveal>
+
+          {/* Subtext */}
+          <div className="mt-5 sm:mt-6">
+            <HeaderReveal delay={200} duration={950} mask={false} parallaxSpeed={8}>
+              <p
+                className="text-[#e1c9b3] text-left leading-[1.55] max-w-full min-[700px]:max-w-[58vw] min-[1100px]:max-w-[36vw] text-[clamp(15px,3.8vw,17px)] min-[700px]:text-[clamp(15px,1.25vw,19px)] font-normal m-0"
+                style={{ fontFamily: "var(--font-body, sans-serif)" }}
+              >
+                {subtext}
+              </p>
+            </HeaderReveal>
+          </div>
         </div>
       </div>
 

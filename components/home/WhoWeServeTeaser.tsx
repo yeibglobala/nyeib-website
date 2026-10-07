@@ -68,7 +68,7 @@ export function WhoWeServeTeaser() {
       id="who-we-serve-teaser"
       data-theme="dark"
       aria-label="Who We Serve"
-      className="w-full bg-[#0b1310] text-[#eef6f2] py-24 lg:py-32 px-6 lg:px-12 relative overflow-hidden border-t border-[rgba(238,246,242,0.08)]"
+      className="w-full bg-[#0b1310] text-[#eef6f2] py-24 lg:py-32 px-6 sm:px-10 lg:px-16 relative overflow-hidden border-t border-[rgba(238,246,242,0.08)]"
     >
       {/* Background ambient lighting */}
       <div
@@ -76,13 +76,13 @@ export function WhoWeServeTeaser() {
         aria-hidden="true"
       />
 
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-16 relative z-10">
+      <div className="max-w-[1400px] w-full mx-auto flex flex-col gap-16 relative z-10">
         {/* Top Header Row */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8 border-b border-[rgba(238,246,242,0.12)]">
           <div className="max-w-2xl flex flex-col gap-4">
             <HeaderReveal
               as="h2"
-              className="font-serif text-3xl md:text-4xl lg:text-5xl font-normal leading-[1.15] text-[#eef6f2]"
+              className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.12] tracking-tight text-[#eef6f2]"
             >
               Who We Serve
             </HeaderReveal>
