@@ -4,6 +4,8 @@ import React from "react";
 import { INNER_HERO_DATA, InnerHeroData } from "./config";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
 import { HeroCanvas } from "@/components/hero/HeroCanvas";
+import { CustomHeroCanvas } from "./CustomHeroCanvas";
+import { HERO_SHAPE_REGISTRY } from "@/lib/hero/heroShapes";
 import { StarfieldBackground } from "./StarfieldBackground";
 import { Parallax } from "@/shared/components/Parallax";
 
@@ -16,7 +18,7 @@ export interface InnerHeroProps {
 }
 
 export function InnerHero({
-  slug,
+  slug = "what-we-do",
   headline: customHeadline,
   subtext: customSubtext,
   seed,
@@ -34,6 +36,7 @@ export function InnerHero({
 
   const headline = customHeadline || defaultData.headline;
   const subtext = customSubtext || defaultData.subtext;
+  const isCustomShape = slug && slug in HERO_SHAPE_REGISTRY;
 
   return (
     <section
@@ -101,7 +104,11 @@ export function InnerHero({
           <div className="min-[900px]:col-span-6 min-[1200px]:col-span-7 relative w-full aspect-[4/3] sm:aspect-[16/11] min-[900px]:aspect-auto min-[900px]:h-[560px] min-[1200px]:h-[600px] max-h-[72vh] flex items-center justify-center pointer-events-auto">
             <Parallax speed={16} className="w-full h-full relative">
               <div className="relative w-full h-full">
-                <HeroCanvas seed={seed} showReplay={showReplay} />
+                {isCustomShape ? (
+                  <CustomHeroCanvas slug={slug} />
+                ) : (
+                  <HeroCanvas seed={seed} showReplay={showReplay} />
+                )}
               </div>
             </Parallax>
           </div>
