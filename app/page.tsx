@@ -1,5 +1,5 @@
 import React from "react";
-import { VideoStory } from "@/components/video-story/VideoStory";
+import { ParticleStoryHero } from "@/components/hero/ParticleStoryHero";
 import { PurposeSection } from "@/components/purpose/PurposeSection";
 import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
 import { PillarsSection } from "@/components/pillars/PillarsSection";
@@ -15,8 +15,8 @@ export default function HomePage() {
   return (
     <div className="w-full bg-[var(--bg-deep)] flex flex-col">
       <main className="w-full flex-1">
-        {/* Primary Video Story Hero */}
-        <VideoStory />
+        {/* Primary Interactive Particle Hero */}
+        <ParticleStoryHero />
 
         {/* Problem / Purpose Section */}
         <PurposeSection />
