@@ -10,10 +10,12 @@ export interface HeroCanvasHandle {
 
 interface HeroCanvasProps {
   seed?: number;
+  showReplay?: boolean;
+  className?: string;
 }
 
 export const HeroCanvas = forwardRef<HeroCanvasHandle, HeroCanvasProps>(function HeroCanvas(
-  { seed },
+  { seed, showReplay = false, className = "" },
   ref
 ) {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -63,12 +65,11 @@ export const HeroCanvas = forwardRef<HeroCanvasHandle, HeroCanvasProps>(function
   return (
     <div
       ref={containerRef}
-      className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none"
+      className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none ${className}`}
       aria-hidden="true"
     >
       {/* 2D/3D Particle Canvas */}
       <canvas
-        id="c"
         ref={canvasRef}
         className="absolute inset-0 w-full h-full block touch-none"
         style={{
@@ -76,24 +77,26 @@ export const HeroCanvas = forwardRef<HeroCanvasHandle, HeroCanvasProps>(function
         }}
       />
 
-      {/* Replay / Stage Controller (Anchored in Bottom Right Corner) */}
-      <div className="hero-bottom-bar pointer-events-auto">
-        <button
-          id="btnReplay"
-          type="button"
-          onClick={handleReplayClick}
-          className="replay-pill-btn"
-          title="Replay Bridge to Logo Transition"
-          aria-label="Replay Bridge to Logo Transition"
-        >
-          <span className="replay-icon" aria-hidden="true">
-            ⟳
-          </span>
-          <span className="replay-label" id="stageLabel">
-            Bridge
-          </span>
-        </button>
-      </div>
+      {/* Replay / Stage Controller (Optional) */}
+      {showReplay && (
+        <div className="hero-bottom-bar pointer-events-auto">
+          <button
+            id="btnReplay"
+            type="button"
+            onClick={handleReplayClick}
+            className="replay-pill-btn"
+            title="Replay Bridge to Logo Transition"
+            aria-label="Replay Bridge to Logo Transition"
+          >
+            <span className="replay-icon" aria-hidden="true">
+              ⟳
+            </span>
+            <span className="replay-label" id="stageLabel">
+              Bridge
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 });
