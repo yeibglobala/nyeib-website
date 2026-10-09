@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
-import { PurposeSection } from "@/components/purpose/PurposeSection";
+import { NigeriaPhotoMap } from "@/components/map/NigeriaPhotoMap";
 import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
 import { ImpactSection } from "@/components/impact/ImpactSection";
@@ -17,8 +17,8 @@ export default function WhatWeDoPage() {
       {/* Inner Page Hero */}
       <InnerHero slug="what-we-do" />
 
-      {/* Purpose Section */}
-      <PurposeSection />
+      {/* Interactive Nigeria Photo Map Purpose Section */}
+      <NigeriaPhotoMap />
 
       {/* Sector Agnostic Growth Focused Funds Showcase */}
       <SectorAgnosticAudiencesSection />
