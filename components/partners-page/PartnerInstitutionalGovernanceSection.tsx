@@ -46,7 +46,7 @@ export function PartnerInstitutionalGovernanceSection() {
       id="institutional-partners"
       data-theme="dark"
       aria-label="Institutional Partners"
-      className="relative w-full bg-[#0b1310] text-[#eef6f2] py-[clamp(72px,9vw,130px)] px-6 sm:px-10 lg:px-16 overflow-hidden border-t border-[rgba(238,246,242,0.08)]"
+      className="relative w-full bg-[#003124] text-[#eef6f2] py-[clamp(72px,9vw,130px)] px-6 sm:px-10 lg:px-16 overflow-hidden border-t border-[rgba(238,246,242,0.08)]"
     >
       <div className="max-w-[1400px] w-full mx-auto flex flex-col space-y-14 sm:space-y-16">
         {/* 3 Partner Cards Grid */}

@@ -10,7 +10,7 @@ export function Footer() {
       id="site-footer"
       data-theme="dark"
       role="contentinfo"
-      className="w-full bg-[#0b1310] text-[#eef6f2] pt-24 sm:pt-28 md:pt-32 pb-12 px-6 sm:px-10 lg:px-16 border-t border-[rgba(238,246,242,0.06)]"
+      className="w-full bg-[#003124] text-[#eef6f2] pt-24 sm:pt-28 md:pt-32 pb-12 px-6 sm:px-10 lg:px-16 border-t border-[rgba(238,246,242,0.06)]"
     >
       <div className="max-w-[1400px] w-full mx-auto">
         {/* Main Footer Grid: Brand Info on Left (35%), Link Columns on Right */}

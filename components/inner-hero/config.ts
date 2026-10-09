@@ -23,6 +23,15 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
       "NYEIB works across the investment ecosystem, helping businesses, financial institutions and investment partners engage through pathways suited to their role.",
     overlayStrength: 1.0,
   },
+  "impact": {
+    slug: "impact",
+    imageSrc: "/images/impact-and-measurement.png",
+    headline:
+      "Building measurable impact through stronger businesses and smarter capital.",
+    subtext:
+      "NYEIB is designed to expand access to finance and strengthen the conditions for youth- and women-led businesses to grow.",
+    overlayStrength: 1.0,
+  },
   "impact-and-measurement": {
     slug: "impact-and-measurement",
     imageSrc: "/images/impact-and-measurement.png",
@@ -30,6 +39,14 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
       "Building measurable impact through stronger businesses and smarter capital.",
     subtext:
       "NYEIB is designed to expand access to finance and strengthen the conditions for youth- and women-led businesses to grow.",
+    overlayStrength: 1.0,
+  },
+  "partners": {
+    slug: "partners",
+    imageSrc: "/images/partners-and-investors.png",
+    headline: "Access investable businesses. Build long-term economic value.",
+    subtext:
+      "NYEIB gives institutional investors and development partners a structured pathway to growth-oriented youth- and women-led businesses through a professionally managed platform designed to support credible capital deployment.",
     overlayStrength: 1.0,
   },
   "partners-and-investors": {
@@ -40,12 +57,28 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
       "NYEIB gives institutional investors and development partners a structured pathway to growth-oriented youth- and women-led businesses through a professionally managed platform designed to support credible capital deployment.",
     overlayStrength: 1.0,
   },
+  "esg": {
+    slug: "esg",
+    imageSrc: "/images/esg-and-sustainability.png",
+    headline: "Building businesses prepared for the future.",
+    subtext:
+      "NYEIB integrates environmental, social and governance considerations into how it supports businesses, with a focus on responsible growth and long-term value.",
+    overlayStrength: 1.0,
+  },
   "esg-and-sustainability": {
     slug: "esg-and-sustainability",
     imageSrc: "/images/esg-and-sustainability.png",
     headline: "Building businesses prepared for the future.",
     subtext:
       "NYEIB integrates environmental, social and governance considerations into how it supports businesses, with a focus on responsible growth and long-term value.",
+    overlayStrength: 1.0,
+  },
+  "apply": {
+    slug: "apply",
+    imageSrc: "/images/apply-for-funding.png",
+    headline: "Work With NYEIB",
+    subtext:
+      "Whether you are growing a business or looking to partner with NYEIB, choose the pathway that best matches your role.",
     overlayStrength: 1.0,
   },
   "apply-for-funding": {

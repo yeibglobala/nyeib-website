@@ -1,12 +1,27 @@
 import type { Metadata } from "next";
-import { ApplyPageContent } from "@/components/apply-page/ApplyPageContent";
+import { ApplyLandingHero } from "@/components/apply/ApplyLandingHero";
+import { PathwayChooserSection } from "@/components/apply/PathwayChooserSection";
+import { SimpleFirstStepSection } from "@/components/apply/SimpleFirstStepSection";
+import { ImportantInformationSection } from "@/components/apply/ImportantInformationSection";
+import { DecorativeBlobs } from "@/components/apply/DecorativeBlobs";
 
 export const metadata: Metadata = {
   title: "Apply for Funding — Nigeria YEIB Investment Funds",
   description:
-    "Whether you are growing a business or looking to partner with NYEIB, choose the pathway that best matches your role.",
+    "Whether you are building a business or exploring an institutional partnership, NYEIB provides pathways to access capital, practical support and opportunities for collaboration.",
 };
 
 export default function ApplyPage() {
-  return <ApplyPageContent />;
+  return (
+    <main
+      data-theme="light"
+      className="relative min-h-screen w-full bg-[#F7F5F0] text-[#0F2A20] overflow-x-hidden flex flex-col"
+    >
+      <DecorativeBlobs />
+      <ApplyLandingHero />
+      <PathwayChooserSection />
+      <SimpleFirstStepSection />
+      <ImportantInformationSection />
+    </main>
+  );
 }

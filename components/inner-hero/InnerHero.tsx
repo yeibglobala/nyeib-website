@@ -1,33 +1,25 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { INNER_HERO_DATA, InnerHeroData } from "./config";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
-import { HeroCanvas } from "@/components/hero/HeroCanvas";
-import { CustomHeroCanvas } from "./CustomHeroCanvas";
-import { HERO_SHAPE_REGISTRY } from "@/lib/hero/heroShapes";
-import { StarfieldBackground } from "./StarfieldBackground";
-import { Parallax } from "@/shared/components/Parallax";
 
 export interface InnerHeroProps {
   slug?: string;
   headline?: string;
   subtext?: string;
-  seed?: number;
-  showReplay?: boolean;
 }
 
 export function InnerHero({
   slug = "what-we-do",
   headline: customHeadline,
   subtext: customSubtext,
-  seed,
-  showReplay = false,
 }: InnerHeroProps) {
   // Resolve data from slug if provided, or use custom props
   const defaultData: InnerHeroData = (slug && INNER_HERO_DATA[slug]) || {
     slug: slug || "custom",
-    imageSrc: "",
+    imageSrc: "/images/what-we-do.png",
     headline: customHeadline || "Unlocking Pathways for Investable Businesses",
     subtext:
       customSubtext ||
@@ -36,82 +28,53 @@ export function InnerHero({
 
   const headline = customHeadline || defaultData.headline;
   const subtext = customSubtext || defaultData.subtext;
-  const isCustomShape = slug && slug in HERO_SHAPE_REGISTRY;
+  const imageSrc = defaultData.imageSrc || "/images/what-we-do.png";
 
   return (
     <section
-      id="hero"
-      data-theme="dark"
+      id="inner-hero"
+      data-theme="light"
       aria-label={headline}
-      className="relative w-full overflow-hidden bg-[#07100d] flex flex-col justify-center min-h-[100vh] min-h-[100svh] min-h-[100dvh] pt-24 min-[900px]:pt-28 pb-12 sm:pb-16"
+      className="relative w-full bg-white text-[#003124] pt-36 sm:pt-44 md:pt-48 lg:pt-52 pb-12 sm:pb-16 lg:pb-24 overflow-hidden flex flex-col items-center"
     >
-      {/* Full-Bleed Outer Space Starfield Background */}
-      <StarfieldBackground />
+      <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-8 lg:px-12 flex flex-col items-center">
+        {/* =========================================================================
+            CENTERED EDITORIAL HEADLINE & SUBTEXT
+            ========================================================================= */}
+        <div className="w-full max-w-4xl lg:max-w-5xl mx-auto flex flex-col items-center text-center mb-10 sm:mb-14 lg:mb-16">
+          <HeaderReveal delay={60} duration={950}>
+            <h1
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold text-[#003124] tracking-tight leading-[1.12] text-center"
+              style={{ fontFamily: "var(--font-headline, serif)" }}
+            >
+              {headline}
+            </h1>
+          </HeaderReveal>
 
-      {/* Ambient Lighting & Depth Gradients */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
-        {/* Soft radial emerald aura in top-right behind particles */}
-        <div
-          className="absolute -top-[10%] right-[0%] w-[650px] h-[650px] rounded-full opacity-30 blur-[140px] pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(0, 190, 147, 0.45) 0%, rgba(7, 16, 13, 0) 70%)",
-          }}
-        />
-        {/* Soft amber / gold aura in center-right */}
-        <div
-          className="absolute top-[40%] right-[15%] w-[450px] h-[450px] rounded-full opacity-20 blur-[120px] pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(248, 132, 4, 0.35) 0%, rgba(7, 16, 13, 0) 70%)",
-          }}
-        />
-
-        {/* Top Navbar Dimmer */}
-        <div
-          className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[rgba(7,16,13,0.9)] via-[rgba(7,16,13,0.4)] to-transparent pointer-events-none"
-        />
-
-        {/* Bottom Edge Fade into Page */}
-        <div
-          className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-b from-transparent via-[rgba(7,16,13,0.75)] to-[#0b1310] pointer-events-none"
-        />
-      </div>
-
-      {/* Main Split Grid Layout */}
-      <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 my-auto">
-        <div className="max-w-[1400px] w-full mx-auto grid grid-cols-1 min-[900px]:grid-cols-12 gap-8 min-[900px]:gap-12 items-center">
-          {/* Left Column: Text (Headline + Subtext) */}
-          <div className="min-[900px]:col-span-6 min-[1200px]:col-span-5 flex flex-col space-y-6 pt-4 min-[900px]:pt-0">
-            <HeaderReveal delay={80} duration={1000} parallaxSpeed={12}>
-              <h1
-                className="text-white font-normal text-left tracking-[-0.015em] leading-[1.12] text-[clamp(32px,3.8vw,56px)] m-0"
-                style={{ fontFamily: "var(--font-headline, serif)" }}
-              >
-                {headline}
-              </h1>
-            </HeaderReveal>
-
-            <HeaderReveal delay={200} duration={950} mask={false} parallaxSpeed={8}>
+          {subtext && (
+            <HeaderReveal delay={180} duration={900} mask={false}>
               <p
-                className="text-[#e1c9b3] text-left leading-[1.65] text-[clamp(15px,1.2vw,18.5px)] font-normal m-0 max-w-[48ch]"
+                className="text-base sm:text-lg md:text-[19px] text-[#003124]/75 font-normal leading-relaxed max-w-2xl mx-auto mt-5 sm:mt-6"
                 style={{ fontFamily: "var(--font-body, sans-serif)" }}
               >
                 {subtext}
               </p>
             </HeaderReveal>
-          </div>
+          )}
+        </div>
 
-          {/* Right Column: Particle WebGL Canvas Stage */}
-          <div className="min-[900px]:col-span-6 min-[1200px]:col-span-7 relative w-full aspect-[4/3] sm:aspect-[16/11] min-[900px]:aspect-auto min-[900px]:h-[560px] min-[1200px]:h-[600px] max-h-[72vh] flex items-center justify-center pointer-events-auto">
-            <Parallax speed={16} className="w-full h-full relative">
-              <div className="relative w-full h-full">
-                {isCustomShape ? (
-                  <CustomHeroCanvas slug={slug} />
-                ) : (
-                  <HeroCanvas seed={seed} showReplay={showReplay} />
-                )}
-              </div>
-            </Parallax>
-          </div>
+        {/* =========================================================================
+            LARGE CINEMATIC ROUNDED PHOTOGRAPHY CONTAINER (Matching Reference Design)
+            ========================================================================= */}
+        <div className="w-full relative h-[360px] sm:h-[480px] md:h-[580px] lg:h-[680px] rounded-[24px] sm:rounded-[36px] lg:rounded-[44px] overflow-hidden shadow-[0_20px_50px_rgba(0,49,36,0.08)] border border-[rgba(0,49,36,0.06)] bg-[#F2FBF6]">
+          <Image
+            src={imageSrc}
+            alt={headline}
+            fill
+            priority
+            sizes="(max-width: 1400px) 100vw, 1400px"
+            className="object-cover object-center"
+          />
         </div>
       </div>
     </section>

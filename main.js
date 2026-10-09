@@ -1142,7 +1142,7 @@
       if (stageLabel) stageLabel.textContent = "Returning to Bridge";
     }
 
-    gl.clearColor(0.04, 0.07, 0.06, 1.0); // #0a1310 deep dark green
+    gl.clearColor(0.0, 0.192, 0.141, 1.0); // #003124 evergreen
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     const proj = getOrthoProjection(W, H);

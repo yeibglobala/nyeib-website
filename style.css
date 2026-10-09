@@ -5,7 +5,7 @@
 
 :root {
   /* Brand Palette */
-  --bg-deep: #0b1310;
+  --bg-deep: #003124;
   --fg-main: #eef6f2;
   --c-accent: #2eb78c;
   --c-mint-leaf: #00be93;
@@ -64,7 +64,7 @@ canvas#c {
   height: 100%;
   pointer-events: none;
   z-index: 2;
-  background: radial-gradient(circle at 50% 25%, rgba(11, 19, 16, 0.65) 0%, rgba(11, 19, 16, 0.15) 50%, rgba(11, 19, 16, 0) 80%);
+  background: radial-gradient(circle at 50% 25%, rgba(0, 49, 36, 0.65) 0%, rgba(0, 49, 36, 0.15) 50%, rgba(0, 49, 36, 0) 80%);
 }
 
 /* Page Layout Wrapper */

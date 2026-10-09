@@ -6,7 +6,7 @@ import { CtaSection } from "@/components/cta/CtaSection";
 import { Footer } from "@/components/footer/Footer";
 
 export const viewport: Viewport = {
-  themeColor: "#0b1310",
+  themeColor: "#003124",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

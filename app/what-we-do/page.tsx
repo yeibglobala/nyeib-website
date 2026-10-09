@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { PurposeSection } from "@/components/purpose/PurposeSection";
-import { PillarsSection } from "@/components/pillars/PillarsSection";
+import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
 import { ImpactSection } from "@/components/impact/ImpactSection";
 
@@ -13,15 +13,15 @@ export const metadata: Metadata = {
 
 export default function WhatWeDoPage() {
   return (
-    <main className="w-full bg-[#0b1310] flex flex-col">
+    <main className="w-full bg-[#003124] flex flex-col">
       {/* Inner Page Hero */}
       <InnerHero slug="what-we-do" />
 
       {/* Purpose Section */}
       <PurposeSection />
 
-      {/* Pillars Section */}
-      <PillarsSection />
+      {/* Sector Agnostic Growth Focused Funds Showcase */}
+      <SectorAgnosticAudiencesSection />
 
       {/* Governance Section */}
       <GovernanceSection />

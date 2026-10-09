@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function PartnersPage() {
   return (
-    <main className="w-full bg-[#0b1310] flex flex-col">
+    <main className="w-full bg-[#003124] flex flex-col">
       {/* Hero */}
       <InnerHero slug="partners-and-investors" />
 

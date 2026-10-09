@@ -23,7 +23,7 @@ export function GovernanceSection({ config = GOVERNANCE_CONFIG }: GovernanceSect
       id="governance"
       data-theme="dark"
       aria-label={config.topArea.tag}
-      className="relative w-full bg-[#0c1f19] text-[#eef6f2] py-[clamp(72px,10vw,140px)] px-6 sm:px-10 lg:px-16 overflow-hidden"
+      className="relative w-full bg-[#003124] text-[#eef6f2] py-[clamp(72px,10vw,140px)] px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
       <div className="max-w-[1400px] w-full mx-auto flex flex-col space-y-16 sm:space-y-20">
         {/* =========================================================================

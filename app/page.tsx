@@ -2,14 +2,11 @@ import React from "react";
 import { ParticleStoryHero } from "@/components/hero/ParticleStoryHero";
 import { PurposeSection } from "@/components/purpose/PurposeSection";
 import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
-import { PillarsSection } from "@/components/pillars/PillarsSection";
+import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
 import { CapitalMobilisation } from "@/components/home/CapitalMobilisation";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
 import { ImpactSection } from "@/components/impact/ImpactSection";
-import {
-  HOMEPAGE_PILLARS_CONFIG,
-  HOMEPAGE_GOVERNANCE_CONFIG,
-} from "@/components/home/config";
+import { HOMEPAGE_GOVERNANCE_CONFIG } from "@/components/home/config";
 
 export default function HomePage() {
   return (
@@ -24,8 +21,8 @@ export default function HomePage() {
         {/* Who We Serve Overview & Pathways Teaser */}
         <WhoWeServeTeaser />
 
-        {/* A Blended Platform for Capital and Growth (3 Financing Instruments) */}
-        <PillarsSection config={HOMEPAGE_PILLARS_CONFIG} />
+        {/* A Blended Platform for Capital and Growth (Sector Agnostic Growth Focused) */}
+        <SectorAgnosticAudiencesSection />
 
         {/* Built to Mobilise Capital at Scale (US$300M / US$100M / 3 Instruments) */}
         <CapitalMobilisation />

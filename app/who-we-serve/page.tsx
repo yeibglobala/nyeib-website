@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
-import { WhoWeServeCardsSection } from "@/components/who-we-serve/WhoWeServeCardsSection";
+import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
+import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
 
 export const metadata: Metadata = {
@@ -15,8 +16,11 @@ export default function WhoWeServePage() {
       {/* Inner Hero */}
       <InnerHero slug="who-we-serve" />
 
-      {/* 3 Audience Cards Showcase (Replacing Accordion & Particles) */}
-      <WhoWeServeCardsSection />
+      {/* Interactive Sector Agnostic Audiences Showcase */}
+      <SectorAgnosticAudiencesSection />
+
+      {/* Interactive Who We Serve Swiper Showcase */}
+      <WhoWeServeTeaser />
 
       {/* Institutional Framework */}
       <GovernanceSection />

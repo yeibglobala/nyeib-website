@@ -5,11 +5,11 @@
 
 :root {
   /* Brand Core Colors */
-  --bg-deep: #0b1310;
-  --bg-surface: #101c18;
-  --bg-surface-elevated: #162621;
-  --bg-card: rgba(16, 28, 24, 0.7);
-  --bg-card-hover: rgba(22, 38, 33, 0.85);
+  --bg-deep: #003124;
+  --bg-surface: #053b2d;
+  --bg-surface-elevated: #0a4637;
+  --bg-card: rgba(5, 59, 45, 0.7);
+  --bg-card-hover: rgba(10, 70, 55, 0.85);
 
   --fg-main: #eef6f2;
   --fg-muted: #c4d1cb;

@@ -66,7 +66,7 @@ export function CtaSection({
       id="partner"
       data-theme="dark"
       aria-label="Partner with NYEIB"
-      className="relative w-full bg-[#0b1310] pt-12 sm:pt-16 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-16"
+      className="relative w-full bg-[#003124] pt-12 sm:pt-16 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-16"
     >
       <div className="max-w-[1400px] w-full mx-auto">
         {/* Rounded Card with subtle floating parallax depth */}
@@ -109,7 +109,7 @@ export function CtaSection({
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to right, rgba(11,19,16,0.85) 0%, rgba(11,19,16,0.70) 32%, rgba(11,19,16,0.25) 60%, rgba(11,19,16,0) 100%)",
+                  "linear-gradient(to right, rgba(0,49,36,0.85) 0%, rgba(0,49,36,0.70) 32%, rgba(0,49,36,0.25) 60%, rgba(0,49,36,0) 100%)",
               }}
             />
 
@@ -118,7 +118,7 @@ export function CtaSection({
               className="absolute inset-0 min-[700px]:hidden pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to bottom, rgba(11,19,16,0.75) 0%, rgba(11,19,16,0.2) 50%, rgba(11,19,16,0.80) 100%)",
+                  "linear-gradient(to bottom, rgba(0,49,36,0.75) 0%, rgba(0,49,36,0.2) 50%, rgba(0,49,36,0.80) 100%)",
               }}
             />
           </div>

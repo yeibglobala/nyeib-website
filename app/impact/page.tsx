@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function ImpactPage() {
   return (
-    <main className="w-full bg-[#0b1310] flex flex-col">
+    <main className="w-full bg-[#003124] flex flex-col">
       {/* Inner Hero */}
       <InnerHero slug="impact-and-measurement" />
 

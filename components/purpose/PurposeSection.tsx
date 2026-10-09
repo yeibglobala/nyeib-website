@@ -94,7 +94,7 @@ export function PurposeSection() {
         <div className="relative w-full">
           {/* Centered Video Banner with Subtle Parallax Floating Depth */}
           <Parallax speed={35} className="relative w-full">
-            <div className="relative w-full aspect-[2.6/1] min-h-[350px] rounded-[32px] overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.22)] bg-[#0b1310]">
+            <div className="relative w-full aspect-[2.6/1] min-h-[350px] rounded-[32px] overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.22)] bg-[#003124]">
               {/* Poster Fallback Image */}
               <img
                 src={PURPOSE_CONFIG.media.poster}
@@ -273,7 +273,7 @@ export function PurposeSection() {
         </h2>
 
         {/* 2. Video Banner (Full width with 32px radius, aspect ratio 4/3) */}
-        <div className="relative w-full aspect-[4/3] rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-xl bg-[#0b1310]">
+        <div className="relative w-full aspect-[4/3] rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-xl bg-[#003124]">
           <img
             src={PURPOSE_CONFIG.media.poster}
             alt=""

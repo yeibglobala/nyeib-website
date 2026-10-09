@@ -79,7 +79,7 @@ export const HERO_CONFIG = {
 
   // Color Palette Constants
   colors: {
-    bgDeep: "#0a1310",
+    bgDeep: "#003124",
     textMain: "#eef6f2",
     accentGreen: "#2eb78c",
     paleOak: "#e1c9b3",

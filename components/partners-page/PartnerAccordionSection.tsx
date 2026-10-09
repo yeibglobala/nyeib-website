@@ -1,164 +1,254 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
-import { Parallax } from "@/shared/components/Parallax";
-import { PartnerPillarsStage } from "./PartnerPillarsStage";
 
-interface AccordionItem {
+export interface PartnerPathwayItem {
+  id: string;
   number: string;
   title: string;
   description: string;
+  imageSrc: string;
 }
 
-const PARTNER_ITEMS: AccordionItem[] = [
+const PARTNER_PATHWAY_DATA: PartnerPathwayItem[] = [
   {
+    id: "stronger-opportunity",
     number: "01",
     title: "More than impact. A stronger investment opportunity.",
     description:
       "NYEIB helps institutions participate in businesses with growth potential, measurable impact and long-term economic value, while strengthening the conditions that can make those businesses more investment-ready.",
+    imageSrc: "/images/Institutional-investors-and-development-partners.jpg",
   },
   {
+    id: "institutionally-anchored",
     number: "02",
     title: "Institutionally anchored. Professionally structured.",
     description:
       "NYEIB is being established through an institutional framework involving the Nigeria Sovereign Investment Authority, Development Bank of Nigeria and African Development Bank, with dedicated governance, investment and risk-management arrangements.",
+    imageSrc: "/images/partners-and-investors.png",
   },
 ];
 
 export function PartnerAccordionSection() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
 
-  const handleMouseEnter = (idx: number) => {
-    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
-    hoverTimerRef.current = setTimeout(() => {
-      setActiveIndex(idx);
-    }, 60);
+  const handlePrev = () => {
+    setActiveIndex((prev) =>
+      prev === 0 ? PARTNER_PATHWAY_DATA.length - 1 : prev - 1
+    );
   };
 
-  const handleMouseLeave = () => {
-    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+  const handleNext = () => {
+    setActiveIndex((prev) =>
+      prev === PARTNER_PATHWAY_DATA.length - 1 ? 0 : prev + 1
+    );
   };
 
   return (
     <section
       id="partner-pathways"
-      data-theme="light"
       aria-label="Choose the pathway that fits your mandate"
-      className="relative w-full bg-[#e3ece7] text-[#12201b] py-[clamp(88px,10vw,160px)] px-6 sm:px-10 lg:px-16 select-none overflow-hidden border-t border-[rgba(18,32,27,0.08)]"
+      className="relative w-full min-h-[760px] lg:min-h-[820px] bg-[#F6F7FB] text-[#003124] overflow-hidden flex flex-col justify-center"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="max-w-[1400px] w-full mx-auto">
-        {/* =========================================================================
-            HEADER AT THE TOP (Full-width intro header)
-            ========================================================================= */}
-        <header className="mb-[clamp(48px,5.5vw,88px)]">
-          <div className="grid grid-cols-1 min-[900px]:grid-cols-[7fr_5fr] gap-4 min-[900px]:gap-[4vw] items-end">
-            <HeaderReveal delay={100} duration={950} parallaxSpeed={14}>
+      <style>{`
+        @keyframes partnerProgressBar {
+          0% {
+            width: 0%;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+      `}</style>
+
+      {/* =========================================================================
+          RIGHT FULL-HEIGHT SVG CURVED FRAME WITH SWITCHING PHOTOGRAPHY
+          ========================================================================= */}
+      <div className="absolute top-0 right-0 bottom-0 h-full w-full lg:w-[58%] pointer-events-none z-10 max-lg:opacity-30">
+        <svg
+          viewBox="0 0 914 819"
+          preserveAspectRatio="xMaxYMid slice"
+          className="w-full h-full"
+        >
+          <defs>
+            <clipPath id="partnerVectorCurveClip">
+              <path d="M914 -230.328V1062.33H369.649L385.272 912.375C414.81 629.179 350.505 344.094 202.36 101.312L0 -230.328H914Z" />
+            </clipPath>
+            <linearGradient
+              id="partnerPhotoBottomFade"
+              x1="457"
+              y1="0"
+              x2="457"
+              y2="819"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.42" stopColor="#021913" stopOpacity="0" />
+              <stop offset="0.75" stopColor="#021913" stopOpacity="0.82" />
+              <stop offset="1.0" stopColor="#003124" stopOpacity="0.95" />
+            </linearGradient>
+          </defs>
+
+          <g clipPath="url(#partnerVectorCurveClip)">
+            {/* Smooth Layered Cross-Fade Photography Switcher */}
+            {PARTNER_PATHWAY_DATA.map((item, idx) => {
+              const isSelected = activeIndex === idx;
+              return (
+                <image
+                  key={item.id}
+                  href={item.imageSrc}
+                  x="0"
+                  y="0"
+                  width="914"
+                  height="819"
+                  preserveAspectRatio="xMidYMid slice"
+                  style={{
+                    opacity: isSelected ? 1 : 0,
+                    transition: "opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                />
+              );
+            })}
+            {/* Dark Brand Gradient Overlay on Lower Frame */}
+            <rect
+              x="0"
+              y="0"
+              width="914"
+              height="819"
+              fill="url(#partnerPhotoBottomFade)"
+              className="pointer-events-none"
+            />
+          </g>
+        </svg>
+      </div>
+
+      {/* =========================================================================
+          CONTENT CONTAINER (Left Column Alignment matching Sector Agnostic layout)
+          ========================================================================= */}
+      <div className="relative z-20 max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-16 py-20 sm:py-24 lg:py-28">
+        <div className="w-full max-w-[540px] flex flex-col items-start gap-8 sm:gap-10">
+          {/* Header text block */}
+          <div className="flex flex-col gap-4 sm:gap-6 items-start">
+            <HeaderReveal delay={80} duration={900}>
               <h2
-                className="text-[clamp(2.2rem,3.8vw,3.6rem)] font-normal leading-[1.12] tracking-[-0.015em] text-[#12201b] m-0"
+                className="text-[clamp(34px,4.4vw,56px)] font-bold leading-[1.08] tracking-tight text-[#003124] m-0"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
               >
                 Choose the pathway that{" "}
-                <span className="text-[#1f9d74]">fits your mandate</span>.
+                <span className="text-[#F88404] block sm:inline">fits your mandate.</span>
               </h2>
             </HeaderReveal>
 
-            <HeaderReveal delay={200} duration={950} mask={false} parallaxSpeed={12}>
+            <HeaderReveal delay={180} duration={900} mask={false}>
               <p
-                className="m-0 text-[#4a5d55] max-w-[46ch] text-[clamp(0.98rem,1.15vw,1.12rem)] leading-[1.6]"
-                style={{ fontFamily: "var(--font-body)" }}
+                className="text-[17px] sm:text-[19px] lg:text-[20px] leading-[1.55] text-[#003124]/75 font-normal m-0"
+                style={{ fontFamily: "var(--font-body, sans-serif)" }}
               >
-                Partners may explore opportunities across the Equity Investment Fund,
-                Credit Guarantee Facility and Ecosystem Development Fund, as well as
-                co-investment, technical-assistance funding and other forms of support
-                aligned with their mandate.
+                Partners may explore opportunities across the Equity Investment Fund, Credit Guarantee Facility and Ecosystem Development Fund, as well as co-investment, technical-assistance funding and other forms of support aligned with their mandate.
               </p>
             </HeaderReveal>
           </div>
-        </header>
 
-        {/* =========================================================================
-            ACCORDION BODY: Left 5fr Accordion List, Right 7fr Particle Stage
-            ========================================================================= */}
-        <div className="grid grid-cols-1 min-[900px]:grid-cols-[5fr_7fr] gap-12 min-[900px]:gap-[5vw] items-center">
-          {/* Left Column: Interactive Accordion Rows */}
+          {/* Interactive Pathways List */}
           <div
-            onMouseLeave={handleMouseLeave}
-            className="border-t border-[rgba(18,32,27,0.16)] flex flex-col"
+            className="flex flex-col gap-4 sm:gap-5 w-full"
+            role="tablist"
+            aria-label="Partner Pathways"
           >
-            {PARTNER_ITEMS.map((item, idx) => {
+            {PARTNER_PATHWAY_DATA.map((item, idx) => {
               const isActive = activeIndex === idx;
 
               return (
                 <div
-                  key={item.number}
-                  onMouseEnter={() => handleMouseEnter(idx)}
-                  className="group relative border-b border-[rgba(18,32,27,0.16)]"
+                  key={item.id}
+                  onClick={() => setActiveIndex(idx)}
+                  role="tab"
+                  aria-selected={isActive}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveIndex(idx);
+                    }
+                  }}
+                  className="flex flex-col pt-1 pb-2 transition-all duration-200 cursor-pointer group"
                 >
-                  <button
-                    type="button"
-                    onClick={() => setActiveIndex(idx)}
-                    aria-expanded={isActive}
-                    aria-controls={`partner-panel-${item.number}`}
-                    className={`w-full text-left grid grid-cols-[44px_1fr] gap-2 py-7 px-0 cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-[#1f9d74] rounded-sm transition-opacity duration-300 ${
-                      isActive ? "opacity-100" : "opacity-45 hover:opacity-80"
-                    }`}
-                  >
-                    <span
-                      className="font-semibold text-[#f88404] text-[0.95rem] pt-[0.2em]"
-                      style={{ fontFamily: "var(--font-body)" }}
-                    >
+                  <div className="flex items-start gap-3 w-full">
+                    <span className="text-sm font-bold text-[#F88404] font-mono pt-1 shrink-0">
                       {item.number}
                     </span>
-                    <h3
-                      className="text-[clamp(1.18rem,1.8vw,1.65rem)] leading-[1.25] font-normal text-[#12201b] m-0"
-                      style={{ fontFamily: "var(--font-headline, serif)" }}
-                    >
-                      {item.title}
-                    </h3>
-                  </button>
-
-                  {/* Accordion Expand Panel */}
-                  <div
-                    id={`partner-panel-${item.number}`}
-                    role="region"
-                    className={`grid transition-[grid-template-rows] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                      isActive
-                        ? "grid-rows-[1fr] duration-[500ms]"
-                        : "grid-rows-[0fr] duration-[300ms]"
-                    }`}
-                  >
-                    <div className="overflow-hidden min-h-0 pl-[44px]">
-                      <div
-                        className={`pb-7 transition-all ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    <div className="flex-1 space-y-1.5">
+                      <h3
+                        className={`text-[19px] sm:text-[21px] lg:text-[22px] font-bold leading-[1.3] transition-colors ${
                           isActive
-                            ? "opacity-100 translate-y-0 duration-[500ms] delay-[80ms]"
-                            : "opacity-0 translate-y-2 duration-200 delay-0"
+                            ? "text-[#003124]"
+                            : "text-[#003124]/60 group-hover:text-[#003124]"
                         }`}
+                        style={{ fontFamily: "var(--font-body, sans-serif)" }}
                       >
+                        {item.title}
+                      </h3>
+                      {isActive && (
                         <p
-                          className="m-0 text-[#4a5d55] text-[clamp(0.98rem,1.1vw,1.1rem)] leading-[1.65]"
-                          style={{ fontFamily: "var(--font-body)" }}
+                          className="text-[14px] sm:text-[15px] text-[#003124]/75 leading-relaxed font-normal pt-1 animate-in fade-in duration-300"
+                          style={{ fontFamily: "var(--font-body, sans-serif)" }}
                         >
                           {item.description}
                         </p>
-                      </div>
+                      )}
                     </div>
                   </div>
+
+                  {/* Active Underline Indicator with Animated Progress Bar */}
+                  {isActive ? (
+                    <div className="mt-3 relative w-full h-[4px] sm:h-[5px] rounded-full overflow-hidden bg-[#003124]/10">
+                      <div
+                        key={`progress-${activeIndex}`}
+                        onAnimationEnd={handleNext}
+                        className="h-full bg-gradient-to-r from-[#F88404] via-[#F88404]/90 to-transparent rounded-full shadow-[0_0_10px_rgba(248,132,4,0.4)] origin-left"
+                        style={{
+                          animation: "partnerProgressBar 6s linear forwards",
+                          animationPlayState: isPaused ? "paused" : "running",
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="mt-3 relative w-full h-[1px] bg-transparent" />
+                  )}
                 </div>
               );
             })}
           </div>
-
-          {/* Right Column: Morphing Particle Stage */}
-          <div className="w-full flex items-center justify-center">
-            <Parallax speed={16} className="w-full">
-              <PartnerPillarsStage activeIndex={activeIndex} />
-            </Parallax>
-          </div>
         </div>
+      </div>
+
+      {/* =========================================================================
+          CAROUSEL CONTROLS OVER SVG PHOTO FRAME
+          ========================================================================= */}
+      <div className="absolute bottom-10 right-6 sm:bottom-14 sm:right-12 lg:bottom-16 lg:right-28 z-30 flex items-center gap-4">
+        <button
+          type="button"
+          onClick={handlePrev}
+          aria-label="Previous pathway"
+          className="w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full bg-white border border-[#003124]/30 text-[#003124] flex items-center justify-center hover:bg-[#003124] hover:text-white hover:border-[#003124] transition-all shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+
+        <button
+          type="button"
+          onClick={handleNext}
+          aria-label="Next pathway"
+          className="w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full bg-[#F88404] text-white flex items-center justify-center hover:bg-[#ff9626] transition-all shadow-[0_4px_16px_rgba(248,132,4,0.4)] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
+        >
+          <ArrowRight className="w-5 h-5" />
+        </button>
       </div>
     </section>
   );
 }
+

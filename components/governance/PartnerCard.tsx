@@ -112,11 +112,11 @@ export function PartnerCard({
           HOVER REVEAL LAYER:
           1. Brand green (#2eb78c) fill rising from bottom via clip-path
           2. Scaled real logo at top-left
-          3. Staggered line-by-line description in dark ink (#0c1f19)
+          3. Staggered line-by-line description in dark ink (#003124)
           4. Bottom partner name in dark ink
           ========================================================================= */}
       <div
-        className={`absolute inset-0 bg-[#2eb78c] text-[#0c1f19] p-6 sm:p-7 flex flex-col justify-between z-20 transition-[clip-path] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`absolute inset-0 bg-[#2eb78c] text-[#003124] p-6 sm:p-7 flex flex-col justify-between z-20 transition-[clip-path] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isCardOpen
             ? "clip-path-inset-0"
             : "clip-path-inset-bottom"
@@ -141,7 +141,7 @@ export function PartnerCard({
             {partner.descriptionLines.map((line, lineIdx) => (
               <div key={lineIdx} className="overflow-hidden">
                 <p
-                  className={`text-[13.5px] sm:text-[14.5px] font-medium leading-[1.45] text-[#0c1f19] m-0 transition-transform duration-[500ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  className={`text-[13.5px] sm:text-[14.5px] font-medium leading-[1.45] text-[#003124] m-0 transition-transform duration-[500ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isCardOpen
                       ? "translate-y-0"
                       : "translate-y-[110%] max-[700px]:translate-y-0"
@@ -160,9 +160,9 @@ export function PartnerCard({
           </div>
 
           {/* Partner Name Label in Dark Ink */}
-          <div className="pt-2 border-t border-[rgba(12,31,25,0.22)]">
+          <div className="pt-2 border-t border-[rgba(0,49,36,0.22)]">
             <span
-              className="text-[14.5px] sm:text-[15px] font-bold text-[#0c1f19] tracking-tight block"
+              className="text-[14.5px] sm:text-[15px] font-bold text-[#003124] tracking-tight block"
               style={{ fontFamily: "var(--font-body)" }}
             >
               {partner.name}
