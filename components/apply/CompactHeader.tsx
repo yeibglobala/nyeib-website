@@ -14,7 +14,7 @@ export function CompactHeader({
   return (
     <header
       data-theme="dark"
-      className="relative w-full bg-[#0b1310] text-[#eef6f2] pt-36 sm:pt-44 md:pt-48 pb-14 sm:pb-18 min-h-[38svh] sm:min-h-[42svh] flex flex-col justify-end overflow-hidden border-b border-white/[0.08]"
+      className="relative w-full bg-[#0b1310] text-[#eef6f2] pt-28 sm:pt-44 md:pt-48 pb-10 sm:pb-18 min-h-[34svh] sm:min-h-[42svh] flex flex-col justify-end overflow-hidden border-b border-white/[0.08]"
     >
       {/* Soft CSS Mint Ambient Glow (Right side) */}
       <div

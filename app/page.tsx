@@ -1,5 +1,6 @@
 import React from "react";
 import { ParticleStoryHero } from "@/components/hero/ParticleStoryHero";
+import { LogoMarquee } from "@/components/home/LogoMarquee";
 import { PurposeSection } from "@/components/purpose/PurposeSection";
 import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
 import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
@@ -14,6 +15,9 @@ export default function HomePage() {
       <main className="w-full flex-1">
         {/* Primary Interactive Particle Hero */}
         <ParticleStoryHero />
+
+        {/* Anchor Institutions & Partners Logo Marquee */}
+        <LogoMarquee />
 
         {/* Problem / Purpose Section */}
         <PurposeSection />

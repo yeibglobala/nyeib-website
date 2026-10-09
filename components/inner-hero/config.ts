@@ -9,7 +9,7 @@ export interface InnerHeroData {
 export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "what-we-do": {
     slug: "what-we-do",
-    imageSrc: "/images/what-we-do.png",
+    imageSrc: "/images/nyeib-what-we-do.jpg",
     headline: "We exist to unlock pathways for investable businesses.",
     subtext:
       "NYEIB connect growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
@@ -17,7 +17,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "who-we-serve": {
     slug: "who-we-serve",
-    imageSrc: "/images/who-we-serve.png",
+    imageSrc: "/images/nyeib-who-we-serve.jpg",
     headline: "One ecosystem with different pathways to participate.",
     subtext:
       "NYEIB works across the investment ecosystem, helping businesses, financial institutions and investment partners engage through pathways suited to their role.",
@@ -25,7 +25,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "impact": {
     slug: "impact",
-    imageSrc: "/images/impact-and-measurement.png",
+    imageSrc: "/images/nyeib-Impact-and-measurement.jpg",
     headline:
       "Building measurable impact through stronger businesses and smarter capital.",
     subtext:
@@ -34,7 +34,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "impact-and-measurement": {
     slug: "impact-and-measurement",
-    imageSrc: "/images/impact-and-measurement.png",
+    imageSrc: "/images/nyeib-Impact-and-measurement.jpg",
     headline:
       "Building measurable impact through stronger businesses and smarter capital.",
     subtext:
@@ -43,7 +43,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "partners": {
     slug: "partners",
-    imageSrc: "/images/partners-and-investors.png",
+    imageSrc: "/images/nyeib-partner-and-investor.jpg",
     headline: "Access investable businesses. Build long-term economic value.",
     subtext:
       "NYEIB gives institutional investors and development partners a structured pathway to growth-oriented youth- and women-led businesses through a professionally managed platform designed to support credible capital deployment.",
@@ -51,7 +51,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "partners-and-investors": {
     slug: "partners-and-investors",
-    imageSrc: "/images/partners-and-investors.png",
+    imageSrc: "/images/nyeib-partner-and-investor.jpg",
     headline: "Access investable businesses. Build long-term economic value.",
     subtext:
       "NYEIB gives institutional investors and development partners a structured pathway to growth-oriented youth- and women-led businesses through a professionally managed platform designed to support credible capital deployment.",
@@ -59,7 +59,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "esg": {
     slug: "esg",
-    imageSrc: "/images/esg-and-sustainability.png",
+    imageSrc: "/images/nyeib-investors.jpg",
     headline: "Building businesses prepared for the future.",
     subtext:
       "NYEIB integrates environmental, social and governance considerations into how it supports businesses, with a focus on responsible growth and long-term value.",
@@ -67,7 +67,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "esg-and-sustainability": {
     slug: "esg-and-sustainability",
-    imageSrc: "/images/esg-and-sustainability.png",
+    imageSrc: "/images/nyeib-investors.jpg",
     headline: "Building businesses prepared for the future.",
     subtext:
       "NYEIB integrates environmental, social and governance considerations into how it supports businesses, with a focus on responsible growth and long-term value.",
@@ -75,7 +75,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "apply": {
     slug: "apply",
-    imageSrc: "/images/apply-for-funding.png",
+    imageSrc: "/images/nyeib-apply-for-funding.jpg",
     headline: "Work With NYEIB",
     subtext:
       "Whether you are growing a business or looking to partner with NYEIB, choose the pathway that best matches your role.",
@@ -83,7 +83,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   },
   "apply-for-funding": {
     slug: "apply-for-funding",
-    imageSrc: "/images/apply-for-funding.png",
+    imageSrc: "/images/nyeib-apply-for-funding.jpg",
     headline: "Work With NYEIB",
     subtext:
       "Whether you are growing a business or looking to partner with NYEIB, choose the pathway that best matches your role.",
