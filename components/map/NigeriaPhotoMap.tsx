@@ -271,7 +271,7 @@ export function NigeriaPhotoMap({
           >
             Across Nigeria, promising businesses are held back by financing gaps,
             limited business support and fragmented access to growth opportunities.
-            NYEIB exists to help close those gaps.
+            NYEIB exists to help <span className="text-[#f88404] font-medium">close those gaps.</span>
           </p>
         </div>
 
