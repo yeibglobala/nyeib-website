@@ -8,10 +8,27 @@ export function EsgInPageNav() {
   const navContainerRef = useRef<HTMLDivElement>(null);
   const links = ESG_CONTENT.inPageNav;
 
+  const getNavOffset = () => {
+    if (typeof window === "undefined") return 0;
+    const val = getComputedStyle(document.documentElement).getPropertyValue("--nav-offset").trim();
+    return parseFloat(val) || 0;
+  };
+
   useEffect(() => {
     const handleScroll = () => {
-      // Find which section is currently active
-      const scrollPos = window.scrollY + 180; // Offset for navbar + sticky nav
+      // If user scrolled past the bottom of section 5, the in-page bar scrolled away
+      const lastSection = document.getElementById(links[links.length - 1].id);
+      if (lastSection) {
+        const lastSectionBottom = lastSection.offsetTop + lastSection.offsetHeight;
+        if (window.scrollY > lastSectionBottom - 100) {
+          setActiveId("");
+          return;
+        }
+      }
+
+      const navOffset = getNavOffset();
+      const barHeight = navContainerRef.current?.offsetHeight || 56;
+      const scrollPos = window.scrollY + navOffset + barHeight + 40;
       let current = links[0].id;
 
       for (const link of links) {
@@ -43,8 +60,10 @@ export function EsgInPageNav() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Smooth scroll with offset for navbar + in-page nav (approx 135px)
-    const headerOffset = 135;
+    // Smooth scroll with dynamic offset for navbar + in-page nav
+    const navOffset = getNavOffset();
+    const barHeight = navContainerRef.current?.offsetHeight || 56;
+    const headerOffset = navOffset + barHeight + 16;
     const elementPosition = el.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -57,7 +76,10 @@ export function EsgInPageNav() {
   };
 
   return (
-    <div className="sticky top-[72px] sm:top-[80px] z-20 w-full bg-[#F7F5F0]/95 backdrop-blur-md border-b border-[#E6DCCB]/80 transition-all duration-200 mt-6 sm:mt-10 lg:mt-14">
+    <div
+      className="sticky z-20 w-full bg-[#F7F5F0] border-b border-[#E6DCCB] transition-[top] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      style={{ top: "var(--nav-offset, 0px)" }}
+    >
       <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative">
         {/* Mobile Edge Fade Out on Right */}
         <div

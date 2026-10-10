@@ -26,6 +26,9 @@
   --c-tiger-orange: #f88404;
   --c-tiger-orange-hover: #ff9626;
 
+  /* Navbar dynamic offset */
+  --nav-offset: 88px;
+
   /* Typography */
   --font-headline: 'Asul', Georgia, serif;
   --font-body: 'Chivo', system-ui, -apple-system, sans-serif;

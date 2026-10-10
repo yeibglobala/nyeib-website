@@ -47,7 +47,7 @@ export function EsgPoliciesSection() {
           {/* List Column: Order 2 on Mobile, Left Column on Desktop */}
           <div className="min-[900px]:col-span-7 min-[900px]:order-1 flex flex-col">
             <p
-              className="text-xs sm:text-sm text-[#0F2A20]/60 font-semibold tracking-wider uppercase mb-4"
+              className="text-base sm:text-[17px] text-[#4A5B53] font-normal leading-relaxed m-0 mb-4"
               style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
             >
               {leadIn}

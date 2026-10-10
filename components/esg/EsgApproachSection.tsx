@@ -60,7 +60,7 @@ export function EsgApproachSection() {
             {text}
           </p>
           <p
-            className="text-sm sm:text-base text-[#0F2A20]/60 font-medium tracking-wide uppercase"
+            className="text-base sm:text-[17px] text-[#4A5B53] font-normal leading-relaxed m-0"
             style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
           >
             {leadIn}

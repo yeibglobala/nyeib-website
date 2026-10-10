@@ -47,7 +47,7 @@ export function EsgPartnershipsSection() {
             {text}
           </p>
           <p
-            className="text-xs sm:text-sm text-[#0F2A20]/60 font-semibold tracking-wider uppercase"
+            className="text-base sm:text-[17px] text-[#4A5B53] font-normal leading-relaxed m-0"
             style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
           >
             {leadIn}

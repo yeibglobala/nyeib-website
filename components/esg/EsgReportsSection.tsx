@@ -46,7 +46,7 @@ export function EsgReportsSection() {
           {/* Right Column: List of documents + Note callout + Mobile Button */}
           <div className="min-[900px]:col-span-7 flex flex-col">
             <p
-              className="text-xs sm:text-sm text-[#0F2A20]/60 font-semibold tracking-wider uppercase mb-4"
+              className="text-base sm:text-[17px] text-[#4A5B53] font-normal leading-relaxed m-0 mb-4"
               style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
             >
               {leadIn}

@@ -245,8 +245,8 @@ export function WhistleblowingForm() {
                     style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                   >
                     {draftWhistle.concernTypeLabel}
-                    <span className="text-xs font-normal text-[#0F2A20]/60 ml-2">
-                      ({ui.requiredLabel})
+                    <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                      {ui.requiredLabel}
                     </span>
                   </label>
                   <select
@@ -291,8 +291,8 @@ export function WhistleblowingForm() {
                       style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                     >
                       {draftWhistle.descriptionLabel}
-                      <span className="text-xs font-normal text-[#0F2A20]/60 ml-2">
-                        ({ui.requiredLabel})
+                      <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                        {ui.requiredLabel}
                       </span>
                     </label>
                     <span
@@ -343,8 +343,8 @@ export function WhistleblowingForm() {
                     style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                   >
                     {draftWhistle.whenWhereLabel}
-                    <span className="text-xs font-normal text-[#0F2A20]/60 ml-2">
-                      ({ui.optionalLabel})
+                    <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                      {ui.optionalLabel}
                     </span>
                   </label>
                   <input
@@ -365,8 +365,8 @@ export function WhistleblowingForm() {
                     style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                   >
                     {draftWhistle.partiesInvolvedLabel}
-                    <span className="text-xs font-normal text-[#0F2A20]/60 ml-2">
-                      ({ui.optionalLabel})
+                    <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                      {ui.optionalLabel}
                     </span>
                   </label>
                   <input
@@ -387,8 +387,8 @@ export function WhistleblowingForm() {
                     style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                   >
                     {draftWhistle.contactLabel}
-                    <span className="text-xs font-normal text-[#0F2A20]/60 ml-2">
-                      ({ui.optionalLabel})
+                    <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                      {ui.optionalLabel}
                     </span>
                   </label>
                   <input

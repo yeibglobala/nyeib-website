@@ -86,9 +86,9 @@ export function EsgAccountabilitySection() {
 
                 {/* Card Body */}
                 <div className="flex-1 flex flex-col justify-between p-7 sm:p-9 pt-6">
-                  <div className="space-y-3.5 mb-8">
+                  <div className="mb-8">
                     <p
-                      className="font-bold text-[#0F2A20] text-base sm:text-[16.5px] leading-snug m-0"
+                      className="font-bold text-[#0F2A20] text-base sm:text-[16.5px] leading-snug m-0 mb-[14px]"
                       style={{
                         fontFamily: "var(--font-headline, 'Asul', Georgia, serif)",
                       }}
@@ -96,23 +96,26 @@ export function EsgAccountabilitySection() {
                       {channel.boldLine}
                     </p>
 
-                    {channel.paragraphs.map((p, pIdx) => (
-                      <p
-                        key={pIdx}
-                        className="text-sm sm:text-[15px] text-[#4A5B53] leading-relaxed m-0"
-                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                      >
-                        {p}
-                      </p>
-                    ))}
+                    <div className="space-y-[12px]">
+                      {channel.paragraphs.map((p, pIdx) => (
+                        <p
+                          key={pIdx}
+                          className="text-sm sm:text-[15px] text-[#4A5B53] leading-relaxed m-0"
+                          style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                        >
+                          {p}
+                        </p>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Button at bottom aligned across all cards */}
-                  <div className="mt-auto pt-2">
+                  <div className="mt-auto pt-2 flex items-end">
                     <EsgButton
                       label={channel.buttonLabel}
                       href={channel.buttonHref}
                       variant="darkGreen"
+                      minHeight64={true}
                     />
                   </div>
                 </div>

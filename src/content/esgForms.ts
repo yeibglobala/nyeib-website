@@ -31,8 +31,8 @@ export const ESG_FORMS_DRAFT_UI = {
   backLinkHref: "/esg#contact",
 
   // Shared Form Card & Field UI
-  requiredLabel: "Required",
-  optionalLabel: "Optional",
+  requiredLabel: "(Required)",
+  optionalLabel: "(Optional)",
   characterCountSuffix: "characters",
   selectPlaceholder: "Select an option",
   submitButtonText: "Submit",
@@ -60,7 +60,7 @@ export const ESG_FORMS_DRAFT_UI = {
       { value: "other-project-related", label: "Other project-related" },
     ],
     locationLabel: "Activity or location concerned",
-    locationPlaceholder: "Enter the activity name, program or location",
+    locationPlaceholder: "Enter the activity name, programme or location",
     descriptionLabel: "Describe your concern",
     descriptionPlaceholder: "Provide details about what occurred, when it happened, and who is affected",
     nameLabel: "Your name",
@@ -107,6 +107,10 @@ export const ESG_FORMS_DRAFT_UI = {
 
   // Contact NYEIB Form Draft Field Labels & Options
   contact: {
+    otherChannelsHeading: "Other channels",
+    otherChannelsText: "Looking to raise a grievance or make a whistleblowing report? Please use the dedicated channels:",
+    grievanceLinkText: "Submit a Grievance",
+    whistleblowingLinkText: "Make a Whistleblowing Report",
     nameLabel: "Your name",
     namePlaceholder: "Enter your full name",
     emailLabel: "Email address",
@@ -128,6 +132,7 @@ export const ESG_FORMS_DRAFT_UI = {
     subjectPlaceholder: "Enter the subject of your enquiry",
     messageLabel: "Message",
     messagePlaceholder: "How can we help you? Provide details about your enquiry",
+    submitButtonLabel: "Submit",
     errors: {
       nameRequired: "Please enter your name.",
       emailRequired: "Please enter your email address.",
@@ -165,7 +170,6 @@ export const ESG_FORMS_EDITORIAL = {
     boldLine: "Have a question? Get in touch.",
     paragraphs: [
       "For questions about NYEIB’s sustainability approach, reports, policies or general activities, please use our general enquiries channel.",
-      "Our team will direct your enquiry to the appropriate department and respond to you promptly.",
     ],
   },
 } as const;

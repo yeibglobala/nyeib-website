@@ -113,6 +113,26 @@ export function Navbar() {
 
   const shouldShow = isOpen || isHovered || isNearTop || isVisible;
 
+  // Drive document-level --nav-offset for in-page sticky navigation
+  useEffect(() => {
+    const updateNavOffset = () => {
+      if (typeof window === "undefined") return;
+      if (shouldShow) {
+        const offset = window.innerWidth >= 640 ? "88px" : "72px";
+        document.documentElement.style.setProperty("--nav-offset", offset);
+      } else {
+        document.documentElement.style.setProperty(
+          "--nav-offset",
+          "env(safe-area-inset-top, 0px)"
+        );
+      }
+    };
+
+    updateNavOffset();
+    window.addEventListener("resize", updateNavOffset);
+    return () => window.removeEventListener("resize", updateNavOffset);
+  }, [shouldShow]);
+
   return (
     <>
       {/* Floating White Capsule Navbar Container */}

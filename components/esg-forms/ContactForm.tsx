@@ -31,7 +31,7 @@ export function ContactForm() {
   const ui = ESG_FORMS_DRAFT_UI;
   const draftContact = ui.contact;
 
-  // Pure React state only: values live strictly in memory and vanish on refresh
+  // STRICT COMPLIANCE: Pure React state only. Never persisted to localStorage, cookies, or APIs.
   const [values, setValues] = useState<FormValues>({
     name: "",
     email: "",
@@ -99,6 +99,12 @@ export function ContactForm() {
     }
   };
 
+  const handleBlur = () => {
+    if (hasAttemptedSubmit) {
+      setErrors(validate(values));
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setHasAttemptedSubmit(true);
@@ -135,220 +141,209 @@ export function ContactForm() {
   return (
     <div className="w-full bg-[#F7F5F0] py-12 sm:py-16 lg:py-20 px-4 sm:px-8 lg:px-12">
       <div className="max-w-[1240px] w-full mx-auto">
-        {/* Back Link */}
-        <div className="mb-8 sm:mb-12">
-          <Link
-            href={ui.backLinkHref}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#003124] hover:text-[#00BE93] transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] rounded-sm py-1 px-1.5 -ml-1.5"
-            style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-          >
-            <ArrowLeft
-              className="w-4 h-4 transition-transform group-hover:-translate-x-1"
-              aria-hidden="true"
-            />
-            <span>{ui.backLinkText}</span>
-          </Link>
-        </div>
-
         {/* Two-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Context & Information */}
+          {/* Left Column: Context & Explanations (No repeated H1 or bold line) */}
           <div className="lg:col-span-5 flex flex-col">
-            <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#003124] tracking-tight leading-[1.2] mb-4"
-              style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
-            >
-              {editorial.title}
-            </h2>
-
-            <p
-              className="text-base sm:text-lg font-semibold text-[#003124]/90 leading-snug mb-6"
-              style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-            >
-              {editorial.boldLine}
-            </p>
-
-            <div
-              className="space-y-4 text-sm sm:text-base text-[#003124]/75 leading-relaxed font-normal mb-8"
-              style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-            >
+            {/* Approved MD Paragraphs */}
+            <div className="space-y-5 text-[#4A5B53] text-base sm:text-[17px] leading-relaxed mb-8">
               {editorial.paragraphs.map((p, idx) => (
                 <p key={idx}>{p}</p>
               ))}
             </div>
 
-            {/* Information Card */}
-            <div className="bg-[#EFECE6]/80 border border-[#E6DCCB] rounded-2xl p-6 sm:p-7 text-[#003124]">
+            {/* Other Channels Box */}
+            <div className="bg-[#EFECE6]/80 border border-[#E6DCCB] rounded-2xl p-6 sm:p-7 text-[#0F2A20] mb-8">
               <h3
-                className="text-base font-bold text-[#003124] mb-2"
+                className="text-base font-bold text-[#0F2A20] mb-2"
                 style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
               >
-                Dedicated Response Channels
+                {draftContact.otherChannelsHeading}
               </h3>
               <p
-                className="text-xs sm:text-sm text-[#003124]/75 leading-relaxed mb-4"
+                className="text-xs sm:text-sm text-[#0F2A20]/75 leading-relaxed mb-4"
                 style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
               >
-                Have a specific project grievance or wish to report suspected misconduct confidentially? Please use our dedicated channels:
+                {draftContact.otherChannelsText}
               </p>
               <div className="flex flex-col gap-2.5">
                 <Link
                   href="/esg/grievance"
-                  className="inline-flex items-center justify-between text-xs sm:text-sm font-semibold text-[#003124] hover:text-[#00BE93] transition-colors py-1 border-b border-[#003124]/10"
+                  className="inline-flex items-center justify-between text-xs sm:text-sm font-semibold text-[#0F2A20] hover:text-[#00BE93] transition-colors py-1 border-b border-[#0F2A20]/10"
                 >
-                  <span>Submit a Grievance</span>
+                  <span>{draftContact.grievanceLinkText}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
                 </Link>
                 <Link
                   href="/esg/whistleblowing"
-                  className="inline-flex items-center justify-between text-xs sm:text-sm font-semibold text-[#003124] hover:text-[#00BE93] transition-colors py-1"
+                  className="inline-flex items-center justify-between text-xs sm:text-sm font-semibold text-[#0F2A20] hover:text-[#00BE93] transition-colors py-1"
                 >
-                  <span>Make a Whistleblowing Report</span>
+                  <span>{draftContact.whistleblowingLinkText}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
                 </Link>
               </div>
+            </div>
+
+            {/* Back Link under text */}
+            <div className="pt-2">
+              <Link
+                href={ui.backLinkHref}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#0F2A20] hover:text-[#00BE93] transition-colors group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2A20] rounded-sm py-1 px-1.5 -ml-1.5"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
+                <ArrowLeft
+                  className="w-4 h-4 transition-transform group-hover:-translate-x-1"
+                  aria-hidden="true"
+                />
+                <span>{ui.backLinkText}</span>
+              </Link>
             </div>
           </div>
 
           {/* Right Column: Form Card */}
           <div className="lg:col-span-7">
-            <div className="bg-white border border-[#E6DCCB] rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:p-12 shadow-[0_12px_40px_rgba(0,49,36,0.04)]">
-              {isSubmitted ? (
-                /* Submission Confirmation Panel */
-                <div
-                  role="status"
-                  aria-live="polite"
-                  className="py-8 text-center flex flex-col items-center"
+            {isSubmitted ? (
+              /* Preview Confirmation Panel */
+              <div
+                role="status"
+                aria-live="polite"
+                className="bg-white rounded-[24px] border border-[#E6DCCB] p-8 sm:p-12 text-center shadow-[0_4px_24px_rgba(15,42,32,0.04)]"
+              >
+                <div className="w-14 h-14 rounded-full bg-[#E8F8F2] text-[#00BE93] flex items-center justify-center mx-auto mb-6 shadow-sm">
+                  <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
+                </div>
+                <h2
+                  ref={confirmationHeadingRef}
+                  tabIndex={-1}
+                  className="text-2xl sm:text-3xl font-bold text-[#0F2A20] tracking-tight mb-3 outline-none"
+                  style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
                 >
-                  <div className="w-14 h-14 rounded-full bg-[#E8F8F2] text-[#00BE93] flex items-center justify-center mb-6 shadow-sm">
-                    <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
-                  </div>
-                  <h3
-                    ref={confirmationHeadingRef}
-                    tabIndex={-1}
-                    className="text-2xl sm:text-3xl font-bold text-[#003124] tracking-tight mb-3 outline-none"
-                    style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
-                  >
-                    Thank You for Reaching Out
-                  </h3>
-                  <p
-                    className="text-sm sm:text-base text-[#003124]/75 max-w-md mx-auto leading-relaxed mb-6"
+                  {ui.previewHeading}
+                </h2>
+                <p
+                  className="text-base sm:text-lg text-[#0F2A20]/80 max-w-md mx-auto mb-8 leading-relaxed font-normal"
+                  style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                >
+                  {ui.previewBody}
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-3 items-center justify-center w-full max-w-xs mx-auto mt-2">
+                  <button
+                    type="button"
+                    onClick={handleEditAgain}
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-[#0F2A20]/20 text-[#0F2A20] hover:bg-black/[0.03] text-xs sm:text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2A20]"
                     style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                   >
-                    Your message has been received. Our team will review your enquiry and respond to your email address promptly.
-                  </p>
-
-                  <div className="flex flex-col sm:flex-row gap-3 items-center justify-center w-full max-w-xs mt-2">
-                    <button
-                      type="button"
-                      onClick={handleEditAgain}
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-full border border-[#003124]/20 text-[#003124] hover:bg-black/[0.03] text-xs sm:text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                    >
-                      {ui.editAgainButtonText}
-                    </button>
-                    <Link
-                      href="/esg"
-                      className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[#003124] text-white hover:bg-[#003124]/90 text-xs sm:text-sm font-semibold transition-all text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                    >
-                      {ui.backToEsgButtonText}
-                    </Link>
-                  </div>
+                    {ui.editAgainButtonText}
+                  </button>
+                  <Link
+                    href="/esg"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[#0F2A20] text-white hover:bg-[#0F2A20]/90 text-xs sm:text-sm font-semibold transition-all text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0F2A20]"
+                    style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                  >
+                    {ui.backToEsgButtonText}
+                  </Link>
                 </div>
-              ) : (
-                /* Interactive Form */
-                <form onSubmit={handleSubmit} noValidate className="space-y-6">
-                  {/* Error Summary */}
-                  {hasAttemptedSubmit && Object.keys(errors).length > 0 && (
-                    <div
-                      ref={errorSummaryRef}
-                      tabIndex={-1}
-                      role="alert"
-                      aria-labelledby="error-summary-heading"
-                      className="p-4 sm:p-5 rounded-xl bg-red-50/80 border border-red-200 text-red-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
-                    >
-                      <div className="flex items-start gap-3">
-                        <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" aria-hidden="true" />
-                        <div>
-                          <h4
-                            id="error-summary-heading"
-                            className="text-sm font-bold tracking-tight mb-2"
-                            style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                          >
-                            {ui.errorSummaryTitle}
-                          </h4>
-                          <ul className="text-xs sm:text-sm space-y-1 list-disc list-inside text-red-800">
-                            {errors.name && (
-                              <li>
-                                <button
-                                  type="button"
-                                  onClick={() => nameInputRef.current?.focus()}
-                                  className="underline hover:text-red-950 text-left font-medium"
-                                >
-                                  {errors.name}
-                                </button>
-                              </li>
-                            )}
-                            {errors.email && (
-                              <li>
-                                <button
-                                  type="button"
-                                  onClick={() => emailInputRef.current?.focus()}
-                                  className="underline hover:text-red-950 text-left font-medium"
-                                >
-                                  {errors.email}
-                                </button>
-                              </li>
-                            )}
-                            {errors.enquiryType && (
-                              <li>
-                                <button
-                                  type="button"
-                                  onClick={() => enquiryTypeInputRef.current?.focus()}
-                                  className="underline hover:text-red-950 text-left font-medium"
-                                >
-                                  {errors.enquiryType}
-                                </button>
-                              </li>
-                            )}
-                            {errors.subject && (
-                              <li>
-                                <button
-                                  type="button"
-                                  onClick={() => subjectInputRef.current?.focus()}
-                                  className="underline hover:text-red-950 text-left font-medium"
-                                >
-                                  {errors.subject}
-                                </button>
-                              </li>
-                            )}
-                            {errors.message && (
-                              <li>
-                                <button
-                                  type="button"
-                                  onClick={() => messageInputRef.current?.focus()}
-                                  className="underline hover:text-red-950 text-left font-medium"
-                                >
-                                  {errors.message}
-                                </button>
-                              </li>
-                            )}
-                          </ul>
-                        </div>
+              </div>
+            ) : (
+              <div className="bg-white rounded-[24px] border border-[#E6DCCB] p-6 sm:p-10 shadow-[0_4px_24px_rgba(15,42,32,0.04)]">
+                {/* Accessible Error Summary */}
+                {hasAttemptedSubmit && Object.keys(errors).length > 0 && (
+                  <div
+                    ref={errorSummaryRef}
+                    tabIndex={-1}
+                    role="alert"
+                    aria-labelledby="contact-error-summary-title"
+                    className="mb-8 p-5 rounded-[16px] bg-[#FDF2F2] border-2 border-[#B3261E] outline-none"
+                  >
+                    <div className="flex items-start gap-3">
+                      <AlertCircle
+                        className="w-5 h-5 text-[#B3261E] shrink-0 mt-0.5"
+                        aria-hidden="true"
+                      />
+                      <div>
+                        <h4
+                          id="contact-error-summary-title"
+                          className="text-sm font-bold text-[#B3261E] mb-2"
+                          style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                        >
+                          {ui.errorSummaryTitle}
+                        </h4>
+                        <ul className="text-xs sm:text-sm space-y-1.5 list-disc list-inside text-[#B3261E]">
+                          {errors.name && (
+                            <li>
+                              <button
+                                type="button"
+                                onClick={() => nameInputRef.current?.focus()}
+                                className="underline hover:opacity-80 text-left font-medium"
+                              >
+                                {errors.name}
+                              </button>
+                            </li>
+                          )}
+                          {errors.email && (
+                            <li>
+                              <button
+                                type="button"
+                                onClick={() => emailInputRef.current?.focus()}
+                                className="underline hover:opacity-80 text-left font-medium"
+                              >
+                                {errors.email}
+                              </button>
+                            </li>
+                          )}
+                          {errors.enquiryType && (
+                            <li>
+                              <button
+                                type="button"
+                                onClick={() => enquiryTypeInputRef.current?.focus()}
+                                className="underline hover:opacity-80 text-left font-medium"
+                              >
+                                {errors.enquiryType}
+                              </button>
+                            </li>
+                          )}
+                          {errors.subject && (
+                            <li>
+                              <button
+                                type="button"
+                                onClick={() => subjectInputRef.current?.focus()}
+                                className="underline hover:opacity-80 text-left font-medium"
+                              >
+                                {errors.subject}
+                              </button>
+                            </li>
+                          )}
+                          {errors.message && (
+                            <li>
+                              <button
+                                type="button"
+                                onClick={() => messageInputRef.current?.focus()}
+                                className="underline hover:opacity-80 text-left font-medium"
+                              >
+                                {errors.message}
+                              </button>
+                            </li>
+                          )}
+                        </ul>
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
 
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
                   {/* 1. Name & Email Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label
                         htmlFor="contact-name"
-                        className="block text-xs sm:text-sm font-semibold text-[#003124] mb-1.5"
+                        className="block text-sm font-semibold text-[#0F2A20] mb-2"
                         style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                       >
-                        {draftContact.nameLabel} <span className="text-red-500">*</span>
+                        {draftContact.nameLabel}
+                        <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                          {ui.requiredLabel}
+                        </span>
                       </label>
                       <input
                         type="text"
@@ -357,19 +352,24 @@ export function ContactForm() {
                         required
                         value={values.name}
                         onChange={(e) => handleChange("name", e.target.value)}
+                        onBlur={handleBlur}
                         placeholder={draftContact.namePlaceholder}
+                        aria-required="true"
                         aria-invalid={errors.name ? "true" : "false"}
                         aria-describedby={errors.name ? "err-name" : undefined}
-                        className={`w-full px-4 py-3 rounded-xl border text-sm text-[#003124] placeholder-[#003124]/40 bg-white transition-all outline-none focus:ring-2 focus:ring-[#003124] ${
+                        className={`w-full h-[52px] rounded-[14px] px-4 text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 transition-colors ${
                           errors.name
-                            ? "border-red-400 bg-red-50/20"
-                            : "border-[#E6DCCB] hover:border-[#003124]/40"
-                        }`}
-                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                            ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
+                            : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#003124]"
+                        } focus:outline-none focus:ring-offset-2`}
                       />
                       {errors.name && (
-                        <p id="err-name" className="text-xs text-red-600 mt-1 font-medium">
-                          {errors.name}
+                        <p
+                          id="err-name"
+                          className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5"
+                        >
+                          <AlertCircle className="w-3.5 h-3.5" />
+                          <span>{errors.name}</span>
                         </p>
                       )}
                     </div>
@@ -377,10 +377,13 @@ export function ContactForm() {
                     <div>
                       <label
                         htmlFor="contact-email"
-                        className="block text-xs sm:text-sm font-semibold text-[#003124] mb-1.5"
+                        className="block text-sm font-semibold text-[#0F2A20] mb-2"
                         style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                       >
-                        {draftContact.emailLabel} <span className="text-red-500">*</span>
+                        {draftContact.emailLabel}
+                        <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                          {ui.requiredLabel}
+                        </span>
                       </label>
                       <input
                         type="email"
@@ -389,19 +392,24 @@ export function ContactForm() {
                         required
                         value={values.email}
                         onChange={(e) => handleChange("email", e.target.value)}
+                        onBlur={handleBlur}
                         placeholder={draftContact.emailPlaceholder}
+                        aria-required="true"
                         aria-invalid={errors.email ? "true" : "false"}
                         aria-describedby={errors.email ? "err-email" : undefined}
-                        className={`w-full px-4 py-3 rounded-xl border text-sm text-[#003124] placeholder-[#003124]/40 bg-white transition-all outline-none focus:ring-2 focus:ring-[#003124] ${
+                        className={`w-full h-[52px] rounded-[14px] px-4 text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 transition-colors ${
                           errors.email
-                            ? "border-red-400 bg-red-50/20"
-                            : "border-[#E6DCCB] hover:border-[#003124]/40"
-                        }`}
-                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                            ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
+                            : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#003124]"
+                        } focus:outline-none focus:ring-offset-2`}
                       />
                       {errors.email && (
-                        <p id="err-email" className="text-xs text-red-600 mt-1 font-medium">
-                          {errors.email}
+                        <p
+                          id="err-email"
+                          className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5"
+                        >
+                          <AlertCircle className="w-3.5 h-3.5" />
+                          <span>{errors.email}</span>
                         </p>
                       )}
                     </div>
@@ -410,50 +418,44 @@ export function ContactForm() {
                   {/* 2. Phone & Organisation Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label
-                          htmlFor="contact-phone"
-                          className="block text-xs sm:text-sm font-semibold text-[#003124]"
-                          style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                        >
-                          {draftContact.phoneLabel}
-                        </label>
-                        <span className="text-[11px] text-[#003124]/50">
+                      <label
+                        htmlFor="contact-phone"
+                        className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                      >
+                        {draftContact.phoneLabel}
+                        <span className="text-xs font-normal text-[#4A5B53] ml-2">
                           {ui.optionalLabel}
                         </span>
-                      </div>
+                      </label>
                       <input
                         type="tel"
                         id="contact-phone"
                         value={values.phone}
                         onChange={(e) => handleChange("phone", e.target.value)}
                         placeholder={draftContact.phonePlaceholder}
-                        className="w-full px-4 py-3 rounded-xl border border-[#E6DCCB] text-sm text-[#003124] placeholder-[#003124]/40 bg-white hover:border-[#003124]/40 transition-all outline-none focus:ring-2 focus:ring-[#003124]"
-                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                        className="w-full h-[52px] rounded-[14px] px-4 text-[16px] bg-white border border-[#E6DCCB] text-[#0F2A20] placeholder-[#4A5B53]/50 focus:outline-none focus:ring-2 focus:ring-[#003124] focus:ring-offset-2 transition-colors"
                       />
                     </div>
 
                     <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label
-                          htmlFor="contact-organisation"
-                          className="block text-xs sm:text-sm font-semibold text-[#003124]"
-                          style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                        >
-                          {draftContact.organisationLabel}
-                        </label>
-                        <span className="text-[11px] text-[#003124]/50">
+                      <label
+                        htmlFor="contact-organisation"
+                        className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                      >
+                        {draftContact.organisationLabel}
+                        <span className="text-xs font-normal text-[#4A5B53] ml-2">
                           {ui.optionalLabel}
                         </span>
-                      </div>
+                      </label>
                       <input
                         type="text"
                         id="contact-organisation"
                         value={values.organisation}
                         onChange={(e) => handleChange("organisation", e.target.value)}
                         placeholder={draftContact.organisationPlaceholder}
-                        className="w-full px-4 py-3 rounded-xl border border-[#E6DCCB] text-sm text-[#003124] placeholder-[#003124]/40 bg-white hover:border-[#003124]/40 transition-all outline-none focus:ring-2 focus:ring-[#003124]"
-                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                        className="w-full h-[52px] rounded-[14px] px-4 text-[16px] bg-white border border-[#E6DCCB] text-[#0F2A20] placeholder-[#4A5B53]/50 focus:outline-none focus:ring-2 focus:ring-[#003124] focus:ring-offset-2 transition-colors"
                       />
                     </div>
                   </div>
@@ -462,10 +464,13 @@ export function ContactForm() {
                   <div>
                     <label
                       htmlFor="contact-enquiry-type"
-                      className="block text-xs sm:text-sm font-semibold text-[#003124] mb-1.5"
+                      className="block text-sm font-semibold text-[#0F2A20] mb-2"
                       style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                     >
-                      {draftContact.enquiryTypeLabel} <span className="text-red-500">*</span>
+                      {draftContact.enquiryTypeLabel}
+                      <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                        {ui.requiredLabel}
+                      </span>
                     </label>
                     <select
                       id="contact-enquiry-type"
@@ -473,14 +478,15 @@ export function ContactForm() {
                       required
                       value={values.enquiryType}
                       onChange={(e) => handleChange("enquiryType", e.target.value)}
+                      onBlur={handleBlur}
+                      aria-required="true"
                       aria-invalid={errors.enquiryType ? "true" : "false"}
                       aria-describedby={errors.enquiryType ? "err-enquiry-type" : undefined}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm text-[#003124] bg-white transition-all outline-none focus:ring-2 focus:ring-[#003124] ${
+                      className={`w-full h-[52px] rounded-[14px] px-4 text-[16px] bg-white text-[#0F2A20] transition-colors ${
                         errors.enquiryType
-                          ? "border-red-400 bg-red-50/20"
-                          : "border-[#E6DCCB] hover:border-[#003124]/40"
-                      }`}
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                          ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
+                          : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#003124]"
+                      } focus:outline-none focus:ring-offset-2`}
                     >
                       <option value="">{ui.selectPlaceholder}</option>
                       {draftContact.enquiryTypeOptions.map((opt) => (
@@ -490,8 +496,12 @@ export function ContactForm() {
                       ))}
                     </select>
                     {errors.enquiryType && (
-                      <p id="err-enquiry-type" className="text-xs text-red-600 mt-1 font-medium">
-                        {errors.enquiryType}
+                      <p
+                        id="err-enquiry-type"
+                        className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5"
+                      >
+                        <AlertCircle className="w-3.5 h-3.5" />
+                        <span>{errors.enquiryType}</span>
                       </p>
                     )}
                   </div>
@@ -500,10 +510,13 @@ export function ContactForm() {
                   <div>
                     <label
                       htmlFor="contact-subject"
-                      className="block text-xs sm:text-sm font-semibold text-[#003124] mb-1.5"
+                      className="block text-sm font-semibold text-[#0F2A20] mb-2"
                       style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                     >
-                      {draftContact.subjectLabel} <span className="text-red-500">*</span>
+                      {draftContact.subjectLabel}
+                      <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                        {ui.requiredLabel}
+                      </span>
                     </label>
                     <input
                       type="text"
@@ -512,36 +525,47 @@ export function ContactForm() {
                       required
                       value={values.subject}
                       onChange={(e) => handleChange("subject", e.target.value)}
+                      onBlur={handleBlur}
                       placeholder={draftContact.subjectPlaceholder}
+                      aria-required="true"
                       aria-invalid={errors.subject ? "true" : "false"}
                       aria-describedby={errors.subject ? "err-subject" : undefined}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm text-[#003124] placeholder-[#003124]/40 bg-white transition-all outline-none focus:ring-2 focus:ring-[#003124] ${
+                      className={`w-full h-[52px] rounded-[14px] px-4 text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 transition-colors ${
                         errors.subject
-                          ? "border-red-400 bg-red-50/20"
-                          : "border-[#E6DCCB] hover:border-[#003124]/40"
-                      }`}
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                          ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
+                            : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#003124]"
+                      } focus:outline-none focus:ring-offset-2`}
                     />
                     {errors.subject && (
-                      <p id="err-subject" className="text-xs text-red-600 mt-1 font-medium">
-                        {errors.subject}
+                      <p
+                        id="err-subject"
+                        className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5"
+                      >
+                        <AlertCircle className="w-3.5 h-3.5" />
+                        <span>{errors.subject}</span>
                       </p>
                     )}
                   </div>
 
                   {/* 5. Message */}
                   <div>
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center justify-between mb-2">
                       <label
                         htmlFor="contact-message"
-                        className="block text-xs sm:text-sm font-semibold text-[#003124]"
+                        className="block text-sm font-semibold text-[#0F2A20]"
                         style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
                       >
-                        {draftContact.messageLabel} <span className="text-red-500">*</span>
+                        {draftContact.messageLabel}
+                        <span className="text-xs font-normal text-[#4A5B53] ml-2">
+                          {ui.requiredLabel}
+                        </span>
                       </label>
                       <span
-                        className={`text-[11px] ${
-                          values.message.length > 3000 ? "text-red-600 font-bold" : "text-[#003124]/50"
+                        aria-live="polite"
+                        className={`text-xs ${
+                          values.message.length > 3000
+                            ? "text-[#B3261E] font-bold"
+                            : "text-[#0F2A20]/60"
                         }`}
                       >
                         {values.message.length} / 3000 {ui.characterCountSuffix}
@@ -550,45 +574,53 @@ export function ContactForm() {
                     <textarea
                       id="contact-message"
                       ref={messageInputRef}
-                      required
-                      rows={5}
+                      rows={6}
+                      maxLength={3000}
                       value={values.message}
                       onChange={(e) => handleChange("message", e.target.value)}
+                      onBlur={handleBlur}
                       placeholder={draftContact.messagePlaceholder}
+                      aria-required="true"
                       aria-invalid={errors.message ? "true" : "false"}
                       aria-describedby={errors.message ? "err-message" : undefined}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm text-[#003124] placeholder-[#003124]/40 bg-white transition-all outline-none focus:ring-2 focus:ring-[#003124] resize-y ${
+                      className={`w-full rounded-[14px] p-4 text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 transition-colors resize-y ${
                         errors.message
-                          ? "border-red-400 bg-red-50/20"
-                          : "border-[#E6DCCB] hover:border-[#003124]/40"
-                      }`}
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                          ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
+                          : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#003124]"
+                      } focus:outline-none focus:ring-offset-2`}
                     />
                     {errors.message && (
-                      <p id="err-message" className="text-xs text-red-600 mt-1 font-medium">
-                        {errors.message}
+                      <p
+                        id="err-message"
+                        className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5"
+                      >
+                        <AlertCircle className="w-3.5 h-3.5" />
+                        <span>{errors.message}</span>
                       </p>
                     )}
                   </div>
 
-                  {/* Submit Button */}
-                  <div className="pt-2">
+                  {/* Submit button: Orange primary with round arrow */}
+                  <div className="pt-4">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-4 px-6 rounded-full bg-[#003124] hover:bg-[#003124]/90 active:scale-[0.99] text-white text-sm sm:text-base font-semibold shadow-md transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#003124] disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer"
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                      className="group/btn inline-flex items-center gap-2 select-none outline-none rounded-full transition-transform duration-300 hover:-translate-y-[2px] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-2 cursor-pointer"
                     >
-                      {isSubmitting ? (
-                        <span>Sending message...</span>
-                      ) : (
-                        <span>{ui.submitButtonText}</span>
-                      )}
+                      <span
+                        className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-colors duration-200"
+                        style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                      >
+                        {ui.submitButtonText}
+                      </span>
+                      <span className="inline-grid place-items-center w-11 h-11 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white shadow-[0_8px_24px_rgba(248,132,4,0.3)] shrink-0 transition-transform duration-300 group-hover/btn:rotate-45">
+                        <ArrowUpRight className="w-[18px] h-[18px]" />
+                      </span>
                     </button>
                   </div>
                 </form>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

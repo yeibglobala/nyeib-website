@@ -24,23 +24,26 @@ export default function ESGPage() {
         {/* 0. Hero */}
         <InnerHero slug="esg-and-sustainability" />
 
-        {/* 0b. Sticky In-Page Navigation */}
-        <EsgInPageNav />
+        {/* Sections 1 to 5 Container (Sticky Navigation is scoped to this wrapper) */}
+        <div id="esg-content-wrapper" className="relative w-full">
+          {/* 0b. Sticky In-Page Navigation */}
+          <EsgInPageNav />
 
-        {/* 1. Our Approach to Sustainability */}
-        <EsgApproachSection />
+          {/* 1. Our Approach to Sustainability */}
+          <EsgApproachSection />
 
-        {/* 2. Reports & Disclosures */}
-        <EsgReportsSection />
+          {/* 2. Reports & Disclosures */}
+          <EsgReportsSection />
 
-        {/* 3. Policies & Procedures */}
-        <EsgPoliciesSection />
+          {/* 3. Policies & Procedures */}
+          <EsgPoliciesSection />
 
-        {/* 4. Partnerships */}
-        <EsgPartnershipsSection />
+          {/* 4. Partnerships */}
+          <EsgPartnershipsSection />
 
-        {/* 5. Accountability & Stakeholder Contact */}
-        <EsgAccountabilitySection />
+          {/* 5. Accountability & Stakeholder Contact */}
+          <EsgAccountabilitySection />
+        </div>
 
         {/* 6. Closing CTA */}
         <CtaCard {...CTA_CONTENT.esg} />
