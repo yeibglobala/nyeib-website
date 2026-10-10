@@ -51,26 +51,26 @@ export function Preloader() {
     <div
       id="nyeib-preloader-overlay"
       aria-hidden="true"
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#00241A] select-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#00241A] select-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] px-4 sm:px-6 ${
         isExiting ? "opacity-0 pointer-events-none scale-[1.02]" : "opacity-100"
       }`}
       style={{
-        background: "radial-gradient(ellipse at 50% 45%, #053b2e 0%, #002219 70%, #001912 100%)",
+        background: "radial-gradient(ellipse at 50% 48%, #053b2e 0%, #002219 70%, #001912 100%)",
       }}
     >
       <span className="sr-only" role="status">
         Loading Nigeria YEIB Investment Funds
       </span>
 
-      {/* Centerpiece Emblem & Wordmark (100% Larger / 2x scale) */}
-      <div className="relative flex flex-col items-center justify-center -translate-y-4">
-        {/* SVG Mark: Three Bars Gather (w-40 h-40 sm:w-48 sm:h-48 -> 100% increase) */}
-        <div className="relative w-40 h-40 sm:w-48 sm:h-48 flex items-center justify-center">
+      {/* Horizontal Brand Lockup: Icon gathers in center, then shifts left as wordmark reveals */}
+      <div className="relative flex items-center justify-center max-w-full">
+        {/* SVG Mark: Three Bars Gather */}
+        <div className="relative w-20 h-20 min-[400px]:w-24 min-[400px]:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 flex items-center justify-center shrink-0">
           <svg
             viewBox="-2.5 -2.5 24.63 23"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full overflow-visible drop-shadow-[0_16px_40px_rgba(46,183,140,0.28)]"
+            className="w-full h-full overflow-visible drop-shadow-[0_14px_36px_rgba(46,183,140,0.28)]"
           >
             {/* Left Bar: Slides in from top-left with slight tilt */}
             <path
@@ -104,20 +104,22 @@ export function Preloader() {
           </svg>
         </div>
 
-        {/* Wordmark Lockup (100% larger typography) */}
-        <div className="nyeib-wordmark mt-8 sm:mt-10 text-center flex flex-col items-center">
-          <span
-            className="text-[26px] sm:text-[32px] font-bold text-white tracking-[0.24em] uppercase leading-none"
-            style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
-          >
-            NIGERIA YEIB
-          </span>
-          <span
-            className="text-[13px] sm:text-[15px] font-semibold text-[#6FE3C1] tracking-[0.34em] uppercase mt-2.5 leading-none opacity-85"
-            style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
-          >
-            INVESTMENT FUNDS
-          </span>
+        {/* Wordmark Lockup: Horizontal reveal to the right of the icon */}
+        <div className="nyeib-wordmark-container">
+          <div className="flex flex-col justify-center whitespace-nowrap">
+            <span
+              className="text-[20px] min-[400px]:text-[24px] sm:text-[30px] md:text-[36px] font-bold text-white tracking-[0.06em] uppercase leading-[1.05]"
+              style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
+            >
+              NIGERIA YEIB
+            </span>
+            <span
+              className="text-[10px] min-[400px]:text-[12px] sm:text-[15px] md:text-[18px] font-semibold text-[#6FE3C1] tracking-[0.22em] uppercase mt-1 sm:mt-1.5 leading-[1.1] opacity-90"
+              style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
+            >
+              INVESTMENT FUNDS
+            </span>
+          </div>
         </div>
       </div>
     </div>
