@@ -3,6 +3,7 @@ import { ApplyLandingHero } from "@/components/apply/ApplyLandingHero";
 import { PathwayChooserSection } from "@/components/apply/PathwayChooserSection";
 import { SimpleFirstStepSection } from "@/components/apply/SimpleFirstStepSection";
 import { DecorativeBlobs } from "@/components/apply/DecorativeBlobs";
+import { ApplySvgDefs } from "@/components/apply/ApplySvgDefs";
 
 export const metadata: Metadata = {
   title: "Apply for Funding — Nigeria YEIB Investment Funds",
@@ -16,6 +17,7 @@ export default function ApplyPage() {
       data-theme="light"
       className="relative min-h-screen w-full bg-[#F7F5F0] text-[#0F2A20] overflow-x-hidden flex flex-col"
     >
+      <ApplySvgDefs />
       <DecorativeBlobs />
       <ApplyLandingHero />
       <PathwayChooserSection />
