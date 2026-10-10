@@ -79,8 +79,6 @@ export function PathwayChooserSection() {
             >
               {/* Quarter circle shape */}
               <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-[#2eb78c]/15 transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3" />
-              {/* Rounded rectangle outline */}
-              <div className="absolute bottom-4 left-6 w-32 h-20 rounded-2xl border-2 border-[#2eb78c]/20 transition-transform duration-500 group-hover:-translate-x-2 group-hover:translate-y-1" />
             </div>
           </Link>
 
@@ -142,8 +140,6 @@ export function PathwayChooserSection() {
             >
               {/* Quarter circle shape */}
               <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-[#F8CFA3]/30 transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3" />
-              {/* Rounded rectangle outline */}
-              <div className="absolute bottom-4 left-6 w-32 h-20 rounded-2xl border-2 border-[#F8CFA3]/50 transition-transform duration-500 group-hover:-translate-x-2 group-hover:translate-y-1" />
             </div>
           </Link>
         </div>

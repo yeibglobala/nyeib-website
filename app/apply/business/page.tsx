@@ -55,19 +55,19 @@ export default function ApplyBusinessPage() {
       <PathwaySwitcher currentPathway="business" />
 
       {/* 3. Intro & 4. Who this is for & 5. Primary Action */}
-      <section className="w-full pt-12 sm:pt-16 pb-6">
-        <div className="max-w-[1240px] w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <section className="w-full pt-12 sm:pt-16 lg:pt-20 pb-8 sm:pb-12">
+        <div className="max-w-[1240px] w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           {/* Two Columns Intro */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20 items-start">
             <div className="lg:col-span-5">
               <h2
-                className="text-2xl sm:text-3xl lg:text-[36px] font-normal text-[#0F2A20] leading-[1.2] tracking-tight"
+                className="text-2xl sm:text-3xl lg:text-[36px] font-normal text-[#0F2A20] leading-[1.25] tracking-tight"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
               >
                 Building a business with room to grow?
               </h2>
             </div>
-            <div className="lg:col-span-7 space-y-4">
+            <div className="lg:col-span-7 space-y-5 sm:space-y-6 lg:pt-1">
               <p
                 className="text-[1rem] sm:text-[1.08rem] text-[#0F2A20]/80 leading-relaxed font-normal"
                 style={{ fontFamily: "var(--font-body, sans-serif)" }}
