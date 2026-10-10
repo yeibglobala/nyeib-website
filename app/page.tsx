@@ -1,7 +1,7 @@
 import React from "react";
 import { ParticleStoryHero } from "@/components/hero/ParticleStoryHero";
 import { LogoMarquee } from "@/components/home/LogoMarquee";
-import { PurposeSection } from "@/components/purpose/PurposeSection";
+import { NigeriaPhotoMap } from "@/components/map/NigeriaPhotoMap";
 import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
 import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
 import { CapitalMobilisation } from "@/components/home/CapitalMobilisation";
@@ -21,8 +21,8 @@ export default function HomePage() {
         {/* Anchor Institutions & Partners Logo Marquee */}
         <LogoMarquee />
 
-        {/* Problem / Purpose Section */}
-        <PurposeSection />
+        {/* Problem / Purpose Section: Interactive Nigeria Map */}
+        <NigeriaPhotoMap />
 
         {/* Who We Serve Overview & Pathways Teaser */}
         <WhoWeServeTeaser />
