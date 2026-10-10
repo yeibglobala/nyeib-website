@@ -62,6 +62,7 @@ export interface EsgContent {
     items: Array<{
       title: string;
       description: string;
+      formHref?: string;
     }>;
     note: string;
   };
@@ -239,26 +240,31 @@ export const ESG_CONTENT: EsgContent = {
         title: "Environmental & Social Management System (ESMS)",
         description:
           "A framework for identifying, assessing, managing, and monitoring environmental and social risks associated with investment activities.",
+        formHref: "/contact",
       },
       {
         title: "Stakeholder Engagement Framework",
         description:
           "Guidance on identifying, engaging and communicating with relevant stakeholders throughout the investment lifecycle.",
+        formHref: "/contact",
       },
       {
         title: "Grievance Redress Mechanism",
         description:
           "A process that enables beneficiaries, project-affected persons, communities and other stakeholders to raise concerns relating to NYEIB-supported activities.",
+        formHref: "/esg/grievance",
       },
       {
         title: "Vulnerable Persons & Safeguards Frameworks",
         description:
           "Applicable measures intended to identify and address risks affecting vulnerable individuals and communities.",
+        formHref: "/esg/grievance",
       },
       {
         title: "Other ESG Policies & Procedures",
         description:
           "Additional policies and guidance covering environmental and social protection, governance and accountability.",
+        formHref: "/esg/whistleblowing",
       },
     ],
     note: "Approved documents will be made available where appropriate for public disclosure. Where full publication is restricted, a summary of the relevant framework may be provided.",

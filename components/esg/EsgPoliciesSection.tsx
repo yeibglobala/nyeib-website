@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Info } from "lucide-react";
+import Link from "next/link";
+import { ShieldCheck, Info, ArrowUpRight } from "lucide-react";
 import { ESG_CONTENT } from "@/src/content/esg";
 import { EsgButton } from "./EsgButton";
 
@@ -56,30 +57,47 @@ export function EsgPoliciesSection() {
             {/* Policy Rows separated by hairline dividers */}
             <div className="divide-y divide-[#E6DCCB] border-y border-[#E6DCCB]">
               {items.map((item, idx) => (
-                <div
+                <Link
                   key={idx}
-                  className="py-5 px-3 sm:px-4 rounded-xl transition-colors duration-200 hover:bg-white cursor-default flex items-start gap-4"
+                  href={item.formHref || "/contact"}
+                  className="policy-accordion-item group block py-4 sm:py-4.5 px-3 sm:px-4 rounded-xl transition-all duration-200 hover:bg-white focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0D3026] text-inherit cursor-pointer"
+                  aria-label={`${item.title} — open form`}
                 >
-                  <div className="w-9 h-9 rounded-full bg-[#A9DDD3]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5">
-                    <ShieldCheck className="w-4 h-4" />
+                  <div className="flex items-start justify-between gap-3 sm:gap-4">
+                    <div className="flex items-start gap-3.5 sm:gap-4 flex-1 min-w-0">
+                      <div className="w-9 h-9 rounded-full bg-[#A9DDD3]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#0D3026] group-hover:text-white transition-colors duration-200 shadow-xs">
+                        <ShieldCheck className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3
+                          className="text-lg sm:text-[19px] font-semibold text-[#0F2A20] leading-snug group-hover:text-[#0D3026] transition-colors"
+                          style={{
+                            fontFamily: "var(--font-headline, 'Asul', Georgia, serif)",
+                          }}
+                        >
+                          {item.title}
+                        </h3>
+
+                        {/* Expandable description: hidden by default, expands on hover / focus */}
+                        <div className="policy-accordion-desc">
+                          <div>
+                            <p
+                              className="pt-2 text-sm sm:text-[15px] text-[#4A5B53] leading-relaxed m-0"
+                              style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                            >
+                              {item.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Arrow Icon leading to the individual form */}
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#E6DCCB] bg-transparent group-hover:border-[#0D3026] group-hover:bg-[#0D3026] text-[#0D3026] group-hover:text-white flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shadow-2xs">
+                      <ArrowUpRight className="w-4 h-4 transition-transform duration-200" />
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3
-                      className="text-lg sm:text-[19px] font-semibold text-[#0F2A20] mb-1.5 leading-snug"
-                      style={{
-                        fontFamily: "var(--font-headline, 'Asul', Georgia, serif)",
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className="text-sm sm:text-[15px] text-[#4A5B53] leading-relaxed m-0"
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                    >
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
+                </Link>
               ))}
             </div>
 

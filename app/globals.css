@@ -431,3 +431,27 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
   }
 }
 
+/* 8. ESG Policies Hover Reveal Accordion */
+.policy-accordion-desc {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 250ms ease;
+}
+
+.policy-accordion-item:hover .policy-accordion-desc,
+.policy-accordion-item:focus-within .policy-accordion-desc {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.policy-accordion-desc > div {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .policy-accordion-desc {
+    transition: none !important;
+  }
+}
+
