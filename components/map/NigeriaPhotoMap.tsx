@@ -15,6 +15,7 @@ export function NigeriaPhotoMap({
   const sectionRef = useRef<HTMLElement | null>(null);
   const mapRef = useRef<HTMLDivElement | null>(null);
   const chipRef = useRef<HTMLDivElement | null>(null);
+  const hintRef = useRef<HTMLDivElement | null>(null);
   const piecesRef = useRef<(SVGGElement | null)[]>([]);
 
   const [isReducedMotion, setIsReducedMotion] = useState(false);
@@ -47,6 +48,10 @@ export function NigeriaPhotoMap({
     if (isDone !== animState.current.done) {
       animState.current.done = isDone;
       sectionRef.current?.classList.toggle("done", isDone);
+    }
+
+    if (hintRef.current) {
+      hintRef.current.style.opacity = prog > 0.05 ? "0" : "1";
     }
 
     const GAP = MAP_CONFIG.gap; // 60 units
@@ -377,12 +382,13 @@ export function NigeriaPhotoMap({
           {/* Floating State Name Chip */}
           <div ref={chipRef} className="chip" aria-hidden="true" />
 
-          {/* Very Small Muted Note under the map */}
+          {/* Micro-cue guidance hint under the map */}
           <div
-            className="absolute right-0 bottom-0 text-[11px] text-[#4A5B53]/80 select-none pointer-events-none"
+            ref={hintRef}
+            className="absolute right-0 bottom-0 text-[12px] sm:text-[13px] tracking-[0.04em] text-[#4A5B53]/90 select-none pointer-events-none transition-opacity duration-300"
             style={{ fontFamily: "var(--font-mono, monospace)" }}
           >
-            Boundaries: Natural Earth
+            Scroll to close the gap
           </div>
         </div>
       </div>
