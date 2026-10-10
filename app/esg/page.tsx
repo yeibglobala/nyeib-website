@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { EsgFrameworkSection } from "@/components/esg-page/EsgFrameworkSection";
-import { ImpactSection } from "@/components/impact/ImpactSection";
 import { CtaCard } from "@/components/cta/CtaCard";
 import { CTA_CONTENT } from "@/src/content/cta";
 
@@ -19,9 +18,6 @@ export default function ESGPage() {
 
       {/* 3 ESG Dimensions (Environmental, Social, Governance 3D Flip Card Framework) */}
       <EsgFrameworkSection />
-
-      {/* Measurable Targets & Governance Impact */}
-      <ImpactSection />
 
       {/* Closing CTA */}
       <CtaCard {...CTA_CONTENT.esg} />
