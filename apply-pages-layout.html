@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NYEIB Apply pages</title>
+<style>
+:root{--ev:#003124;--mint:#00BE93;--oak:#E1C9B3;--cream:#F2FBF6;--or:#F88404;--bg:#F2FBF6;--fg:#003124;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#003124;--fg:#F2FBF6}}
+:root[data-theme="dark"]{--bg:#003124;--fg:#F2FBF6}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.pg{background:var(--cream);color:var(--ev)}.w{max-width:1120px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.015em;margin:0}
+h2{font-weight:600;font-size:clamp(1.8rem,3.6vw,2.9rem);line-height:1.1}h3{font-weight:600;font-size:1.3rem;line-height:1.2}
+p{margin:0}.mut{opacity:.85}
+.hero{background:radial-gradient(60% 120% at 85% 20%,rgba(0,190,147,.22),transparent 70%),var(--ev);color:var(--cream);padding:clamp(72px,12vw,150px) 0 clamp(36px,6vw,64px)}
+.hero h1{font-weight:400;font-size:clamp(2.2rem,5.4vw,4.4rem);line-height:1.04;margin-bottom:22px}
+.pill{display:inline-block;padding:9px 20px;border:1px solid rgba(0,190,147,.6);border-radius:999px;color:#79DCC4;font-size:14px}
+.sw{display:flex;gap:12px;align-items:center;padding-top:22px;padding-bottom:22px;border-bottom:1px solid color-mix(in srgb,var(--oak) 70%,transparent)}
+.back{width:48px;height:48px;border-radius:50%;border:1px solid color-mix(in srgb,var(--oak) 90%,transparent);display:grid;place-items:center;color:inherit;text-decoration:none;background:#fff}
+.seg{display:flex;gap:6px;padding:6px;border:1px solid color-mix(in srgb,var(--oak) 90%,transparent);border-radius:999px;background:#fff;overflow-x:auto}
+.seg button{all:unset;box-sizing:border-box;cursor:pointer;white-space:nowrap;padding:10px 20px;border-radius:999px;font-size:15px}.seg small{opacity:.65;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-right:6px}
+.seg button.on{background:var(--ev);color:var(--cream)}.seg button:focus-visible{outline:2px solid var(--mint)}
+.sec{padding:clamp(48px,8vw,96px) 0}
+.intro{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}.intro .r{display:grid;gap:18px;max-width:40rem}
+.call{display:flex;gap:16px;align-items:center;margin-top:44px;padding:22px 26px;border-radius:24px;background:color-mix(in srgb,var(--mint) 14%,var(--cream));border:1px solid color-mix(in srgb,var(--mint) 35%,transparent);font-weight:600}
+.call svg{height:34px;width:auto;flex:none}
+.btn{display:inline-flex;gap:12px;align-items:center;margin-top:34px;padding:17px 30px;border-radius:999px;background:var(--or);color:var(--ev);font-weight:700;font-size:15px;text-decoration:none;box-shadow:0 10px 28px rgba(248,132,4,.28);transition:transform .2s}.btn:hover{transform:translateY(-2px)}
+/* groups */
+/* idea 4 strip */
+.strip{background:color-mix(in srgb,var(--oak) 40%,var(--cream))}
+.strip h2{text-align:center;margin-bottom:8px}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.tc{text-align:center;opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}.in .tc{opacity:1;transform:none}.in .tc:nth-child(2){transition-delay:.15s}.in .tc:nth-child(3){transition-delay:.3s}
+.tb{position:relative;display:inline-block;transition:transform .35s}.tc:hover .tb{transform:translateY(-10px)}.tb svg{height:clamp(200px,28vw,320px);width:auto;display:block}
+.ltr{position:absolute;left:0;right:0;top:9%;font:600 clamp(2.4rem,5vw,3.8rem) Georgia,serif;color:var(--ev)}
+.tc small{display:block;font:12px ui-monospace,Menlo,monospace;opacity:.65;margin:18px 0 6px}.tc h3{max-width:18ch;margin:0 auto 8px}.tc p{opacity:.85;max-width:28ch;margin:0 auto;font-size:.95rem}
+/* first step */
+.first h2{margin-bottom:34px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid color-mix(in srgb,var(--oak) 90%,transparent);border-radius:28px;background:#fff;overflow:hidden}
+.fact{padding:32px;border-left:1px solid color-mix(in srgb,var(--oak) 90%,transparent)}.fact:first-child{border-left:0}
+.fact svg{height:46px;width:auto;margin-bottom:16px;display:block}.fact p{opacity:.9}
+.band{margin-top:48px;padding:28px 32px;border-radius:28px;background:var(--ev);color:var(--cream);display:grid;gap:6px}.band b{font:600 1.25rem Georgia,serif}.band span{opacity:.85}
+.foot{padding:26px 20px;text-align:center;font-size:13px;opacity:.65}
+/* accordion */
+.acc{border-top:1px solid color-mix(in srgb,var(--oak) 90%,transparent)}
+.row{position:relative;border-bottom:1px solid color-mix(in srgb,var(--oak) 90%,transparent);--x:12%;--y:50%;overflow:hidden;isolation:isolate}
+.row::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--t);clip-path:circle(0 at var(--x) var(--y));transition:clip-path .55s cubic-bezier(.22,1,.36,1)}
+.row.on::before{clip-path:circle(150% at var(--x) var(--y))}
+.row:nth-child(1){--t:color-mix(in srgb,var(--mint) 18%,var(--cream))}.row:nth-child(2){--t:color-mix(in srgb,var(--oak) 55%,var(--cream))}.row:nth-child(3){--t:color-mix(in srgb,var(--or) 16%,var(--cream))}.row:nth-child(4){--t:color-mix(in srgb,var(--mint) 28%,var(--cream))}.row:nth-child(5){--t:color-mix(in srgb,var(--oak) 80%,var(--cream))}
+.hd{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:3rem 1fr 3rem;gap:16px;align-items:center;padding:30px 16px;cursor:pointer}
+.hd:focus-visible{outline:2px solid var(--mint);outline-offset:-4px}.hd i{font:12px ui-monospace,Menlo,monospace;font-style:normal;opacity:.65}.hd h3{font-size:clamp(1.3rem,2.4vw,1.9rem)}
+.ic{width:44px;height:44px;border-radius:50%;border:1px solid color-mix(in srgb,var(--ev) 30%,transparent);display:grid;place-items:center;font-size:22px;line-height:1;transition:transform .35s,background .25s,color .25s}
+.row.on .ic{transform:rotate(45deg);background:var(--ev);color:var(--cream);border-color:var(--ev)}
+.pn{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.22,1,.36,1)}.row.on .pn{grid-template-rows:1fr}
+.pn>div{overflow:hidden}.det{padding:0 16px 32px calc(16px + 3rem + 16px);max-width:52rem;display:grid;gap:10px}.det b{font-size:1.05rem}.det p{opacity:.9}
+.det .btn{margin-top:10px;width:max-content;padding:14px 26px}
+@media (max-width:820px){.intro{grid-template-columns:1fr;gap:24px}.trio,.facts{grid-template-columns:1fr}.trio{gap:44px}.fact{border-left:0;border-top:1px solid color-mix(in srgb,var(--oak) 90%,transparent)}.fact:first-child{border-top:0}@media (prefers-reduced-motion:reduce){.tc{opacity:1;transform:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<path id="L" d="M4.68,.16c-.05-.09-.17-.16-.29-.16H.34C.07,0-.08,.29,.05,.51L3.92,6.82c.84,1.36,1.19,2.97,1.03,4.57l-.58,5.42c-.01,.2,.14,.37,.34,.37h2.42c.16,0,.29-.1,.33-.25,.37-1.62,.56-3.3,.56-5.04C8.04,7.58,6.82,3.56,4.68,.16Z"/>
+<path id="R" d="M19.3,0h-4.06c-.12,0-.22,.07-.29,.16-2.12,3.41-3.35,7.43-3.35,11.73,0,1.74,.2,3.42,.58,5.04,.03,.14,.17,.25,.33,.25h2.42c.2,0,.35-.17,.33-.37l-.56-5.42c-.17-1.6,.2-3.21,1.03-4.57L19.59,.51c.13-.22-.03-.51-.29-.51Z"/>
+<path id="C" d="M13.28,0H6.36c-.26,0-.42,.29-.29,.51,.42,.76,.81,1.55,1.15,2.36,1.22,2.87,1.83,5.89,1.83,9.02,0,1.66-.18,3.3-.52,4.89-.04,.21,.12,.41,.33,.41h1.91c.21,0,.38-.2,.33-.41-.34-1.58-.51-3.22-.51-4.89,0-3.13,.62-6.16,1.82-9.02,.34-.81,.73-1.6,1.17-2.36,.12-.22-.04-.51-.3-.51Z"/>
+<linearGradient id="gm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#79DCC4"/><stop offset="1" stop-color="#00BE93"/></linearGradient>
+<linearGradient id="gp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F5C07D"/><stop offset="1" stop-color="#F88404"/></linearGradient>
+<linearGradient id="go" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1E6DB"/><stop offset="1" stop-color="#E1C9B3"/></linearGradient>
+</defs></svg>
+
+<div class="pg">
+<header class="hero"><div class="w"><h1 id="h1">Apply for Business Support</h1><span class="pill" id="pill">For Entrepreneurs &amp; Businesses</span></div></header>
+<nav class="sw w" aria-label="Pathways"><a class="back" href="#" aria-label="Back to Apply for Funding">←</a>
+<div class="seg"><button class="on" data-p="b"><small>Pathway 1:</small>Apply for Business Support</button><button data-p="p"><small>Pathway 2:</small>Partner With NYEIB</button></div></nav>
+
+<main>
+<section class="sec w" data-p="b">
+<div class="intro"><h2>Building a business with room to grow?</h2><div class="r mut"><p>NYEIB supports growth-oriented businesses connected to Nigerian youth and women, with a focus on creating jobs and building stronger, more investable enterprises.</p><p>Depending on your stage and needs, you may be considered for equity or quasi-equity investment, capacity-building support, or both.</p></div></div>
+<div class="call"><svg viewBox="-.1 -.1 8.3 17.4" aria-hidden="true"><use href="#L" fill="url(#gm)"/></svg><span>This pathway is designed for businesses with a working product or service, paying customers and a clear plan for growth.</span></div>
+<a class="btn" href="#">Start Business Application <span aria-hidden="true">→</span></a>
+</section>
+
+<section class="sec w" data-p="p" hidden>
+<div class="intro"><h2>Explore opportunities to invest, collaborate and support business growth.</h2><div class="r mut"><p>NYEIB works with financial institutions, fund managers, investors, development partners and ecosystem organisations to help expand access to capital, reduce financing barriers and strengthen Nigeria’s entrepreneurial ecosystem.</p><p><b>Select the stakeholder group that best describes your organisation.</b></p></div></div>
+<div class="acc" id="acc" style="margin-top:48px"></div>
+</section>
+
+<section class="sec strip" id="strip"><div class="w"><h2>What Happens Next?</h2><div class="trio" id="trio"></div></div></section>
+
+<section class="sec first"><div class="w"><h2>A simple first step.</h2>
+<div class="facts">
+<div class="fact"><svg viewBox="-.1 -.1 8.3 17.4" aria-hidden="true"><use href="#L" fill="url(#gm)"/></svg><p>The initial application or partnership form is designed to take approximately five minutes.</p></div>
+<div class="fact"><svg viewBox="5.8 -.1 7.9 17.4" aria-hidden="true"><use href="#C" fill="url(#gp)"/></svg><p>You only need to provide the information required for initial screening. If your submission progresses, the NYEIB team may request additional details or supporting documents.</p></div>
+<div class="fact"><svg viewBox="11.4 -.1 8.4 17.4" aria-hidden="true"><use href="#R" fill="url(#go)"/></svg><p><b>There is no application fee.</b> NYEIB does not work through paid agents or intermediaries who charge applicants for access.</p></div>
+</div>
+<div class="band"><b>Every application is considered through the relevant review process.</b><span>Submitting a business application or partnership enquiry does not guarantee funding, investment, grant support or an institutional partnership.</span><span>All opportunities remain subject to applicable eligibility requirements, screening, assessment and approval processes.</span></div>
+</div></section>
+</main>
+</div>
+<p class="foot">Preview only. Use the pathway switcher to see both pages. On Pathway 2, hover or click a stakeholder row to open it. Copy is from the NYEIB copy file. Brand colors only.</p>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const T={b:["Apply for Business Support","For Entrepreneurs & Businesses"],p:["Partner With NYEIB","For Institutions & Ecosystem Partners"]};
+const S={b:[["Submit your application.","Complete the business application form with information about your enterprise, its operations, growth plans and the support you are seeking."],["Initial screening.","Your submission will be reviewed against the relevant initial screening criteria."],["Further assessment.","If your business progresses, the NYEIB team may request additional information or documentation to support the assessment process."]],
+p:[["Choose your stakeholder group.","Select the category that best describes your institution or organisation."],["Share your interest.","Complete the relevant form with your institution’s details, mandate and proposed area of collaboration."],["Partnership review.","The NYEIB team will review your submission and follow up where an appropriate opportunity for engagement exists."]]};
+const G=[["Venture Capital & Private Equity Fund Managers","Investing in the next generation of Nigerian businesses.",["For venture capital and private equity fund managers interested in investment partnerships, fund commitments, co-investment and opportunities involving growth-oriented Nigerian enterprises."]],
+["Banks & Licensed Lenders","Expanding access to finance through risk-sharing.",["For commercial banks, microfinance banks and other licensed lenders interested in partnerships that can help manage lending risks and expand financing opportunities for eligible youth-led businesses."]],
+["Ecosystem Support Organisations","Helping entrepreneurs build stronger businesses.",["For business development service providers, incubators, accelerators, innovation hubs and other organisations delivering practical support to entrepreneurs and MSMEs.","Explore opportunities to collaborate on business capacity-building, investment readiness and enterprise development."]],
+["Research, Policy & Public Institutions","Strengthening the environment for enterprise growth.",["For universities, research institutes, policy organisations, public institutions and other bodies working to advance entrepreneurship research, improve MSME data and support informed policy development."]],
+["Investors & Development Partners","Connecting institutional capital with long-term opportunity.",["For development finance institutions, bilateral agencies, foundations and other institutional investors interested in investment, co-investment, technical assistance or strategic partnerships with NYEIB."]]];
+const V=[["-.1 -.1 8.3 17.4","L","gm"],["5.8 -.1 7.9 17.4","C","gp"],["11.4 -.1 8.4 17.4","R","go"]];
+const acc=$("#acc");
+acc.innerHTML=G.map((g,i)=>`<div class="row"><button class="hd" id="h${i}" aria-expanded="false" aria-controls="p${i}"><i>0${i+1}</i><h3>${g[0]}</h3><span class="ic" aria-hidden="true">+</span></button><div class="pn" id="p${i}" role="region" aria-labelledby="h${i}"><div><div class="det"><b>${g[1]}</b>${g[2].map(t=>`<p>${t}</p>`).join("")}<a class="btn" href="#">Explore Partnership <span aria-hidden="true">↗</span></a></div></div></div></div>`).join("");
+const rows=[...acc.children],mode=[];let timer;
+function openRow(i,m){rows.forEach((r,k)=>{const on=k===i;r.classList.toggle("on",on);r.querySelector(".hd").setAttribute("aria-expanded",on);r.querySelector(".pn").inert=!on;mode[k]=on?m:null})}
+function closeRow(i){rows[i].classList.remove("on");rows[i].querySelector(".hd").setAttribute("aria-expanded","false");rows[i].querySelector(".pn").inert=true;mode[i]=null}
+rows.forEach((r,i)=>{const hd=r.querySelector(".hd");r.querySelector(".pn").inert=true;
+const setXY=e=>{const b=r.getBoundingClientRect();r.style.setProperty("--x",(e.clientX-b.left)+"px");r.style.setProperty("--y",(e.clientY-b.top)+"px")};
+r.addEventListener("pointerenter",e=>{if(e.pointerType!=="mouse")return;setXY(e);clearTimeout(timer);timer=setTimeout(()=>{if(mode[i]!=="pin")openRow(i,"hover")},140)});
+r.addEventListener("pointerleave",()=>clearTimeout(timer));
+hd.addEventListener("click",e=>{if(e.detail>0)setXY(e);if(r.classList.contains("on")&&mode[i]==="pin")closeRow(i);else openRow(i,"pin")})});
+function steps(k){$("#trio").innerHTML=S[k].map((s,i)=>`<div class="tc"><span class="tb"><svg viewBox="${V[i][0]}" aria-hidden="true"><use href="#${V[i][1]}" fill="url(#${V[i][2]})"/></svg><span class="ltr" aria-hidden="true">${i+1}</span></span><small>Step ${i+1}</small><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("");const st=$("#strip");st.classList.remove("in");void st.offsetWidth;requestAnimationFrame(()=>st.classList.add("in"))}
+function show(k){$$(".seg button").forEach(b=>b.classList.toggle("on",b.dataset.p===k));$$("[data-p].sec").forEach(s=>s.hidden=s.dataset.p!==k);$("#h1").textContent=T[k][0];$("#pill").textContent=T[k][1];steps(k)}
+$$(".seg button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.p)));
+show("b");
+new IntersectionObserver((es)=>es.forEach(e=>e.target.classList.toggle("in",e.isIntersecting||e.target.classList.contains("in"))),{threshold:.25}).observe($("#strip"));
+</script>
+</body>
+</html>

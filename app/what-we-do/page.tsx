@@ -10,7 +10,7 @@ import { CTA_CONTENT } from "@/src/content/cta";
 export const metadata: Metadata = {
   title: "What We Do — Nigeria YEIB Investment Funds",
   description:
-    "NYEIB connect growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
+    "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
 };
 
 export default function WhatWeDoPage() {

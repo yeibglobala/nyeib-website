@@ -12,7 +12,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
     imageSrc: "/images/nyeib-what-we-do.jpg",
     headline: "We exist to unlock pathways for investable businesses.",
     subtext:
-      "NYEIB connect growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
+      "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
     overlayStrength: 1.0,
   },
   "who-we-serve": {

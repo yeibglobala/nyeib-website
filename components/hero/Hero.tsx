@@ -46,7 +46,7 @@ export function Hero({
         <div className="hero-col-right">
           <p className="hero-subtext">
             {subtext ||
-              "NYEIB connect growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready."}
+              "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready."}
           </p>
 
           {actions && <div className="mt-8 flex items-center gap-4">{actions}</div>}
