@@ -108,6 +108,7 @@ export function Navbar() {
     { label: "Who We Serve", href: "/who-we-serve" },
     { label: "Impact", href: "/impact" },
     { label: "Partners", href: "/partners" },
+    { label: "ESG", href: "/esg" },
   ];
 
   const shouldShow = isOpen || isHovered || isNearTop || isVisible;
