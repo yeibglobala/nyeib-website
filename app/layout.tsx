@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/shared/components/Navbar";
 import { SmoothScroll } from "@/shared/components/SmoothScroll";
 import { Footer } from "@/components/footer/Footer";
+import { Preloader } from "@/components/preloader/Preloader";
 
 export const viewport: Viewport = {
   themeColor: "#003124",
@@ -35,8 +36,21 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Chivo:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
           rel="stylesheet"
         />
+        {/* Instant Session Guard: prevents preloader re-trigger or flash on subsequent pages in session */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (sessionStorage.getItem('nyeib_preloader_seen')) {
+                  document.documentElement.classList.add('nyeib-skip-preloader');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
       </head>
       <body className="bg-[var(--bg-deep)] text-[var(--fg-main)] font-[var(--font-body)] antialiased min-h-screen flex flex-col">
+        <Preloader />
         <SmoothScroll>
           <Navbar />
           <div className="flex-1 w-full">{children}</div>
