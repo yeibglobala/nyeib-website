@@ -313,7 +313,7 @@ export function NigeriaPhotoMap({
                 width={MAP_CONFIG.width}
                 height={MAP_CONFIG.height}
                 preserveAspectRatio="xMidYMid slice"
-                href="/images/purpose-photo.webp"
+                href="/images/a-nigerian-woman.webp"
               />
 
               {/* State ClipPaths */}
