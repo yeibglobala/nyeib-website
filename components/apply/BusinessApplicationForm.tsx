@@ -2,12 +2,21 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Clock, Shield, ArrowRight, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Clock,
+  Shield,
+  ArrowRight,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 
 export function BusinessApplicationForm() {
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -22,19 +31,86 @@ export function BusinessApplicationForm() {
     description: "",
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const validate = (data: typeof formData): Record<string, string> => {
+    const errs: Record<string, string> = {};
+
+    if (!data.fullName.trim()) {
+      errs.fullName = "Full name is required.";
+    }
+
+    if (!data.email.trim()) {
+      errs.email = "Email address is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errs.email = "Please enter a valid email address.";
+    }
+
+    if (!data.phone.trim()) {
+      errs.phone = "Phone number is required.";
+    }
+
+    if (!data.businessName.trim()) {
+      errs.businessName = "Business name is required.";
+    }
+
+    if (!data.businessLocation.trim()) {
+      errs.businessLocation = "State or location in Nigeria is required.";
+    }
+
+    if (!data.description.trim()) {
+      errs.description = "Brief description of your enterprise is required.";
+    }
+
+    return errs;
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    const nextData = { ...formData, [name]: value };
+    setFormData(nextData);
+
+    if (hasAttemptedSubmit || touched[name]) {
+      setErrors(validate(nextData));
+    }
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    setErrors(validate(formData));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setHasAttemptedSubmit(true);
+
+    const validationErrors = validate(formData);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
+
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
     }, 800);
+  };
+
+  const getFieldClass = (fieldName: keyof typeof formData) => {
+    const isError = Boolean((hasAttemptedSubmit || touched[fieldName]) && errors[fieldName]);
+    return `w-full px-4 py-3 rounded-xl bg-[#F7F5F0] text-[#0F2A20] text-sm transition-all duration-200 outline-none placeholder-[#0F2A20]/40 ${
+      isError
+        ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
+        : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#2eb78c]"
+    }`;
   };
 
   // 1. Success State
@@ -73,6 +149,8 @@ export function BusinessApplicationForm() {
 
   // 2. Interactive Form State
   if (showForm) {
+    const errorCount = Object.keys(errors).length;
+
     return (
       <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-12 shadow-[0_12px_40px_rgba(15,42,32,0.06)] text-left space-y-8 animate-in fade-in duration-300">
         <div className="flex items-center justify-between border-b border-[#E6DCCB]/60 pb-5">
@@ -96,7 +174,31 @@ export function BusinessApplicationForm() {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Accessible Error Summary */}
+        {hasAttemptedSubmit && errorCount > 0 && (
+          <div
+            role="alert"
+            tabIndex={-1}
+            aria-labelledby="form-error-title"
+            className="rounded-2xl bg-[#B3261E]/5 border border-[#B3261E]/30 p-4 sm:p-5 outline-none animate-in fade-in duration-200"
+          >
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-[#B3261E] shrink-0 mt-0.5" />
+              <div>
+                <h3 id="form-error-title" className="text-sm font-bold text-[#B3261E] mb-1.5">
+                  Please resolve the following issues before submitting:
+                </h3>
+                <ul className="text-xs sm:text-sm text-[#B3261E] space-y-1 list-disc list-inside">
+                  {Object.values(errors).map((err, idx) => (
+                    <li key={idx}>{err}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} noValidate className="space-y-5">
           {/* Full Name & Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div className="space-y-1.5">
@@ -105,13 +207,22 @@ export function BusinessApplicationForm() {
               </label>
               <input
                 type="text"
-                required
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="e.g. Aisha Bello"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.fullName) && errors.fullName ? "true" : "false"}
+                aria-describedby={errors.fullName ? "err-fullName" : undefined}
+                className={getFieldClass("fullName")}
               />
+              {(hasAttemptedSubmit || touched.fullName) && errors.fullName && (
+                <p id="err-fullName" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.fullName}</span>
+                </p>
+              )}
             </div>
 
             <div className="space-y-1.5">
@@ -120,13 +231,22 @@ export function BusinessApplicationForm() {
               </label>
               <input
                 type="email"
-                required
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="aisha@example.com"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.email) && errors.email ? "true" : "false"}
+                aria-describedby={errors.email ? "err-email" : undefined}
+                className={getFieldClass("email")}
               />
+              {(hasAttemptedSubmit || touched.email) && errors.email && (
+                <p id="err-email" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.email}</span>
+                </p>
+              )}
             </div>
           </div>
 
@@ -138,13 +258,22 @@ export function BusinessApplicationForm() {
               </label>
               <input
                 type="text"
-                required
                 name="businessName"
                 value={formData.businessName}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="e.g. AgriTech Solutions Ltd"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.businessName) && errors.businessName ? "true" : "false"}
+                aria-describedby={errors.businessName ? "err-businessName" : undefined}
+                className={getFieldClass("businessName")}
               />
+              {(hasAttemptedSubmit || touched.businessName) && errors.businessName && (
+                <p id="err-businessName" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.businessName}</span>
+                </p>
+              )}
             </div>
 
             <div className="space-y-1.5">
@@ -153,13 +282,22 @@ export function BusinessApplicationForm() {
               </label>
               <input
                 type="tel"
-                required
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="+234 800 000 0000"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.phone) && errors.phone ? "true" : "false"}
+                aria-describedby={errors.phone ? "err-phone" : undefined}
+                className={getFieldClass("phone")}
               />
+              {(hasAttemptedSubmit || touched.phone) && errors.phone && (
+                <p id="err-phone" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.phone}</span>
+                </p>
+              )}
             </div>
           </div>
 
@@ -173,7 +311,7 @@ export function BusinessApplicationForm() {
                 name="sector"
                 value={formData.sector}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c]"
+                className={getFieldClass("sector")}
               >
                 <option>Agribusiness & Food Security</option>
                 <option>Technology & Digital Economy</option>
@@ -191,13 +329,22 @@ export function BusinessApplicationForm() {
               </label>
               <input
                 type="text"
-                required
                 name="businessLocation"
                 value={formData.businessLocation}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="e.g. Lagos, Abuja, Kano"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.businessLocation) && errors.businessLocation ? "true" : "false"}
+                aria-describedby={errors.businessLocation ? "err-businessLocation" : undefined}
+                className={getFieldClass("businessLocation")}
               />
+              {(hasAttemptedSubmit || touched.businessLocation) && errors.businessLocation && (
+                <p id="err-businessLocation" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.businessLocation}</span>
+                </p>
+              )}
             </div>
           </div>
 
@@ -210,7 +357,7 @@ export function BusinessApplicationForm() {
               name="supportType"
               value={formData.supportType}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c]"
+              className={getFieldClass("supportType")}
             >
               <option>Both Investment & Capacity Building</option>
               <option>Equity or Quasi-Equity Investment</option>
@@ -224,14 +371,23 @@ export function BusinessApplicationForm() {
               Brief Description of Enterprise & Growth Plans *
             </label>
             <textarea
-              required
               rows={4}
               name="description"
               value={formData.description}
               onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="Tell us briefly about your product/service, paying customers, and growth targets..."
-              className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#2eb78c] resize-none"
+              aria-required="true"
+              aria-invalid={(hasAttemptedSubmit || touched.description) && errors.description ? "true" : "false"}
+              aria-describedby={errors.description ? "err-description" : undefined}
+              className={`${getFieldClass("description")} resize-none`}
             />
+            {(hasAttemptedSubmit || touched.description) && errors.description && (
+              <p id="err-description" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <span>{errors.description}</span>
+              </p>
+            )}
           </div>
 
           {/* Submit Button */}

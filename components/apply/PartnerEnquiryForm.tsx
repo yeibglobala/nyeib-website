@@ -2,7 +2,15 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Clock, Shield, ArrowRight, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Clock,
+  Shield,
+  ArrowRight,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 
 interface PartnerEnquiryFormProps {
   groupSlug: string;
@@ -18,6 +26,7 @@ export function PartnerEnquiryForm({
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -32,19 +41,86 @@ export function PartnerEnquiryForm({
     proposedCollaboration: "",
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const validate = (data: typeof formData): Record<string, string> => {
+    const errs: Record<string, string> = {};
+
+    if (!data.contactName.trim()) {
+      errs.contactName = "Representative name is required.";
+    }
+
+    if (!data.contactTitle.trim()) {
+      errs.contactTitle = "Official job title is required.";
+    }
+
+    if (!data.email.trim()) {
+      errs.email = "Official email address is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errs.email = "Please enter a valid email address.";
+    }
+
+    if (!data.phone.trim()) {
+      errs.phone = "Phone number is required.";
+    }
+
+    if (!data.institutionName.trim()) {
+      errs.institutionName = "Institution or organisation name is required.";
+    }
+
+    if (!data.proposedCollaboration.trim()) {
+      errs.proposedCollaboration = "Proposed area of collaboration & mandate is required.";
+    }
+
+    return errs;
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    const nextData = { ...formData, [name]: value };
+    setFormData(nextData);
+
+    if (hasAttemptedSubmit || touched[name]) {
+      setErrors(validate(nextData));
+    }
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    setErrors(validate(formData));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setHasAttemptedSubmit(true);
+
+    const validationErrors = validate(formData);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
+
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
     }, 800);
+  };
+
+  const getFieldClass = (fieldName: keyof typeof formData) => {
+    const isError = Boolean((hasAttemptedSubmit || touched[fieldName]) && errors[fieldName]);
+    return `w-full px-4 py-3 rounded-xl bg-[#F7F5F0] text-[#0F2A20] text-sm transition-all duration-200 outline-none placeholder-[#0F2A20]/40 ${
+      isError
+        ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
+        : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#F88404]"
+    }`;
   };
 
   // 1. Success State
@@ -83,6 +159,8 @@ export function PartnerEnquiryForm({
 
   // 2. Interactive Form State
   if (showForm) {
+    const errorCount = Object.keys(errors).length;
+
     return (
       <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-12 shadow-[0_12px_40px_rgba(15,42,32,0.06)] text-left space-y-8 animate-in fade-in duration-300">
         <div className="flex items-center justify-between border-b border-[#E6DCCB]/60 pb-5">
@@ -106,7 +184,31 @@ export function PartnerEnquiryForm({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Accessible Error Summary */}
+        {hasAttemptedSubmit && errorCount > 0 && (
+          <div
+            role="alert"
+            tabIndex={-1}
+            aria-labelledby="form-error-title"
+            className="rounded-2xl bg-[#B3261E]/5 border border-[#B3261E]/30 p-4 sm:p-5 outline-none animate-in fade-in duration-200"
+          >
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-[#B3261E] shrink-0 mt-0.5" />
+              <div>
+                <h3 id="form-error-title" className="text-sm font-bold text-[#B3261E] mb-1.5">
+                  Please resolve the following issues before submitting:
+                </h3>
+                <ul className="text-xs sm:text-sm text-[#B3261E] space-y-1 list-disc list-inside">
+                  {Object.values(errors).map((err, idx) => (
+                    <li key={idx}>{err}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} noValidate className="space-y-5">
           {/* Representative Name & Job Title */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div className="space-y-1.5">
@@ -115,13 +217,22 @@ export function PartnerEnquiryForm({
               </label>
               <input
                 type="text"
-                required
                 name="contactName"
                 value={formData.contactName}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="e.g. Dr. Emeka Okafor"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#F88404]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.contactName) && errors.contactName ? "true" : "false"}
+                aria-describedby={errors.contactName ? "err-contactName" : undefined}
+                className={getFieldClass("contactName")}
               />
+              {(hasAttemptedSubmit || touched.contactName) && errors.contactName && (
+                <p id="err-contactName" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.contactName}</span>
+                </p>
+              )}
             </div>
 
             <div className="space-y-1.5">
@@ -130,13 +241,22 @@ export function PartnerEnquiryForm({
               </label>
               <input
                 type="text"
-                required
                 name="contactTitle"
                 value={formData.contactTitle}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="e.g. Managing Director / Partner"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#F88404]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.contactTitle) && errors.contactTitle ? "true" : "false"}
+                aria-describedby={errors.contactTitle ? "err-contactTitle" : undefined}
+                className={getFieldClass("contactTitle")}
               />
+              {(hasAttemptedSubmit || touched.contactTitle) && errors.contactTitle && (
+                <p id="err-contactTitle" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.contactTitle}</span>
+                </p>
+              )}
             </div>
           </div>
 
@@ -148,13 +268,22 @@ export function PartnerEnquiryForm({
               </label>
               <input
                 type="email"
-                required
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="e.okafor@institution.org"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#F88404]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.email) && errors.email ? "true" : "false"}
+                aria-describedby={errors.email ? "err-email" : undefined}
+                className={getFieldClass("email")}
               />
+              {(hasAttemptedSubmit || touched.email) && errors.email && (
+                <p id="err-email" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.email}</span>
+                </p>
+              )}
             </div>
 
             <div className="space-y-1.5">
@@ -163,13 +292,22 @@ export function PartnerEnquiryForm({
               </label>
               <input
                 type="tel"
-                required
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="+234 800 000 0000"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#F88404]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.phone) && errors.phone ? "true" : "false"}
+                aria-describedby={errors.phone ? "err-phone" : undefined}
+                className={getFieldClass("phone")}
               />
+              {(hasAttemptedSubmit || touched.phone) && errors.phone && (
+                <p id="err-phone" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.phone}</span>
+                </p>
+              )}
             </div>
           </div>
 
@@ -181,13 +319,22 @@ export function PartnerEnquiryForm({
               </label>
               <input
                 type="text"
-                required
                 name="institutionName"
                 value={formData.institutionName}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder="e.g. Apex Growth Capital"
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#F88404]"
+                aria-required="true"
+                aria-invalid={(hasAttemptedSubmit || touched.institutionName) && errors.institutionName ? "true" : "false"}
+                aria-describedby={errors.institutionName ? "err-institutionName" : undefined}
+                className={getFieldClass("institutionName")}
               />
+              {(hasAttemptedSubmit || touched.institutionName) && errors.institutionName && (
+                <p id="err-institutionName" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>{errors.institutionName}</span>
+                </p>
+              )}
             </div>
 
             <div className="space-y-1.5">
@@ -198,7 +345,7 @@ export function PartnerEnquiryForm({
                 type="text"
                 readOnly
                 value={groupTitle}
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0]/80 border border-[#E6DCCB] text-[#0F2A20]/80 text-sm cursor-not-allowed"
+                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0]/80 border border-[#E6DCCB] text-[#0F2A20]/80 text-sm cursor-not-allowed outline-none"
               />
             </div>
           </div>
@@ -209,14 +356,23 @@ export function PartnerEnquiryForm({
               Proposed Area of Collaboration & Mandate *
             </label>
             <textarea
-              required
               rows={4}
               name="proposedCollaboration"
               value={formData.proposedCollaboration}
               onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="Tell us about your institution's mandate, co-investment focus or proposed partnership area with NYEIB..."
-              className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20] text-sm focus:outline-none focus:ring-2 focus:ring-[#F88404] resize-none"
+              aria-required="true"
+              aria-invalid={(hasAttemptedSubmit || touched.proposedCollaboration) && errors.proposedCollaboration ? "true" : "false"}
+              aria-describedby={errors.proposedCollaboration ? "err-proposedCollaboration" : undefined}
+              className={`${getFieldClass("proposedCollaboration")} resize-none`}
             />
+            {(hasAttemptedSubmit || touched.proposedCollaboration) && errors.proposedCollaboration && (
+              <p id="err-proposedCollaboration" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <span>{errors.proposedCollaboration}</span>
+              </p>
+            )}
           </div>
 
           {/* Submit Button */}
