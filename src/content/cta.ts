@@ -31,9 +31,9 @@ export const CTA_CONTENT = {
     href: "/apply",
   },
   esg: {
-    headline: "Grow responsibly. Build lasting value.",
-    text: "Whether you are growing a business or supporting enterprises across Nigeria, NYEIB offers a pathway to participate in more sustainable business growth.",
-    buttonLabel: "Partner with NYEIB",
-    href: "/apply",
+    headline: "Building a more sustainable future takes collaboration.",
+    text: "Explore how your organisation can work with NYEIB to advance responsible investment and sustainable business growth across Nigeria.",
+    buttonLabel: "Partner With NYEIB",
+    href: "/apply/partner",
   },
 } as const satisfies Record<string, CtaCardData>;

@@ -138,7 +138,11 @@ export function CtaCard({
           {/* Group 1: Headline + Text at Top */}
           <div className="relative z-[2] flex flex-col gap-4 sm:gap-4.5 max-w-full">
             <h2
-              className="font-serif text-[#0F2A20] text-[clamp(2.2rem,4.6vw,3.9rem)] leading-[1.05] tracking-[-0.015em] max-w-[16ch] m-0 [text-wrap:balance]"
+              className={`font-serif text-[#0F2A20] leading-[1.05] tracking-[-0.015em] m-0 [text-wrap:balance] ${
+                headline.length > 40
+                  ? "text-[clamp(1.9rem,3.6vw,3.1rem)] max-w-[22ch]"
+                  : "text-[clamp(2.2rem,4.6vw,3.9rem)] max-w-[16ch]"
+              }`}
               style={{ fontFamily: "var(--font-headline, Georgia, serif)" }}
             >
               {headline}

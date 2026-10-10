@@ -60,17 +60,17 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "esg": {
     slug: "esg",
     imageSrc: "/images/nyeib-investors.jpg",
-    headline: "Building businesses prepared for the future.",
+    headline: "Responsible investment. Sustainable growth. Lasting impact.",
     subtext:
-      "NYEIB integrates environmental, social and governance considerations into how it supports businesses, with a focus on responsible growth and long-term value.",
+      "At NYEIB, we integrate environmental, social, and governance (ESG) considerations into our investment activities to support responsible decision-making, strengthen business resilience, and create lasting economic opportunities for Nigerian youth and women.",
     overlayStrength: 1.0,
   },
   "esg-and-sustainability": {
     slug: "esg-and-sustainability",
     imageSrc: "/images/nyeib-investors.jpg",
-    headline: "Building businesses prepared for the future.",
+    headline: "Responsible investment. Sustainable growth. Lasting impact.",
     subtext:
-      "NYEIB integrates environmental, social and governance considerations into how it supports businesses, with a focus on responsible growth and long-term value.",
+      "At NYEIB, we integrate environmental, social, and governance (ESG) considerations into our investment activities to support responsible decision-making, strengthen business resilience, and create lasting economic opportunities for Nigerian youth and women.",
     overlayStrength: 1.0,
   },
   "apply": {

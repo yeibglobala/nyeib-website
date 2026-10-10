@@ -44,7 +44,7 @@ export function InnerHero({
         <div className="w-full max-w-4xl lg:max-w-5xl mx-auto flex flex-col items-center text-center mb-6 sm:mb-14 lg:mb-16">
           <HeaderReveal delay={60} duration={950}>
             <h1
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold text-[#003124] tracking-tight leading-[1.14] sm:leading-[1.12] text-center"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold text-[#003124] tracking-tight leading-[1.14] sm:leading-[1.12] text-center [text-wrap:balance]"
               style={{ fontFamily: "var(--font-headline, serif)" }}
             >
               {headline}
