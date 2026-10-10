@@ -46,7 +46,7 @@ export function WhatHappensNextTimeline({
 
   return (
     <section ref={stripRef} className="apply-sec apply-strip" id="strip">
-      <div className="apply-w">
+      <div className="max-w-[1240px] w-full mx-auto px-5 sm:px-8 lg:px-12">
         <h2>{heading}</h2>
         <div className="apply-trio">
           {steps.map((item, index) => {

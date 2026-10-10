@@ -9,8 +9,11 @@ export interface PathwaySwitcherProps {
 
 export function PathwaySwitcher({ currentPathway }: PathwaySwitcherProps) {
   return (
-    <div className="apply-sw-wrapper">
-      <nav className="apply-sw apply-w" aria-label="Pathways">
+    <div className="apply-sw-wrapper w-full">
+      <nav
+        className="max-w-[1240px] w-full mx-auto px-5 sm:px-8 lg:px-12 apply-sw"
+        aria-label="Pathways"
+      >
         <Link
           href="/apply"
           className="apply-back"

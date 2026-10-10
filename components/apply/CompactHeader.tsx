@@ -12,8 +12,8 @@ export function CompactHeader({
   pillColor = "mint",
 }: CompactHeaderProps) {
   return (
-    <header className="apply-hero">
-      <div className="apply-w">
+    <header className="apply-hero w-full">
+      <div className="max-w-[1240px] w-full mx-auto px-5 sm:px-8 lg:px-12">
         <h1 id="h1">{title}</h1>
         <span
           className="apply-pill"

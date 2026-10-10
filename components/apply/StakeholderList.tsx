@@ -118,7 +118,7 @@ export function StakeholderList() {
   };
 
   return (
-    <div className="apply-acc" id="acc" style={{ marginTop: "48px" }}>
+    <div className="apply-acc" id="acc">
       {STAKEHOLDERS.map((item, i) => {
         const isOpen = openIndex === i;
         return (

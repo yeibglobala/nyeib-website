@@ -51,7 +51,7 @@ export default function ApplyBusinessPage() {
 
       <main>
         {/* Intro Section */}
-        <section className="apply-sec apply-w">
+        <section className="apply-sec max-w-[1240px] w-full mx-auto px-5 sm:px-8 lg:px-12">
           <div className="apply-intro">
             <h2>Building a business with room to grow?</h2>
             <div className="r">

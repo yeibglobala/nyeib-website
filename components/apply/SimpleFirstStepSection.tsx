@@ -3,7 +3,7 @@ import React from "react";
 export function SimpleFirstStepSection() {
   return (
     <section className="apply-sec apply-first">
-      <div className="apply-w">
+      <div className="max-w-[1240px] w-full mx-auto px-5 sm:px-8 lg:px-12">
         <h2>A simple first step.</h2>
         <div className="apply-facts">
           <div className="apply-fact">

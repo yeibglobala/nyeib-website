@@ -50,7 +50,7 @@ export default function ApplyPartnerPage() {
 
       <main>
         {/* Intro Section */}
-        <section className="apply-sec apply-w">
+        <section className="apply-sec max-w-[1240px] w-full mx-auto px-5 sm:px-8 lg:px-12">
           <div className="apply-intro">
             <h2>
               Explore opportunities to invest, collaborate and support business
