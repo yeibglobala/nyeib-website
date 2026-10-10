@@ -57,7 +57,7 @@ export function EsgInPageNav() {
   };
 
   return (
-    <div className="sticky top-[72px] sm:top-[80px] z-20 w-full bg-[#F7F5F0]/95 backdrop-blur-md border-b border-[#E6DCCB]/80 transition-all duration-200">
+    <div className="sticky top-[72px] sm:top-[80px] z-20 w-full bg-[#F7F5F0]/95 backdrop-blur-md border-b border-[#E6DCCB]/80 transition-all duration-200 mt-6 sm:mt-10 lg:mt-14">
       <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-8 lg:px-12 relative">
         {/* Mobile Edge Fade Out on Right */}
         <div
@@ -68,7 +68,7 @@ export function EsgInPageNav() {
         <nav
           ref={navContainerRef}
           aria-label="ESG In-Page Navigation"
-          className="flex items-center justify-start lg:justify-center gap-1.5 sm:gap-2 py-2.5 overflow-x-auto no-scrollbar scroll-smooth"
+          className="flex items-center justify-start lg:justify-center gap-1.5 sm:gap-2 py-3 sm:py-3.5 overflow-x-auto no-scrollbar scroll-smooth"
         >
           {links.map((link) => {
             const isActive = activeId === link.id;

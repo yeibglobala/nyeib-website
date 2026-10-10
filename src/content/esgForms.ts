@@ -104,6 +104,40 @@ export const ESG_FORMS_DRAFT_UI = {
       descriptionTooLong: "Description cannot exceed 3000 characters.",
     },
   },
+
+  // Contact NYEIB Form Draft Field Labels & Options
+  contact: {
+    nameLabel: "Your name",
+    namePlaceholder: "Enter your full name",
+    emailLabel: "Email address",
+    emailPlaceholder: "Enter your email address",
+    phoneLabel: "Phone number",
+    phonePlaceholder: "Enter your phone number",
+    organisationLabel: "Organisation or company",
+    organisationPlaceholder: "Enter your organisation name",
+    enquiryTypeLabel: "Topic of enquiry",
+    enquiryTypeOptions: [
+      { value: "sustainability-esg", label: "Sustainability & ESG" },
+      { value: "reports-disclosures", label: "Reports & Disclosures" },
+      { value: "policies-procedures", label: "Policies & Procedures" },
+      { value: "partnerships", label: "Partnerships & Collaboration" },
+      { value: "funding-eligibility", label: "Funding & Investment" },
+      { value: "general-enquiry", label: "General Enquiry" },
+    ],
+    subjectLabel: "Subject",
+    subjectPlaceholder: "Enter the subject of your enquiry",
+    messageLabel: "Message",
+    messagePlaceholder: "How can we help you? Provide details about your enquiry",
+    errors: {
+      nameRequired: "Please enter your name.",
+      emailRequired: "Please enter your email address.",
+      emailInvalid: "Please enter a valid email address.",
+      enquiryTypeRequired: "Please select a topic of enquiry.",
+      subjectRequired: "Please enter a subject.",
+      messageRequired: "Please enter your message.",
+      messageTooLong: "Message cannot exceed 3000 characters.",
+    },
+  },
 } as const;
 
 /* =========================================================================
@@ -124,6 +158,14 @@ export const ESG_FORMS_EDITORIAL = {
     paragraphs: [
       "The whistleblowing channel is intended for reporting suspected fraud, corruption, unethical conduct, conflicts of interest or other breaches connected to NYEIB’s activities.",
       "Reports will be handled through the applicable procedures, including relevant confidentiality and escalation arrangements.",
+    ],
+  },
+  contact: {
+    title: "Contact NYEIB",
+    boldLine: "Have a question? Get in touch.",
+    paragraphs: [
+      "For questions about NYEIB’s sustainability approach, reports, policies or general activities, please use our general enquiries channel.",
+      "Our team will direct your enquiry to the appropriate department and respond to you promptly.",
     ],
   },
 } as const;

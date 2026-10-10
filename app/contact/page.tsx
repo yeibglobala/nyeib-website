@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { FormHeader } from "@/components/esg-forms/FormHeader";
-import { GrievanceForm } from "@/components/esg-forms/GrievanceForm";
+import { ContactForm } from "@/components/esg-forms/ContactForm";
 import { ESG_FORMS_EDITORIAL, DRAFT_MODE } from "@/src/content/esgForms";
 
 export const metadata: Metadata = {
-  title: "Grievance Redress | NYEIB",
+  title: "Contact NYEIB | General Enquiries",
   description:
-    "Raise a concern about an NYEIB-supported activity through the Grievance Redress Mechanism.",
+    "Get in touch with Nigeria YEIB Investment Funds for general enquiries about our ESG approach, reports, policies, or activities.",
   ...(DRAFT_MODE
     ? {
         robots: {
@@ -17,16 +17,16 @@ export const metadata: Metadata = {
     : {}),
 };
 
-export default function GrievancePage() {
-  const editorial = ESG_FORMS_EDITORIAL.grievance;
+export default function ContactPage() {
+  const editorial = ESG_FORMS_EDITORIAL.contact;
 
   return (
     <main className="w-full bg-[#F7F5F0] flex flex-col min-h-screen">
-      {/* 1. Compact Header */}
+      {/* 1. Compact Hero Header in brand Evergreen */}
       <FormHeader title={editorial.title} boldLine={editorial.boldLine} />
 
       {/* 2. Main Two-Column Layout and Form Card */}
-      <GrievanceForm />
+      <ContactForm />
     </main>
   );
 }

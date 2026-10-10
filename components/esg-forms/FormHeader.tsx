@@ -7,14 +7,14 @@ interface FormHeaderProps {
 
 export function FormHeader({ title, boldLine }: FormHeaderProps) {
   return (
-    <header className="relative w-full bg-[#0b1310] min-h-[36svh] flex flex-col justify-end pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 sm:px-8 lg:px-12 overflow-hidden">
+    <header className="relative w-full bg-[#003124] min-h-[36svh] flex flex-col justify-end pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 sm:px-8 lg:px-12 overflow-hidden">
       {/* Soft mint glow on right (CSS only, no image) */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute right-0 top-0 w-full md:w-3/4 h-full"
         style={{
           background:
-            "radial-gradient(circle at 90% 45%, rgba(46,183,140,0.22) 0%, rgba(46,183,140,0.06) 50%, transparent 75%)",
+            "radial-gradient(circle at 90% 45%, rgba(0,190,147,0.25) 0%, rgba(0,190,147,0.08) 50%, transparent 75%)",
         }}
       />
 

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { FormHeader } from "@/components/esg-forms/FormHeader";
-import { DraftBanner } from "@/components/esg-forms/DraftBanner";
 import { WhistleblowingForm } from "@/components/esg-forms/WhistleblowingForm";
 import { ESG_FORMS_EDITORIAL, DRAFT_MODE } from "@/src/content/esgForms";
 
@@ -26,10 +25,7 @@ export default function WhistleblowingPage() {
       {/* 1. Compact Header */}
       <FormHeader title={editorial.title} boldLine={editorial.boldLine} />
 
-      {/* 2. Draft Notice Banner (while DRAFT_MODE is true) */}
-      <DraftBanner />
-
-      {/* 3. Main Two-Column Layout and Form Card */}
+      {/* 2. Main Two-Column Layout and Form Card */}
       <WhistleblowingForm />
     </main>
   );
