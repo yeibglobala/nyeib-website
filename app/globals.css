@@ -298,16 +298,16 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
 
 /* 2. Fail-safe auto-dismiss: unblocks page even if JS fails or is delayed */
 #nyeib-preloader-overlay {
-  animation: nyeibAutoDismiss 4.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: nyeibAutoDismiss 4.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
 @keyframes nyeibAutoDismiss {
-  0%, 82% {
-    opacity: 1;
+  0%, 78% {
+    transform: translateY(0);
     pointer-events: auto;
   }
   100% {
-    opacity: 0;
+    transform: translateY(-100%);
     pointer-events: none;
     visibility: hidden;
   }

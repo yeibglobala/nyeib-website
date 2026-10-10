@@ -57,26 +57,33 @@ export function EsgReportsSection() {
               {items.map((item, idx) => (
                 <div
                   key={idx}
-                  className="py-5 px-3 sm:px-4 rounded-xl transition-colors duration-200 hover:bg-[#F7F5F0] cursor-default flex items-start gap-4"
+                  tabIndex={0}
+                  className="policy-accordion-item group py-4 sm:py-5 px-3 sm:px-4 rounded-xl transition-all duration-200 hover:bg-[#F7F5F0] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#0D3026] cursor-pointer flex items-start gap-4"
                 >
-                  <div className="w-9 h-9 rounded-full bg-[#BFEBDC]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-9 h-9 rounded-full bg-[#BFEBDC]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#BFEBDC] transition-colors duration-200">
                     <FileText className="w-4 h-4" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h3
-                      className="text-lg sm:text-[19px] font-semibold text-[#0F2A20] mb-1.5 leading-snug"
+                      className="text-lg sm:text-[19px] font-semibold text-[#0F2A20] leading-snug"
                       style={{
                         fontFamily: "var(--font-headline, 'Asul', Georgia, serif)",
                       }}
                     >
                       {item.title}
                     </h3>
-                    <p
-                      className="text-sm sm:text-[15px] text-[#4A5B53] leading-relaxed m-0"
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                    >
-                      {item.description}
-                    </p>
+
+                    {/* Expandable description: hidden by default, expands on hover / focus */}
+                    <div className="policy-accordion-desc">
+                      <div>
+                        <p
+                          className="pt-2 text-sm sm:text-[15px] text-[#4A5B53] leading-relaxed m-0"
+                          style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+                        >
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}

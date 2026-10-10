@@ -21,13 +21,13 @@ export function Preloader() {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // 3. Mark sequence: deliberate gather (1.35s) -> vector wordmark reveal (1.1s) -> majestic hold (1.25s) -> exit
-    // Standard luxury preloader duration: 3.7s before exit initiates
+    // 3. Mark sequence: deliberate gather (1.35s) -> vector wordmark reveal (1.15s) -> majestic hold (1.2s) -> swipe up outro
+    // Standard luxury preloader duration: 3.7s before swipe up initiates
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
     }, 3700);
 
-    // 4. Complete cleanup and unmount from DOM after exit fade (4.3s)
+    // 4. Complete cleanup and unmount from DOM after swipe-up outro completes (4.55s)
     const cleanupTimer = setTimeout(() => {
       setMounted(false);
       document.body.style.overflow = originalOverflow;
@@ -36,7 +36,7 @@ export function Preloader() {
       } catch {
         // no-op
       }
-    }, 4300);
+    }, 4550);
 
     return () => {
       clearTimeout(exitTimer);
@@ -51,8 +51,8 @@ export function Preloader() {
     <div
       id="nyeib-preloader-overlay"
       aria-hidden="true"
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#00241A] select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] px-4 sm:px-6 ${
-        isExiting ? "opacity-0 pointer-events-none scale-[1.02]" : "opacity-100"
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#00241A] select-none transition-transform duration-[850ms] ease-[cubic-bezier(0.77,0,0.175,1)] px-4 sm:px-6 shadow-[0_30px_70px_rgba(0,0,0,0.7)] ${
+        isExiting ? "-translate-y-full pointer-events-none" : "translate-y-0 pointer-events-auto"
       }`}
       style={{
         background: "radial-gradient(ellipse at 50% 48%, #053b2e 0%, #002219 70%, #001912 100%)",
@@ -63,7 +63,11 @@ export function Preloader() {
       </span>
 
       {/* Horizontal Brand Lockup: Icon gathers in center, then shifts left as vector wordmark reveals */}
-      <div className="relative flex items-center justify-center max-w-full h-12 min-[400px]:h-14 sm:h-16 md:h-20">
+      <div
+        className={`relative flex items-center justify-center max-w-full h-12 min-[400px]:h-14 sm:h-16 md:h-20 transition-all duration-500 ease-out ${
+          isExiting ? "-translate-y-12 opacity-25" : "translate-y-0 opacity-100"
+        }`}
+      >
         {/* SVG Mark: Three Bars Gather (exact geometry from logo-reverse-emerald-on-green.svg) */}
         <div className="relative h-full aspect-[40/35] flex items-center justify-center shrink-0">
           <svg
