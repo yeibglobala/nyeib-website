@@ -18,7 +18,7 @@ const PARTNER_PATHWAY_DATA: PartnerPathwayItem[] = [
     number: "01",
     title: "More than impact. A stronger investment opportunity.",
     description:
-      "NYEIB helps institutions participate in businesses with growth potential, measurable impact and long-term economic value, while strengthening the conditions that can make those businesses more investment-ready.",
+      "Participate in high-growth, investable enterprises delivering measurable economic value and lasting developmental impact.",
     imageSrc: "/images/Institutional-investors-and-development-partners.jpg",
   },
   {
@@ -26,7 +26,7 @@ const PARTNER_PATHWAY_DATA: PartnerPathwayItem[] = [
     number: "02",
     title: "Institutionally anchored. Professionally structured.",
     description:
-      "NYEIB is being established through an institutional framework involving the Nigeria Sovereign Investment Authority, Development Bank of Nigeria and African Development Bank, with dedicated governance, investment and risk-management arrangements.",
+      "Anchored by NSIA, DBN, and AfDB with dedicated governance, commercial rigor, and robust risk management.",
     imageSrc: "/images/partners-and-investors.png",
   },
 ];
