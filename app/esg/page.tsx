@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { EsgFrameworkSection } from "@/components/esg-page/EsgFrameworkSection";
 import { ImpactSection } from "@/components/impact/ImpactSection";
+import { CtaCard } from "@/components/cta/CtaCard";
+import { CTA_CONTENT } from "@/src/content/cta";
 
 export const metadata: Metadata = {
   title: "ESG & Sustainability — Nigeria YEIB Investment Funds",
@@ -20,6 +22,9 @@ export default function ESGPage() {
 
       {/* Measurable Targets & Governance Impact */}
       <ImpactSection />
+
+      {/* Closing CTA */}
+      <CtaCard {...CTA_CONTENT.esg} />
     </main>
   );
 }

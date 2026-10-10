@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { ImpactSection } from "@/components/impact/ImpactSection";
 import { ImpactFrameworkSection } from "@/components/impact-page/ImpactFrameworkSection";
+import { CtaCard } from "@/components/cta/CtaCard";
+import { CTA_CONTENT } from "@/src/content/cta";
 
 export const metadata: Metadata = {
   title: "Impact & Measurement — Nigeria YEIB Investment Funds",
@@ -20,6 +22,9 @@ export default function ImpactPage() {
 
       {/* How We Measure Impact (Color-Coded Impact, Additionality, Risk 3-Card Framework) */}
       <ImpactFrameworkSection />
+
+      {/* Closing CTA */}
+      <CtaCard {...CTA_CONTENT.impact} />
     </main>
   );
 }

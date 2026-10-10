@@ -4,6 +4,8 @@ import { NigeriaPhotoMap } from "@/components/map/NigeriaPhotoMap";
 import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
 import { ImpactSection } from "@/components/impact/ImpactSection";
+import { CtaCard } from "@/components/cta/CtaCard";
+import { CTA_CONTENT } from "@/src/content/cta";
 
 export const metadata: Metadata = {
   title: "What We Do — Nigeria YEIB Investment Funds",
@@ -28,6 +30,9 @@ export default function WhatWeDoPage() {
 
       {/* Impact Section */}
       <ImpactSection />
+
+      {/* Closing CTA */}
+      <CtaCard {...CTA_CONTENT.whatWeDo} />
     </main>
   );
 }

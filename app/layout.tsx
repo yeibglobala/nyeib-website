@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Navbar } from "@/shared/components/Navbar";
 import { SmoothScroll } from "@/shared/components/SmoothScroll";
-import { CtaSection } from "@/components/cta/CtaSection";
 import { Footer } from "@/components/footer/Footer";
 
 export const viewport: Viewport = {
@@ -41,7 +40,6 @@ export default function RootLayout({
         <SmoothScroll>
           <Navbar />
           <div className="flex-1 w-full">{children}</div>
-          <CtaSection />
           <Footer />
         </SmoothScroll>
       </body>

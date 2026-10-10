@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { PartnerAccordionSection } from "@/components/partners-page/PartnerAccordionSection";
 import { PartnerInstitutionalGovernanceSection } from "@/components/partners-page/PartnerInstitutionalGovernanceSection";
+import { CtaCard } from "@/components/cta/CtaCard";
+import { CTA_CONTENT } from "@/src/content/cta";
 
 export const metadata: Metadata = {
   title: "Partners & Investors — Nigeria YEIB Investment Funds",
@@ -20,6 +22,9 @@ export default function PartnersPage() {
 
       {/* Institutional Partners, Ecosystem Statement & Disclaimer */}
       <PartnerInstitutionalGovernanceSection />
+
+      {/* Closing CTA */}
+      <CtaCard {...CTA_CONTENT.partners} />
     </main>
   );
 }

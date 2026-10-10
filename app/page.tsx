@@ -8,6 +8,8 @@ import { CapitalMobilisation } from "@/components/home/CapitalMobilisation";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
 import { ImpactSection } from "@/components/impact/ImpactSection";
 import { HOMEPAGE_GOVERNANCE_CONFIG } from "@/components/home/config";
+import { CtaCard } from "@/components/cta/CtaCard";
+import { CTA_CONTENT } from "@/src/content/cta";
 
 export default function HomePage() {
   return (
@@ -36,6 +38,9 @@ export default function HomePage() {
 
         {/* Measurable Economic Impact Targets (Pinned Ring Stage) */}
         <ImpactSection />
+
+        {/* Closing CTA */}
+        <CtaCard {...CTA_CONTENT.homepage} />
       </main>
     </div>
   );
