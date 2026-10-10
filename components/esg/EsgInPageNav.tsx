@@ -62,13 +62,13 @@ export function EsgInPageNav() {
         {/* Mobile Edge Fade Out on Right */}
         <div
           aria-hidden="true"
-          className="md:hidden pointer-events-none absolute right-4 top-0 bottom-0 w-8 bg-gradient-to-l from-[#F7F5F0] to-transparent z-10"
+          className="lg:hidden pointer-events-none absolute right-4 top-0 bottom-0 w-8 bg-gradient-to-l from-[#F7F5F0] to-transparent z-10"
         />
 
         <nav
           ref={navContainerRef}
           aria-label="ESG In-Page Navigation"
-          className="flex items-center gap-1.5 sm:gap-2 py-2.5 overflow-x-auto no-scrollbar scroll-smooth"
+          className="flex items-center justify-start lg:justify-center gap-1.5 sm:gap-2 py-2.5 overflow-x-auto no-scrollbar scroll-smooth"
         >
           {links.map((link) => {
             const isActive = activeId === link.id;
