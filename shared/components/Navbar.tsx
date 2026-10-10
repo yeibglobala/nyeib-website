@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
@@ -8,16 +8,61 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isNearTop, setIsNearTop] = useState(false);
+  const lastScrollYRef = useRef(0);
   const pathname = usePathname();
 
-  // Scroll detection for slight elevation effect
+  // Scroll detection: elevate when scrolled, hide on scroll down, reveal on scroll up
   useEffect(() => {
+    lastScrollYRef.current = window.scrollY;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 20);
+
+      // Keep navbar visible if mobile drawer is currently open
+      if (isOpen) {
+        setIsVisible(true);
+        lastScrollYRef.current = currentScrollY;
+        return;
+      }
+
+      // Always show near top of page
+      if (currentScrollY < 60) {
+        setIsVisible(true);
+      } else {
+        const delta = currentScrollY - lastScrollYRef.current;
+        // Threshold prevents micro-jitter
+        if (delta > 8) {
+          // Scrolling down -> hide navbar
+          setIsVisible(false);
+        } else if (delta < -8) {
+          // Scrolling up -> reveal navbar smoothly
+          setIsVisible(true);
+        }
+      }
+
+      lastScrollYRef.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [isOpen]);
+
+  // Mouse move detection: smoothly bring navbar into view when cursor approaches the top edge
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (e.clientY <= 90) {
+        setIsNearTop(true);
+      } else {
+        setIsNearTop(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   // Close mobile menu on route change or Escape key
@@ -65,12 +110,18 @@ export function Navbar() {
     { label: "Partners", href: "/partners" },
   ];
 
+  const shouldShow = isOpen || isHovered || isNearTop || isVisible;
+
   return (
     <>
       {/* Floating White Capsule Navbar Container */}
       <header
-        className={`fixed top-4 sm:top-6 left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300 pointer-events-none ${
-          isScrolled ? "translate-y-[-2px]" : ""
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`fixed top-4 sm:top-6 left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          shouldShow
+            ? "translate-y-0 opacity-100"
+            : "-translate-y-[calc(100%+32px)] opacity-0"
         }`}
       >
         <div
