@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
-import { LogoMarquee } from "@/components/home/LogoMarquee";
 import { PartnerAccordionSection } from "@/components/partners-page/PartnerAccordionSection";
 import { PartnerInstitutionalGovernanceSection } from "@/components/partners-page/PartnerInstitutionalGovernanceSection";
 import { CtaCard } from "@/components/cta/CtaCard";
@@ -17,9 +16,6 @@ export default function PartnersPage() {
     <main className="w-full bg-[#003124] flex flex-col">
       {/* Hero */}
       <InnerHero slug="partners-and-investors" />
-
-      {/* Anchor Institutions & Partners Logo Marquee */}
-      <LogoMarquee />
 
       {/* Unified Interactive Accordion with Shape A (Two Strands) & Shape B (Three Pillars) */}
       <PartnerAccordionSection />
