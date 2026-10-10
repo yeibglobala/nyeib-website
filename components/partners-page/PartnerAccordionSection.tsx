@@ -19,7 +19,7 @@ const PARTNER_PATHWAY_DATA: PartnerPathwayItem[] = [
     title: "More than impact. A stronger investment opportunity.",
     description:
       "Participate in high-growth, investable enterprises delivering measurable economic value and lasting developmental impact.",
-    imageSrc: "/images/Institutional-investors-and-development-partners.jpg",
+    imageSrc: "/images/nyeib-investors.jpg",
   },
   {
     id: "institutionally-anchored",
@@ -27,7 +27,7 @@ const PARTNER_PATHWAY_DATA: PartnerPathwayItem[] = [
     title: "Institutionally anchored. Professionally structured.",
     description:
       "Anchored by NSIA, DBN, and AfDB with dedicated governance, commercial rigor, and robust risk management.",
-    imageSrc: "/images/partners-and-investors.png",
+    imageSrc: "/images/banks-and-financial-institutions.jpg",
   },
 ];
 
