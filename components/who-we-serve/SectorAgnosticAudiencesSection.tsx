@@ -30,7 +30,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
       "Risk-sharing mechanisms and partial credit guarantees that unlock debt financing from commercial banks and microfinance institutions.",
     ctaText: "Explore Credit Guarantees",
     ctaHref: "/apply",
-    imageSrc: "/images/who-we-serve-lenders.png",
+    imageSrc: "/images/credit-guarantee-fund.jpg",
   },
   {
     id: "ecosystem-fund",
@@ -39,7 +39,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
       "Targeted technical assistance, investor readiness programs, governance training, and digital enablement across partner hubs.",
     ctaText: "Explore Ecosystem Support",
     ctaHref: "/apply",
-    imageSrc: "/images/who-we-serve-investors.png",
+    imageSrc: "/images/ecosystem-development-fund.jpg",
   },
 ];
 
