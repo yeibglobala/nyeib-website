@@ -21,13 +21,13 @@ export function Preloader() {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // 3. Mark sequence: gather -> dot pulse -> wordmark -> exit
-    // Total duration: ~1.35s before exit initiates
+    // 3. Mark sequence: gather -> dot pulse -> wordmark -> elegant hold -> exit
+    // Total duration: 2.4s before exit initiates (hold for user to absorb brand)
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 1300);
+    }, 2400);
 
-    // 4. Complete cleanup and unmount from DOM after exit fade (1.65s)
+    // 4. Complete cleanup and unmount from DOM after exit fade (2.85s)
     const cleanupTimer = setTimeout(() => {
       setMounted(false);
       document.body.style.overflow = originalOverflow;
@@ -36,7 +36,7 @@ export function Preloader() {
       } catch {
         // no-op
       }
-    }, 1650);
+    }, 2850);
 
     return () => {
       clearTimeout(exitTimer);
@@ -51,7 +51,7 @@ export function Preloader() {
     <div
       id="nyeib-preloader-overlay"
       aria-hidden="true"
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#00241A] select-none transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#00241A] select-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isExiting ? "opacity-0 pointer-events-none scale-[1.02]" : "opacity-100"
       }`}
       style={{
@@ -62,15 +62,15 @@ export function Preloader() {
         Loading Nigeria YEIB Investment Funds
       </span>
 
-      {/* Centerpiece Emblem & Wordmark */}
-      <div className="relative flex flex-col items-center justify-center -translate-y-3">
-        {/* SVG Mark: Three Bars Gather */}
-        <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center">
+      {/* Centerpiece Emblem & Wordmark (100% Larger / 2x scale) */}
+      <div className="relative flex flex-col items-center justify-center -translate-y-4">
+        {/* SVG Mark: Three Bars Gather (w-40 h-40 sm:w-48 sm:h-48 -> 100% increase) */}
+        <div className="relative w-40 h-40 sm:w-48 sm:h-48 flex items-center justify-center">
           <svg
-            viewBox="-2 -2 23.63 22"
+            viewBox="-2.5 -2.5 24.63 23"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full overflow-visible drop-shadow-[0_8px_24px_rgba(46,183,140,0.22)]"
+            className="w-full h-full overflow-visible drop-shadow-[0_16px_40px_rgba(46,183,140,0.28)]"
           >
             {/* Left Bar: Slides in from top-left with slight tilt */}
             <path
@@ -97,23 +97,23 @@ export function Preloader() {
             <circle
               className="nyeib-orange-spark"
               cx="9.815"
-              cy="18.6"
-              r="1.15"
+              cy="18.8"
+              r="1.25"
               fill="#F88404"
             />
           </svg>
         </div>
 
-        {/* Wordmark Lockup */}
-        <div className="nyeib-wordmark mt-5 text-center flex flex-col items-center">
+        {/* Wordmark Lockup (100% larger typography) */}
+        <div className="nyeib-wordmark mt-8 sm:mt-10 text-center flex flex-col items-center">
           <span
-            className="text-[15px] sm:text-[17px] font-bold text-white tracking-[0.22em] uppercase leading-none"
+            className="text-[26px] sm:text-[32px] font-bold text-white tracking-[0.24em] uppercase leading-none"
             style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
           >
             NIGERIA YEIB
           </span>
           <span
-            className="text-[8.5px] sm:text-[9.5px] font-semibold text-[#6FE3C1] tracking-[0.32em] uppercase mt-1.5 leading-none opacity-80"
+            className="text-[13px] sm:text-[15px] font-semibold text-[#6FE3C1] tracking-[0.34em] uppercase mt-2.5 leading-none opacity-85"
             style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
           >
             INVESTMENT FUNDS
