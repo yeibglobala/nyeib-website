@@ -298,11 +298,11 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
 
 /* 2. Fail-safe auto-dismiss: unblocks page even if JS fails or is delayed */
 #nyeib-preloader-overlay {
-  animation: nyeibAutoDismiss 3.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: nyeibAutoDismiss 4.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes nyeibAutoDismiss {
-  0%, 78% {
+  0%, 82% {
     opacity: 1;
     pointer-events: auto;
   }
@@ -317,13 +317,13 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
 .nyeib-gather-left {
   transform-box: fill-box;
   transform-origin: 40% 90%;
-  animation: nyeibBarGatherLeft 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+  animation: nyeibBarGatherLeft 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
 @keyframes nyeibBarGatherLeft {
   0% {
     opacity: 0;
-    transform: translate(-20px, -4px) rotate(-7deg);
+    transform: translate(-22px, -5px) rotate(-7deg);
   }
   100% {
     opacity: 1;
@@ -335,13 +335,13 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
 .nyeib-gather-center {
   transform-box: fill-box;
   transform-origin: 50% 90%;
-  animation: nyeibBarGatherCenter 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+  animation: nyeibBarGatherCenter 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
 }
 
 @keyframes nyeibBarGatherCenter {
   0% {
     opacity: 0;
-    transform: translateY(14px) scale(0.93);
+    transform: translateY(16px) scale(0.93);
   }
   100% {
     opacity: 1;
@@ -353,13 +353,13 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
 .nyeib-gather-right {
   transform-box: fill-box;
   transform-origin: 60% 90%;
-  animation: nyeibBarGatherRight 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+  animation: nyeibBarGatherRight 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
 @keyframes nyeibBarGatherRight {
   0% {
     opacity: 0;
-    transform: translate(20px, -4px) rotate(7deg);
+    transform: translate(22px, -5px) rotate(7deg);
   }
   100% {
     opacity: 1;
@@ -375,7 +375,7 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
   max-width: 0;
   opacity: 0;
   padding-left: 0;
-  animation: nyeibWordmarkUnfurl 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+  animation: nyeibWordmarkUnfurl 1.15s cubic-bezier(0.16, 1, 0.3, 1) 1.35s forwards;
 }
 
 @keyframes nyeibWordmarkUnfurl {
@@ -395,12 +395,12 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
 }
 
 .nyeib-wordmark-container > svg {
-  animation: nyeibWordmarkSubtleSlide 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
+  animation: nyeibWordmarkSubtleSlide 1.15s cubic-bezier(0.16, 1, 0.3, 1) 1.35s both;
 }
 
 @keyframes nyeibWordmarkSubtleSlide {
   0% {
-    transform: translateX(18px);
+    transform: translateX(20px);
     opacity: 0;
   }
   100% {

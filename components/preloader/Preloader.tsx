@@ -21,13 +21,13 @@ export function Preloader() {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // 3. Mark sequence: gather -> vector wordmark reveal -> elegant hold -> exit
-    // Total duration: 2.4s before exit initiates (hold for user to absorb brand)
+    // 3. Mark sequence: deliberate gather (1.35s) -> vector wordmark reveal (1.1s) -> majestic hold (1.25s) -> exit
+    // Standard luxury preloader duration: 3.7s before exit initiates
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 2400);
+    }, 3700);
 
-    // 4. Complete cleanup and unmount from DOM after exit fade (2.85s)
+    // 4. Complete cleanup and unmount from DOM after exit fade (4.3s)
     const cleanupTimer = setTimeout(() => {
       setMounted(false);
       document.body.style.overflow = originalOverflow;
@@ -36,7 +36,7 @@ export function Preloader() {
       } catch {
         // no-op
       }
-    }, 2850);
+    }, 4300);
 
     return () => {
       clearTimeout(exitTimer);
@@ -51,7 +51,7 @@ export function Preloader() {
     <div
       id="nyeib-preloader-overlay"
       aria-hidden="true"
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#00241A] select-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] px-4 sm:px-6 ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#00241A] select-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] px-4 sm:px-6 ${
         isExiting ? "opacity-0 pointer-events-none scale-[1.02]" : "opacity-100"
       }`}
       style={{
