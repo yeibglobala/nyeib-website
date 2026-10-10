@@ -2,15 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  CheckCircle2,
-  Clock,
-  Shield,
-  ArrowRight,
-  Loader2,
-  AlertCircle,
-} from "lucide-react";
+import { ArrowLeft, CheckCircle2, Clock, Shield, ArrowRight, ArrowUpRight, Loader2 } from "lucide-react";
 
 interface PartnerEnquiryFormProps {
   groupSlug: string;
@@ -26,7 +18,6 @@ export function PartnerEnquiryForm({
   const [showForm, setShowForm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -41,72 +32,14 @@ export function PartnerEnquiryForm({
     proposedCollaboration: "",
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
-
-  const validate = (data: typeof formData): Record<string, string> => {
-    const errs: Record<string, string> = {};
-
-    if (!data.contactName.trim()) {
-      errs.contactName = "Representative name is required.";
-    }
-
-    if (!data.contactTitle.trim()) {
-      errs.contactTitle = "Official job title is required.";
-    }
-
-    if (!data.email.trim()) {
-      errs.email = "Official email address is required.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      errs.email = "Please enter a valid email address.";
-    }
-
-    if (!data.phone.trim()) {
-      errs.phone = "Phone number is required.";
-    }
-
-    if (!data.institutionName.trim()) {
-      errs.institutionName = "Institution or organisation name is required.";
-    }
-
-    if (!data.proposedCollaboration.trim()) {
-      errs.proposedCollaboration = "Proposed area of collaboration & mandate is required.";
-    }
-
-    return errs;
-  };
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    const nextData = { ...formData, [name]: value };
-    setFormData(nextData);
-
-    if (hasAttemptedSubmit || touched[name]) {
-      setErrors(validate(nextData));
-    }
-  };
-
-  const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    const { name } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
-    setErrors(validate(formData));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setHasAttemptedSubmit(true);
-
-    const validationErrors = validate(formData);
-    setErrors(validationErrors);
-
-    if (Object.keys(validationErrors).length > 0) {
-      return;
-    }
-
     setIsSubmitting(true);
     setTimeout(() => {
       setIsSubmitting(false);
@@ -114,19 +47,10 @@ export function PartnerEnquiryForm({
     }, 800);
   };
 
-  const getFieldClass = (fieldName: keyof typeof formData) => {
-    const isError = Boolean((hasAttemptedSubmit || touched[fieldName]) && errors[fieldName]);
-    return `w-full px-4 py-3 rounded-xl bg-[#F7F5F0] text-[#0F2A20] text-sm transition-all duration-200 outline-none placeholder-[#0F2A20]/40 ${
-      isError
-        ? "border-2 border-[#B3261E] focus:ring-2 focus:ring-[#B3261E]"
-        : "border border-[#E6DCCB] focus:ring-2 focus:ring-[#F88404]"
-    }`;
-  };
-
   // 1. Success State
   if (isSubmitted) {
     return (
-      <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-12 shadow-[0_12px_40px_rgba(15,42,32,0.06)] text-center space-y-6 animate-in zoom-in-95 duration-300">
+      <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-12 shadow-[0_12px_40px_rgba(15,42,32,0.04)] text-center space-y-6 animate-in zoom-in-95 duration-300">
         <div className="w-16 h-16 rounded-full bg-[#F88404]/15 text-[#c26200] flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-9 h-9 stroke-[2.2]" />
         </div>
@@ -159,10 +83,8 @@ export function PartnerEnquiryForm({
 
   // 2. Interactive Form State
   if (showForm) {
-    const errorCount = Object.keys(errors).length;
-
     return (
-      <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-12 shadow-[0_12px_40px_rgba(15,42,32,0.06)] text-left space-y-8 animate-in fade-in duration-300">
+      <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-6 sm:p-10 shadow-[0_12px_40px_rgba(15,42,32,0.04)] text-left space-y-8 animate-in fade-in duration-300">
         <div className="flex items-center justify-between border-b border-[#E6DCCB]/60 pb-5">
           <div>
             <span className="text-[0.78rem] font-mono uppercase tracking-wider text-[#c26200] font-semibold">
@@ -184,215 +106,181 @@ export function PartnerEnquiryForm({
           </button>
         </div>
 
-        {/* Accessible Error Summary */}
-        {hasAttemptedSubmit && errorCount > 0 && (
-          <div
-            role="alert"
-            tabIndex={-1}
-            aria-labelledby="form-error-title"
-            className="rounded-2xl bg-[#B3261E]/5 border border-[#B3261E]/30 p-4 sm:p-5 outline-none animate-in fade-in duration-200"
-          >
-            <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-[#B3261E] shrink-0 mt-0.5" />
-              <div>
-                <h3 id="form-error-title" className="text-sm font-bold text-[#B3261E] mb-1.5">
-                  Please resolve the following issues before submitting:
-                </h3>
-                <ul className="text-xs sm:text-sm text-[#B3261E] space-y-1 list-disc list-inside">
-                  {Object.values(errors).map((err, idx) => (
-                    <li key={idx}>{err}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} noValidate className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Representative Name & Job Title */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#0F2A20]/75">
-                Representative Name *
+            <div>
+              <label
+                htmlFor="partner-contact-name"
+                className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
+                Representative Name
+                <span className="text-xs font-normal text-[#4A5B53] ml-2">(Required)</span>
               </label>
               <input
+                id="partner-contact-name"
                 type="text"
+                required
                 name="contactName"
                 value={formData.contactName}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 placeholder="e.g. Dr. Emeka Okafor"
-                aria-required="true"
-                aria-invalid={(hasAttemptedSubmit || touched.contactName) && errors.contactName ? "true" : "false"}
-                aria-describedby={errors.contactName ? "err-contactName" : undefined}
-                className={getFieldClass("contactName")}
+                className="w-full h-[52px] rounded-[14px] px-4 text-[15px] sm:text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 border border-[#E6DCCB] focus:outline-none focus:ring-2 focus:ring-[#1f9d74] focus:ring-offset-2 transition-colors"
               />
-              {(hasAttemptedSubmit || touched.contactName) && errors.contactName && (
-                <p id="err-contactName" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.contactName}</span>
-                </p>
-              )}
             </div>
 
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#0F2A20]/75">
-                Official Job Title *
+            <div>
+              <label
+                htmlFor="partner-contact-title"
+                className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
+                Official Job Title
+                <span className="text-xs font-normal text-[#4A5B53] ml-2">(Required)</span>
               </label>
               <input
+                id="partner-contact-title"
                 type="text"
+                required
                 name="contactTitle"
                 value={formData.contactTitle}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 placeholder="e.g. Managing Director / Partner"
-                aria-required="true"
-                aria-invalid={(hasAttemptedSubmit || touched.contactTitle) && errors.contactTitle ? "true" : "false"}
-                aria-describedby={errors.contactTitle ? "err-contactTitle" : undefined}
-                className={getFieldClass("contactTitle")}
+                className="w-full h-[52px] rounded-[14px] px-4 text-[15px] sm:text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 border border-[#E6DCCB] focus:outline-none focus:ring-2 focus:ring-[#1f9d74] focus:ring-offset-2 transition-colors"
               />
-              {(hasAttemptedSubmit || touched.contactTitle) && errors.contactTitle && (
-                <p id="err-contactTitle" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.contactTitle}</span>
-                </p>
-              )}
             </div>
           </div>
 
           {/* Email & Phone */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#0F2A20]/75">
-                Official Email *
+            <div>
+              <label
+                htmlFor="partner-email"
+                className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
+                Official Email
+                <span className="text-xs font-normal text-[#4A5B53] ml-2">(Required)</span>
               </label>
               <input
+                id="partner-email"
                 type="email"
+                required
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 placeholder="e.okafor@institution.org"
-                aria-required="true"
-                aria-invalid={(hasAttemptedSubmit || touched.email) && errors.email ? "true" : "false"}
-                aria-describedby={errors.email ? "err-email" : undefined}
-                className={getFieldClass("email")}
+                className="w-full h-[52px] rounded-[14px] px-4 text-[15px] sm:text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 border border-[#E6DCCB] focus:outline-none focus:ring-2 focus:ring-[#1f9d74] focus:ring-offset-2 transition-colors"
               />
-              {(hasAttemptedSubmit || touched.email) && errors.email && (
-                <p id="err-email" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.email}</span>
-                </p>
-              )}
             </div>
 
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#0F2A20]/75">
-                Phone Number *
+            <div>
+              <label
+                htmlFor="partner-phone"
+                className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
+                Phone Number
+                <span className="text-xs font-normal text-[#4A5B53] ml-2">(Required)</span>
               </label>
               <input
+                id="partner-phone"
                 type="tel"
+                required
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 placeholder="+234 800 000 0000"
-                aria-required="true"
-                aria-invalid={(hasAttemptedSubmit || touched.phone) && errors.phone ? "true" : "false"}
-                aria-describedby={errors.phone ? "err-phone" : undefined}
-                className={getFieldClass("phone")}
+                className="w-full h-[52px] rounded-[14px] px-4 text-[15px] sm:text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 border border-[#E6DCCB] focus:outline-none focus:ring-2 focus:ring-[#1f9d74] focus:ring-offset-2 transition-colors"
               />
-              {(hasAttemptedSubmit || touched.phone) && errors.phone && (
-                <p id="err-phone" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.phone}</span>
-                </p>
-              )}
             </div>
           </div>
 
           {/* Institution Name & Group */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#0F2A20]/75">
-                Institution / Organisation Name *
+            <div>
+              <label
+                htmlFor="partner-institution"
+                className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
+                Institution / Organisation Name
+                <span className="text-xs font-normal text-[#4A5B53] ml-2">(Required)</span>
               </label>
               <input
+                id="partner-institution"
                 type="text"
+                required
                 name="institutionName"
                 value={formData.institutionName}
                 onChange={handleChange}
-                onBlur={handleBlur}
                 placeholder="e.g. Apex Growth Capital"
-                aria-required="true"
-                aria-invalid={(hasAttemptedSubmit || touched.institutionName) && errors.institutionName ? "true" : "false"}
-                aria-describedby={errors.institutionName ? "err-institutionName" : undefined}
-                className={getFieldClass("institutionName")}
+                className="w-full h-[52px] rounded-[14px] px-4 text-[15px] sm:text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 border border-[#E6DCCB] focus:outline-none focus:ring-2 focus:ring-[#1f9d74] focus:ring-offset-2 transition-colors"
               />
-              {(hasAttemptedSubmit || touched.institutionName) && errors.institutionName && (
-                <p id="err-institutionName" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>{errors.institutionName}</span>
-                </p>
-              )}
             </div>
 
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#0F2A20]/75">
+            <div>
+              <label
+                htmlFor="partner-category"
+                className="block text-sm font-semibold text-[#0F2A20] mb-2"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
                 Stakeholder Category
+                <span className="text-xs font-normal text-[#4A5B53] ml-2">(Fixed)</span>
               </label>
               <input
+                id="partner-category"
                 type="text"
                 readOnly
                 value={groupTitle}
-                className="w-full px-4 py-3 rounded-xl bg-[#F7F5F0]/80 border border-[#E6DCCB] text-[#0F2A20]/80 text-sm cursor-not-allowed outline-none"
+                className="w-full h-[52px] rounded-[14px] px-4 text-[15px] sm:text-[16px] bg-[#F7F5F0] border border-[#E6DCCB] text-[#0F2A20]/80 cursor-not-allowed select-none"
               />
             </div>
           </div>
 
           {/* Proposed Area of Collaboration */}
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-[#0F2A20]/75">
-              Proposed Area of Collaboration & Mandate *
+          <div>
+            <label
+              htmlFor="partner-collab"
+              className="block text-sm font-semibold text-[#0F2A20] mb-2"
+              style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+            >
+              Proposed Area of Collaboration & Mandate
+              <span className="text-xs font-normal text-[#4A5B53] ml-2">(Required)</span>
             </label>
             <textarea
+              id="partner-collab"
+              required
               rows={4}
               name="proposedCollaboration"
               value={formData.proposedCollaboration}
               onChange={handleChange}
-              onBlur={handleBlur}
               placeholder="Tell us about your institution's mandate, co-investment focus or proposed partnership area with NYEIB..."
-              aria-required="true"
-              aria-invalid={(hasAttemptedSubmit || touched.proposedCollaboration) && errors.proposedCollaboration ? "true" : "false"}
-              aria-describedby={errors.proposedCollaboration ? "err-proposedCollaboration" : undefined}
-              className={`${getFieldClass("proposedCollaboration")} resize-none`}
+              className="w-full rounded-[14px] p-4 text-[15px] sm:text-[16px] bg-white text-[#0F2A20] placeholder-[#4A5B53]/50 border border-[#E6DCCB] focus:outline-none focus:ring-2 focus:ring-[#1f9d74] focus:ring-offset-2 transition-colors resize-y"
             />
-            {(hasAttemptedSubmit || touched.proposedCollaboration) && errors.proposedCollaboration && (
-              <p id="err-proposedCollaboration" className="mt-1.5 text-xs font-semibold text-[#B3261E] flex items-center gap-1.5">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                <span>{errors.proposedCollaboration}</span>
-              </p>
-            )}
           </div>
 
           {/* Submit Button */}
-          <div className="pt-3">
+          <div className="pt-2">
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 rounded-full bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] text-base font-bold shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              className="group/btn inline-flex items-center gap-2 select-none outline-none rounded-full transition-transform duration-300 hover:-translate-y-[2px] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-2"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Submitting Enquiry...</span>
-                </>
-              ) : (
-                <>
-                  <span>Submit Partnership Enquiry</span>
-                  <ArrowRight className="w-5 h-5" />
-                </>
-              )}
+              <span
+                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-colors duration-200"
+                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
+              >
+                {isSubmitting ? "Submitting..." : "Submit Partnership Enquiry"}
+              </span>
+              <span className="inline-grid place-items-center w-11 h-11 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white shadow-[0_8px_24px_rgba(248,132,4,0.3)] shrink-0 transition-transform duration-300 group-hover/btn:rotate-45">
+                {isSubmitting ? (
+                  <Loader2 className="w-[18px] h-[18px] animate-spin" />
+                ) : (
+                  <ArrowUpRight className="w-[18px] h-[18px]" />
+                )}
+              </span>
             </button>
           </div>
         </form>
@@ -402,7 +290,7 @@ export function PartnerEnquiryForm({
 
   // 3. Initial Overview State
   return (
-    <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-12 shadow-[0_12px_40px_rgba(15,42,32,0.06)] text-center space-y-6 animate-in fade-in duration-300">
+    <div className="max-w-2xl w-full bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-12 shadow-[0_12px_40px_rgba(15,42,32,0.04)] text-center space-y-6 animate-in fade-in duration-300">
       <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-[#F88404]/35 text-[#c26200] bg-[#F88404]/5 text-[0.82rem] font-semibold tracking-wide">
         Pathway 2: {category}
       </div>
@@ -422,11 +310,11 @@ export function PartnerEnquiryForm({
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-3 text-left">
-        <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#F7F5F0] border border-[#E6DCCB]/60 text-sm font-medium text-[#0F2A20]/80">
+        <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E6DCCB] text-sm font-medium text-[#0F2A20]">
           <Clock className="w-5 h-5 text-[#c26200] shrink-0" />
           <span>Takes ~5 minutes</span>
         </div>
-        <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#F7F5F0] border border-[#E6DCCB]/60 text-sm font-medium text-[#0F2A20]/80">
+        <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#FAF8F5] border border-[#E6DCCB] text-sm font-medium text-[#0F2A20]">
           <Shield className="w-5 h-5 text-[#c26200] shrink-0" />
           <span>Structured review</span>
         </div>
