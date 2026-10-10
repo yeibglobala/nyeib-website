@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function FloatingMobileCTA() {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,13 +25,13 @@ export function FloatingMobileCTA() {
   if (!isVisible) return null;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-[#F7F5F0] via-[#F7F5F0]/95 to-transparent backdrop-blur-sm transition-all duration-300 animate-in slide-in-from-bottom-3">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-[var(--apply-cream,#F2FBF6)] via-[var(--apply-cream,#F2FBF6)]/95 to-transparent backdrop-blur-sm transition-all duration-300 animate-in slide-in-from-bottom-3">
       <Link
         href="/apply/business/start"
-        className="w-full py-3.5 bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-bold text-center rounded-2xl shadow-lg transition-transform active:scale-[0.98] flex items-center justify-center gap-2"
+        className="w-full py-3.5 bg-[#F88404] hover:bg-[#e07500] text-[#003124] font-['Chivo',sans-serif] font-bold text-center rounded-full shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-transform active:scale-[0.98] flex items-center justify-center gap-2 text-sm"
       >
         <span>Start Business Application</span>
-        <ArrowUpRight className="w-5 h-5" />
+        <ArrowRight className="w-4 h-4" />
       </Link>
     </div>
   );

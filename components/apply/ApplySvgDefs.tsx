@@ -2,7 +2,20 @@ import React from "react";
 
 export function ApplySvgDefs() {
   return (
-    <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+    <svg
+      width="0"
+      height="0"
+      style={{
+        position: "absolute",
+        left: 0,
+        top: 0,
+        width: 0,
+        height: 0,
+        pointerEvents: "none",
+        overflow: "hidden",
+      }}
+      aria-hidden="true"
+    >
       <defs>
         <path
           id="L"

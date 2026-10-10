@@ -139,14 +139,14 @@ export function Navbar() {
       <header
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed top-4 sm:top-6 left-0 right-0 z-50 w-full px-4 sm:px-6 lg:px-8 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-3 sm:top-6 left-0 right-0 z-50 w-full px-3 sm:px-6 lg:px-8 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           shouldShow
             ? "translate-y-0 opacity-100"
             : "-translate-y-[calc(100%+32px)] opacity-0"
         }`}
       >
         <div
-          className={`max-w-[1240px] w-full mx-auto bg-white/95 backdrop-blur-md rounded-full px-4 sm:px-7 py-2.5 sm:py-3 border border-black/[0.06] flex items-center justify-between pointer-events-auto transition-all duration-300 ${
+          className={`max-w-[1240px] w-full mx-auto bg-white/95 backdrop-blur-md rounded-full px-3.5 sm:px-7 py-2 sm:py-3 border border-black/[0.06] flex items-center justify-between pointer-events-auto transition-all duration-300 ${
             isScrolled
               ? "shadow-[0_12px_36px_rgba(0,0,0,0.14)]"
               : "shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
@@ -161,7 +161,7 @@ export function Navbar() {
             <img
               src="/brand/logo-green.png"
               alt="Nigeria YEIB Investment Funds"
-              className="h-[26px] sm:h-[30px] md:h-[32px] w-auto object-contain"
+              className="h-[22px] min-[380px]:h-[26px] sm:h-[30px] md:h-[32px] w-auto object-contain"
             />
           </Link>
 
@@ -189,23 +189,24 @@ export function Navbar() {
           </nav>
 
           {/* Right: Apply for funding CTA button + Mobile Menu Toggle */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/apply"
-              className="inline-flex items-center justify-center bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-medium text-[0.82rem] sm:text-[0.88rem] px-4 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 whitespace-nowrap"
+              className="inline-flex items-center justify-center bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-medium text-[0.76rem] sm:text-[0.88rem] px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 whitespace-nowrap"
             >
-              Apply for funding
+              <span className="hidden min-[360px]:inline">Apply for funding</span>
+              <span className="min-[360px]:hidden">Apply</span>
             </Link>
 
             {/* Mobile Hamburger Toggle Button */}
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden w-9 h-9 rounded-full bg-black/[0.04] hover:bg-black/[0.08] text-[#12201b] flex items-center justify-center transition-colors focus:outline-none"
+              className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/[0.04] hover:bg-black/[0.08] text-[#12201b] flex items-center justify-center transition-colors focus:outline-none shrink-0"
               aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isOpen}
             >
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
         </div>

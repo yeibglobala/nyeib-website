@@ -9,7 +9,7 @@ export interface PathwaySwitcherProps {
 
 export function PathwaySwitcher({ currentPathway }: PathwaySwitcherProps) {
   return (
-    <div className="sticky top-[var(--nav-offset,88px)] z-30 w-full bg-[var(--apply-cream,#F2FBF6)]">
+    <div className="apply-sw-wrapper">
       <nav className="apply-sw apply-w" aria-label="Pathways">
         <Link
           href="/apply"
@@ -24,16 +24,16 @@ export function PathwaySwitcher({ currentPathway }: PathwaySwitcherProps) {
             className={currentPathway === "business" ? "on" : ""}
             aria-current={currentPathway === "business" ? "page" : undefined}
           >
-            <small>Pathway 1:</small>
-            Apply for Business Support
+            <small className="hidden sm:inline">Pathway 1:</small>
+            <span className="truncate">Business Support</span>
           </Link>
           <Link
             href="/apply/partner"
             className={currentPathway === "partner" ? "on" : ""}
             aria-current={currentPathway === "partner" ? "page" : undefined}
           >
-            <small>Pathway 2:</small>
-            Partner With NYEIB
+            <small className="hidden sm:inline">Pathway 2:</small>
+            <span className="truncate">Partner with NYEIB</span>
           </Link>
         </div>
       </nav>
