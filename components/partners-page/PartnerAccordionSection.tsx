@@ -67,9 +67,9 @@ export function PartnerAccordionSection() {
       `}</style>
 
       {/* =========================================================================
-          RIGHT FULL-HEIGHT SVG CURVED FRAME WITH SWITCHING PHOTOGRAPHY
+          DESKTOP RIGHT FULL-HEIGHT SVG CURVED FRAME WITH SWITCHING PHOTOGRAPHY
           ========================================================================= */}
-      <div className="absolute top-0 right-0 bottom-0 h-full w-full lg:w-[58%] pointer-events-none z-10 max-lg:opacity-30">
+      <div className="hidden lg:block absolute top-0 right-0 bottom-0 h-full w-[58%] pointer-events-none z-10">
         <svg
           viewBox="0 0 914 819"
           preserveAspectRatio="xMaxYMid slice"
@@ -127,15 +127,17 @@ export function PartnerAccordionSection() {
       </div>
 
       {/* =========================================================================
-          CONTENT CONTAINER (Left Column Alignment matching Sector Agnostic layout)
+          CONTENT CONTAINER:
+          Desktop: Left Column Alignment (w-[540px])
+          Mobile: Stacked layout with headline & tabs, followed by dedicated photo card
           ========================================================================= */}
-      <div className="relative z-20 max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-16 py-20 sm:py-24 lg:py-28">
+      <div className="relative z-20 max-w-[1400px] w-full mx-auto px-6 sm:px-10 lg:px-16 py-16 sm:py-20 lg:py-28">
         <div className="w-full max-w-[540px] flex flex-col items-start gap-8 sm:gap-10">
           {/* Header text block */}
           <div className="flex flex-col gap-4 sm:gap-6 items-start">
             <HeaderReveal delay={80} duration={900}>
               <h2
-                className="text-[clamp(34px,4.4vw,56px)] font-bold leading-[1.08] tracking-tight text-[#003124] m-0"
+                className="text-[clamp(32px,4.4vw,56px)] font-bold leading-[1.08] tracking-tight text-[#003124] m-0"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
               >
                 Choose the pathway that{" "}
@@ -145,7 +147,7 @@ export function PartnerAccordionSection() {
 
             <HeaderReveal delay={180} duration={900} mask={false}>
               <p
-                className="text-[17px] sm:text-[19px] lg:text-[20px] leading-[1.55] text-[#003124]/75 font-normal m-0"
+                className="text-[16px] sm:text-[19px] lg:text-[20px] leading-[1.55] text-[#003124]/75 font-normal m-0"
                 style={{ fontFamily: "var(--font-body, sans-serif)" }}
               >
                 Partners may explore opportunities across the Equity Investment Fund, Credit Guarantee Facility and Ecosystem Development Fund, as well as co-investment, technical-assistance funding and other forms of support aligned with their mandate.
@@ -223,13 +225,73 @@ export function PartnerAccordionSection() {
               );
             })}
           </div>
+
+          {/* =========================================================================
+              MOBILE DEDICATED FULL-COLOR PHOTO CARD (Visible under 1024px)
+              ========================================================================= */}
+          <div className="block lg:hidden w-full mt-4 sm:mt-6">
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-2xl bg-[#003124] border border-[#003124]/15">
+              {/* Switching full-color photos */}
+              {PARTNER_PATHWAY_DATA.map((item, idx) => {
+                const isSelected = activeIndex === idx;
+                return (
+                  <img
+                    key={`mobile-${item.id}`}
+                    src={item.imageSrc}
+                    alt={item.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out"
+                    style={{
+                      opacity: isSelected ? 1 : 0,
+                    }}
+                  />
+                );
+              })}
+
+              {/* Bottom Vignette for Contrast */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0,49,36,0.85) 0%, rgba(0,49,36,0.2) 40%, transparent 70%)",
+                }}
+              />
+
+              {/* Current Active Category Pill on Mobile Card */}
+              <div className="absolute bottom-4 left-4 z-20 max-w-[65%]">
+                <span className="inline-block text-[12px] sm:text-[13px] font-semibold text-white tracking-wide bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 truncate">
+                  {PARTNER_PATHWAY_DATA[activeIndex].title}
+                </span>
+              </div>
+
+              {/* Mobile Carousel Controls in Bottom-Right of Card */}
+              <div className="absolute bottom-3.5 right-3.5 sm:bottom-4 sm:right-4 z-20 flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  aria-label="Previous pathway"
+                  className="w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-full bg-white text-[#003124] flex items-center justify-center hover:bg-[#003124] hover:text-white transition-all shadow-md active:scale-95 focus:outline-none"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  aria-label="Next pathway"
+                  className="w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-full bg-[#F88404] text-white flex items-center justify-center hover:bg-[#ff9626] transition-all shadow-md active:scale-95 focus:outline-none"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* =========================================================================
-          CAROUSEL CONTROLS OVER SVG PHOTO FRAME
+          DESKTOP CAROUSEL CONTROLS OVER SVG PHOTO FRAME (Visible on lg and wider)
           ========================================================================= */}
-      <div className="absolute bottom-10 right-6 sm:bottom-14 sm:right-12 lg:bottom-16 lg:right-28 z-30 flex items-center gap-4">
+      <div className="hidden lg:flex absolute bottom-10 right-6 sm:bottom-14 sm:right-12 lg:bottom-16 lg:right-28 z-30 items-center gap-4">
         <button
           type="button"
           onClick={handlePrev}
