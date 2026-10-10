@@ -50,7 +50,6 @@
   html {
     min-height: 100%;
     width: 100%;
-    overflow-x: hidden;
     scroll-behavior: smooth;
   }
 
@@ -58,7 +57,7 @@
     min-height: 100%;
     width: 100%;
     margin: 0;
-    overflow-x: hidden;
+    overflow-x: clip;
     background-color: var(--bg-deep);
     color: var(--fg-main);
     font-family: var(--font-body);

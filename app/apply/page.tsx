@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ApplyLandingHero } from "@/components/apply/ApplyLandingHero";
 import { PathwayChooserSection } from "@/components/apply/PathwayChooserSection";
 import { SimpleFirstStepSection } from "@/components/apply/SimpleFirstStepSection";
-import { ImportantInformationSection } from "@/components/apply/ImportantInformationSection";
 import { DecorativeBlobs } from "@/components/apply/DecorativeBlobs";
 
 export const metadata: Metadata = {
@@ -21,7 +20,6 @@ export default function ApplyPage() {
       <ApplyLandingHero />
       <PathwayChooserSection />
       <SimpleFirstStepSection />
-      <ImportantInformationSection />
     </main>
   );
 }

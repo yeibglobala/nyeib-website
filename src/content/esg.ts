@@ -25,11 +25,16 @@ export interface EsgContent {
     areas: Array<{
       id: string;
       name: string;
+      number: string;
       tint: string;
       tintBg: string;
       tintBorder: string;
+      panelTone: string;
+      buttonBg: string;
       headline: string;
       paragraphs: string[];
+      asideTitle: string;
+      asideCopy: string;
       indicators?: string[];
       closingParagraph?: string;
     }>;
@@ -119,58 +124,70 @@ export const ESG_CONTENT: EsgContent = {
       {
         id: "principles-commitments",
         name: "Principles & Commitments",
-        tint: "#BFEBDC",
-        tintBg: "bg-[#BFEBDC]",
-        tintBorder: "border-[#96DCBE]",
-        headline: "Making responsible growth part of how we invest.",
+        number: "01",
+        tint: "#e8f1eb",
+        tintBg: "bg-[#e8f1eb]",
+        tintBorder: "border-[#e7ddcc]",
+        panelTone: "#e8f1eb",
+        buttonBg: "#e8f1eb",
+        headline: "Responsible growth, built on clear principles.",
         paragraphs: [
-          "NYEIB promotes environmentally sound business practices, social inclusion and good governance across its investment activities.",
-          "We aim to help businesses understand their environmental impact, create economic opportunities and adopt practices that strengthen their long-term resilience and investment readiness.",
+          "NYEIB aims to integrate environmental and social considerations into investment decisions and support businesses that create sustainable economic value.",
+          "Our approach is designed to encourage responsible practices throughout the investment lifecycle, while recognising the needs of the people and communities affected.",
         ],
+        asideTitle: "A lifecycle approach",
+        asideCopy: "Consider risks and opportunities from assessment through ongoing monitoring.",
       },
       {
         id: "governance-accountability",
         name: "Governance & Accountability",
-        tint: "#F8CFA3",
-        tintBg: "bg-[#F8CFA3]",
-        tintBorder: "border-[#F0B87C]",
+        number: "02",
+        tint: "#fbd0a2",
+        tintBg: "bg-[#f8ecdc]",
+        tintBorder: "border-[#e7ddcc]",
+        panelTone: "#fbd0a2",
+        buttonBg: "#f8ecdc",
         headline: "Clear responsibilities. Stronger oversight.",
         paragraphs: [
           "NYEIB’s governance, risk, ESG and monitoring functions are designed to support the identification, assessment and management of environmental and social risks.",
           "We work with participating financial institutions and other relevant partners to encourage responsible practices throughout the investment lifecycle, from initial assessment to ongoing monitoring.",
         ],
+        asideTitle: "Oversight that supports action",
+        asideCopy: "Clear roles and consistent processes help keep responsible investment practices on track.",
       },
       {
         id: "stakeholder-engagement",
         name: "Stakeholder Engagement",
-        tint: "#F3E3A6",
-        tintBg: "bg-[#F3E3A6]",
-        tintBorder: "border-[#E4CC77]",
+        number: "03",
+        tint: "#f3e4a2",
+        tintBg: "bg-[#f7f0df]",
+        tintBorder: "border-[#e7ddcc]",
+        panelTone: "#f3e4a2",
+        buttonBg: "#f7f0df",
         headline: "Listening to the people our investments affect.",
         paragraphs: [
           "NYEIB recognises the importance of engaging entrepreneurs, beneficiaries, participating financial institutions, project-affected persons and communities to understand their needs and concerns throughout the investment lifecycle.",
           "We aim to provide accessible opportunities for stakeholders to share feedback, raise concerns and contribute to more responsible investment outcomes.",
         ],
+        asideTitle: "Engagement throughout",
+        asideCopy: "Feedback should be accessible, considered and used to inform responsible decisions.",
       },
       {
         id: "impact-performance",
         name: "Impact & Performance",
-        tint: "#A9DDD3",
-        tintBg: "bg-[#A9DDD3]",
-        tintBorder: "border-[#7EC8BA]",
+        number: "04",
+        tint: "#a9ddd3",
+        tintBg: "bg-[#e4efeb]",
+        tintBorder: "border-[#e7ddcc]",
+        panelTone: "#a9ddd3",
+        buttonBg: "#e4efeb",
         headline: "Measuring progress beyond capital deployed.",
         paragraphs: [
-          "As the Funds grow, NYEIB intends to monitor sustainability and development indicators that reflect the outcomes of its investment activities, including:",
+          "As the Funds grow, NYEIB intends to monitor sustainability and development indicators that reflect the outcomes of its investment activities.",
+          "These indicators may include businesses supported, jobs created and sustained, youth and women beneficiaries, environmental performance and social performance across the investment portfolio.",
         ],
-        indicators: [
-          "Businesses supported and strengthened",
-          "Jobs created and sustained",
-          "Youth and women beneficiaries",
-          "Environmental performance and climate-related considerations",
-          "Environmental and social performance across the investment portfolio",
-        ],
-        closingParagraph:
-          "These indicators will help NYEIB assess progress, identify areas for improvement and communicate development outcomes.",
+        asideTitle: "Learning from outcomes",
+        asideCopy: "Monitor indicators, identify opportunities for improvement and communicate development outcomes.",
       },
     ],
   },
