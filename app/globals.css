@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../shared/styles/tokens.css";
+@import "../shared/styles/motion.css";
 @import "../components/apply/apply-layout.css";
 
 @theme {
@@ -35,9 +36,13 @@
   --font-body: 'Chivo', system-ui, -apple-system, sans-serif;
   --font-mono: 'Chivo', system-ui, -apple-system, sans-serif;
 
-  /* Transitions */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: 0.2s var(--ease-out);
+  /* Motion Tokens */
+  --dur-fast: 250ms;
+  --dur-base: 450ms;
+  --dur-slow: 700ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --transition-fast: var(--dur-fast) var(--ease-inout);
 }
 
 @layer base {
@@ -204,7 +209,9 @@ canvas#c {
   border-radius: 9999px;
   cursor: pointer;
   backdrop-filter: blur(12px);
-  transition: all var(--transition-fast);
+  transition-property: background-color, color, border-color;
+  transition-duration: var(--dur-fast);
+  transition-timing-function: var(--ease-inout);
 }
 
 .replay-pill-btn:hover {

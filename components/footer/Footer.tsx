@@ -58,19 +58,19 @@ export function Footer() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="group relative inline-flex items-center text-[15px] sm:text-[16px] font-normal text-[#eef6f2] hover:text-white transition-all duration-200 min-h-[44px] sm:min-h-0 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2eb78c] rounded-sm"
+                        className="group relative inline-flex items-center text-[15px] sm:text-[16px] font-normal text-[#eef6f2] hover:text-white transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] min-h-[44px] sm:min-h-0 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2eb78c] rounded-sm"
                         style={{ fontFamily: "var(--font-body, sans-serif)" }}
                       >
                         {/* Mint-green slide-in arrow */}
                         <span
-                          className="text-[#2eb78c] font-bold text-[14px] leading-none absolute left-0 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none"
+                          className="text-[#2eb78c] font-bold text-[14px] leading-none absolute left-0 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-[transform,opacity] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none"
                           aria-hidden="true"
                         >
                           →
                         </span>
 
                         {/* Link Text shifting 6px right on hover */}
-                        <span className="transition-transform duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[18px]">
+                        <span className="transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[18px]">
                           {link.label}
                         </span>
                       </Link>

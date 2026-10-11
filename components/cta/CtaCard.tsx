@@ -160,14 +160,14 @@ export function CtaCard({
             <Link
               href={href}
               aria-label={buttonLabel}
-              className="group/btn inline-flex items-center gap-2.5 max-w-full select-none outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F1F7F3] rounded-full transition-transform duration-300 hover:-translate-y-[2px]"
+              className="btn-motion group/btn inline-flex items-center gap-2.5 max-w-full select-none outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F1F7F3] rounded-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms]"
               style={{
                 transitionProperty: isReducedMotion ? "none" : "transform",
               }}
             >
               {/* Main Pill */}
               <span
-                className="inline-flex items-center justify-center px-5 sm:px-[30px] py-3.5 sm:py-4 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[12px] min-[400px]:text-[13px] sm:text-[14px] tracking-[0.05em] sm:tracking-[0.08em] uppercase font-bold shadow-[0_10px_30px_rgba(248,132,4,0.35)] transition-colors duration-200 text-center leading-tight whitespace-normal"
+                className="inline-flex items-center justify-center px-5 sm:px-[30px] py-3.5 sm:py-4 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[12px] min-[400px]:text-[13px] sm:text-[14px] tracking-[0.05em] sm:tracking-[0.08em] uppercase font-bold shadow-[0_10px_30px_rgba(248,132,4,0.35)] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] text-center leading-tight whitespace-normal"
                 style={{ fontFamily: "var(--font-body, sans-serif)" }}
               >
                 {buttonLabel}
@@ -175,7 +175,7 @@ export function CtaCard({
 
               {/* Round Arrow Button */}
               <span
-                className="inline-grid place-items-center w-11 h-11 sm:w-[50px] sm:h-[50px] rounded-full bg-[#F88404] text-white shadow-[0_10px_30px_rgba(248,132,4,0.35)] shrink-0 transition-transform duration-300 group-hover/btn:rotate-45"
+                className="inline-grid place-items-center w-11 h-11 sm:w-[50px] sm:h-[50px] rounded-full bg-[#F88404] text-white shadow-[0_10px_30px_rgba(248,132,4,0.35)] shrink-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[4px] delay-0 group-hover/btn:delay-[40ms]"
                 style={{
                   transitionProperty: isReducedMotion ? "none" : "transform",
                 }}

@@ -52,43 +52,47 @@ export function ArrowButton({
 
   const innerContent = (
     <div
-      className={`group relative inline-flex items-center cursor-pointer select-none transition-transform duration-200 active:scale-[0.98] ${className}`}
+      className={`group relative inline-flex items-center cursor-pointer select-none transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.99] active:duration-[150ms] ${className}`}
     >
       {/* =====================================================================
-          LEFT ARROW BADGE (Appears on Hover with Smooth Directional Spring Glide)
+          MAIN PILL BUTTON (Lifts 3px on hover, 500ms shadow transition, 150ms pressed state)
           ===================================================================== */}
       <div
-        className="max-w-0 opacity-0 scale-50 group-hover:max-w-[64px] group-hover:opacity-100 group-hover:scale-100 group-hover:mr-1.5 transition-all duration-350 ease-[cubic-bezier(0.34,1.4,0.64,1)] overflow-hidden flex items-center justify-center shrink-0 pointer-events-none"
-        aria-hidden="true"
-      >
-        <div
-          className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transform -translate-x-3 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-350 ease-[cubic-bezier(0.34,1.4,0.64,1)] ${styles.circle} ${circleClassName}`}
-        >
-          <ArrowIcon className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:scale-110" />
-        </div>
-      </div>
-
-      {/* =====================================================================
-          MAIN PILL BUTTON
-          ===================================================================== */}
-      <div
-        className={`inline-flex items-center justify-center rounded-full px-7 sm:px-8 py-3 sm:py-3.5 text-[0.88rem] sm:text-[0.94rem] tracking-[0.06em] uppercase transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_8px_28px_rgba(248,132,4,0.4)] ${styles.pill} ${pillClassName}`}
-        style={{ fontFamily: "var(--font-body), sans-serif" }}
+        className={`inline-flex items-center justify-center rounded-full px-7 sm:px-8 py-3 sm:py-3.5 text-[0.88rem] sm:text-[0.94rem] tracking-[0.06em] uppercase group-hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] ${styles.pill} ${pillClassName}`}
+        style={{
+          fontFamily: "var(--font-body), sans-serif",
+          transitionProperty: "transform, box-shadow, background-color, color",
+          transitionDuration: "var(--dur-base), 500ms, var(--dur-fast), var(--dur-fast)",
+          transitionTimingFunction: "var(--ease-out), var(--ease-inout), var(--ease-inout), var(--ease-inout)",
+        }}
       >
         <span>{content}</span>
       </div>
 
       {/* =====================================================================
-          RIGHT ARROW BADGE (Visible by Default, Glides Out on Hover)
+          RIGHT ARROW BADGE (Arrow slides 4px right with 40ms delay on hover)
           ===================================================================== */}
       <div
-        className="max-w-[64px] opacity-100 scale-100 ml-1.5 group-hover:max-w-0 group-hover:opacity-0 group-hover:scale-50 group-hover:ml-0 transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden flex items-center justify-center shrink-0 pointer-events-none"
+        className="ml-2 flex items-center justify-center shrink-0 pointer-events-none"
         aria-hidden="true"
       >
         <div
-          className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transform translate-x-0 translate-y-0 group-hover:translate-x-3 group-hover:-translate-y-2 transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] ${styles.circle} ${circleClassName}`}
+          className={`w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center group-hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] ${styles.circle} ${circleClassName}`}
+          style={{
+            transitionProperty: "transform, box-shadow, background-color, border-color",
+            transitionDuration: "var(--dur-base), 500ms, var(--dur-fast), var(--dur-fast)",
+            transitionTimingFunction: "var(--ease-out), var(--ease-inout), var(--ease-inout), var(--ease-inout)",
+          }}
         >
-          <ArrowIcon className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300" />
+          <ArrowIcon
+            className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-[4px] active:translate-x-0"
+            style={{
+              transitionProperty: "transform",
+              transitionDuration: "var(--dur-base)",
+              transitionTimingFunction: "var(--ease-out)",
+              transitionDelay: "0ms",
+            }}
+          />
         </div>
       </div>
     </div>

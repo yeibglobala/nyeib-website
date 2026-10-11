@@ -99,7 +99,7 @@ export function EsgInPageNav() {
                 key={link.id}
                 href={`#${link.id}`}
                 onClick={(e) => handleLinkClick(e, link.id)}
-                className={`whitespace-nowrap px-3.5 sm:px-4 py-2 rounded-full text-[12px] sm:text-[13px] font-medium transition-all duration-200 select-none outline-none focus-visible:ring-2 focus-visible:ring-[#0F2A20] ${
+                className={`whitespace-nowrap px-3.5 sm:px-4 py-2 rounded-full text-[12px] sm:text-[13px] font-medium transition-[background-color,color,box-shadow] duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] select-none outline-none focus-visible:ring-2 focus-visible:ring-[#0F2A20] ${
                   isActive
                     ? "bg-[#0F2A20] text-white shadow-sm font-semibold"
                     : "text-[#0F2A20]/75 hover:text-[#0F2A20] hover:bg-black/[0.04]"

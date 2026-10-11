@@ -60,17 +60,17 @@ export function EsgPoliciesSection() {
                 <Link
                   key={idx}
                   href={item.formHref || "/contact"}
-                  className="policy-accordion-item group block py-4 sm:py-4.5 px-3 sm:px-4 rounded-xl transition-all duration-200 hover:bg-white focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0D3026] text-inherit cursor-pointer"
+                  className="policy-accordion-item group block py-4 sm:py-4.5 px-3 sm:px-4 rounded-xl transition-[background-color,box-shadow] duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] hover:bg-white focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0D3026] text-inherit cursor-pointer"
                   aria-label={`${item.title} — open form`}
                 >
                   <div className="flex items-start justify-between gap-3 sm:gap-4">
                     <div className="flex items-start gap-3.5 sm:gap-4 flex-1 min-w-0">
-                      <div className="w-9 h-9 rounded-full bg-[#A9DDD3]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#0D3026] group-hover:text-white transition-colors duration-200 shadow-xs">
+                      <div className="w-9 h-9 rounded-full bg-[#A9DDD3]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#0D3026] group-hover:text-white transition-colors duration-[250ms] shadow-xs">
                         <ShieldCheck className="w-4 h-4" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3
-                          className="text-lg sm:text-[19px] font-semibold text-[#0F2A20] leading-snug group-hover:text-[#0D3026] transition-colors"
+                          className="text-lg sm:text-[19px] font-semibold text-[#0F2A20] leading-snug group-hover:text-[#0D3026] transition-colors duration-[250ms]"
                           style={{
                             fontFamily: "var(--font-headline, 'Asul', Georgia, serif)",
                           }}
@@ -93,8 +93,8 @@ export function EsgPoliciesSection() {
                     </div>
 
                     {/* Arrow Icon leading to the individual form */}
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#E6DCCB] bg-transparent group-hover:border-[#0D3026] group-hover:bg-[#0D3026] text-[#0D3026] group-hover:text-white flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shadow-2xs">
-                      <ArrowUpRight className="w-4 h-4 transition-transform duration-200" />
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#E6DCCB] bg-transparent group-hover:border-[#0D3026] group-hover:bg-[#0D3026] text-[#0D3026] group-hover:text-white flex items-center justify-center shrink-0 transition-[background-color,border-color,color,transform] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] mt-0.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shadow-2xs">
+                      <ArrowUpRight className="w-4 h-4 transition-transform duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)]" />
                     </div>
                   </div>
                 </Link>

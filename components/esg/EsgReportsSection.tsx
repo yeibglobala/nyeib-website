@@ -58,9 +58,9 @@ export function EsgReportsSection() {
                 <div
                   key={idx}
                   tabIndex={0}
-                  className="policy-accordion-item group py-4 sm:py-5 px-3 sm:px-4 rounded-xl transition-all duration-200 hover:bg-[#F7F5F0] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#0D3026] cursor-pointer flex items-start gap-4"
+                  className="policy-accordion-item group py-4 sm:py-5 px-3 sm:px-4 rounded-xl transition-[background-color,box-shadow] duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] hover:bg-[#F7F5F0] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#0D3026] cursor-pointer flex items-start gap-4"
                 >
-                  <div className="w-9 h-9 rounded-full bg-[#BFEBDC]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#BFEBDC] transition-colors duration-200">
+                  <div className="w-9 h-9 rounded-full bg-[#BFEBDC]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#BFEBDC] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)]">
                     <FileText className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0">

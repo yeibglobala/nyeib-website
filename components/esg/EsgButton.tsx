@@ -28,7 +28,7 @@ export function EsgButton({
       <Link
         href={href}
         aria-label={ariaLabel || label}
-        className={`group/btn inline-flex items-center gap-2 max-w-full select-none outline-none rounded-full transition-transform duration-300 hover:-translate-y-[2px] active:scale-[0.98] focus-visible:ring-2 ${
+        className={`btn-motion group/btn inline-flex items-center gap-2 max-w-full select-none outline-none rounded-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] focus-visible:ring-2 ${
           isOrange
             ? "focus-visible:ring-[#F88404] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F5F0]"
             : "focus-visible:ring-[#0F2A20] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F5F0]"
@@ -36,7 +36,7 @@ export function EsgButton({
       >
         {/* Pill with min-height 64px */}
         <span
-          className={`inline-flex items-center justify-center px-5 sm:px-6 h-16 min-h-[64px] rounded-full text-[12px] min-[400px]:text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold transition-colors duration-200 text-center leading-tight whitespace-normal ${
+          className={`inline-flex items-center justify-center px-5 sm:px-6 h-16 min-h-[64px] rounded-full text-[12px] min-[400px]:text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] text-center leading-tight whitespace-normal ${
             isOrange
               ? "bg-[#F88404] hover:bg-[#ff941f] text-white shadow-[0_8px_24px_rgba(248,132,4,0.3)]"
               : "bg-[#0F2A20] hover:bg-[#183d30] text-white shadow-sm"
@@ -48,7 +48,7 @@ export function EsgButton({
 
         {/* Round Arrow matching pill height exactly (64px) */}
         <span
-          className={`inline-grid place-items-center w-16 h-16 min-w-[64px] min-h-[64px] rounded-full text-white shrink-0 transition-transform duration-300 group-hover/btn:rotate-45 ${
+          className={`inline-grid place-items-center w-16 h-16 min-w-[64px] min-h-[64px] rounded-full text-white shrink-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[4px] delay-0 group-hover/btn:delay-[40ms] ${
             isOrange
               ? "bg-[#F88404] hover:bg-[#ff941f] shadow-[0_8px_24px_rgba(248,132,4,0.3)]"
               : "bg-[#0F2A20] hover:bg-[#183d30] shadow-sm"
@@ -64,7 +64,7 @@ export function EsgButton({
     <Link
       href={href}
       aria-label={ariaLabel || label}
-      className={`group/btn inline-flex items-center gap-2 max-w-full select-none outline-none rounded-full transition-transform duration-300 hover:-translate-y-[2px] active:scale-[0.98] focus-visible:ring-2 ${
+      className={`btn-motion group/btn inline-flex items-center gap-2 max-w-full select-none outline-none rounded-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] focus-visible:ring-2 ${
         isOrange
           ? "focus-visible:ring-[#F88404] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F5F0]"
           : "focus-visible:ring-[#0F2A20] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F7F5F0]"
@@ -72,7 +72,7 @@ export function EsgButton({
     >
       {/* Pill */}
       <span
-        className={`inline-flex items-center justify-center px-5 sm:px-7 py-3 sm:py-3.5 rounded-full text-[12px] min-[400px]:text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold transition-colors duration-200 text-center leading-tight whitespace-normal ${
+        className={`inline-flex items-center justify-center px-5 sm:px-7 py-3 sm:py-3.5 rounded-full text-[12px] min-[400px]:text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] text-center leading-tight whitespace-normal ${
           isOrange
             ? "bg-[#F88404] hover:bg-[#ff941f] text-white shadow-[0_8px_24px_rgba(248,132,4,0.3)]"
             : "bg-[#0F2A20] hover:bg-[#183d30] text-white shadow-sm"
@@ -84,7 +84,7 @@ export function EsgButton({
 
       {/* Round Arrow */}
       <span
-        className={`inline-grid place-items-center w-10 h-10 sm:w-11 sm:h-11 rounded-full text-white shrink-0 transition-transform duration-300 group-hover/btn:rotate-45 ${
+        className={`inline-grid place-items-center w-10 h-10 sm:w-11 sm:h-11 rounded-full text-white shrink-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[4px] delay-0 group-hover/btn:delay-[40ms] ${
           isOrange
             ? "bg-[#F88404] hover:bg-[#ff941f] shadow-[0_8px_24px_rgba(248,132,4,0.3)]"
             : "bg-[#0F2A20] hover:bg-[#183d30] shadow-sm"

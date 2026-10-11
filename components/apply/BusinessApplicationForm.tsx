@@ -287,15 +287,15 @@ export function BusinessApplicationForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="group/btn inline-flex items-center gap-2 select-none outline-none rounded-full transition-transform duration-300 hover:-translate-y-[2px] active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-2"
+              className="btn-motion group/btn inline-flex items-center gap-2 select-none outline-none rounded-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-2"
             >
               <span
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-colors duration-200"
+                className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
                 style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
               >
                 {isSubmitting ? "Submitting..." : "Submit Application"}
               </span>
-              <span className="inline-grid place-items-center w-11 h-11 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white shadow-[0_8px_24px_rgba(248,132,4,0.3)] shrink-0 transition-transform duration-300 group-hover/btn:rotate-45">
+              <span className="inline-grid place-items-center w-11 h-11 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white shadow-[0_8px_24px_rgba(248,132,4,0.3)] shrink-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[4px] delay-0 group-hover/btn:delay-[40ms]">
                 {isSubmitting ? (
                   <Loader2 className="w-[18px] h-[18px] animate-spin" />
                 ) : (

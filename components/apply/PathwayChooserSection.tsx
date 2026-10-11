@@ -26,7 +26,7 @@ export function PathwayChooserSection() {
             href="/apply/business"
             prefetch={true}
             aria-label="Apply for Business Support"
-            className="group relative bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_4px_25px_rgba(15,42,32,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(46,183,140,0.12)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2eb78c] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5F0] min-h-[460px] sm:min-h-[500px]"
+            className="group relative bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_4px_25px_rgba(15,42,32,0.04)] transition-[transform,box-shadow,border-color] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] hover:shadow-[0_20px_45px_rgba(46,183,140,0.12)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2eb78c] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5F0] min-h-[460px] sm:min-h-[500px]"
           >
             {/* Top Content Area */}
             <div className="relative z-10 flex flex-col items-start">
@@ -42,7 +42,7 @@ export function PathwayChooserSection() {
 
               {/* c. Big title */}
               <h2
-                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-normal text-[#0F2A20] leading-[1.15] tracking-tight mb-4 group-hover:text-[#1f9d74] transition-colors"
+                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-normal text-[#0F2A20] leading-[1.15] tracking-tight mb-4 group-hover:text-[#1f9d74] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
               >
                 Apply for Business Support
@@ -67,8 +67,8 @@ export function PathwayChooserSection() {
 
             {/* Bottom Graphic Pastel Fill (Mint to Pale Teal) & Action Arrow */}
             <div className="relative z-10 mt-8 pt-8 flex items-center justify-end">
-              <div className="w-12 h-12 rounded-full border border-[#2eb78c]/30 bg-white/80 text-[#0F2A20] flex items-center justify-center transition-all duration-300 group-hover:bg-[#2eb78c] group-hover:border-[#2eb78c] group-hover:text-white shadow-sm">
-                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <div className="w-12 h-12 rounded-full border border-[#2eb78c]/30 bg-white/80 text-[#0F2A20] flex items-center justify-center transition-[background-color,border-color,color] duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:bg-[#2eb78c] group-hover:border-[#2eb78c] group-hover:text-white shadow-sm">
+                <ArrowUpRight className="w-5 h-5 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
               </div>
             </div>
 
@@ -78,7 +78,7 @@ export function PathwayChooserSection() {
               className="absolute bottom-0 left-0 right-0 h-[38%] bg-gradient-to-b from-transparent via-[#E3F7F0]/40 to-[#CEEFE4]/70 pointer-events-none overflow-hidden"
             >
               {/* Quarter circle shape */}
-              <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-[#2eb78c]/15 transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-[#2eb78c]/15 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3 group-hover:-translate-y-3" />
             </div>
           </Link>
 
@@ -87,7 +87,7 @@ export function PathwayChooserSection() {
             href="/apply/partner"
             prefetch={true}
             aria-label="Partner With NYEIB"
-            className="group relative bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_4px_25px_rgba(15,42,32,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(248,132,4,0.12)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5F0] min-h-[460px] sm:min-h-[500px]"
+            className="group relative bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_4px_25px_rgba(15,42,32,0.04)] transition-[transform,box-shadow,border-color] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] hover:shadow-[0_20px_45px_rgba(248,132,4,0.12)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5F0] min-h-[460px] sm:min-h-[500px]"
           >
             {/* Top Content Area */}
             <div className="relative z-10 flex flex-col items-start">
@@ -103,7 +103,7 @@ export function PathwayChooserSection() {
 
               {/* c. Big title */}
               <h2
-                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-normal text-[#0F2A20] leading-[1.15] tracking-tight mb-4 group-hover:text-[#F88404] transition-colors"
+                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-normal text-[#0F2A20] leading-[1.15] tracking-tight mb-4 group-hover:text-[#F88404] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
               >
                 Partner With NYEIB
@@ -128,8 +128,8 @@ export function PathwayChooserSection() {
 
             {/* Bottom Graphic Pastel Fill (Peach to Pale Sand) & Action Arrow */}
             <div className="relative z-10 mt-8 pt-8 flex items-center justify-end">
-              <div className="w-12 h-12 rounded-full border border-[#F88404]/30 bg-white/80 text-[#0F2A20] flex items-center justify-center transition-all duration-300 group-hover:bg-[#F88404] group-hover:border-[#F88404] group-hover:text-white shadow-sm">
-                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <div className="w-12 h-12 rounded-full border border-[#F88404]/30 bg-white/80 text-[#0F2A20] flex items-center justify-center transition-[background-color,border-color,color] duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:bg-[#F88404] group-hover:border-[#F88404] group-hover:text-white shadow-sm">
+                <ArrowUpRight className="w-5 h-5 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 group-hover:-translate-y-1" />
               </div>
             </div>
 
