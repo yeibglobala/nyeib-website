@@ -68,14 +68,14 @@ export function PartnerInstitutionalGovernanceSection() {
                   onClick={() =>
                     setActivePartnerId((curr) => (curr === partner.id ? null : partner.id))
                   }
-                  className="group relative w-full aspect-[4/5] min-h-[340px] max-[700px]:aspect-auto max-[700px]:min-h-[290px] rounded-[22px] overflow-hidden cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#4fd1b0] border border-[rgba(0,49,36,0.16)] hover:border-[#2eb78c] bg-[#F2FBF6] transition-all duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1"
+                  className="group relative w-full aspect-[4/5] min-h-[340px] max-[700px]:aspect-auto max-[700px]:min-h-[290px] rounded-[22px] overflow-hidden cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] border border-[rgba(0,49,36,0.16)] hover:border-[#00BE93] bg-[#F2FBF6] transition-colors duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] hover:-translate-y-1"
                 >
                   {/* Rest State Layer: Real Partner Logo & Name */}
                   <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-between z-10 pointer-events-none">
                     <div className="w-full flex justify-between items-start" />
 
                     <div
-                      className={`w-full flex-1 flex items-center justify-center py-4 transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      className={`w-full flex-1 flex items-center justify-center py-4 transition-all duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
                         isOpen
                           ? "opacity-0 scale-90 translate-y-4"
                           : "opacity-100 scale-100 translate-y-0"
@@ -84,12 +84,12 @@ export function PartnerInstitutionalGovernanceSection() {
                       <img
                         src={partner.logoPath}
                         alt={partner.name}
-                        className="w-full max-w-[260px] h-32 sm:h-36 md:h-40 object-contain transition-transform duration-500 group-hover:scale-105"
+                        className="w-full max-w-[260px] h-32 sm:h-36 md:h-40 object-contain transition-transform duration-[450ms] group-hover:scale-105"
                       />
                     </div>
 
                     <div
-                      className={`transition-opacity duration-[400ms] ${
+                      className={`transition-opacity duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
                         isOpen ? "opacity-0" : "opacity-95"
                       }`}
                     >
@@ -102,24 +102,24 @@ export function PartnerInstitutionalGovernanceSection() {
                     </div>
                   </div>
 
-                  {/* Hover Reveal Layer: Brand Green Fill with Exact MD Description */}
+                  {/* Hover Reveal Layer: Mint Leaf (#00BE93) with Evergreen (#003124) Logo */}
                   <div
-                    className="absolute inset-0 bg-[#2eb78c] text-[#0c1f19] p-6 sm:p-7 flex flex-col justify-between z-20 transition-[clip-path] duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    className="absolute inset-0 bg-[#00BE93] text-[#003124] p-6 sm:p-7 flex flex-col justify-between z-20 transition-[clip-path] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                     style={{
                       clipPath: isOpen ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
                     }}
                   >
                     <div className="w-full flex items-start justify-between">
                       <img
-                        src={partner.logoPath}
+                        src={`/partner-logo/${partner.id}-logo-evergreen.png`}
                         alt={partner.name}
-                        className="h-12 sm:h-14 w-36 sm:w-44 max-w-[60%] object-contain object-left"
+                        className="h-12 sm:h-14 w-36 sm:w-44 max-w-[60%] object-contain object-left transition-opacity duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
                       />
                     </div>
 
                     <div className="flex flex-col space-y-4 pt-4">
                       <p
-                        className={`text-[13.5px] sm:text-[14.5px] font-medium leading-[1.48] text-[#0c1f19] m-0 transition-transform duration-[500ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        className={`text-[13.5px] sm:text-[14.5px] font-medium leading-[1.48] text-[#003124] m-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                           isOpen ? "translate-y-0" : "translate-y-[110%] max-[700px]:translate-y-0"
                         }`}
                         style={{ fontFamily: "var(--font-body)" }}
@@ -127,9 +127,9 @@ export function PartnerInstitutionalGovernanceSection() {
                         {partner.description}
                       </p>
 
-                      <div className="pt-2 border-t border-[rgba(12,31,25,0.22)]">
+                      <div className="pt-2 border-t border-[rgba(0,49,36,0.22)]">
                         <span
-                          className="text-[14.5px] sm:text-[15px] font-bold text-[#0c1f19] tracking-tight block"
+                          className="text-[14.5px] sm:text-[15px] font-bold text-[#003124] tracking-tight block"
                           style={{ fontFamily: "var(--font-body)" }}
                         >
                           {partner.name}

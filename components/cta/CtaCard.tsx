@@ -30,8 +30,8 @@ function LogoMark({
     >
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#8fe3c8" />
-          <stop offset="100%" stopColor="#2eb78c" />
+          <stop offset="0%" stopColor="#003124" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#003124" stopOpacity="0.75" />
         </linearGradient>
       </defs>
       <g fill={`url(#${gradientId})`}>
