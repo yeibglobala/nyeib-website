@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { FileText, Info } from "lucide-react";
+import { FileText } from "lucide-react";
 import { ESG_CONTENT } from "@/src/content/esg";
 import { EsgButton } from "./EsgButton";
 
 export function EsgReportsSection() {
-  const { headline, text, buttonLabel, buttonHref, leadIn, items, note } =
+  const { headline, text, buttonLabel, buttonHref, leadIn, items } =
     ESG_CONTENT.reports;
 
   return (
@@ -58,9 +58,9 @@ export function EsgReportsSection() {
                 <div
                   key={idx}
                   tabIndex={0}
-                  className="policy-accordion-item group py-4 sm:py-5 px-3 sm:px-4 rounded-xl transition-[background-color,box-shadow] duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] hover:bg-[#F7F5F0] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#0D3026] cursor-pointer flex items-start gap-4"
+                  className="policy-accordion-item group py-4 sm:py-5 px-3 sm:px-4 rounded-xl transition-all duration-200 hover:bg-[#F7F5F0] focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#0D3026] cursor-pointer flex items-start gap-4"
                 >
-                  <div className="w-9 h-9 rounded-full bg-[#BFEBDC]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#BFEBDC] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)]">
+                  <div className="w-9 h-9 rounded-full bg-[#BFEBDC]/50 text-[#0F2A20] flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-[#BFEBDC] transition-colors duration-200">
                     <FileText className="w-4 h-4" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -89,20 +89,7 @@ export function EsgReportsSection() {
               ))}
             </div>
 
-            {/* Note Callout (Sand Tint) */}
-            <div className="mt-8 rounded-2xl bg-[#F3E3A6]/40 border border-[#E6DCCB] p-4 sm:p-5 flex items-start gap-3.5">
-              <span className="w-5 h-5 rounded-full bg-[#0F2A20] text-white flex items-center justify-center shrink-0 mt-0.5">
-                <Info className="w-3.5 h-3.5" />
-              </span>
-              <p
-                className="text-xs sm:text-sm text-[#0F2A20]/80 leading-relaxed m-0 font-medium"
-                style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-              >
-                {note}
-              </p>
-            </div>
-
-            {/* Mobile Button (shown under note on phone) */}
+            {/* Mobile Button (shown under list on phone) */}
             <div className="block min-[900px]:hidden pt-6">
               <EsgButton label={buttonLabel} href={buttonHref} variant="orange" />
             </div>
