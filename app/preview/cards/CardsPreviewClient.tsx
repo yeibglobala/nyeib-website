@@ -81,6 +81,13 @@ export function CardsPreviewClient() {
               <RotateCw className="w-3.5 h-3.5" />
               <span>{flipAll ? "Flip to Front" : "Flip All to Back"}</span>
             </button>
+            {/* Link to new Partnership Wave Cards */}
+            <Link
+              href="/preview/partnership-cards"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#F88404] hover:bg-[#e07500] text-white font-bold text-xs shadow-md transition-all active:scale-95"
+            >
+              <span>View New Wave Cards</span>
+            </Link>
           </div>
         </div>
 

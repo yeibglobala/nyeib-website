@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { ImpactSection } from "@/components/impact/ImpactSection";
 import { ImpactFrameworkSection } from "@/components/impact-page/ImpactFrameworkSection";
+import { EsgPartnershipsSection } from "@/components/esg/EsgPartnershipsSection";
 import { CtaCard } from "@/components/cta/CtaCard";
 import { CTA_CONTENT } from "@/src/content/cta";
 
@@ -22,6 +23,9 @@ export default function ImpactPage() {
 
       {/* 20-Year Target Metrics (Pinned Dial Stage) */}
       <ImpactSection />
+
+      {/* Working together for sustainable growth (Partnerships Collaboration Showcase) */}
+      <EsgPartnershipsSection />
 
       {/* Closing CTA */}
       <CtaCard {...CTA_CONTENT.impact} />

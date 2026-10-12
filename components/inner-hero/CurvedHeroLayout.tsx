@@ -3,7 +3,15 @@
 import React from "react";
 import Image from "next/image";
 
+import { INNER_HERO_DATA, InnerHeroData } from "./config";
+
 export interface CurvedHeroLayoutProps {
+  /**
+   * Optional inner page slug (e.g. "what-we-do", "who-we-serve", "impact-and-measurement", "partners-and-investors", "esg-and-sustainability").
+   * Automatically resolves headline, highlight keyword, description, and photography.
+   */
+  slug?: string;
+
   /**
    * Title prefix before the highlighted keyword.
    * Default: "We exist to unlock "
@@ -32,6 +40,11 @@ export interface CurvedHeroLayoutProps {
    * Default: "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready."
    */
   description?: string;
+
+  /**
+   * Backward-compatibility alias for description.
+   */
+  subtext?: string;
 
   /**
    * Background photograph source.
@@ -79,13 +92,15 @@ export interface CurvedHeroLayoutProps {
 }
 
 export function CurvedHeroLayout({
-  titlePrefix = "We exist to unlock ",
-  highlight = "pathways",
-  titleSuffix = " for investable businesses.",
-  headline,
-  description = "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
-  imageSrc = "/images/african-american-man-woman-home-office-analyzes-online-business-trends.jpg",
-  imageAlt = "We exist to unlock pathways for investable businesses.",
+  slug,
+  titlePrefix: customTitlePrefix,
+  highlight: customHighlight,
+  titleSuffix: customTitleSuffix,
+  headline: customHeadline,
+  description: customDescription,
+  subtext,
+  imageSrc: customImageSrc,
+  imageAlt: customImageAlt,
   svgSrc = "/images/inner-pages-hero-layou-svg.svg",
   mobileSvgSrc = "/images/inner-pages-hero-layout-mobile-svg.svg",
   bgColor = "#003124",
@@ -93,6 +108,15 @@ export function CurvedHeroLayout({
   ctaText,
   ctaHref,
 }: CurvedHeroLayoutProps) {
+  const data: InnerHeroData | undefined = slug ? INNER_HERO_DATA[slug] : undefined;
+
+  const titlePrefix = customTitlePrefix ?? data?.titlePrefix ?? (data ? undefined : "We exist to unlock ");
+  const highlight = customHighlight ?? data?.highlight ?? (data ? undefined : "pathways");
+  const titleSuffix = customTitleSuffix ?? data?.titleSuffix ?? (data ? undefined : " for investable businesses.");
+  const headline = customHeadline ?? (titlePrefix ? undefined : data?.headline);
+  const description = customDescription ?? subtext ?? data?.subtext ?? "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.";
+  const imageSrc = customImageSrc ?? data?.imageSrc ?? "/images/african-american-man-woman-home-office-analyzes-online-business-trends.jpg";
+  const imageAlt = customImageAlt ?? (data?.headline || "We exist to unlock pathways for investable businesses.");
   return (
     <section
       id="curved-hero-layout"
@@ -102,7 +126,7 @@ export function CurvedHeroLayout({
           ? headline
           : `${titlePrefix}${highlight}${titleSuffix}`
       }
-      className={`relative w-full overflow-hidden bg-[#003124] min-h-[640px] sm:min-h-[700px] md:min-h-[760px] lg:h-[819px] flex flex-col justify-end select-none ${className}`}
+      className={`relative w-full overflow-hidden bg-[#003124] h-[100svh] min-h-[600px] lg:h-screen lg:min-h-[100vh] flex flex-col justify-end select-none ${className}`}
       style={{ backgroundColor: bgColor }}
     >
       {/* =========================================================================
