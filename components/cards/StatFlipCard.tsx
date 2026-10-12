@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { cn } from "@/shared/utils/cn";
 
 export type StatFlipCardStyle = "style1" | "style2" | "custom";
 
@@ -236,7 +237,10 @@ export function StatFlipCard({
       onKeyDown={handleKeyDown}
       onMouseEnter={() => flipOnHover && setIsHovered(true)}
       onMouseLeave={() => flipOnHover && setIsHovered(false)}
-      className={`group relative w-full max-w-[340px] sm:max-w-[320px] md:max-w-[308px] h-[352px] sm:h-[349px] cursor-pointer outline-none select-none [perspective:1200px] ${className}`}
+      className={cn(
+        "group relative w-full max-w-[340px] sm:max-w-[320px] md:max-w-[308px] h-[352px] sm:h-[349px] cursor-pointer outline-none select-none [perspective:1200px]",
+        className
+      )}
     >
       {/* 3D Rotating Inner Card Container */}
       <div
