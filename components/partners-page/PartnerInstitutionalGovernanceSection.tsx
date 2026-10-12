@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
 import { Parallax } from "@/shared/components/Parallax";
+import { PartnerCard } from "@/components/governance/PartnerCard";
 
 interface InstitutionalPartner {
   id: string;
@@ -52,94 +53,22 @@ export function PartnerInstitutionalGovernanceSection() {
         {/* 3 Partner Cards Grid */}
         <Parallax speed={20} className="w-full">
           <div className="grid grid-cols-1 min-[700px]:grid-cols-3 gap-5 sm:gap-6 w-full">
-            {INSTITUTIONAL_PARTNERS.map((partner) => {
-              const isOpen = activePartnerId === partner.id;
-
-              return (
-                <article
-                  key={partner.id}
-                  tabIndex={0}
-                  role="group"
-                  aria-label={partner.name}
-                  onMouseEnter={() => setActivePartnerId(partner.id)}
-                  onMouseLeave={() => setActivePartnerId(null)}
-                  onFocus={() => setActivePartnerId(partner.id)}
-                  onBlur={() => setActivePartnerId(null)}
-                  onClick={() =>
-                    setActivePartnerId((curr) => (curr === partner.id ? null : partner.id))
-                  }
-                  className="group relative w-full aspect-[4/5] min-h-[340px] max-[700px]:aspect-auto max-[700px]:min-h-[290px] rounded-[22px] overflow-hidden cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] border border-[rgba(0,49,36,0.16)] hover:border-[#00BE93] bg-[#F2FBF6] transition-colors duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] hover:-translate-y-1"
-                >
-                  {/* Rest State Layer: Real Partner Logo & Name */}
-                  <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-between z-10 pointer-events-none">
-                    <div className="w-full flex justify-between items-start" />
-
-                    <div
-                      className={`w-full flex-1 flex items-center justify-center py-4 transition-all duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
-                        isOpen
-                          ? "opacity-0 scale-90 translate-y-4"
-                          : "opacity-100 scale-100 translate-y-0"
-                      }`}
-                    >
-                      <img
-                        src={partner.logoPath}
-                        alt={partner.name}
-                        className="w-full max-w-[260px] h-32 sm:h-36 md:h-40 object-contain transition-transform duration-[450ms] group-hover:scale-105"
-                      />
-                    </div>
-
-                    <div
-                      className={`transition-opacity duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
-                        isOpen ? "opacity-0" : "opacity-95"
-                      }`}
-                    >
-                      <span
-                        className="text-[14.5px] sm:text-[15px] font-semibold text-[#003124] tracking-tight block"
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {partner.name}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Hover Reveal Layer: Mint Leaf (#00BE93) with Evergreen (#003124) Logo */}
-                  <div
-                    className="absolute inset-0 bg-[#00BE93] text-[#003124] p-6 sm:p-7 flex flex-col justify-between z-20 transition-[clip-path] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-                    style={{
-                      clipPath: isOpen ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
-                    }}
-                  >
-                    <div className="w-full flex items-start justify-between">
-                      <img
-                        src={`/partner-logo/${partner.id}-logo-evergreen.png`}
-                        alt={partner.name}
-                        className="h-12 sm:h-14 w-36 sm:w-44 max-w-[60%] object-contain object-left transition-opacity duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
-                      />
-                    </div>
-
-                    <div className="flex flex-col space-y-4 pt-4">
-                      <p
-                        className={`text-[13.5px] sm:text-[14.5px] font-medium leading-[1.48] text-[#003124] m-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                          isOpen ? "translate-y-0" : "translate-y-[110%] max-[700px]:translate-y-0"
-                        }`}
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {partner.description}
-                      </p>
-
-                      <div className="pt-2 border-t border-[rgba(0,49,36,0.22)]">
-                        <span
-                          className="text-[14.5px] sm:text-[15px] font-bold text-[#003124] tracking-tight block"
-                          style={{ fontFamily: "var(--font-body)" }}
-                        >
-                          {partner.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+            {INSTITUTIONAL_PARTNERS.map((partner) => (
+              <PartnerCard
+                key={partner.id}
+                partner={{
+                  id: partner.id,
+                  name: partner.name,
+                  shortName: partner.id.toUpperCase(),
+                  logoPath: partner.logoPath,
+                  description: partner.description,
+                  descriptionLines: [partner.description],
+                }}
+                isActive={activePartnerId === partner.id}
+                onActivate={() => setActivePartnerId(partner.id)}
+                onDeactivate={() => setActivePartnerId((curr) => (curr === partner.id ? null : curr))}
+              />
+            ))}
           </div>
         </Parallax>
 
