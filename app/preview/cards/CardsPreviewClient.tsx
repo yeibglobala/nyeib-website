@@ -165,6 +165,86 @@ export function CardsPreviewClient() {
             </div>
           </div>
         </div>
+
+        {/* =========================================================================
+            SECTION 3: VARIED CONTENT EXAMPLES (SAME LAYOUT)
+            ========================================================================= */}
+        <div className="flex flex-col gap-6 pt-6 border-t border-current/15">
+          <div className="flex flex-col gap-1">
+            <h2
+              className="text-xl sm:text-2xl font-bold"
+              style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
+            >
+              3. Varied Content Examples (Same Layout)
+            </h2>
+            <p className="text-xs sm:text-sm opacity-75 m-0">
+              Demonstrating different copy lengths, stats, and capital channels while preserving the exact layout and wave graphics.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start justify-items-center">
+            {/* Example A: Businesses supported */}
+            <div className="flex flex-col items-center gap-2.5 w-full max-w-[308px]">
+              <span className="text-[11px] uppercase font-mono tracking-wider opacity-75 font-semibold text-center">
+                Example A: Businesses
+              </span>
+              <StatFlipCard
+                variant="style1"
+                frontStat="38,400"
+                frontTitle="Businesses to be supported"
+                frontDescription="Growth-oriented enterprises across Nigeria over the 20-year fund horizon."
+                backStat="1.6 Million"
+                backTitle="Direct and indirect jobs created"
+                backItems={[
+                  "Youth-led enterprises",
+                  "Women-led businesses",
+                  "High-growth SMEs",
+                ]}
+              />
+            </div>
+
+            {/* Example B: Blended Finance */}
+            <div className="flex flex-col items-center gap-2.5 w-full max-w-[308px]">
+              <span className="text-[11px] uppercase font-mono tracking-wider opacity-75 font-semibold text-center">
+                Example B: Blended Finance
+              </span>
+              <StatFlipCard
+                variant="style1"
+                frontStat="Blended Capital"
+                frontTitle="Multi-instrument financing"
+                frontDescription="Combining equity, guarantees, and technical assistance to de-risk investment."
+                backStat="4 Instruments"
+                backTitle="Tailored deployment mechanisms"
+                backItems={[
+                  "Equity & quasi-equity",
+                  "Risk-sharing guarantees",
+                  "Reimbursable grants",
+                  "Technical assistance",
+                ]}
+              />
+            </div>
+
+            {/* Example C: Institutional Anchors */}
+            <div className="flex flex-col items-center gap-2.5 w-full max-w-[308px]">
+              <span className="text-[11px] uppercase font-mono tracking-wider opacity-75 font-semibold text-center">
+                Example C: Governance
+              </span>
+              <StatFlipCard
+                variant="style1"
+                frontStat="20 Years"
+                frontTitle="Long-term horizon"
+                frontDescription="Institutionally anchored governance designed to build lasting investor confidence."
+                backStat="3 Partners"
+                backTitle="Institutional framework"
+                backItems={[
+                  "Nigeria Sovereign Investment Authority (NSIA)",
+                  "Development Bank of Nigeria (DBN)",
+                  "African Development Bank (AfDB)",
+                ]}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
