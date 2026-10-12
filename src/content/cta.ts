@@ -7,9 +7,9 @@ export interface CtaCardData {
 
 export const CTA_CONTENT = {
   homepage: {
-    headline: "Find your pathway with YEIB.",
+    headline: "Find your Pathway with NYEIB",
     text: "Whether you are growing a business, deploying capital or strengthening Nigeria’s entrepreneurial ecosystem, there is a way to work with NYEIB.",
-    buttonLabel: "Partner with YEIB",
+    buttonLabel: "Apply for funding",
     href: "/apply",
   },
   whatWeDo: {

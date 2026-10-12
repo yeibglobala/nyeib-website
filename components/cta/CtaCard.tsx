@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AppButton } from "@/shared/components/AppButton";
 
 export interface CtaCardProps {
@@ -13,35 +13,6 @@ export interface CtaCardProps {
   sectionId?: string;
 }
 
-function LogoMark({
-  gradientId,
-  className = "",
-}: {
-  gradientId: string;
-  className?: string;
-}) {
-  return (
-    <svg
-      viewBox="0 0 19.63 17.18"
-      aria-hidden="true"
-      className={className}
-      preserveAspectRatio="xMidYMid meet"
-    >
-      <defs>
-        <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#8fe3c8" />
-          <stop offset="100%" stopColor="#2eb78c" />
-        </linearGradient>
-      </defs>
-      <g fill={`url(#${gradientId})`}>
-        <path d="M4.68,.16c-.05-.09-.17-.16-.29-.16H.34C.07,0-.08,.29,.05,.51L3.92,6.82c.84,1.36,1.19,2.97,1.03,4.57l-.58,5.42c-.01,.2,.14,.37,.34,.37h2.42c.16,0,.29-.1,.33-.25,.37-1.62,.56-3.3,.56-5.04C8.04,7.58,6.82,3.56,4.68,.16Z" />
-        <path d="M19.3,0h-4.06c-.12,0-.22,.07-.29,.16-2.12,3.41-3.35,7.43-3.35,11.73,0,1.74,.2,3.42,.58,5.04,.03,.14,.17,.25,.33,.25h2.42c.2,0,.35-.17,.33-.37l-.56-5.42c-.17-1.6,.2-3.21,1.03-4.57L19.59,.51c.13-.22-.03-.51-.29-.51Z" />
-        <path d="M13.28,0H6.36c-.26,0-.42,.29-.29,.51,.42,.76,.81,1.55,1.15,2.36,1.22,2.87,1.83,5.89,1.83,9.02,0,1.66-.18,3.3-.52,4.89-.04,.21,.12,.41,.33,.41h1.91c.21,0,.38-.2,.33-.41-.34-1.58-.51-3.22-.51-4.89,0-3.13,.62-6.16,1.82-9.02,.34-.81,.73-1.6,1.17-2.36,.12-.22-.04-.51-.3-.51Z" />
-      </g>
-    </svg>
-  );
-}
-
 export function CtaCard({
   headline,
   text,
@@ -51,8 +22,6 @@ export function CtaCard({
   wrapperClassName = "",
   sectionId = "partner",
 }: CtaCardProps) {
-  const rawId = useId();
-  const gradientId = `cta-mint-gradient-${rawId.replace(/:/g, "")}`;
   const cardRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
@@ -90,12 +59,12 @@ export function CtaCard({
       id={sectionId}
       data-theme="light"
       aria-label={headline}
-      className={`relative w-full bg-[#003124] pt-12 sm:pt-16 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-16 ${wrapperClassName}`}
+      className={`relative w-full bg-[#003124] pt-12 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-8 lg:px-16 ${wrapperClassName}`}
     >
       <div className="max-w-[1400px] w-full mx-auto">
         <div
           ref={cardRef}
-          className={`group relative overflow-hidden rounded-[28px] bg-[#F1F7F3] border border-[#D7E6DD] p-[clamp(28px,5vw,64px)] min-h-[clamp(340px,40vw,440px)] flex flex-col justify-between shadow-[0_24px_60px_rgba(15,42,32,0.12)] transition-all duration-300 ${className}`}
+          className={`group relative overflow-hidden bg-white rounded-[32px] sm:rounded-[44px] lg:rounded-[60px] shadow-[0_24px_60px_rgba(0,0,0,0.18)] transition-all duration-500 ${className}`}
           style={{
             transform: isReducedMotion
               ? "none"
@@ -108,60 +77,87 @@ export function CtaCard({
             transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          {/* Peach glow at bottom left behind button */}
-          <div
-            aria-hidden="true"
-            className="absolute pointer-events-none rounded-full"
-            style={{
-              width: "60%",
-              height: "90%",
-              left: "-10%",
-              bottom: "-40%",
-              background:
-                "radial-gradient(closest-side, rgba(248,207,163,0.55), transparent 70%)",
-              zIndex: 0,
-            }}
-          />
+          {/* =========================================================================
+              DESKTOP LAYOUT (min-[900px]:)
+              Figma Node 640:74 (CTA footer)
+              ========================================================================= */}
+          <div className="hidden min-[900px]:flex relative min-h-[500px] lg:min-h-[560px] xl:min-h-[600px] items-center">
+            {/* Full card background desktop image (cutout with transparent left space) */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden"
+            >
+              <img
+                src="/images/footer-image-desktop.png"
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover object-right pointer-events-none"
+              />
+            </div>
 
-          {/* Large LogoMark Art cropped at right and bottom */}
-          <div
-            aria-hidden="true"
-            className="absolute pointer-events-none z-[1] select-none transition-transform duration-400 ease-out max-[700px]:w-[90%] max-[700px]:-right-[26%] max-[700px]:-bottom-[10%] max-[700px]:opacity-55 min-[701px]:w-[min(52%,540px)] min-[701px]:-right-[3%] min-[701px]:-bottom-[14%] min-[701px]:opacity-90 min-[701px]:group-hover:-translate-x-[10px]"
-            style={{
-              transitionProperty: isReducedMotion ? "none" : "transform",
-            }}
-          >
-            <LogoMark gradientId={gradientId} className="w-full h-auto block" />
+            {/* Left Column Text Content */}
+            <div className="relative z-10 flex flex-col items-start gap-7 lg:gap-8 max-w-[640px] pl-10 lg:pl-16 xl:pl-24 pr-6 py-14 lg:py-20">
+              <h2
+                className="font-['Chivo',sans-serif] text-[clamp(2.4rem,3.8vw,3.75rem)] font-normal text-[#003124] leading-[1.08] tracking-tight m-0 max-w-[16ch]"
+                style={{ fontFamily: "var(--font-headline, 'Chivo', sans-serif)" }}
+              >
+                {headline}
+              </h2>
+              <p
+                className="font-['Chivo',sans-serif] text-[clamp(1.05rem,1.4vw,1.45rem)] text-[#003124] leading-[1.4] font-normal m-0 max-w-[34ch]"
+                style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
+              >
+                {text}
+              </p>
+              <div className="pt-2">
+                <AppButton
+                  href={href}
+                  label={buttonLabel}
+                  variant="orange"
+                  size="lg"
+                  className="shadow-[0_8px_24px_rgba(248,132,4,0.35)]"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Group 1: Headline + Text at Top */}
-          <div className="relative z-[2] flex flex-col gap-4 sm:gap-4.5 max-w-full">
-            <h2
-              className={`font-serif text-[#0F2A20] leading-[1.05] tracking-[-0.015em] m-0 [text-wrap:balance] ${
-                headline.length > 40
-                  ? "text-[clamp(1.9rem,3.6vw,3.1rem)] max-w-[22ch]"
-                  : "text-[clamp(2.2rem,4.6vw,3.9rem)] max-w-[16ch]"
-              }`}
-              style={{ fontFamily: "var(--font-headline, Georgia, serif)" }}
-            >
-              {headline}
-            </h2>
-            <p
-              className="font-sans text-[#4A5B53] text-[clamp(1rem,1.3vw,1.18rem)] leading-[1.6] max-w-[34rem] m-0"
-              style={{ fontFamily: "var(--font-body, sans-serif)" }}
-            >
-              {text}
-            </p>
-          </div>
+          {/* =========================================================================
+              MOBILE / TABLET LAYOUT (<900px)
+              Figma Node 642:81 (CTA — Mobile)
+              ========================================================================= */}
+          <div className="flex min-[900px]:hidden flex-col items-start w-full">
+            {/* Top Text Content */}
+            <div className="flex flex-col items-start gap-6 pt-10 px-7 sm:px-9 pb-8 w-full">
+              <h2
+                className="font-['Chivo',sans-serif] text-[28px] sm:text-[34px] font-normal text-[#003124] leading-[1.18] tracking-tight m-0"
+                style={{ fontFamily: "var(--font-headline, 'Chivo', sans-serif)" }}
+              >
+                {headline}
+              </h2>
+              <p
+                className="font-['Chivo',sans-serif] text-[16px] sm:text-[18px] text-[#003124] leading-[1.5] font-normal m-0"
+                style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
+              >
+                {text}
+              </p>
+              <div className="pt-1">
+                <AppButton
+                  href={href}
+                  label={buttonLabel}
+                  variant="orange"
+                  size="md"
+                  className="w-auto shadow-[0_8px_24px_rgba(248,132,4,0.35)]"
+                />
+              </div>
+            </div>
 
-          {/* Group 2: Action Button at Bottom */}
-          <div className="relative z-[2] pt-8 sm:pt-10">
-            <AppButton
-              href={href}
-              label={buttonLabel}
-              variant="orange"
-              size="lg"
-            />
+            {/* Bottom Mobile Cutout Image */}
+            <div className="relative w-full h-[280px] sm:h-[320px] overflow-hidden">
+              <img
+                src="/images/footer-image-mobile.png"
+                alt="Entrepreneurs collaborating with NYEIB"
+                className="w-full h-full object-cover object-top pointer-events-none"
+              />
+            </div>
           </div>
         </div>
       </div>
