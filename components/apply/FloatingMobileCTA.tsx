@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { AppButton } from "@/shared/components/AppButton";
 
 export function FloatingMobileCTA() {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,14 +24,14 @@ export function FloatingMobileCTA() {
   if (!isVisible) return null;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-[var(--apply-cream,#F2FBF6)] via-[var(--apply-cream,#F2FBF6)]/95 to-transparent backdrop-blur-sm transition-[opacity,transform] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] animate-in slide-in-from-bottom-3">
-      <Link
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-gradient-to-t from-[var(--apply-cream,#F2FBF6)] via-[var(--apply-cream,#F2FBF6)]/95 to-transparent backdrop-blur-sm transition-all duration-300 animate-in slide-in-from-bottom-3">
+      <AppButton
         href="/apply/business/start"
-        className="btn-motion group w-full py-3.5 bg-[#F88404] hover:bg-[#e07500] text-[#003124] font-['Chivo',sans-serif] font-bold text-center rounded-full shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] flex items-center justify-center gap-2 text-sm"
-      >
-        <span>Start Business Application</span>
-        <ArrowRight className="w-4 h-4 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[4px] delay-0 group-hover:delay-[40ms]" />
-      </Link>
+        label="Start Business Application"
+        variant="orange"
+        size="md"
+        className="w-full !py-3.5"
+      />
     </div>
   );
 }

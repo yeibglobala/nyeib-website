@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "../shared/styles/tokens.css";
-@import "../shared/styles/motion.css";
 @import "../components/apply/apply-layout.css";
 
 @theme {
@@ -36,13 +35,9 @@
   --font-body: 'Chivo', system-ui, -apple-system, sans-serif;
   --font-mono: 'Chivo', system-ui, -apple-system, sans-serif;
 
-  /* Motion Tokens */
-  --dur-fast: 250ms;
-  --dur-base: 450ms;
-  --dur-slow: 700ms;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --transition-fast: var(--dur-fast) var(--ease-inout);
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease-out);
 }
 
 @layer base {
@@ -209,9 +204,7 @@ canvas#c {
   border-radius: 9999px;
   cursor: pointer;
   backdrop-filter: blur(12px);
-  transition-property: background-color, color, border-color;
-  transition-duration: var(--dur-fast);
-  transition-timing-function: var(--ease-inout);
+  transition: all var(--transition-fast);
 }
 
 .replay-pill-btn:hover {
@@ -461,4 +454,84 @@ html.nyeib-skip-preloader #nyeib-preloader-overlay {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   9. STANDARD STAGGERING BUTTON ANIMATION (.btn-animate-chars)
+   ========================================================================== */
+.btn-animate-chars {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  border-radius: 9999px;
+  line-height: 1.2;
+  user-select: none;
+  font-family: var(--font-body, system-ui, sans-serif);
+  transition: transform 0.25s cubic-bezier(0.625, 0.05, 0, 1), box-shadow 0.25s ease;
+}
+
+.btn-animate-chars:active {
+  transform: scale(0.97);
+}
+
+.btn-animate-chars__bg {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transition: inset 0.6s cubic-bezier(0.625, 0.05, 0, 1), background-color 0.2s ease;
+  pointer-events: none;
+}
+
+.btn-animate-chars:hover .btn-animate-chars__bg,
+.btn-animate-chars:focus-visible .btn-animate-chars__bg {
+  inset: 0.125em;
+}
+
+.btn-animate-chars__text {
+  position: relative;
+  z-index: 10;
+  white-space: nowrap;
+  line-height: 1.3;
+}
+
+/* Characters */
+.btn-animate-chars [data-button-animate-chars] {
+  overflow: hidden;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-animate-chars [data-button-animate-chars] span {
+  display: inline-block;
+  position: relative;
+  text-shadow: 0px 1.3em currentColor;
+  transform: translateY(0em) rotate(0.001deg);
+  transition: transform 0.6s cubic-bezier(0.625, 0.05, 0, 1);
+  will-change: transform;
+}
+
+.btn-animate-chars:hover [data-button-animate-chars] span,
+.btn-animate-chars:focus-visible [data-button-animate-chars] span {
+  transform: translateY(-1.3em) rotate(0.001deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-animate-chars [data-button-animate-chars] span {
+    transition: none !important;
+    text-shadow: none !important;
+    transform: none !important;
+  }
+  .btn-animate-chars:hover [data-button-animate-chars] span,
+  .btn-animate-chars:focus-visible [data-button-animate-chars] span {
+    transform: none !important;
+  }
+  .btn-animate-chars__bg {
+    transition: none !important;
+  }
+}
+
 

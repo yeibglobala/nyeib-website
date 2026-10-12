@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import { AppButton } from "./AppButton";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -139,14 +140,14 @@ export function Navbar() {
       <header
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed top-3 sm:top-6 left-0 right-0 z-50 w-full px-3 sm:px-6 lg:px-8 pointer-events-none transition-[transform,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`fixed top-3 sm:top-6 left-0 right-0 z-50 w-full px-3 sm:px-6 lg:px-8 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           shouldShow
             ? "translate-y-0 opacity-100"
             : "-translate-y-[calc(100%+32px)] opacity-0"
         }`}
       >
         <div
-          className={`max-w-[1240px] w-full mx-auto bg-white/95 backdrop-blur-md rounded-full px-3.5 sm:px-7 py-2 sm:py-3 border border-black/[0.06] flex items-center justify-between pointer-events-auto transition-[box-shadow] duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
+          className={`max-w-[1240px] w-full mx-auto bg-white/95 backdrop-blur-md rounded-full px-3.5 sm:px-7 py-2 sm:py-3 border border-black/[0.06] flex items-center justify-between pointer-events-auto transition-all duration-300 ${
             isScrolled
               ? "shadow-[0_12px_36px_rgba(0,0,0,0.14)]"
               : "shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
@@ -155,7 +156,7 @@ export function Navbar() {
           {/* Left: Brand Green Logo */}
           <Link
             href="/"
-            className="flex items-center hover:opacity-90 transition-opacity duration-[250ms] focus:outline-none shrink-0"
+            className="flex items-center hover:opacity-90 transition-opacity focus:outline-none shrink-0"
             aria-label="Nigeria YEIB Investment Funds Home"
           >
             <img
@@ -173,7 +174,7 @@ export function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`font-['Chivo',sans-serif] text-[0.88rem] lg:text-[0.93rem] font-medium transition-colors duration-[250ms] relative py-1 ${
+                  className={`font-['Chivo',sans-serif] text-[0.88rem] lg:text-[0.93rem] font-medium transition-colors relative py-1 ${
                     active
                       ? "text-[#003124] font-semibold"
                       : "text-[#4A5568] hover:text-[#003124]"
@@ -190,19 +191,19 @@ export function Navbar() {
 
           {/* Right: Apply for funding CTA button + Mobile Menu Toggle */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
+            <AppButton
               href="/apply"
-              className="btn-motion inline-flex items-center justify-center bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-medium text-[0.76rem] sm:text-[0.88rem] px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-full shadow-sm hover:shadow-md active:translate-y-0 whitespace-nowrap"
-            >
-              <span className="hidden min-[360px]:inline">Apply for funding</span>
-              <span className="min-[360px]:hidden">Apply</span>
-            </Link>
+              label="Apply for funding"
+              variant="orange"
+              size="sm"
+              className="text-[0.76rem] sm:text-[0.84rem] !py-1.5 sm:!py-2.5 !px-4 sm:!px-6 whitespace-nowrap shadow-sm hover:shadow-md"
+            />
 
             {/* Mobile Hamburger Toggle Button */}
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/[0.04] hover:bg-black/[0.08] text-[#12201b] flex items-center justify-center transition-colors duration-[250ms] focus:outline-none shrink-0"
+              className="md:hidden w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/[0.04] hover:bg-black/[0.08] text-[#12201b] flex items-center justify-center transition-colors focus:outline-none shrink-0"
               aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isOpen}
             >
@@ -218,9 +219,9 @@ export function Navbar() {
           role="dialog"
           aria-modal="true"
           aria-label="Site Navigation"
-          className="fixed inset-0 z-40 bg-[rgba(0,35,26,0.8)] backdrop-blur-md flex flex-col justify-start items-center pt-24 pb-8 px-5 md:hidden animate-in fade-in duration-[250ms] overflow-y-auto"
+          className="fixed inset-0 z-40 bg-[rgba(0,35,26,0.8)] backdrop-blur-md flex flex-col justify-start items-center pt-24 pb-8 px-5 md:hidden animate-in fade-in duration-200 overflow-y-auto"
         >
-          <div className="w-full max-w-sm bg-white rounded-[28px] p-6 shadow-2xl border border-black/[0.08] flex flex-col gap-4 animate-in zoom-in-95 duration-[250ms]">
+          <div className="w-full max-w-sm bg-white rounded-[28px] p-6 shadow-2xl border border-black/[0.08] flex flex-col gap-4 animate-in zoom-in-95 duration-200">
             <div className="flex flex-col gap-2">
               <Link
                 href="/"
@@ -257,10 +258,10 @@ export function Navbar() {
             <Link
               href="/apply"
               onClick={() => setIsOpen(false)}
-              className="btn-motion w-full py-3.5 bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-semibold text-center rounded-2xl shadow-md transition-[background-color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-semibold text-center rounded-2xl shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2"
             >
               <span>Apply for funding</span>
-              <ArrowUpRight className="w-4 h-4 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-[4px] delay-0 group-hover:delay-[40ms]" />
+              <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

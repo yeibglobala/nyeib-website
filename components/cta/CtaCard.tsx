@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useId, useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { AppButton } from "@/shared/components/AppButton";
 
 export interface CtaCardProps {
   headline: string;
@@ -30,8 +29,8 @@ function LogoMark({
     >
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#003124" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#003124" stopOpacity="0.75" />
+          <stop offset="0%" stopColor="#8fe3c8" />
+          <stop offset="100%" stopColor="#2eb78c" />
         </linearGradient>
       </defs>
       <g fill={`url(#${gradientId})`}>
@@ -157,32 +156,12 @@ export function CtaCard({
 
           {/* Group 2: Action Button at Bottom */}
           <div className="relative z-[2] pt-8 sm:pt-10">
-            <Link
+            <AppButton
               href={href}
-              aria-label={buttonLabel}
-              className="btn-motion group/btn inline-flex items-center gap-2.5 max-w-full select-none outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F1F7F3] rounded-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms]"
-              style={{
-                transitionProperty: isReducedMotion ? "none" : "transform",
-              }}
-            >
-              {/* Main Pill */}
-              <span
-                className="inline-flex items-center justify-center px-5 sm:px-[30px] py-3.5 sm:py-4 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[12px] min-[400px]:text-[13px] sm:text-[14px] tracking-[0.05em] sm:tracking-[0.08em] uppercase font-bold shadow-[0_10px_30px_rgba(248,132,4,0.35)] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] text-center leading-tight whitespace-normal"
-                style={{ fontFamily: "var(--font-body, sans-serif)" }}
-              >
-                {buttonLabel}
-              </span>
-
-              {/* Round Arrow Button */}
-              <span
-                className="inline-grid place-items-center w-11 h-11 sm:w-[50px] sm:h-[50px] rounded-full bg-[#F88404] text-white shadow-[0_10px_30px_rgba(248,132,4,0.35)] shrink-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[4px] delay-0 group-hover/btn:delay-[40ms]"
-                style={{
-                  transitionProperty: isReducedMotion ? "none" : "transform",
-                }}
-              >
-                <ArrowUpRight className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
-              </span>
-            </Link>
+              label={buttonLabel}
+              variant="orange"
+              size="lg"
+            />
           </div>
         </div>
       </div>
