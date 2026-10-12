@@ -77,8 +77,8 @@ export function CapitalMobilisation() {
           </p>
         </div>
 
-        {/* 3 Figma Stat Flip Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4 items-center justify-items-center">
+        {/* 3 Figma Stat Flip Cards - Enriched Dimensions with Tight Spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 pt-4 items-center justify-items-center w-full max-w-[1340px] mx-auto">
           {CAPITAL_CARDS.map((card, idx) => (
             <StatFlipCard
               key={idx}
@@ -89,7 +89,7 @@ export function CapitalMobilisation() {
               backStat={card.backStat}
               backTitle={card.backTitle}
               backItems={card.backItems}
-              className="w-full max-w-[340px] sm:max-w-[320px] md:max-w-[308px] lg:max-w-[340px] h-[352px] sm:h-[349px] lg:h-[360px]"
+              className="w-full max-w-[390px] sm:max-w-[370px] md:max-w-[380px] lg:max-w-[410px] xl:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
             />
           ))}
         </div>

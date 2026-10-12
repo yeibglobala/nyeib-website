@@ -238,13 +238,13 @@ export function StatFlipCard({
       onMouseEnter={() => flipOnHover && setIsHovered(true)}
       onMouseLeave={() => flipOnHover && setIsHovered(false)}
       className={cn(
-        "group relative w-full max-w-[340px] sm:max-w-[320px] md:max-w-[308px] h-[352px] sm:h-[349px] cursor-pointer outline-none select-none [perspective:1200px]",
+        "group relative w-full max-w-[390px] lg:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px] cursor-pointer outline-none select-none [perspective:1200px]",
         className
       )}
     >
       {/* 3D Rotating Inner Card Container */}
       <div
-        className="relative w-full h-full rounded-[24.32px] transition-transform duration-[650ms] [transform-style:preserve-3d] shadow-[0_12px_36px_rgba(0,35,26,0.08)] group-hover:shadow-[0_20px_48px_rgba(0,35,26,0.14)] focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2"
+        className="relative w-full h-full rounded-[26px] transition-transform duration-[650ms] [transform-style:preserve-3d] shadow-[0_14px_40px_rgba(0,35,26,0.08)] group-hover:shadow-[0_22px_54px_rgba(0,35,26,0.15)] focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2"
         style={{
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
           transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)",
@@ -254,7 +254,7 @@ export function StatFlipCard({
             FRONT FACE (Matches exact Figma layout + uses card-1-svg)
             ========================================================================= */}
         <div
-          className={`absolute inset-0 w-full h-full rounded-[24.32px] overflow-hidden flex flex-col justify-between p-[32px_24px_20px_24px] [backface-visibility:hidden] [transform:rotateY(0deg)] ${resolvedFrontBg}`}
+          className={`absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] [backface-visibility:hidden] [transform:rotateY(0deg)] ${resolvedFrontBg}`}
           style={{ color: frontTextColor }}
         >
           {/* Top text block */}
@@ -269,7 +269,7 @@ export function StatFlipCard({
               <div className="flex flex-col gap-2.5 items-start">
                 {frontStat && (
                   <h3
-                    className="font-bold text-[30px] leading-[1.15] tracking-tight m-0"
+                    className="font-bold text-[32px] sm:text-[36px] lg:text-[40px] leading-[1.12] tracking-tight m-0"
                     style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
                   >
                     {frontStat}
@@ -277,7 +277,7 @@ export function StatFlipCard({
                 )}
                 {frontTitle && (
                   <p
-                    className="font-medium text-[16px] leading-[1.3] m-0"
+                    className="font-medium text-[16px] sm:text-[18px] leading-[1.32] m-0 max-w-[330px]"
                     style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
                   >
                     {frontTitle}
@@ -288,7 +288,7 @@ export function StatFlipCard({
 
             {frontDescription && (
               <p
-                className="font-normal text-[14px] leading-[1.35] opacity-85 max-w-[210px] m-0"
+                className="font-normal text-[14px] sm:text-[15px] leading-[1.45] opacity-85 max-w-[310px] m-0"
                 style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
               >
                 {frontDescription}
@@ -305,7 +305,7 @@ export function StatFlipCard({
           {flipHint && (
             <div className="relative z-10 flex items-center justify-end w-full pt-2">
               <span
-                className="text-[12px] font-normal leading-[1.2] text-white/95 text-right drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]"
+                className="text-[12px] sm:text-[13px] font-normal leading-[1.2] text-white/95 text-right drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]"
                 style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
               >
                 {flipHint}
@@ -318,7 +318,7 @@ export function StatFlipCard({
             BACK FACE (Dark Evergreen Reveal Back)
             ========================================================================= */}
         <div
-          className="absolute inset-0 w-full h-full rounded-[24.32px] overflow-hidden flex flex-col justify-between p-[32px_24px_20px_24px] [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-inner"
+          className="absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-inner"
           style={{ backgroundColor: backBg, color: backTextColor }}
         >
           {/* Top text block */}
@@ -327,7 +327,7 @@ export function StatFlipCard({
               <div className="flex flex-col gap-2.5 items-start">
                 {backStat && (
                   <h3
-                    className="font-bold text-[30px] leading-[1.15] tracking-tight m-0"
+                    className="font-bold text-[32px] sm:text-[36px] lg:text-[40px] leading-[1.12] tracking-tight m-0"
                     style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
                   >
                     {backStat}
@@ -335,7 +335,7 @@ export function StatFlipCard({
                 )}
                 {backTitle && (
                   <p
-                    className="font-medium text-[16px] leading-[1.25] m-0"
+                    className="font-medium text-[16px] sm:text-[18px] leading-[1.32] m-0 max-w-[330px]"
                     style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
                   >
                     {backTitle}
@@ -346,7 +346,7 @@ export function StatFlipCard({
 
             {backDescription && (
               <p
-                className="font-normal text-[14px] leading-[1.4] opacity-85 m-0"
+                className="font-normal text-[14px] sm:text-[15px] leading-[1.45] opacity-85 max-w-[310px] m-0"
                 style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
               >
                 {backDescription}
@@ -355,19 +355,19 @@ export function StatFlipCard({
 
             {/* List items with '+' icon */}
             {backItems && backItems.length > 0 && (
-              <div className="flex flex-col gap-2 pt-1">
+              <div className="flex flex-col gap-2.5 pt-2">
                 {backItems.map((item, idx) => {
                   const isObj = typeof item === "object" && item !== null && "text" in item;
                   const itemText = isObj ? (item as StatFlipCardItem).text : item;
                   const customIcon = isObj ? (item as StatFlipCardItem).icon : null;
 
                   return (
-                    <div key={idx} className="flex items-center gap-2.5">
-                      <div className="shrink-0 w-3.5 h-3.5 flex items-center justify-center">
-                        {customIcon || <CardPlusIcon className="w-3 h-3 text-current" />}
+                    <div key={idx} className="flex items-center gap-3">
+                      <div className="shrink-0 w-4 h-4 flex items-center justify-center">
+                        {customIcon || <CardPlusIcon className="w-3.5 h-3.5 text-current" />}
                       </div>
                       <span
-                        className="font-medium text-[14px] leading-[1.4]"
+                        className="font-medium text-[14px] sm:text-[15px] leading-[1.4]"
                         style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
                       >
                         {itemText}
@@ -385,7 +385,7 @@ export function StatFlipCard({
           {flipHint && (
             <div className="flex items-center justify-end w-full pt-2">
               <span
-                className="text-[12px] font-normal leading-[1.2] text-white/90 text-right"
+                className="text-[12px] sm:text-[13px] font-normal leading-[1.2] text-white/90 text-right"
                 style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
               >
                 {flipHint}
