@@ -139,7 +139,7 @@ export function PartnerCard({
         </svg>
 
         {/* Content on the sweep */}
-        <div className="relative h-full w-full p-6 sm:p-7 flex flex-col justify-between z-10">
+        <div className="relative h-full w-full px-6 pb-6 pt-12 sm:px-7 sm:pb-7 sm:pt-14 lg:pt-16 flex flex-col justify-between z-10">
           {/* Description: fades in 250ms later in Evergreen #003124 */}
           <div
             className={`transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${

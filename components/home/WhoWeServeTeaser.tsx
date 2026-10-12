@@ -247,7 +247,7 @@ export function WhoWeServeTeaser() {
           "border border-white/85 bg-white " +
           "opacity-100 z-20 cursor-grab active:cursor-grabbing",
         cardLayout:
-          "flex flex-col-reverse lg:flex-row items-center justify-between gap-5 sm:gap-6 lg:gap-8 xl:gap-10",
+          "flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-6 lg:gap-8 xl:gap-10",
         content:
           "w-full lg:w-1/2 flex flex-col items-start justify-between min-h-[160px] sm:min-h-[180px] lg:min-h-[420px] opacity-100 pointer-events-auto",
         image:
@@ -448,7 +448,7 @@ export function WhoWeServeTeaser() {
                   </div>
 
                   {/* Featured Image Showcase:
-                      - On mobile: positioned on top
+                      - On mobile: positioned below the text and button
                       - On desktop: positioned on the right */}
                   <div
                     className={`relative ${styles.image} ${transitionStyle}`}

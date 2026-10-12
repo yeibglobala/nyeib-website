@@ -17,11 +17,11 @@ export default function ImpactPage() {
       {/* Inner Hero */}
       <InnerHero slug="impact-and-measurement" />
 
+      {/* How We Measure Impact (Color-Coded Impact, Additionality, Risk 3-Card Framework + Accountability) */}
+      <ImpactFrameworkSection />
+
       {/* 20-Year Target Metrics (Pinned Dial Stage) */}
       <ImpactSection />
-
-      {/* How We Measure Impact (Color-Coded Impact, Additionality, Risk 3-Card Framework) */}
-      <ImpactFrameworkSection />
 
       {/* Closing CTA */}
       <CtaCard {...CTA_CONTENT.impact} />
