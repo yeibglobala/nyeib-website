@@ -102,6 +102,9 @@ export interface StatFlipCardProps {
 
   /** Whether hovering triggers the 3D flip on desktop (default: true) */
   flipOnHover?: boolean;
+
+  /** When true, disables flip interaction completely and renders as a static front-only card */
+  disableFlip?: boolean;
 }
 
 /**
@@ -205,6 +208,7 @@ export function StatFlipCard({
   onFlipChange,
   className = "",
   flipOnHover = true,
+  disableFlip = false,
 }: StatFlipCardProps) {
   const [internalFlipped, setInternalFlipped] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -227,12 +231,14 @@ export function StatFlipCard({
   const resolvedBackStat = backStat !== undefined ? backStat : (isDemo ? "US$100 million" : undefined);
   const resolvedBackTitle = backTitle !== undefined ? backTitle : (isDemo ? "Initial sovereign financing from the African Development Bank" : undefined);
   const resolvedBackItems = backItems !== undefined ? backItems : (isDemo ? ["Equity", "Guarantees", "Ecosystem support"] : undefined);
+  const resolvedFlipHint = disableFlip ? null : flipHint;
 
   const isControlled = controlledFlipped !== undefined;
   const isFlippedState = isControlled ? controlledFlipped : internalFlipped;
-  const isFlipped = isFlippedState || (flipOnHover && isHovered);
+  const isFlipped = disableFlip ? false : (isFlippedState || (flipOnHover && isHovered));
 
   const handleToggleFlip = () => {
+    if (disableFlip) return;
     const next = !isFlippedState;
     if (!isControlled) {
       setInternalFlipped(next);
@@ -241,6 +247,7 @@ export function StatFlipCard({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (disableFlip) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleToggleFlip();
@@ -272,22 +279,26 @@ export function StatFlipCard({
 
   return (
     <div
-      role="button"
-      tabIndex={0}
-      aria-label="Click or press space to flip card"
-      aria-expanded={isFlipped}
-      onClick={handleToggleFlip}
-      onKeyDown={handleKeyDown}
-      onMouseEnter={() => flipOnHover && setIsHovered(true)}
-      onMouseLeave={() => flipOnHover && setIsHovered(false)}
+      role={disableFlip ? undefined : "button"}
+      tabIndex={disableFlip ? undefined : 0}
+      aria-label={disableFlip ? undefined : "Click or press space to flip card"}
+      aria-expanded={disableFlip ? undefined : isFlipped}
+      onClick={disableFlip ? undefined : handleToggleFlip}
+      onKeyDown={disableFlip ? undefined : handleKeyDown}
+      onMouseEnter={() => !disableFlip && flipOnHover && setIsHovered(true)}
+      onMouseLeave={() => !disableFlip && flipOnHover && setIsHovered(false)}
       className={cn(
-        "group relative w-full max-w-[390px] lg:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px] cursor-pointer outline-none select-none [perspective:1200px]",
+        "group relative w-full max-w-[390px] lg:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px] outline-none select-none",
+        disableFlip ? "cursor-default" : "cursor-pointer [perspective:1200px]",
         className
       )}
     >
-      {/* 3D Rotating Inner Card Container */}
+      {/* Inner Card Container */}
       <div
-        className="relative w-full h-full rounded-[26px] transition-transform duration-[650ms] [transform-style:preserve-3d] shadow-[0_14px_40px_rgba(0,35,26,0.08)] group-hover:shadow-[0_22px_54px_rgba(0,35,26,0.15)] focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2"
+        className={cn(
+          "relative w-full h-full rounded-[26px] shadow-[0_14px_40px_rgba(0,35,26,0.08)] group-hover:shadow-[0_22px_54px_rgba(0,35,26,0.15)] focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2",
+          !disableFlip && "transition-transform duration-[650ms] [transform-style:preserve-3d]"
+        )}
         style={{
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
           transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)",
@@ -354,13 +365,13 @@ export function StatFlipCard({
           {renderWave()}
 
           {/* Bottom right hint */}
-          {flipHint && (
+          {resolvedFlipHint && (
             <div className="relative z-10 flex items-center justify-end w-full pt-2">
               <span
                 className="text-[12px] sm:text-[13px] font-normal leading-[1.2] text-white/95 text-right drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]"
                 style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
               >
-                {flipHint}
+                {resolvedFlipHint}
               </span>
             </div>
           )}
@@ -369,10 +380,11 @@ export function StatFlipCard({
         {/* =========================================================================
             BACK FACE (Dark Evergreen Reveal Back)
             ========================================================================= */}
-        <div
-          className="absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-inner"
-          style={{ backgroundColor: backBg, color: backTextColor }}
-        >
+        {!disableFlip && (
+          <div
+            className="absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-inner"
+            style={{ backgroundColor: backBg, color: backTextColor }}
+          >
           {/* Top text block */}
           <div className="flex flex-col items-start gap-4">
             {(resolvedBackStat || resolvedBackTitle) && (
@@ -454,6 +466,7 @@ export function StatFlipCard({
             </div>
           )}
         </div>
+        )}
       </div>
     </div>
   );

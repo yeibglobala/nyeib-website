@@ -92,17 +92,19 @@ export function ImpactFrameworkSection() {
         </div>
 
         {/* =========================================================================
-            BOTTOM AREA: 3 Figma Stat Flip Framework Cards
+            BOTTOM AREA: Figma Stat Flip Framework Cards + 4th Accountability Card
+            On desktop, 3 cards fill row 1; 4th card falls under to row 2.
             ========================================================================= */}
         <Parallax speed={24} className="w-full">
           <div
             ref={cardsRef}
-            className={`flex flex-col md:flex-row gap-4 sm:gap-5 lg:gap-6 pt-4 items-start justify-start w-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`flex flex-col md:flex-row flex-wrap gap-4 sm:gap-5 lg:gap-6 pt-4 items-start justify-start w-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
               isCardsRevealed
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-[22px] motion-reduce:opacity-100 motion-reduce:translate-y-0"
             }`}
           >
+            {/* Top 3 Flippable Framework Cards */}
             {FRAMEWORK_CARDS.map((card) => (
               <StatFlipCard
                 key={card.id}
@@ -116,45 +118,23 @@ export function ImpactFrameworkSection() {
                 backDescription={card.description}
                 backDescriptionClassName="text-[14.5px] sm:text-[15.5px] leading-[1.6] text-white/90"
                 backItems={[]}
-                className="w-full md:w-auto md:flex-1 max-w-[390px] sm:max-w-[370px] md:max-w-[380px] lg:max-w-[410px] xl:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
+                className="w-full md:w-[calc(33.333%-14px)] lg:w-[calc(33.333%-16px)] max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
               />
             ))}
-          </div>
-        </Parallax>
 
-        {/* =========================================================================
-            ACCOUNTABILITY SECTION
-            ========================================================================= */}
-        <Parallax speed={16} className="w-full">
-          <div className="pt-8 border-t border-[#003124]/10">
-            <div className="group p-8 sm:p-10 rounded-[24px] bg-white border border-[#E1C9B3] hover:border-[#00BE93]/50 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="space-y-2 max-w-xl">
-                <HeaderReveal delay={0} duration={800} mask={false}>
-                  <span
-                    className="text-[12px] font-semibold tracking-[0.16em] uppercase text-[#008f6e] block"
-                    style={{ fontFamily: "var(--font-body)" }}
-                  >
-                    ACCOUNTABILITY
-                  </span>
-                </HeaderReveal>
-                <HeaderReveal delay={120} duration={900}>
-                  <h3
-                    className="text-2xl sm:text-3xl font-bold text-[#003124] tracking-tight m-0"
-                    style={{ fontFamily: "var(--font-headline, serif)" }}
-                  >
-                    Tracking progress as we grow.
-                  </h3>
-                </HeaderReveal>
-              </div>
-              <HeaderReveal delay={200} duration={900} mask={false}>
-                <p
-                  className="text-base sm:text-[16.5px] leading-relaxed text-[#2b3d36] font-normal max-w-xl m-0"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  As capital is deployed, we will monitor performance against our impact framework and use what we learn to strengthen implementation over time.
-                </p>
-              </HeaderReveal>
-            </div>
+            {/* 4th Card: Accountability (Falls under on desktop, front-only without flip) */}
+            <StatFlipCard
+              key="accountability"
+              variant="style1"
+              frontStat="Accountability"
+              frontStatClassName="text-[34px] sm:text-[38px] lg:text-[42px] xl:text-[46px] leading-[1.1] tracking-tight font-bold"
+              frontTitle="Tracking progress as we grow."
+              frontTitleClassName="font-semibold text-[17px] sm:text-[18.5px] leading-[1.3] text-[#003124] pt-0.5"
+              frontDescription="As capital is deployed, we will monitor performance against our impact framework and use what we learn to strengthen implementation over time."
+              frontDescriptionClassName="text-[14px] sm:text-[15px] leading-[1.55] text-[#2b3d36] pt-0.5"
+              disableFlip={true}
+              className="w-full md:w-[calc(33.333%-14px)] lg:w-[calc(33.333%-16px)] max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
+            />
           </div>
         </Parallax>
       </div>
