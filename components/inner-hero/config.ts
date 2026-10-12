@@ -1,6 +1,7 @@
 export interface InnerHeroData {
   slug: string;
   imageSrc: string;
+  mobileImageSrc?: string;
   headline: string;
   titlePrefix?: string;
   highlight?: string;
@@ -13,6 +14,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "what-we-do": {
     slug: "what-we-do",
     imageSrc: "/images/african-american-man-woman-home-office-analyzes-online-business-trends.jpg",
+    mobileImageSrc: "/images/mobile/what-we-do-mobile.jpg",
     titlePrefix: "We exist to unlock ",
     highlight: "pathways",
     titleSuffix: " for investable businesses.",
@@ -24,6 +26,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "who-we-serve": {
     slug: "who-we-serve",
     imageSrc: "/images/nyeib-who-we-serve.jpg",
+    mobileImageSrc: "/images/mobile/who-we-serve-mobile.jpg",
     titlePrefix: "One ecosystem with different ",
     highlight: "pathways",
     titleSuffix: " to participate.",
@@ -35,6 +38,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "impact": {
     slug: "impact",
     imageSrc: "/images/nyeib-Impact-and-measurement.jpg",
+    mobileImageSrc: "/images/mobile/impact-mobile.jpg",
     titlePrefix: "Building measurable ",
     highlight: "impact",
     titleSuffix: " through stronger businesses and smarter capital.",
@@ -47,6 +51,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "impact-and-measurement": {
     slug: "impact-and-measurement",
     imageSrc: "/images/nyeib-Impact-and-measurement.jpg",
+    mobileImageSrc: "/images/mobile/impact-mobile.jpg",
     titlePrefix: "Building measurable ",
     highlight: "impact",
     titleSuffix: " through stronger businesses and smarter capital.",
@@ -59,6 +64,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "partners": {
     slug: "partners",
     imageSrc: "/images/nyeib-partner-and-investor.jpg",
+    mobileImageSrc: "/images/mobile/partners-mobile.jpg",
     titlePrefix: "Access investable businesses. Build long-term ",
     highlight: "economic value.",
     titleSuffix: "",
@@ -70,6 +76,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "partners-and-investors": {
     slug: "partners-and-investors",
     imageSrc: "/images/nyeib-partner-and-investor.jpg",
+    mobileImageSrc: "/images/mobile/partners-mobile.jpg",
     titlePrefix: "Access investable businesses. Build long-term ",
     highlight: "economic value.",
     titleSuffix: "",
@@ -81,6 +88,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "esg": {
     slug: "esg",
     imageSrc: "/images/nyeib-investors.jpg",
+    mobileImageSrc: "/images/mobile/esg-mobile.jpg",
     titlePrefix: "Building businesses ",
     highlight: "prepared",
     titleSuffix: " for the future.",
@@ -92,6 +100,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "esg-and-sustainability": {
     slug: "esg-and-sustainability",
     imageSrc: "/images/nyeib-investors.jpg",
+    mobileImageSrc: "/images/mobile/esg-mobile.jpg",
     titlePrefix: "Building businesses ",
     highlight: "prepared",
     titleSuffix: " for the future.",
@@ -103,6 +112,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "apply": {
     slug: "apply",
     imageSrc: "/images/nyeib-apply-for-funding.jpg",
+    mobileImageSrc: "/images/mobile/apply-mobile.jpg",
     titlePrefix: "Work with NYEIB. Choose the ",
     highlight: "pathway",
     titleSuffix: " that matches your role.",
@@ -114,6 +124,7 @@ export const INNER_HERO_DATA: Record<string, InnerHeroData> = {
   "apply-for-funding": {
     slug: "apply-for-funding",
     imageSrc: "/images/nyeib-apply-for-funding.jpg",
+    mobileImageSrc: "/images/mobile/apply-mobile.jpg",
     titlePrefix: "Work with NYEIB. Choose the ",
     highlight: "pathway",
     titleSuffix: " that matches your role.",

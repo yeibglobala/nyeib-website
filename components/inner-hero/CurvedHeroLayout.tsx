@@ -47,10 +47,15 @@ export interface CurvedHeroLayoutProps {
   subtext?: string;
 
   /**
-   * Background photograph source.
+   * Background photograph source for desktop.
    * Default: "/images/african-american-man-woman-home-office-analyzes-online-business-trends.jpg"
    */
   imageSrc?: string;
+
+  /**
+   * Optional dedicated mobile-optimized hero crop.
+   */
+  mobileImageSrc?: string;
 
   /**
    * Image alt text.
@@ -100,6 +105,7 @@ export function CurvedHeroLayout({
   description: customDescription,
   subtext,
   imageSrc: customImageSrc,
+  mobileImageSrc: customMobileImageSrc,
   imageAlt: customImageAlt,
   svgSrc = "/images/inner-pages-hero-layou-svg.svg",
   mobileSvgSrc = "/images/inner-pages-hero-layout-mobile-svg.svg",
@@ -116,6 +122,7 @@ export function CurvedHeroLayout({
   const headline = customHeadline ?? (titlePrefix ? undefined : data?.headline);
   const description = customDescription ?? subtext ?? data?.subtext ?? "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.";
   const imageSrc = customImageSrc ?? data?.imageSrc ?? "/images/african-american-man-woman-home-office-analyzes-online-business-trends.jpg";
+  const mobileImageSrc = customMobileImageSrc ?? data?.mobileImageSrc ?? imageSrc;
   const imageAlt = customImageAlt ?? (data?.headline || "We exist to unlock pathways for investable businesses.");
   return (
     <section
@@ -130,17 +137,34 @@ export function CurvedHeroLayout({
       style={{ backgroundColor: bgColor }}
     >
       {/* =========================================================================
-          1. BACKGROUND PHOTOGRAPHY (Full-bleed container coverage)
+          1. BACKGROUND PHOTOGRAPHY (Responsive character-aware container)
+          - Mobile (< md): Loads mobileImageSrc with optimal character framing
+          - Desktop (>= md): Loads full-resolution wide landscape image
           ========================================================================= */}
       <div className="absolute inset-0 size-full overflow-hidden pointer-events-none z-0">
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[center_16%] pointer-events-none"
-        />
+        {/* Mobile crop (< md) */}
+        <div className="relative w-full h-full block md:hidden">
+          <Image
+            src={mobileImageSrc}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-top pointer-events-none"
+          />
+        </div>
+
+        {/* Desktop photograph (>= md) */}
+        <div className="relative w-full h-full hidden md:block">
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_16%] pointer-events-none"
+          />
+        </div>
 
         {/* Subtle cinematic top gradient for clean navigation bar readability */}
         <div
