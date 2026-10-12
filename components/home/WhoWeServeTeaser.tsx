@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
 
 interface AudienceItem {
@@ -44,88 +45,278 @@ const AUDIENCE_ITEMS: AudienceItem[] = [
   },
 ];
 
+// Track of 11 stable items (3 repeating cycles: 0..10)
+// Center starts at index 3 (item 0). When index >= 6, resets seamlessly to index - 3 at rest.
+const TRACK_INDICES = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const AUTO_PLAY_DELAY = 6000;
+
 export function WhoWeServeTeaser() {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [centerIndex, setCenterIndex] = useState<number>(3);
+  const [disableTransition, setDisableTransition] = useState<boolean>(false);
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
-  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+
+  // Dragging state
+  const [dragOffset, setDragOffset] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [dragStartX, setDragStartX] = useState<number>(0);
+  const dragStartXRef = useRef<number>(0);
+  const didDragMoveRef = useRef<boolean>(false);
+  const isTransitioningRef = useRef<boolean>(false);
 
-  const prevIndex = (activeIndex - 1 + AUDIENCE_ITEMS.length) % AUDIENCE_ITEMS.length;
-  const nextIndex = (activeIndex + 1) % AUDIENCE_ITEMS.length;
-  const farPrevIndex = (activeIndex - 2 + AUDIENCE_ITEMS.length) % AUDIENCE_ITEMS.length;
-  const farNextIndex = (activeIndex + 2) % AUDIENCE_ITEMS.length;
+  // Mathematical active audience index (0, 1, or 2)
+  const activeIndex =
+    ((centerIndex % AUDIENCE_ITEMS.length) + AUDIENCE_ITEMS.length) %
+    AUDIENCE_ITEMS.length;
 
-  const handleSelect = (index: number) => {
-    setActiveIndex(index);
-  };
+  // Smooth continuous transition in direction (1 = Next, -1 = Prev)
+  const triggerTransition = useCallback((direction: 1 | -1) => {
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? AUDIENCE_ITEMS.length - 1 : prev - 1));
-  };
+    setCenterIndex((prev) => prev + direction);
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev === AUDIENCE_ITEMS.length - 1 ? 0 : prev + 1));
-  };
+    // After animation completes (680ms), re-normalize centerIndex silently if needed
+    setTimeout(() => {
+      setCenterIndex((current) => {
+        let normalized = current;
+        if (current >= 6) {
+          normalized = current - 3;
+        } else if (current <= 2) {
+          normalized = current + 3;
+        }
 
-  // Touch handlers for mobile swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartX(e.targetTouches[0].clientX);
-    setTouchEndX(null);
-  };
+        if (normalized !== current) {
+          setDisableTransition(true);
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              setDisableTransition(false);
+              isTransitioningRef.current = false;
+            });
+          });
+          return normalized;
+        } else {
+          isTransitioningRef.current = false;
+          return current;
+        }
+      });
+    }, 690);
+  }, []);
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEndX(e.targetTouches[0].clientX);
-  };
+  const handleNext = useCallback(() => {
+    triggerTransition(1);
+  }, [triggerTransition]);
 
-  const handleTouchEnd = () => {
-    if (!touchStartX || !touchEndX) return;
-    const distance = touchStartX - touchEndX;
-    const minSwipeDistance = 45;
-    if (distance > minSwipeDistance) {
+  const handlePrev = useCallback(() => {
+    triggerTransition(-1);
+  }, [triggerTransition]);
+
+  // Robust Auto-Play Loop with interval
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
       handleNext();
-    } else if (distance < -minSwipeDistance) {
+    }, AUTO_PLAY_DELAY);
+
+    return () => clearInterval(timer);
+  }, [isPaused, handleNext, centerIndex]);
+
+  // Direct card interaction
+  const handleCardClick = (offset: number) => {
+    if (didDragMoveRef.current || isTransitioningRef.current) return;
+    if (offset === 1 || offset === 2) {
+      handleNext();
+    } else if (offset === -1 || offset === -2) {
       handlePrev();
     }
-    setTouchStartX(null);
-    setTouchEndX(null);
   };
 
-  // Mouse drag handlers for desktop swipe
+  // Pagination dot click (picks shortest continuous directional flow)
+  const handleDotClick = (targetIdx: number) => {
+    if (isTransitioningRef.current || targetIdx === activeIndex) return;
+    const forwardSteps =
+      (targetIdx - activeIndex + AUDIENCE_ITEMS.length) %
+      AUDIENCE_ITEMS.length;
+    if (forwardSteps === 1) {
+      handleNext();
+    } else {
+      handlePrev();
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeEl = document.activeElement;
+      if (
+        activeEl?.tagName === "INPUT" ||
+        activeEl?.tagName === "TEXTAREA"
+      )
+        return;
+      if (e.key === "ArrowRight") {
+        handleNext();
+      } else if (e.key === "ArrowLeft") {
+        handlePrev();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleNext, handlePrev]);
+
+  // Mouse drag handlers
   const handleMouseDown = (e: React.MouseEvent) => {
+    if (isTransitioningRef.current) return;
+    if ((e.target as HTMLElement).closest("a, button")) return;
     setIsDragging(true);
-    setDragStartX(e.clientX);
+    dragStartXRef.current = e.clientX;
+    didDragMoveRef.current = false;
   };
 
-  const handleMouseUp = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return;
-    const distance = dragStartX - e.clientX;
-    const minSwipeDistance = 50;
-    if (distance > minSwipeDistance) {
+    const deltaX = e.clientX - dragStartXRef.current;
+    if (Math.abs(deltaX) > 6) {
+      didDragMoveRef.current = true;
+    }
+    setDragOffset(deltaX * 0.35);
+  };
+
+  const handleMouseUp = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    const currentDrag = dragOffset;
+    setDragOffset(0);
+
+    if (currentDrag < -28) {
       handleNext();
-    } else if (distance < -minSwipeDistance) {
+    } else if (currentDrag > 28) {
       handlePrev();
     }
-    setIsDragging(false);
   };
 
   const handleMouseLeave = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      setDragOffset(0);
+    }
+    setIsPaused(false);
+  };
+
+  // Touch swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (isTransitioningRef.current) return;
+    if ((e.target as HTMLElement).closest("a, button")) return;
+    setIsDragging(true);
+    dragStartXRef.current = e.touches[0].clientX;
+    didDragMoveRef.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return;
+    const deltaX = e.touches[0].clientX - dragStartXRef.current;
+    if (Math.abs(deltaX) > 6) {
+      didDragMoveRef.current = true;
+    }
+    setDragOffset(deltaX * 0.35);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging) return;
     setIsDragging(false);
+    const currentDrag = dragOffset;
+    setDragOffset(0);
+
+    if (currentDrag < -28) {
+      handleNext();
+    } else if (currentDrag > 28) {
+      handlePrev();
+    }
+  };
+
+  // Style helper based on distance from centerIndex
+  const getCardStyles = (offset: number) => {
+    if (offset === 0) {
+      // EXPANDED CENTER ACTIVE CARD
+      return {
+        wrapper:
+          "w-[calc(100vw-76px)] sm:w-[520px] md:w-[680px] lg:w-[890px] xl:w-[940px] " +
+          "min-h-[420px] sm:min-h-[460px] lg:min-h-[510px] " +
+          "rounded-[24px] sm:rounded-[36px] lg:rounded-[44px] " +
+          "p-5 sm:p-8 lg:p-11 " +
+          "mx-1 sm:mx-2.5 lg:mx-4 " +
+          "shadow-[0_22px_55px_rgba(0,49,36,0.12)] " +
+          "border border-white/85 bg-white " +
+          "opacity-100 z-20 cursor-grab active:cursor-grabbing",
+        content:
+          "w-full lg:w-1/2 max-w-[520px] opacity-100 pointer-events-auto delay-150 duration-400",
+        image:
+          "w-full lg:w-1/2 h-[200px] sm:h-[260px] lg:h-[430px] " +
+          "rounded-[18px] sm:rounded-[24px] lg:rounded-[32px] overflow-hidden bg-[#FAF7F2] shadow-inner",
+        cue: "hidden",
+        pillOverlay: "opacity-0",
+        isInteractivePill: false,
+      };
+    } else if (offset === -1 || offset === 1) {
+      // INNER FLANKING PILLS
+      return {
+        wrapper:
+          "w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] " +
+          "h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] " +
+          "rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] " +
+          "p-1 sm:p-2 lg:p-2.5 " +
+          "mx-1 sm:mx-2 lg:mx-3 " +
+          "shadow-[0_10px_30px_rgba(0,49,36,0.10)] " +
+          "border border-transparent bg-white " +
+          "opacity-100 z-10 cursor-pointer hover:scale-105 hover:shadow-[0_14px_36px_rgba(0,49,36,0.15)] active:scale-95",
+        content:
+          "w-0 max-w-0 opacity-0 pointer-events-none duration-150 p-0 m-0",
+        image:
+          "w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden",
+        cue: "flex",
+        pillOverlay: "opacity-100",
+        isInteractivePill: true,
+      };
+    } else if (offset === -2 || offset === 2) {
+      // FAR OUTER PILLS (xl screens only)
+      return {
+        wrapper:
+          "w-0 xl:w-[52px] h-[210px] " +
+          "rounded-[26px] p-0 xl:p-2 " +
+          "mx-0 xl:mx-2 " +
+          "shadow-[0_8px_24px_rgba(0,49,36,0.08)] " +
+          "border border-transparent bg-white " +
+          "opacity-0 xl:opacity-60 hover:opacity-100 hover:scale-105 active:scale-95 " +
+          "z-0 cursor-pointer",
+        content:
+          "w-0 max-w-0 opacity-0 pointer-events-none duration-100 p-0 m-0",
+        image:
+          "w-full h-full rounded-[18px] overflow-hidden",
+        cue: "hidden",
+        pillOverlay: "opacity-100",
+        isInteractivePill: true,
+      };
+    } else {
+      // BUFFER OFFSCREEN CARDS (Zero width, hidden)
+      return {
+        wrapper:
+          "w-0 h-[210px] p-0 mx-0 opacity-0 pointer-events-none overflow-hidden border-0",
+        content:
+          "w-0 max-w-0 opacity-0 pointer-events-none duration-0 p-0 m-0",
+        image: "w-0 h-0 overflow-hidden",
+        cue: "hidden",
+        pillOverlay: "opacity-0",
+        isInteractivePill: false,
+      };
+    }
   };
 
   return (
     <section
       id="who-we-serve-teaser"
       aria-label="Who We Serve"
-      className="relative w-full py-20 sm:py-24 lg:py-28 px-4 sm:px-8 lg:px-12 overflow-hidden flex flex-col items-center justify-center select-none"
+      className="relative w-full py-20 sm:py-24 lg:py-28 px-2 sm:px-6 lg:px-12 overflow-hidden flex flex-col items-center justify-center select-none"
       style={{
-        background: "linear-gradient(180deg, #C2DFD4 0%, #E8EDE3 56%, #F8F7F3 100%)",
-      }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => {
-        setIsPaused(false);
-        setIsDragging(false);
+        background:
+          "linear-gradient(180deg, #C2DFD4 0%, #E8EDE3 56%, #F8F7F3 100%)",
       }}
     >
       <style>{`
@@ -147,7 +338,7 @@ export function WhoWeServeTeaser() {
 
       <div className="relative z-10 max-w-[1400px] w-full mx-auto flex flex-col items-center">
         {/* Header Block (Centered matching Figma) */}
-        <div className="flex flex-col items-center text-center gap-3 sm:gap-4 max-w-2xl mb-12 sm:mb-16">
+        <div className="flex flex-col items-center text-center gap-3 sm:gap-4 max-w-2xl mb-10 sm:mb-14">
           <HeaderReveal delay={80} duration={900}>
             <h2
               className="text-4xl sm:text-5xl lg:text-[54px] font-bold text-[#003124] tracking-tight leading-[1.1]"
@@ -167,174 +358,130 @@ export function WhoWeServeTeaser() {
           </HeaderReveal>
         </div>
 
-        {/* Carousel Showcase Area with Flanking Vertical Pills and Guaranteed Breathing Space */}
-        <div className="w-full flex items-center justify-center gap-2 sm:gap-4 md:gap-5 lg:gap-7 xl:gap-8 overflow-hidden px-1 sm:px-4 py-2">
-          {/* =========================================================================
-              LEFT FLANKING PREVIEW PILLS (Mobile Peek + Desktop Expanded)
-              ========================================================================= */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 lg:gap-4 flex-shrink-0">
-            {/* Far Left Outer Pill (Smallest - desktop only xl+) */}
-            <button
-              type="button"
-              onClick={() => handleSelect(farPrevIndex)}
-              aria-label={`Preview ${AUDIENCE_ITEMS[farPrevIndex].title}`}
-              className="hidden xl:flex group relative w-[52px] h-[210px] bg-white rounded-[26px] p-2 shadow-[0_8px_24px_rgba(0,49,36,0.08)] overflow-hidden opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
-            >
-              <div className="relative w-full h-full rounded-[18px] overflow-hidden">
-                <Image
-                  src={AUDIENCE_ITEMS[farPrevIndex].imageSrc}
-                  alt=""
-                  fill
-                  sizes="60px"
-                  className="object-cover object-center grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-[#003124]/10 group-hover:bg-transparent transition-colors" />
-              </div>
-            </button>
-
-            {/* Inner Left Pill (Visible on mobile peek as well) */}
-            <button
-              type="button"
-              onClick={() => handleSelect(prevIndex)}
-              aria-label={`Preview ${AUDIENCE_ITEMS[prevIndex].title}`}
-              className="group relative w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] bg-white rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] p-1 sm:p-2 lg:p-2.5 shadow-[0_10px_30px_rgba(0,49,36,0.10)] overflow-hidden hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
-            >
-              <div className="relative w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden">
-                <Image
-                  src={AUDIENCE_ITEMS[prevIndex].imageSrc}
-                  alt=""
-                  fill
-                  sizes="100px"
-                  className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#003124]/10 via-transparent to-[#003124]/20 group-hover:opacity-0 transition-opacity" />
-              </div>
-            </button>
-          </div>
-
-          {/* =========================================================================
-              MAIN FULL-CARD HORIZONTAL SWIPER TRACK WITH AMPLE BREATHING SPACE
-              ========================================================================= */}
+        {/* =========================================================================
+            CONTINUOUS LINEAR EXPAND-AND-CONTRACT CAROUSEL TRACK
+            ========================================================================= */}
+        <div
+          className="relative w-full overflow-hidden py-4 flex items-center justify-center cursor-default"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={handleMouseLeave}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
-            className="relative z-20 w-full max-w-[calc(100vw-88px)] sm:max-w-[520px] md:max-w-[680px] lg:max-w-[890px] xl:max-w-[940px] flex-shrink overflow-hidden rounded-[24px] sm:rounded-[36px] lg:rounded-[44px] cursor-grab active:cursor-grabbing shadow-[0_20px_50px_rgba(0,49,36,0.10)]"
+            className="flex items-center justify-center flex-nowrap"
+            style={{
+              transform: `translateX(${dragOffset}px)`,
+              transition: isDragging ? "none" : "transform 320ms ease-out",
+            }}
           >
-            <div
-              className="flex w-full"
-              style={{
-                transform: `translateX(-${activeIndex * 100}%)`,
-                transition: "transform 880ms cubic-bezier(0.22, 1.15, 0.36, 1)",
-              }}
-            >
-              {AUDIENCE_ITEMS.map((item, idx) => {
-                const isCurrent = activeIndex === idx;
+            {TRACK_INDICES.map((trackIdx) => {
+              const offset = trackIdx - centerIndex;
+              const item = AUDIENCE_ITEMS[trackIdx % AUDIENCE_ITEMS.length];
+              const styles = getCardStyles(offset);
 
-                return (
+              const transitionStyle = disableTransition
+                ? "transition-none"
+                : "transition-all duration-[680ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
+
+              return (
+                <div
+                  key={`track-card-${trackIdx}`}
+                  onClick={() => styles.isInteractivePill && handleCardClick(offset)}
+                  role={styles.isInteractivePill ? "button" : "group"}
+                  tabIndex={styles.isInteractivePill ? 0 : undefined}
+                  onKeyDown={(e) => {
+                    if (
+                      styles.isInteractivePill &&
+                      (e.key === "Enter" || e.key === " ")
+                    ) {
+                      e.preventDefault();
+                      handleCardClick(offset);
+                    }
+                  }}
+                  aria-label={
+                    offset === 0
+                      ? `Active slide: ${item.title}`
+                      : `Switch to ${item.title}`
+                  }
+                  className={`group relative flex-shrink-0 flex items-center justify-between overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] ${styles.wrapper} ${transitionStyle}`}
+                >
+                  {/* Left Column: Content (Only visible in center card, masked & clipped during shrink) */}
                   <div
-                    key={item.id}
-                    className={`w-full flex-shrink-0 bg-white rounded-[24px] sm:rounded-[36px] lg:rounded-[44px] p-5 sm:p-8 lg:p-11 border border-white/80 flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-7 lg:gap-10 min-h-[420px] sm:min-h-[460px] lg:min-h-[510px] transition-all duration-700 ease-out ${
-                      isCurrent ? "scale-100 opacity-100" : "scale-[0.96] opacity-75"
-                    }`}
+                    className={`flex flex-col items-start justify-between min-h-[180px] sm:min-h-[220px] lg:min-h-[420px] gap-4 sm:gap-6 py-1 overflow-hidden transition-all ease-out ${styles.content}`}
                   >
-                    {/* Top on mobile / Left on Desktop: Content Side */}
-                    <div className="w-full lg:w-1/2 flex flex-col items-start justify-between min-h-[180px] sm:min-h-[220px] lg:min-h-[420px] gap-4 sm:gap-6 py-1">
-                      <div className="flex flex-col gap-3 sm:gap-4 lg:gap-5">
-                        <h3
-                          className="text-xl sm:text-2xl lg:text-[34px] font-bold text-[#003124] leading-[1.2] tracking-tight"
-                          style={{ fontFamily: "var(--font-headline, serif)" }}
-                        >
-                          {item.title}
-                        </h3>
+                    {/* Fixed-width typography inner wrapper prevents word wrapping/reflow during width animation */}
+                    <div className="w-[280px] sm:w-[350px] lg:w-[410px] flex flex-col gap-3 sm:gap-4 lg:gap-5">
+                      <h3
+                        className="text-xl sm:text-2xl lg:text-[34px] font-bold text-[#003124] leading-[1.2] tracking-tight"
+                        style={{ fontFamily: "var(--font-headline, serif)" }}
+                      >
+                        {item.title}
+                      </h3>
 
-                        <p
-                          className="text-[13.5px] sm:text-[15px] lg:text-[16.5px] text-[#003124]/75 font-normal leading-[1.6]"
-                          style={{ fontFamily: "var(--font-body, sans-serif)" }}
-                        >
-                          {item.description}
-                        </p>
-                      </div>
-
-                      {/* Pill Button CTA */}
-                      <div className="pt-1 sm:pt-2">
-                        <Link
-                          href={item.ctaHref}
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center justify-center px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#F88404] text-white font-bold text-xs sm:text-[14.5px] hover:bg-[#e07500] transition-all shadow-md active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
-                        >
-                          {item.ctaText}
-                        </Link>
-                      </div>
+                      <p
+                        className="text-[13.5px] sm:text-[15px] lg:text-[16.5px] text-[#003124]/75 font-normal leading-[1.6]"
+                        style={{ fontFamily: "var(--font-body, sans-serif)" }}
+                      >
+                        {item.description}
+                      </p>
                     </div>
 
-                    {/* Bottom on mobile / Right on Desktop: Image Side */}
-                    <div className="relative w-full lg:w-1/2 h-[200px] sm:h-[260px] lg:h-[430px] rounded-[18px] sm:rounded-[24px] lg:rounded-[32px] overflow-hidden bg-[#FAF7F2] shadow-inner flex-shrink-0">
-                      <Image
-                        src={item.imageSrc}
-                        alt={item.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 460px"
-                        className={`object-cover object-center pointer-events-none transition-transform duration-1000 ease-out ${
-                          isCurrent ? "scale-100" : "scale-[1.06]"
-                        }`}
-                      />
+                    {/* Pill Button CTA */}
+                    <div className="pt-1 sm:pt-2">
+                      <Link
+                        href={item.ctaHref}
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center justify-center px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#F88404] text-white font-bold text-xs sm:text-[14.5px] hover:bg-[#e07500] transition-all shadow-md active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
+                      >
+                        {item.ctaText}
+                      </Link>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
 
-          {/* =========================================================================
-              RIGHT FLANKING PREVIEW PILLS (Mobile Peek + Desktop Expanded)
-              ========================================================================= */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 lg:gap-4 flex-shrink-0">
-            {/* Inner Right Pill (Visible on mobile peek as well) */}
-            <button
-              type="button"
-              onClick={() => handleSelect(nextIndex)}
-              aria-label={`Preview ${AUDIENCE_ITEMS[nextIndex].title}`}
-              className="group relative w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] bg-white rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] p-1 sm:p-2 lg:p-2.5 shadow-[0_10px_30px_rgba(0,49,36,0.10)] overflow-hidden hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
-            >
-              <div className="relative w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden">
-                <Image
-                  src={AUDIENCE_ITEMS[nextIndex].imageSrc}
-                  alt=""
-                  fill
-                  sizes="100px"
-                  className="object-cover object-center group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#003124]/10 via-transparent to-[#003124]/20 group-hover:opacity-0 transition-opacity" />
-              </div>
-            </button>
+                  {/* Right Column: Featured Image Showcase (Morphs from pill frame into wide card showcase) */}
+                  <div
+                    className={`relative flex-shrink-0 ${styles.image} ${transitionStyle}`}
+                  >
+                    <Image
+                      src={item.imageSrc}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 480px"
+                      priority={offset === 0}
+                      className="object-cover object-center pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
 
-            {/* Far Right Outer Pill (Smallest - desktop only xl+) */}
-            <button
-              type="button"
-              onClick={() => handleSelect(farNextIndex)}
-              aria-label={`Preview ${AUDIENCE_ITEMS[farNextIndex].title}`}
-              className="hidden xl:flex group relative w-[52px] h-[210px] bg-white rounded-[26px] p-2 shadow-[0_8px_24px_rgba(0,49,36,0.08)] overflow-hidden opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
-            >
-              <div className="relative w-full h-full rounded-[18px] overflow-hidden">
-                <Image
-                  src={AUDIENCE_ITEMS[farNextIndex].imageSrc}
-                  alt=""
-                  fill
-                  sizes="60px"
-                  className="object-cover object-center grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-[#003124]/10 group-hover:bg-transparent transition-colors" />
-              </div>
-            </button>
+                    {/* Pill Dark Gradient Overlay */}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-b from-[#003124]/12 via-transparent to-[#003124]/22 group-hover:opacity-10 transition-opacity ${styles.pillOverlay}`}
+                    />
+
+                    {/* Floating Interactive Direction Cue on Pill Hover */}
+                    <div
+                      className={`absolute inset-0 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${styles.cue}`}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-white/95 shadow-md flex items-center justify-center text-[#003124]">
+                        {offset > 0 ? (
+                          <ChevronRight className="w-4 h-4 ml-0.5" />
+                        ) : (
+                          <ChevronLeft className="w-4 h-4 mr-0.5" />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
         {/* =========================================================================
-            CAROUSEL PAGINATION INDICATOR WITH BRAND PROGRESS LOOP
+            CAROUSEL PAGINATION INDICATOR WITH SYNCED AUTO-PLAY PROGRESS LOOP
             ========================================================================= */}
         <div
           className="flex items-center justify-center gap-2.5 mt-8 sm:mt-10 z-20"
@@ -348,7 +495,7 @@ export function WhoWeServeTeaser() {
               <button
                 key={item.id}
                 type="button"
-                onClick={() => handleSelect(idx)}
+                onClick={() => handleDotClick(idx)}
                 role="tab"
                 aria-selected={isActive}
                 aria-label={`Go to slide ${idx + 1}: ${item.title}`}
@@ -360,11 +507,10 @@ export function WhoWeServeTeaser() {
               >
                 {isActive && (
                   <span
-                    key={`progress-indicator-${activeIndex}`}
-                    onAnimationEnd={handleNext}
+                    key={`progress-indicator-${activeIndex}-${isPaused}`}
                     className="absolute inset-y-0 left-0 bg-[#003124] rounded-full"
                     style={{
-                      animation: "whoWeServeProgress 5.5s linear forwards",
+                      animation: `whoWeServeProgress ${AUTO_PLAY_DELAY}ms linear forwards`,
                       animationPlayState: isPaused ? "paused" : "running",
                     }}
                   />
