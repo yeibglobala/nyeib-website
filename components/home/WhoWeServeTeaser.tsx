@@ -249,10 +249,9 @@ export function WhoWeServeTeaser() {
         cardLayout:
           "flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-6 lg:gap-8 xl:gap-10",
         content:
-          "w-full lg:w-1/2 flex flex-col items-start justify-between min-h-[160px] sm:min-h-[180px] lg:min-h-[420px] opacity-100 pointer-events-auto",
+          "w-full lg:w-1/2 flex flex-col items-start justify-between min-h-[160px] sm:min-h-[180px] lg:min-h-[420px] opacity-100 pointer-events-auto transition-opacity duration-300 delay-150 overflow-hidden",
         image:
-          "w-full lg:w-1/2 h-[200px] sm:h-[240px] md:h-[260px] lg:h-[430px] " +
-          "rounded-[18px] sm:rounded-[24px] lg:rounded-[32px] overflow-hidden bg-[#FAF7F2] shadow-inner flex-shrink-0",
+          "w-full lg:w-1/2 h-[200px] sm:h-[240px] md:h-[260px] lg:h-[430px] rounded-[18px] sm:rounded-[24px] lg:rounded-[32px] overflow-hidden bg-[#FAF7F2] shadow-inner flex-shrink-0",
         cue: "hidden",
         pillOverlay: "opacity-0",
         isInteractivePill: false,
@@ -270,7 +269,7 @@ export function WhoWeServeTeaser() {
           "border border-transparent bg-white " +
           "opacity-100 z-10 cursor-pointer hover:scale-105 hover:shadow-[0_14px_36px_rgba(0,49,36,0.15)] active:scale-95",
         cardLayout: "flex items-center justify-center",
-        content: "hidden w-0 max-w-0 opacity-0 pointer-events-none p-0 m-0",
+        content: "w-0 max-w-0 h-0 max-h-0 overflow-hidden opacity-0 pointer-events-none p-0 m-0 transition-opacity duration-150 delay-0",
         image:
           "w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden flex-shrink-0",
         cue: "flex",
@@ -289,7 +288,7 @@ export function WhoWeServeTeaser() {
           "opacity-0 xl:opacity-60 hover:opacity-100 hover:scale-105 active:scale-95 " +
           "z-0 cursor-pointer",
         cardLayout: "flex items-center justify-center",
-        content: "hidden w-0 max-w-0 opacity-0 pointer-events-none p-0 m-0",
+        content: "w-0 max-w-0 h-0 max-h-0 overflow-hidden opacity-0 pointer-events-none p-0 m-0 transition-opacity duration-150 delay-0",
         image:
           "w-full h-full rounded-[18px] overflow-hidden flex-shrink-0",
         cue: "hidden",
@@ -302,7 +301,7 @@ export function WhoWeServeTeaser() {
         wrapper:
           "w-0 h-[210px] p-0 mx-0 opacity-0 pointer-events-none overflow-hidden border-0",
         cardLayout: "hidden",
-        content: "hidden w-0 max-w-0 opacity-0 pointer-events-none p-0 m-0",
+        content: "w-0 max-w-0 min-h-0 overflow-hidden opacity-0 pointer-events-none p-0 m-0",
         image: "w-0 h-0 overflow-hidden flex-shrink-0",
         cue: "hidden",
         pillOverlay: "opacity-0",
@@ -388,7 +387,7 @@ export function WhoWeServeTeaser() {
 
               const transitionStyle = disableTransition
                 ? "transition-none"
-                : "transition-all duration-[680ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
+                : "transition-[width,min-width,max-width,height,min-height,padding,margin,border-radius,box-shadow,transform] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[width,transform]";
 
               return (
                 <div
@@ -416,19 +415,19 @@ export function WhoWeServeTeaser() {
                       - On mobile: positioned below the image cleanly
                       - On desktop: positioned on the left side of the image */}
                   <div
-                    className={`transition-opacity duration-300 ${styles.content}`}
+                    className={`${styles.content}`}
                   >
                     {/* Typography block */}
-                    <div className="flex flex-col gap-2.5 sm:gap-3.5 lg:gap-4.5 max-w-[420px] w-full">
+                    <div className="flex flex-col gap-2.5 sm:gap-3.5 lg:gap-4.5 min-w-[260px] sm:min-w-[300px] lg:min-w-[340px] xl:min-w-[380px] max-w-[420px] w-full shrink-0">
                       <h3
-                        className="text-xl sm:text-2xl lg:text-[32px] xl:text-[34px] font-bold text-[#003124] leading-[1.2] tracking-tight"
+                        className="text-xl sm:text-2xl lg:text-[30px] xl:text-[34px] font-bold text-[#003124] leading-[1.2] tracking-tight"
                         style={{ fontFamily: "var(--font-headline, serif)" }}
                       >
                         {item.title}
                       </h3>
 
                       <p
-                        className="text-[13.5px] sm:text-[15px] lg:text-[16.5px] text-[#003124]/75 font-normal leading-[1.58]"
+                        className="text-[13.5px] sm:text-[15px] lg:text-[16px] xl:text-[16.5px] text-[#003124]/75 font-normal leading-[1.58]"
                         style={{ fontFamily: "var(--font-body, sans-serif)" }}
                       >
                         {item.description}
@@ -436,7 +435,7 @@ export function WhoWeServeTeaser() {
                     </div>
 
                     {/* Pill Button CTA */}
-                    <div className="pt-2 sm:pt-3 lg:pt-4">
+                    <div className="pt-2 sm:pt-3 lg:pt-4 shrink-0">
                       <Link
                         href={item.ctaHref}
                         onClick={(e) => e.stopPropagation()}
@@ -451,7 +450,7 @@ export function WhoWeServeTeaser() {
                       - On mobile: positioned below the text and button
                       - On desktop: positioned on the right */}
                   <div
-                    className={`relative ${styles.image} ${transitionStyle}`}
+                    className={`relative ${styles.image} transition-[opacity,transform,border-radius] duration-500 ease-out`}
                   >
                     <Image
                       src={item.imageSrc}

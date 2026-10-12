@@ -289,18 +289,26 @@ export function StatFlipCard({
       onMouseLeave={() => !disableFlip && flipOnHover && setIsHovered(false)}
       className={cn(
         "group relative w-full max-w-[390px] lg:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px] outline-none select-none",
-        disableFlip ? "cursor-default" : "cursor-pointer [perspective:1200px]",
+        disableFlip ? "cursor-default" : "cursor-pointer",
         className
       )}
+      style={{
+        perspective: "1200px",
+        WebkitPerspective: "1200px",
+      }}
     >
       {/* Inner Card Container */}
       <div
         className={cn(
           "relative w-full h-full rounded-[26px] shadow-[0_14px_40px_rgba(0,35,26,0.08)] group-hover:shadow-[0_22px_54px_rgba(0,35,26,0.15)] focus-visible:ring-2 focus-visible:ring-[#00BE93] focus-visible:ring-offset-2",
-          !disableFlip && "transition-transform duration-[650ms] [transform-style:preserve-3d]"
+          !disableFlip && "transition-transform duration-[650ms]"
         )}
         style={{
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          WebkitTransform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          transformStyle: "preserve-3d",
+          WebkitTransformStyle: "preserve-3d",
+          willChange: "transform",
           transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)",
         }}
       >
@@ -308,8 +316,14 @@ export function StatFlipCard({
             FRONT FACE (Matches exact Figma layout + uses card-1-svg)
             ========================================================================= */}
         <div
-          className={`absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] [backface-visibility:hidden] [transform:rotateY(0deg)] ${resolvedFrontBg}`}
-          style={{ color: frontTextColor }}
+          className={`absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] ${resolvedFrontBg}`}
+          style={{
+            color: frontTextColor,
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(0deg) translateZ(1px)",
+            WebkitTransform: "rotateY(0deg) translateZ(1px)",
+          }}
         >
           {/* Top text block */}
           <div className="relative z-10 flex flex-col items-start gap-4">
@@ -382,8 +396,15 @@ export function StatFlipCard({
             ========================================================================= */}
         {!disableFlip && (
           <div
-            className="absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-inner"
-            style={{ backgroundColor: backBg, color: backTextColor }}
+            className="absolute inset-0 w-full h-full rounded-[26px] overflow-hidden flex flex-col justify-between p-[34px_26px_22px_26px] sm:p-[38px_32px_24px_32px] shadow-inner"
+            style={{
+              backgroundColor: backBg,
+              color: backTextColor,
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "rotateY(180deg) translateZ(1px)",
+              WebkitTransform: "rotateY(180deg) translateZ(1px)",
+            }}
           >
           {/* Top text block */}
           <div className="flex flex-col items-start gap-4">
