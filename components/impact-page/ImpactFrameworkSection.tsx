@@ -1,21 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useScrollReveal } from "@/shared/hooks/useScrollReveal";
 import { Parallax } from "@/shared/components/Parallax";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
+import { StatFlipCard } from "@/components/cards/StatFlipCard";
 
 interface FrameworkCard {
   id: string;
   name: string;
   question: string;
   description: string;
-  restBg: string;
-  hoverBg: string;
-  textColor: string;
-  descColor: string;
-  border: string;
-  shadow: string;
 }
 
 const FRAMEWORK_CARDS: FrameworkCard[] = [
@@ -25,12 +20,6 @@ const FRAMEWORK_CARDS: FrameworkCard[] = [
     question: "Are businesses and communities better off because of our intervention?",
     description:
       "We track outcomes such as jobs, business growth, productivity and wider economic benefits.",
-    restBg: "bg-[#00BE93]",
-    hoverBg: "bg-[#008f6e]",
-    textColor: "text-white",
-    descColor: "text-white/95",
-    border: "border-white/20",
-    shadow: "shadow-[0_16px_40px_rgba(0,190,147,0.28)]",
   },
   {
     id: "additionality",
@@ -38,12 +27,6 @@ const FRAMEWORK_CARDS: FrameworkCard[] = [
     question: "Are we unlocking capital that would not otherwise be available?",
     description:
       "We assess whether NYEIB brings new capital into the market, expands access to finance and encourages more institutions to back youth- and women-led businesses.",
-    restBg: "bg-[#F88404]",
-    hoverBg: "bg-[#c96200]",
-    textColor: "text-white",
-    descColor: "text-white/95",
-    border: "border-white/20",
-    shadow: "shadow-[0_16px_40px_rgba(248,132,4,0.28)]",
   },
   {
     id: "risk",
@@ -51,18 +34,10 @@ const FRAMEWORK_CARDS: FrameworkCard[] = [
     question: "Are we creating impact while protecting capital responsibly?",
     description:
       "We monitor financial, portfolio, liquidity, macroeconomic, reputational and ESG risks across the Funds.",
-    restBg: "bg-[#E1C9B3]",
-    hoverBg: "bg-[#bda28b]",
-    textColor: "text-[#003124]",
-    descColor: "text-[#003124]/90",
-    border: "border-[#003124]/15",
-    shadow: "shadow-[0_16px_40px_rgba(225,201,179,0.35)]",
   },
 ];
 
 export function ImpactFrameworkSection() {
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
-
   const { ref: cardsRef, isRevealed: isCardsRevealed } = useScrollReveal<HTMLDivElement>({
     threshold: 0.12,
   });
@@ -117,101 +92,28 @@ export function ImpactFrameworkSection() {
         </div>
 
         {/* =========================================================================
-            BOTTOM AREA: 3 Color-Coded 3D Flip Framework Cards Grid
+            BOTTOM AREA: 3 Figma Stat Flip Framework Cards
             ========================================================================= */}
         <Parallax speed={24} className="w-full">
           <div
             ref={cardsRef}
-            className={`grid grid-cols-1 min-[700px]:grid-cols-3 gap-5 sm:gap-6 w-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`flex flex-col md:flex-row gap-4 sm:gap-5 lg:gap-6 pt-4 items-start justify-start w-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
               isCardsRevealed
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-[22px] motion-reduce:opacity-100 motion-reduce:translate-y-0"
             }`}
           >
-            {FRAMEWORK_CARDS.map((card) => {
-              const isFlipped = activeCardId === card.id;
-
-              return (
-                <div
-                  key={card.id}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`${card.name} card. Click or hover to flip.`}
-                  onMouseEnter={() => setActiveCardId(card.id)}
-                  onMouseLeave={() => setActiveCardId(null)}
-                  onFocus={() => setActiveCardId(card.id)}
-                  onBlur={() => setActiveCardId(null)}
-                  onClick={() => setActiveCardId((curr) => (curr === card.id ? null : card.id))}
-                  className="group relative w-full aspect-[4/5] min-h-[390px] max-[700px]:aspect-auto max-[700px]:min-h-[350px] rounded-[24px] cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] [perspective:1200px]"
-                >
-                  {/* 3D Flipper Container */}
-                  <div
-                    className="relative w-full h-full rounded-[24px] transition-transform duration-[700ms] ease-[cubic-bezier(0.23,1,0.32,1)] [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]"
-                    style={{
-                      transform: isFlipped ? "rotateY(180deg)" : undefined,
-                    }}
-                  >
-                    {/* ==========================================
-                        FRONT FACE (Rest State)
-                        ========================================== */}
-                    <div
-                      className={`absolute inset-0 w-full h-full rounded-[24px] p-8 flex flex-col items-center justify-center text-center border ${card.border} ${card.restBg} ${card.shadow} [backface-visibility:hidden] [-webkit-backface-visibility:hidden] transition-shadow duration-300 hover:shadow-2xl`}
-                    >
-                      <h3
-                        className={`text-[clamp(32px,3.6vw,48px)] font-bold tracking-tight leading-tight ${card.textColor}`}
-                        style={{ fontFamily: "var(--font-headline, serif)" }}
-                      >
-                        {card.name}
-                      </h3>
-                      <div className="absolute bottom-6 flex items-center gap-1.5 opacity-75 text-xs tracking-wider uppercase font-sans font-semibold text-inherit">
-                        <span>Hover to explore</span>
-                        <svg className="w-3.5 h-3.5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </div>
-                    </div>
-
-                    {/* ==========================================
-                        BACK FACE (Flipped State)
-                        ========================================== */}
-                    <div
-                      className={`absolute inset-0 w-full h-full rounded-[24px] p-7 sm:p-9 flex flex-col justify-between border ${card.border} ${card.hoverBg} ${card.shadow} [backface-visibility:hidden] [-webkit-backface-visibility:hidden] [transform:rotateY(180deg)]`}
-                    >
-                      {/* Top Bar on Back */}
-                      <div className="w-full flex items-center justify-between pb-3 border-b border-black/10 dark:border-white/20">
-                        <span
-                          className={`text-[20px] sm:text-[22px] font-bold tracking-tight block ${card.textColor}`}
-                          style={{ fontFamily: "var(--font-headline, serif)" }}
-                        >
-                          {card.name}
-                        </span>
-                        <span
-                          className={`text-[12px] font-sans font-semibold tracking-widest uppercase opacity-75 ${card.textColor}`}
-                        >
-                          METRIC
-                        </span>
-                      </div>
-
-                      {/* Content: Question + Description */}
-                      <div className="flex flex-col space-y-3.5 pt-2">
-                        <p
-                          className={`text-[17px] sm:text-[18.5px] font-bold leading-[1.32] ${card.textColor} m-0`}
-                          style={{ fontFamily: "var(--font-headline, serif)" }}
-                        >
-                          {card.question}
-                        </p>
-                        <p
-                          className={`text-[15px] sm:text-[16px] font-normal leading-[1.58] ${card.descColor} m-0`}
-                          style={{ fontFamily: "var(--font-body)" }}
-                        >
-                          {card.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {FRAMEWORK_CARDS.map((card) => (
+              <StatFlipCard
+                key={card.id}
+                variant="style1"
+                frontStat={card.name}
+                backStat={card.name}
+                backTitle={card.question}
+                backDescription={card.description}
+                className="w-full md:w-auto md:flex-1 max-w-[390px] sm:max-w-[370px] md:max-w-[380px] lg:max-w-[410px] xl:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
+              />
+            ))}
           </div>
         </Parallax>
 

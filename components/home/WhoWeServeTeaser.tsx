@@ -238,19 +238,21 @@ export function WhoWeServeTeaser() {
       // EXPANDED CENTER ACTIVE CARD
       return {
         wrapper:
-          "w-[calc(100vw-76px)] sm:w-[520px] md:w-[680px] lg:w-[890px] xl:w-[940px] " +
-          "min-h-[420px] sm:min-h-[460px] lg:min-h-[510px] " +
+          "w-[calc(100vw-56px)] sm:w-[540px] md:w-[680px] lg:w-[890px] xl:w-[940px] " +
+          "min-h-[460px] sm:min-h-[500px] lg:min-h-[510px] " +
           "rounded-[24px] sm:rounded-[36px] lg:rounded-[44px] " +
-          "p-5 sm:p-8 lg:p-11 " +
+          "p-5 sm:p-7 md:p-8 lg:p-10 xl:p-11 " +
           "mx-1 sm:mx-2.5 lg:mx-4 " +
           "shadow-[0_22px_55px_rgba(0,49,36,0.12)] " +
           "border border-white/85 bg-white " +
           "opacity-100 z-20 cursor-grab active:cursor-grabbing",
+        cardLayout:
+          "flex flex-col-reverse lg:flex-row items-center justify-between gap-5 sm:gap-6 lg:gap-8 xl:gap-10",
         content:
-          "w-full lg:w-1/2 max-w-[520px] opacity-100 pointer-events-auto delay-150 duration-400",
+          "w-full lg:w-1/2 flex flex-col items-start justify-between min-h-[160px] sm:min-h-[180px] lg:min-h-[420px] opacity-100 pointer-events-auto",
         image:
-          "w-full lg:w-1/2 h-[200px] sm:h-[260px] lg:h-[430px] " +
-          "rounded-[18px] sm:rounded-[24px] lg:rounded-[32px] overflow-hidden bg-[#FAF7F2] shadow-inner",
+          "w-full lg:w-1/2 h-[200px] sm:h-[240px] md:h-[260px] lg:h-[430px] " +
+          "rounded-[18px] sm:rounded-[24px] lg:rounded-[32px] overflow-hidden bg-[#FAF7F2] shadow-inner flex-shrink-0",
         cue: "hidden",
         pillOverlay: "opacity-0",
         isInteractivePill: false,
@@ -259,7 +261,7 @@ export function WhoWeServeTeaser() {
       // INNER FLANKING PILLS
       return {
         wrapper:
-          "w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] " +
+          "w-[34px] sm:w-[48px] md:w-[68px] lg:w-[84px] " +
           "h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] " +
           "rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] " +
           "p-1 sm:p-2 lg:p-2.5 " +
@@ -267,10 +269,10 @@ export function WhoWeServeTeaser() {
           "shadow-[0_10px_30px_rgba(0,49,36,0.10)] " +
           "border border-transparent bg-white " +
           "opacity-100 z-10 cursor-pointer hover:scale-105 hover:shadow-[0_14px_36px_rgba(0,49,36,0.15)] active:scale-95",
-        content:
-          "w-0 max-w-0 opacity-0 pointer-events-none duration-150 p-0 m-0",
+        cardLayout: "flex items-center justify-center",
+        content: "hidden w-0 max-w-0 opacity-0 pointer-events-none p-0 m-0",
         image:
-          "w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden",
+          "w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden flex-shrink-0",
         cue: "flex",
         pillOverlay: "opacity-100",
         isInteractivePill: true,
@@ -286,10 +288,10 @@ export function WhoWeServeTeaser() {
           "border border-transparent bg-white " +
           "opacity-0 xl:opacity-60 hover:opacity-100 hover:scale-105 active:scale-95 " +
           "z-0 cursor-pointer",
-        content:
-          "w-0 max-w-0 opacity-0 pointer-events-none duration-100 p-0 m-0",
+        cardLayout: "flex items-center justify-center",
+        content: "hidden w-0 max-w-0 opacity-0 pointer-events-none p-0 m-0",
         image:
-          "w-full h-full rounded-[18px] overflow-hidden",
+          "w-full h-full rounded-[18px] overflow-hidden flex-shrink-0",
         cue: "hidden",
         pillOverlay: "opacity-100",
         isInteractivePill: true,
@@ -299,9 +301,9 @@ export function WhoWeServeTeaser() {
       return {
         wrapper:
           "w-0 h-[210px] p-0 mx-0 opacity-0 pointer-events-none overflow-hidden border-0",
-        content:
-          "w-0 max-w-0 opacity-0 pointer-events-none duration-0 p-0 m-0",
-        image: "w-0 h-0 overflow-hidden",
+        cardLayout: "hidden",
+        content: "hidden w-0 max-w-0 opacity-0 pointer-events-none p-0 m-0",
+        image: "w-0 h-0 overflow-hidden flex-shrink-0",
         cue: "hidden",
         pillOverlay: "opacity-0",
         isInteractivePill: false,
@@ -408,23 +410,25 @@ export function WhoWeServeTeaser() {
                       ? `Active slide: ${item.title}`
                       : `Switch to ${item.title}`
                   }
-                  className={`group relative flex-shrink-0 flex items-center justify-between overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] ${styles.wrapper} ${transitionStyle}`}
+                  className={`group relative flex-shrink-0 overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] ${styles.wrapper} ${styles.cardLayout} ${transitionStyle}`}
                 >
-                  {/* Left Column: Content (Only visible in center card, masked & clipped during shrink) */}
+                  {/* Content Column: Title, Description, and CTA Button
+                      - On mobile: positioned below the image cleanly
+                      - On desktop: positioned on the left side of the image */}
                   <div
-                    className={`flex flex-col items-start justify-between min-h-[180px] sm:min-h-[220px] lg:min-h-[420px] gap-4 sm:gap-6 py-1 overflow-hidden transition-all ease-out ${styles.content}`}
+                    className={`transition-opacity duration-300 ${styles.content}`}
                   >
-                    {/* Fixed-width typography inner wrapper prevents word wrapping/reflow during width animation */}
-                    <div className="w-[280px] sm:w-[350px] lg:w-[410px] flex flex-col gap-3 sm:gap-4 lg:gap-5">
+                    {/* Typography block */}
+                    <div className="flex flex-col gap-2.5 sm:gap-3.5 lg:gap-4.5 max-w-[420px] w-full">
                       <h3
-                        className="text-xl sm:text-2xl lg:text-[34px] font-bold text-[#003124] leading-[1.2] tracking-tight"
+                        className="text-xl sm:text-2xl lg:text-[32px] xl:text-[34px] font-bold text-[#003124] leading-[1.2] tracking-tight"
                         style={{ fontFamily: "var(--font-headline, serif)" }}
                       >
                         {item.title}
                       </h3>
 
                       <p
-                        className="text-[13.5px] sm:text-[15px] lg:text-[16.5px] text-[#003124]/75 font-normal leading-[1.6]"
+                        className="text-[13.5px] sm:text-[15px] lg:text-[16.5px] text-[#003124]/75 font-normal leading-[1.58]"
                         style={{ fontFamily: "var(--font-body, sans-serif)" }}
                       >
                         {item.description}
@@ -432,20 +436,22 @@ export function WhoWeServeTeaser() {
                     </div>
 
                     {/* Pill Button CTA */}
-                    <div className="pt-1 sm:pt-2">
+                    <div className="pt-2 sm:pt-3 lg:pt-4">
                       <Link
                         href={item.ctaHref}
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center justify-center px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#F88404] text-white font-bold text-xs sm:text-[14.5px] hover:bg-[#e07500] transition-all shadow-md active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
+                        className="inline-flex items-center justify-center px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full bg-[#F88404] text-white font-bold text-xs sm:text-[14.5px] hover:bg-[#e07500] transition-all shadow-md active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
                       >
                         {item.ctaText}
                       </Link>
                     </div>
                   </div>
 
-                  {/* Right Column: Featured Image Showcase (Morphs from pill frame into wide card showcase) */}
+                  {/* Featured Image Showcase:
+                      - On mobile: positioned on top
+                      - On desktop: positioned on the right */}
                   <div
-                    className={`relative flex-shrink-0 ${styles.image} ${transitionStyle}`}
+                    className={`relative ${styles.image} ${transitionStyle}`}
                   >
                     <Image
                       src={item.imageSrc}
