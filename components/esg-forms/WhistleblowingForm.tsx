@@ -406,17 +406,9 @@ export function WhistleblowingForm() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-motion group/btn inline-flex items-center gap-2 select-none outline-none rounded-full transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-2"
+                    className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white font-['Chivo',sans-serif] font-bold text-[14.5px] sm:text-[15px] shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-all duration-200 active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-2"
                   >
-                    <span
-                      className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white text-[13px] sm:text-[14px] tracking-[0.05em] uppercase font-bold shadow-[0_8px_24px_rgba(248,132,4,0.3)] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
-                      style={{ fontFamily: "var(--font-body, system-ui, sans-serif)" }}
-                    >
-                      {ui.submitButtonText}
-                    </span>
-                    <span className="inline-grid place-items-center w-11 h-11 rounded-full bg-[#F88404] hover:bg-[#ff941f] text-white shadow-[0_8px_24px_rgba(248,132,4,0.3)] shrink-0 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[4px] delay-0 group-hover/btn:delay-[40ms]">
-                      <ArrowUpRight className="w-[18px] h-[18px]" />
-                    </span>
+                    {isSubmitting ? "Submitting..." : ui.submitButtonText}
                   </button>
                 </div>
               </form>

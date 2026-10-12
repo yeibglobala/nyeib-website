@@ -95,7 +95,7 @@ export function SectorAgnosticFundsSection() {
 
         {/* Lower Main Area: Floating Fund Panel on the Right */}
         <div className="w-full flex justify-end pt-4 sm:pt-8">
-          <div className="w-full max-w-[630px] bg-[#F2FBF6] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-tr-[16px] rounded-br-[16px] rounded-bl-[16px] p-6 sm:p-9 lg:p-10 shadow-[0_24px_60px_rgba(0,49,36,0.08)] border border-[rgba(0,49,36,0.06)] flex flex-col gap-8 transition-[box-shadow,border-color] duration-[450ms]">
+          <div className="w-full max-w-[630px] bg-[#F2FBF6] rounded-tl-[48px] sm:rounded-tl-[64px] rounded-tr-[16px] rounded-br-[16px] rounded-bl-[16px] p-6 sm:p-9 lg:p-10 shadow-[0_24px_60px_rgba(0,49,36,0.08)] border border-[rgba(0,49,36,0.06)] flex flex-col gap-8 transition-all duration-300">
             {/* Fund Categories List */}
             <div className="flex flex-col gap-2 w-full" role="tablist" aria-label="NYEIB Fund Types">
               {FUNDS_DATA.map((fund) => {
@@ -104,7 +104,7 @@ export function SectorAgnosticFundsSection() {
                 return (
                   <div
                     key={fund.id}
-                    className="flex flex-col pt-3 pb-4 transition-[color,transform] duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] cursor-pointer group"
+                    className="flex flex-col pt-3 pb-4 transition-all duration-200 cursor-pointer group"
                     onClick={() => setActiveFundId(fund.id)}
                     role="tab"
                     aria-selected={isActive}
@@ -118,7 +118,7 @@ export function SectorAgnosticFundsSection() {
                   >
                     <div className="flex items-center justify-between w-full">
                       <h3
-                        className={`text-[20px] sm:text-[23px] md:text-[24px] font-bold leading-[1.25] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
+                        className={`text-[20px] sm:text-[23px] md:text-[24px] font-bold leading-[1.25] transition-colors ${
                           isActive
                             ? "text-[#003124]"
                             : "text-[#003124]/70 group-hover:text-[#003124]"
@@ -132,7 +132,7 @@ export function SectorAgnosticFundsSection() {
                     {/* Active Expanded Description */}
                     {isActive && (
                       <p
-                        className="text-[14.5px] sm:text-[15.5px] text-[#003124]/75 mt-2.5 leading-[1.55] animate-in fade-in slide-in-from-top-1 duration-[250ms]"
+                        className="text-[14.5px] sm:text-[15.5px] text-[#003124]/75 mt-2.5 leading-[1.55] animate-in fade-in slide-in-from-top-1 duration-200"
                         style={{ fontFamily: "var(--font-body, sans-serif)" }}
                       >
                         {fund.shortDescription}
@@ -142,9 +142,9 @@ export function SectorAgnosticFundsSection() {
                     {/* Separator / Active Indicator */}
                     <div className="mt-4 relative w-full">
                       {isActive ? (
-                        <div className="h-[3px] w-full bg-[#00BE93] rounded-full shadow-[0_0_12px_rgba(0,190,147,0.4)] transition-[width,background-color] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]" />
+                        <div className="h-[3px] w-full bg-[#00BE93] rounded-full shadow-[0_0_12px_rgba(0,190,147,0.4)] transition-all duration-300" />
                       ) : (
-                        <div className="h-[1px] w-full bg-[#E2E5F0] transition-colors duration-[250ms]" />
+                        <div className="h-[1px] w-full bg-[#E2E5F0] transition-colors" />
                       )}
                     </div>
                   </div>
@@ -156,16 +156,16 @@ export function SectorAgnosticFundsSection() {
             <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-4 pt-2 border-t border-[rgba(0,49,36,0.06)]">
               <Link
                 href="/what-we-do"
-                className="btn-motion inline-flex items-center justify-center px-6 py-3 rounded-full bg-white border border-[#003124] text-[#003124] font-semibold text-[14.5px] sm:text-[15px] hover:bg-[#003124] hover:text-white transition-[background-color,color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white border border-[#003124] text-[#003124] font-semibold text-[14.5px] sm:text-[15px] hover:bg-[#003124] hover:text-white transition-all shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
               >
-                Read our approach
+                Read Our Approach
               </Link>
 
               <Link
                 href="/apply"
-                className="btn-motion inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#F88404] text-white font-semibold text-[14.5px] sm:text-[15px] hover:bg-[#ff9626] transition-[background-color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-[0_4px_14px_rgba(248,132,4,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#F88404] text-white font-semibold text-[14.5px] sm:text-[15px] hover:bg-[#ff9626] transition-all shadow-[0_4px_14px_rgba(248,132,4,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
               >
-                Apply for funding
+                Apply for Funding
               </Link>
             </div>
           </div>

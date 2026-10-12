@@ -189,11 +189,11 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Right: Apply for funding CTA button + Mobile Menu Toggle */}
+          {/* Right: Apply for Funding CTA button + Mobile Menu Toggle */}
           <div className="flex items-center gap-2 sm:gap-3">
             <AppButton
               href="/apply"
-              label="Apply for funding"
+              label="Apply for Funding"
               variant="orange"
               size="sm"
               className="text-[0.76rem] sm:text-[0.84rem] !py-1.5 sm:!py-2.5 !px-4 sm:!px-6 whitespace-nowrap shadow-sm hover:shadow-md"
@@ -258,10 +258,9 @@ export function Navbar() {
             <Link
               href="/apply"
               onClick={() => setIsOpen(false)}
-              className="w-full py-3.5 bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-semibold text-center rounded-2xl shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+              className="w-full py-3.5 bg-[#F88404] hover:bg-[#e07500] text-white font-['Chivo',sans-serif] font-bold text-center rounded-full shadow-md transition-all active:scale-[0.98] flex items-center justify-center gap-2"
             >
-              <span>Apply for funding</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>Apply for Funding</span>
             </Link>
           </div>
         </div>

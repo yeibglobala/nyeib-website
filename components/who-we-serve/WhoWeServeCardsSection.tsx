@@ -179,10 +179,10 @@ export function WhoWeServeCardsSection() {
                   <div className="pt-2">
                     <Link
                       href={card.ctaHref}
-                      className={`btn-motion group/btn inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-xs sm:text-sm transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-sm hover:shadow-md ${card.buttonBg} ${card.buttonHoverBg}`}
+                      className={`group/btn inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-xs sm:text-sm transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 ${card.buttonBg} ${card.buttonHoverBg}`}
                     >
                       <span>{card.ctaText}</span>
-                      <ArrowRight className="w-4 h-4 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-[4px] delay-0 group-hover/btn:delay-[40ms]" />
+                      <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
                     </Link>
                   </div>
                 </div>

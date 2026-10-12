@@ -95,7 +95,9 @@ export function AppButton({
     return <span className="btn-animate-chars__text">{rawContent}</span>;
   };
 
-  const commonClasses = `btn-animate-chars group font-['Chivo',sans-serif] font-bold tracking-[0.04em] uppercase text-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${variantStyles.wrapper} ${sizeClasses} ${className}`;
+  const commonClasses = `btn-animate-chars group font-['Chivo',sans-serif] font-bold text-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-offset-2 transition-all duration-200 ${
+    disabled ? "opacity-60 cursor-not-allowed pointer-events-none" : "cursor-pointer"
+  } ${variantStyles.wrapper} ${sizeClasses} ${className}`;
 
   if (href) {
     return (

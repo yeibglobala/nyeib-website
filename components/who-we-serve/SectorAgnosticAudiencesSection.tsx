@@ -185,11 +185,11 @@ export function SectorAgnosticAudiencesSection() {
                       setActiveIndex(idx);
                     }
                   }}
-                  className="flex flex-col pt-1 pb-2 transition-[color,transform] duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] cursor-pointer group"
+                  className="flex flex-col pt-1 pb-2 transition-all duration-200 cursor-pointer group"
                 >
                   <div className="flex items-center justify-between w-full">
                     <h3
-                      className={`text-[19px] sm:text-[22px] lg:text-[24px] font-bold leading-[1.25] transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
+                      className={`text-[19px] sm:text-[22px] lg:text-[24px] font-bold leading-[1.25] transition-colors ${
                         isActive
                           ? "text-[#003124]"
                           : "text-[#003124]/60 group-hover:text-[#003124]"
@@ -264,7 +264,7 @@ export function SectorAgnosticAudiencesSection() {
                   type="button"
                   onClick={handlePrev}
                   aria-label="Previous fund"
-                  className="btn-motion w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-full bg-white text-[#003124] flex items-center justify-center hover:bg-[#003124] hover:text-white transition-[background-color,color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-md focus:outline-none"
+                  className="w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-full bg-white text-[#003124] flex items-center justify-center hover:bg-[#003124] hover:text-white transition-all shadow-md active:scale-95 focus:outline-none"
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </button>
@@ -273,7 +273,7 @@ export function SectorAgnosticAudiencesSection() {
                   type="button"
                   onClick={handleNext}
                   aria-label="Next fund"
-                  className="btn-motion w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-full bg-[#F88404] text-white flex items-center justify-center hover:bg-[#ff9626] transition-[background-color,color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-md focus:outline-none"
+                  className="w-[42px] h-[42px] sm:w-[46px] sm:h-[46px] rounded-full bg-[#F88404] text-white flex items-center justify-center hover:bg-[#ff9626] transition-all shadow-md active:scale-95 focus:outline-none"
                 >
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -291,7 +291,7 @@ export function SectorAgnosticAudiencesSection() {
           type="button"
           onClick={handlePrev}
           aria-label="Previous fund"
-          className="btn-motion w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full bg-white border border-[#003124]/30 text-[#003124] flex items-center justify-center hover:bg-[#003124] hover:text-white hover:border-[#003124] transition-[background-color,color,border-color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
+          className="w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full bg-white border border-[#003124]/30 text-[#003124] flex items-center justify-center hover:bg-[#003124] hover:text-white hover:border-[#003124] transition-all shadow-lg active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -300,7 +300,7 @@ export function SectorAgnosticAudiencesSection() {
           type="button"
           onClick={handleNext}
           aria-label="Next fund"
-          className="btn-motion w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full bg-[#F88404] text-white flex items-center justify-center hover:bg-[#ff9626] transition-[background-color,color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-[0_4px_16px_rgba(248,132,4,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
+          className="w-[50px] h-[50px] sm:w-[54px] sm:h-[54px] rounded-full bg-[#F88404] text-white flex items-center justify-center hover:bg-[#ff9626] transition-all shadow-[0_4px_16px_rgba(248,132,4,0.4)] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
         >
           <ArrowRight className="w-5 h-5" />
         </button>

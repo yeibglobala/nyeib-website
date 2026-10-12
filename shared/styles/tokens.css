@@ -49,13 +49,9 @@
   --glow-mint: 0 0 30px rgba(46, 183, 140, 0.18);
   --glow-orange: 0 0 30px rgba(248, 132, 4, 0.2);
 
-  /* Motion Tokens */
-  --dur-fast: 250ms;
-  --dur-base: 450ms;
-  --dur-slow: 700ms;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --transition-fast: var(--dur-fast) var(--ease-inout);
-  --transition-normal: var(--dur-base) var(--ease-out);
-  --transition-slow: var(--dur-slow) var(--ease-out);
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.15s var(--ease-out);
+  --transition-normal: 0.3s var(--ease-out);
+  --transition-slow: 0.6s var(--ease-out);
 }

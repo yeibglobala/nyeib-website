@@ -102,7 +102,7 @@ export function EsgApproachSection() {
                 style={{
                   backgroundColor: area.buttonBg,
                 }}
-                className={`min-h-[82px] sm:min-h-[94px] p-3.5 sm:p-4 rounded-2xl text-[12.5px] sm:text-[13.5px] font-bold text-[#0D3026] leading-[1.35] cursor-pointer text-left flex flex-col justify-between items-start transition-[transform,border-color,box-shadow] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] outline-none ${
+                className={`min-h-[82px] sm:min-h-[94px] p-3.5 sm:p-4 rounded-2xl text-[12.5px] sm:text-[13.5px] font-bold text-[#0D3026] leading-[1.35] cursor-pointer text-left flex flex-col justify-between items-start transition-all duration-200 outline-none ${
                   isSelected
                     ? "border border-[#0D3026]/30 shadow-[inset_0_0_0_1px_#0D3026,0_6px_16px_rgba(13,48,38,0.06)] -translate-y-0.5"
                     : "border border-[#E7DDCC] hover:-translate-y-0.5"

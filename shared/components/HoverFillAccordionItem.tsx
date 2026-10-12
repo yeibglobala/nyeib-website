@@ -193,7 +193,7 @@ export function HoverFillAccordionItem({
         <div className="flex items-center gap-4 sm:gap-6 flex-1 min-w-0">
           {/* Number Badge */}
           <span
-            className={`text-xs sm:text-sm font-sans font-bold tracking-wider px-2.5 py-1 rounded-md transition-[background-color,color,border-color] duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
+            className={`text-xs sm:text-sm font-sans font-bold tracking-wider px-2.5 py-1 rounded-md transition-all duration-300 ${
               isFilled
                 ? currentColorConfig.badgeClass
                 : "bg-[#FAF7F2] text-[#003124]/70 border border-[#003124]/10"
@@ -204,7 +204,7 @@ export function HoverFillAccordionItem({
 
           {/* Title */}
           <h3
-            className={`text-lg sm:text-xl md:text-2xl font-bold tracking-tight leading-snug truncate transition-colors duration-[250ms] ease-[cubic-bezier(0.65,0,0.35,1)] ${
+            className={`text-lg sm:text-xl md:text-2xl font-bold tracking-tight leading-snug truncate transition-colors duration-200 ${
               isFilled ? currentColorConfig.textColor : "text-[#003124]"
             }`}
             style={{ fontFamily: "var(--font-headline, serif)" }}
@@ -215,14 +215,14 @@ export function HoverFillAccordionItem({
 
         {/* Plus / Minus Icon Container */}
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-[background-color,color] duration-[450ms] ease-[cubic-bezier(0.65,0,0.35,1)] shadow-xs"
+          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 shadow-xs"
           style={{
             backgroundColor: isFilled ? currentColorConfig.buttonBg : defaultOption.restButtonBg,
             color: isFilled ? currentColorConfig.buttonIconColor : defaultOption.restButtonIconColor,
           }}
         >
           <Plus
-            className={`w-5 h-5 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`w-5 h-5 transition-transform duration-250 ease-out ${
               isOpen ? "rotate-45" : "rotate-0"
             }`}
           />
@@ -232,7 +232,7 @@ export function HoverFillAccordionItem({
       {/* Accordion Expandable Content */}
       <div
         id={`accordion-content-${id}`}
-        className={`relative z-10 grid transition-[grid-template-rows] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`relative z-10 grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >

@@ -9,7 +9,7 @@ export const CTA_CONTENT = {
   homepage: {
     headline: "Find your Pathway with NYEIB",
     text: "Whether you are growing a business, deploying capital or strengthening Nigeria’s entrepreneurial ecosystem, there is a way to work with NYEIB.",
-    buttonLabel: "Apply for funding",
+    buttonLabel: "Apply for Funding",
     href: "/apply",
   },
   whatWeDo: {

@@ -23,7 +23,7 @@ export const VIDEO_STORY_CONFIG = {
     displayWord: "PATHWAYS",
     headline: "Unlocking pathways for investable businesses",
     body: "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
-    ctaText: "Apply for funding",
+    ctaText: "Apply for Funding",
     ctaHref: "#apply",
     caption: "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.",
   },

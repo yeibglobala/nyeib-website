@@ -178,7 +178,7 @@ export function WhoWeServeTeaser() {
               type="button"
               onClick={() => handleSelect(farPrevIndex)}
               aria-label={`Preview ${AUDIENCE_ITEMS[farPrevIndex].title}`}
-              className="hidden xl:flex group relative w-[52px] h-[210px] bg-white rounded-[26px] p-2 shadow-[0_8px_24px_rgba(0,49,36,0.08)] overflow-hidden opacity-60 hover:opacity-100 hover:scale-105 transition-[transform,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
+              className="hidden xl:flex group relative w-[52px] h-[210px] bg-white rounded-[26px] p-2 shadow-[0_8px_24px_rgba(0,49,36,0.08)] overflow-hidden opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
             >
               <div className="relative w-full h-full rounded-[18px] overflow-hidden">
                 <Image
@@ -186,9 +186,9 @@ export function WhoWeServeTeaser() {
                   alt=""
                   fill
                   sizes="60px"
-                  className="object-cover object-center grayscale-[20%] group-hover:grayscale-0 transition-[filter] duration-[450ms]"
+                  className="object-cover object-center grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-[#003124]/10 group-hover:bg-transparent transition-colors duration-[250ms]" />
+                <div className="absolute inset-0 bg-[#003124]/10 group-hover:bg-transparent transition-colors" />
               </div>
             </button>
 
@@ -197,7 +197,7 @@ export function WhoWeServeTeaser() {
               type="button"
               onClick={() => handleSelect(prevIndex)}
               aria-label={`Preview ${AUDIENCE_ITEMS[prevIndex].title}`}
-              className="group relative w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] bg-white rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] p-1 sm:p-2 lg:p-2.5 shadow-[0_10px_30px_rgba(0,49,36,0.10)] overflow-hidden hover:scale-105 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
+              className="group relative w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] bg-white rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] p-1 sm:p-2 lg:p-2.5 shadow-[0_10px_30px_rgba(0,49,36,0.10)] overflow-hidden hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
             >
               <div className="relative w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden">
                 <Image
@@ -237,7 +237,7 @@ export function WhoWeServeTeaser() {
                 return (
                   <div
                     key={item.id}
-                    className={`w-full flex-shrink-0 bg-white rounded-[24px] sm:rounded-[36px] lg:rounded-[44px] p-5 sm:p-8 lg:p-11 border border-white/80 flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-7 lg:gap-10 min-h-[420px] sm:min-h-[460px] lg:min-h-[510px] transition-[transform,opacity] duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    className={`w-full flex-shrink-0 bg-white rounded-[24px] sm:rounded-[36px] lg:rounded-[44px] p-5 sm:p-8 lg:p-11 border border-white/80 flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-7 lg:gap-10 min-h-[420px] sm:min-h-[460px] lg:min-h-[510px] transition-all duration-700 ease-out ${
                       isCurrent ? "scale-100 opacity-100" : "scale-[0.96] opacity-75"
                     }`}
                   >
@@ -264,7 +264,7 @@ export function WhoWeServeTeaser() {
                         <Link
                           href={item.ctaHref}
                           onClick={(e) => e.stopPropagation()}
-                          className="btn-motion inline-flex items-center justify-center px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#F88404] text-white font-bold text-xs sm:text-[14.5px] hover:bg-[#e07500] transition-[background-color,transform,box-shadow] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[3px] active:translate-y-0 active:duration-[150ms] shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
+                          className="inline-flex items-center justify-center px-5 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#F88404] text-white font-bold text-xs sm:text-[14.5px] hover:bg-[#e07500] transition-all shadow-md active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404]"
                         >
                           {item.ctaText}
                         </Link>
@@ -298,7 +298,7 @@ export function WhoWeServeTeaser() {
               type="button"
               onClick={() => handleSelect(nextIndex)}
               aria-label={`Preview ${AUDIENCE_ITEMS[nextIndex].title}`}
-              className="group relative w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] bg-white rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] p-1 sm:p-2 lg:p-2.5 shadow-[0_10px_30px_rgba(0,49,36,0.10)] overflow-hidden hover:scale-105 transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
+              className="group relative w-[32px] sm:w-[48px] md:w-[68px] lg:w-[84px] h-[220px] sm:h-[280px] md:h-[320px] lg:h-[370px] bg-white rounded-[16px] sm:rounded-[22px] lg:rounded-[28px] p-1 sm:p-2 lg:p-2.5 shadow-[0_10px_30px_rgba(0,49,36,0.10)] overflow-hidden hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
             >
               <div className="relative w-full h-full rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] overflow-hidden">
                 <Image
@@ -317,7 +317,7 @@ export function WhoWeServeTeaser() {
               type="button"
               onClick={() => handleSelect(farNextIndex)}
               aria-label={`Preview ${AUDIENCE_ITEMS[farNextIndex].title}`}
-              className="hidden xl:flex group relative w-[52px] h-[210px] bg-white rounded-[26px] p-2 shadow-[0_8px_24px_rgba(0,49,36,0.08)] overflow-hidden opacity-60 hover:opacity-100 hover:scale-105 transition-[transform,opacity] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
+              className="hidden xl:flex group relative w-[52px] h-[210px] bg-white rounded-[26px] p-2 shadow-[0_8px_24px_rgba(0,49,36,0.08)] overflow-hidden opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124]"
             >
               <div className="relative w-full h-full rounded-[18px] overflow-hidden">
                 <Image
@@ -325,9 +325,9 @@ export function WhoWeServeTeaser() {
                   alt=""
                   fill
                   sizes="60px"
-                  className="object-cover object-center grayscale-[20%] group-hover:grayscale-0 transition-[filter] duration-[450ms]"
+                  className="object-cover object-center grayscale-[20%] group-hover:grayscale-0 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-[#003124]/10 group-hover:bg-transparent transition-colors duration-[250ms]" />
+                <div className="absolute inset-0 bg-[#003124]/10 group-hover:bg-transparent transition-colors" />
               </div>
             </button>
           </div>
@@ -352,7 +352,7 @@ export function WhoWeServeTeaser() {
                 role="tab"
                 aria-selected={isActive}
                 aria-label={`Go to slide ${idx + 1}: ${item.title}`}
-                className={`relative transition-[width,background-color] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] ${
+                className={`relative transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] ${
                   isActive
                     ? "w-9 sm:w-12 h-2.5 rounded-full bg-[#003124]/15 overflow-hidden"
                     : "w-2.5 h-2.5 rounded-full bg-[#003124]/20 hover:bg-[#003124]/40"
