@@ -108,9 +108,14 @@ export function ImpactFrameworkSection() {
                 key={card.id}
                 variant="style1"
                 frontStat={card.name}
+                frontStatClassName="text-[38px] sm:text-[44px] lg:text-[48px] xl:text-[52px] leading-[1.08] tracking-tight font-bold"
                 backStat={card.name}
+                backStatClassName="text-[28px] sm:text-[32px] lg:text-[36px] font-bold leading-[1.12]"
                 backTitle={card.question}
+                backTitleClassName="font-semibold text-[16px] sm:text-[17.5px] leading-[1.35] text-[#00BE93]"
                 backDescription={card.description}
+                backDescriptionClassName="text-[14.5px] sm:text-[15.5px] leading-[1.6] text-white/90"
+                backItems={[]}
                 className="w-full md:w-auto md:flex-1 max-w-[390px] sm:max-w-[370px] md:max-w-[380px] lg:max-w-[410px] xl:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
               />
             ))}

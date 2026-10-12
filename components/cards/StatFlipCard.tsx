@@ -41,6 +41,15 @@ export interface StatFlipCardProps {
   /** Custom text color for front face (default #003124) */
   frontTextColor?: string;
 
+  /** Additional classes for front stat / heading (e.g. to scale text size) */
+  frontStatClassName?: string;
+
+  /** Additional classes for front title */
+  frontTitleClassName?: string;
+
+  /** Additional classes for front description */
+  frontDescriptionClassName?: string;
+
   /* ================= BACK FACE PROPS ================= */
   /** Back face primary stat / big text (e.g. "US$100 million") */
   backStat?: React.ReactNode;
@@ -62,6 +71,15 @@ export interface StatFlipCardProps {
 
   /** Custom text color for back face (default #F2FBF6 Mint Cream) */
   backTextColor?: string;
+
+  /** Additional classes for back stat / heading */
+  backStatClassName?: string;
+
+  /** Additional classes for back title */
+  backTitleClassName?: string;
+
+  /** Additional classes for back description */
+  backDescriptionClassName?: string;
 
   /* ================= GRAPHICS & CONTROLS ================= */
   /** Path to custom SVG wave (defaults to /images/card-1-svg.svg) */
@@ -160,20 +178,26 @@ export function Card2SvgWave({ className = "" }: { className?: string }) {
  */
 export function StatFlipCard({
   variant = "style1",
-  frontStat = "US$300 million",
-  frontTitle = "Total capitalisation target",
-  frontDescription = "Target capital mobilization across equity, guarantees and ecosystem support.",
+  frontStat,
+  frontTitle,
+  frontDescription,
   frontBadge,
   frontChildren,
   frontBg,
   frontTextColor = "#003124",
-  backStat = "US$100 million",
-  backTitle = "Initial sovereign financing from the African Development Bank",
+  frontStatClassName,
+  frontTitleClassName,
+  frontDescriptionClassName,
+  backStat,
+  backTitle,
   backDescription,
-  backItems = ["Equity", "Guarantees", "Ecosystem support"],
+  backItems,
   backChildren,
   backBg = "#003124",
   backTextColor = "#F2FBF6",
+  backStatClassName,
+  backTitleClassName,
+  backDescriptionClassName,
   waveSvgSrc,
   customWave,
   flipHint = "Hover or Tap to Flip",
@@ -184,6 +208,25 @@ export function StatFlipCard({
 }: StatFlipCardProps) {
   const [internalFlipped, setInternalFlipped] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Fallbacks only when completely unconfigured (bare <StatFlipCard /> in preview demos)
+  const isDemo =
+    frontStat === undefined &&
+    frontTitle === undefined &&
+    frontDescription === undefined &&
+    frontChildren === undefined &&
+    backStat === undefined &&
+    backTitle === undefined &&
+    backDescription === undefined &&
+    backChildren === undefined &&
+    backItems === undefined;
+
+  const resolvedFrontStat = frontStat !== undefined ? frontStat : (isDemo ? "US$300 million" : undefined);
+  const resolvedFrontTitle = frontTitle !== undefined ? frontTitle : (isDemo ? "Total capitalisation target" : undefined);
+  const resolvedFrontDesc = frontDescription !== undefined ? frontDescription : (isDemo ? "Target capital mobilization across equity, guarantees and ecosystem support." : undefined);
+  const resolvedBackStat = backStat !== undefined ? backStat : (isDemo ? "US$100 million" : undefined);
+  const resolvedBackTitle = backTitle !== undefined ? backTitle : (isDemo ? "Initial sovereign financing from the African Development Bank" : undefined);
+  const resolvedBackItems = backItems !== undefined ? backItems : (isDemo ? ["Equity", "Guarantees", "Ecosystem support"] : undefined);
 
   const isControlled = controlledFlipped !== undefined;
   const isFlippedState = isControlled ? controlledFlipped : internalFlipped;
@@ -265,33 +308,42 @@ export function StatFlipCard({
               </div>
             )}
 
-            {(frontStat || frontTitle) && (
+            {(resolvedFrontStat || resolvedFrontTitle) && (
               <div className="flex flex-col gap-2.5 items-start">
-                {frontStat && (
+                {resolvedFrontStat && (
                   <h3
-                    className="font-bold text-[32px] sm:text-[36px] lg:text-[40px] leading-[1.12] tracking-tight m-0"
+                    className={cn(
+                      "font-bold text-[32px] sm:text-[36px] lg:text-[40px] leading-[1.12] tracking-tight m-0",
+                      frontStatClassName
+                    )}
                     style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
                   >
-                    {frontStat}
+                    {resolvedFrontStat}
                   </h3>
                 )}
-                {frontTitle && (
+                {resolvedFrontTitle && (
                   <p
-                    className="font-medium text-[16px] sm:text-[18px] leading-[1.32] m-0 max-w-[330px]"
+                    className={cn(
+                      "font-medium text-[16px] sm:text-[18px] leading-[1.32] m-0 max-w-[330px]",
+                      frontTitleClassName
+                    )}
                     style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
                   >
-                    {frontTitle}
+                    {resolvedFrontTitle}
                   </p>
                 )}
               </div>
             )}
 
-            {frontDescription && (
+            {resolvedFrontDesc && (
               <p
-                className="font-normal text-[14px] sm:text-[15px] leading-[1.45] opacity-85 max-w-[310px] m-0"
+                className={cn(
+                  "font-normal text-[14px] sm:text-[15px] leading-[1.45] opacity-85 max-w-[310px] m-0",
+                  frontDescriptionClassName
+                )}
                 style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
               >
-                {frontDescription}
+                {resolvedFrontDesc}
               </p>
             )}
 
@@ -323,22 +375,28 @@ export function StatFlipCard({
         >
           {/* Top text block */}
           <div className="flex flex-col items-start gap-4">
-            {(backStat || backTitle) && (
+            {(resolvedBackStat || resolvedBackTitle) && (
               <div className="flex flex-col gap-2.5 items-start">
-                {backStat && (
+                {resolvedBackStat && (
                   <h3
-                    className="font-bold text-[32px] sm:text-[36px] lg:text-[40px] leading-[1.12] tracking-tight m-0"
+                    className={cn(
+                      "font-bold text-[32px] sm:text-[36px] lg:text-[40px] leading-[1.12] tracking-tight m-0",
+                      backStatClassName
+                    )}
                     style={{ fontFamily: "var(--font-headline, 'Asul', Georgia, serif)" }}
                   >
-                    {backStat}
+                    {resolvedBackStat}
                   </h3>
                 )}
-                {backTitle && (
+                {resolvedBackTitle && (
                   <p
-                    className="font-medium text-[16px] sm:text-[18px] leading-[1.32] m-0 max-w-[330px]"
+                    className={cn(
+                      "font-medium text-[16px] sm:text-[18px] leading-[1.32] m-0 max-w-[330px]",
+                      backTitleClassName
+                    )}
                     style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
                   >
-                    {backTitle}
+                    {resolvedBackTitle}
                   </p>
                 )}
               </div>
@@ -346,7 +404,10 @@ export function StatFlipCard({
 
             {backDescription && (
               <p
-                className="font-normal text-[14px] sm:text-[15px] leading-[1.45] opacity-85 max-w-[310px] m-0"
+                className={cn(
+                  "font-normal text-[14px] sm:text-[15px] leading-[1.45] opacity-85 max-w-[310px] m-0",
+                  backDescriptionClassName
+                )}
                 style={{ fontFamily: "var(--font-body, 'Chivo', sans-serif)" }}
               >
                 {backDescription}
@@ -354,9 +415,9 @@ export function StatFlipCard({
             )}
 
             {/* List items with '+' icon */}
-            {backItems && backItems.length > 0 && (
+            {resolvedBackItems && resolvedBackItems.length > 0 && (
               <div className="flex flex-col gap-2.5 pt-2">
-                {backItems.map((item, idx) => {
+                {resolvedBackItems.map((item, idx) => {
                   const isObj = typeof item === "object" && item !== null && "text" in item;
                   const itemText = isObj ? (item as StatFlipCardItem).text : item;
                   const customIcon = isObj ? (item as StatFlipCardItem).icon : null;
