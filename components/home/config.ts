@@ -1,4 +1,5 @@
 import { PillarShape } from "../pillars/config";
+import { GovernanceConfig } from "../governance/config";
 
 export const HOMEPAGE_PILLARS_CONFIG = {
   shapeMode: "funds" as "funds" | "classic",
@@ -73,7 +74,7 @@ export const HOMEPAGE_PILLARS_CONFIG = {
   ],
 };
 
-export const HOMEPAGE_GOVERNANCE_CONFIG = {
+export const HOMEPAGE_GOVERNANCE_CONFIG: GovernanceConfig = {
   timing: {
     revealDurationMs: 600,
     leaveDurationMs: 400,
@@ -83,7 +84,7 @@ export const HOMEPAGE_GOVERNANCE_CONFIG = {
     cardAspectRatio: "4 / 5",
   },
   topArea: {
-    tag: "INSTITUTIONAL CREDIBILITY",
+    tag: "Institutional Credibility",
     headline: "Institutionally anchored for long-term impact.",
     paragraph:
       "NYEIB operates within an institutional framework involving leading sovereign, development, financial and public-sector stakeholders.",
@@ -123,12 +124,12 @@ export const HOMEPAGE_GOVERNANCE_CONFIG = {
       shortName: "AfDB",
       logoPath: "/partner-logo/afdb-logo.png",
       description:
-        "A multilateral development finance institution supporting economic development and social progress across Africa.",
+        "A multilateral development finance institution providing sovereign financing support channeled through the Federal Government of Nigeria via the Federal Ministry of Finance / MOFI.",
       descriptionLines: [
         "A multilateral development finance",
-        "institution supporting economic",
-        "development and social progress",
-        "across Africa.",
+        "institution providing sovereign support",
+        "through the Federal Ministry of",
+        "Finance / MOFI.",
       ],
     },
   ],

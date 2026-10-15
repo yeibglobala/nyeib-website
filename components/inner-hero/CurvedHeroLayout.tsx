@@ -133,7 +133,7 @@ export function CurvedHeroLayout({
           ? headline
           : `${titlePrefix}${highlight}${titleSuffix}`
       }
-      className={`relative w-full overflow-hidden bg-[#003124] h-[100svh] min-h-[600px] lg:h-screen lg:min-h-[100vh] flex flex-col justify-end select-none ${className}`}
+      className={`relative w-full overflow-hidden bg-[#003124] h-[100svh] min-h-[620px] lg:h-screen lg:min-h-[680px] xl:min-h-[720px] flex flex-col justify-end select-none ${className}`}
       style={{ backgroundColor: bgColor }}
     >
       {/* =========================================================================
@@ -198,9 +198,11 @@ export function CurvedHeroLayout({
         </svg>
       </div>
 
-      {/* Desktop Curve (>= md) */}
+      {/* Desktop Curve (>= md)
+          Anchored to the bottom with elevated height scaling on small desktop viewports (lg)
+          to ensure the dark green wave provides generous headroom above wrapped text. */}
       <div
-        className="absolute inset-0 size-full pointer-events-none z-10 overflow-hidden hidden md:block"
+        className="absolute inset-x-0 bottom-0 pointer-events-none z-10 overflow-hidden hidden md:block h-[115%] lg:h-[132%] xl:h-[120%] 2xl:h-full"
         aria-hidden="true"
       >
         <svg
@@ -219,14 +221,14 @@ export function CurvedHeroLayout({
 
       {/* =========================================================================
           3. CONTENT AREA (Directly positioned on top of the deep green #003124 ground)
-          Responsive typography matching Figma nodes 620:128 (mobile) & 646:364 (desktop)
+          Responsive typography matching Figma nodes with optimized scaling on laptops
           ========================================================================= */}
-      <div className="relative z-20 w-full px-5 sm:px-8 md:px-12 lg:px-16 pt-16 pb-8 sm:pb-10 md:pb-14 lg:pb-16">
-        <div className="max-w-[1320px] w-full mx-auto flex flex-col lg:flex-row items-start justify-between gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
+      <div className="relative z-20 w-full px-5 sm:px-8 md:px-12 lg:px-16 pt-8 pb-8 sm:pb-10 md:pb-12 lg:pb-10 xl:pb-14 2xl:pb-16">
+        <div className="max-w-[1320px] w-full mx-auto flex flex-col lg:flex-row items-start justify-between gap-6 sm:gap-8 lg:gap-10 xl:gap-14 2xl:gap-16">
           {/* Left Column / Mobile Top: Bold Asul Editorial Headline */}
           <div className="w-full lg:w-[58%] max-w-[680px]">
             <h1
-              className="text-[26px] sm:text-[32px] md:text-[40px] lg:text-[46px] xl:text-[48px] font-bold text-[#F2FBF6] tracking-tight leading-[1.2] sm:leading-[1.18] lg:leading-[1.15]"
+              className="text-[26px] sm:text-[32px] md:text-[38px] lg:text-[36px] xl:text-[44px] 2xl:text-[48px] font-bold text-[#F2FBF6] tracking-tight leading-[1.2] sm:leading-[1.18] lg:leading-[1.16]"
               style={{ fontFamily: "var(--font-headline, serif)" }}
             >
               {headline ? (
@@ -242,10 +244,10 @@ export function CurvedHeroLayout({
           </div>
 
           {/* Right Column / Mobile Bottom: Refined Chivo Body Copy & Optional CTA */}
-          <div className="w-full lg:w-[42%] max-w-[460px] flex flex-col items-start gap-4 sm:gap-5 lg:gap-6 lg:pt-1.5">
+          <div className="w-full lg:w-[42%] max-w-[460px] flex flex-col items-start gap-4 sm:gap-5 lg:gap-4 xl:gap-6 lg:pt-1">
             {description && (
               <p
-                className="text-[15px] sm:text-base lg:text-[19px] text-[#F2FBF6]/75 font-normal leading-relaxed sm:leading-[1.6]"
+                className="text-[15px] sm:text-base lg:text-[15px] xl:text-[17px] 2xl:text-[19px] text-[#F2FBF6]/85 font-normal leading-relaxed lg:leading-[1.55] xl:leading-[1.6]"
                 style={{ fontFamily: "var(--font-body, sans-serif)" }}
               >
                 {description}

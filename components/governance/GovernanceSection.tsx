@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { GOVERNANCE_CONFIG } from "./config";
+import { GOVERNANCE_CONFIG, GovernanceConfig } from "./config";
 import { PartnerCard } from "./PartnerCard";
+import { FederalGovernmentCard } from "./FederalGovernmentCard";
 import { useScrollReveal } from "@/shared/hooks/useScrollReveal";
 import { Parallax } from "@/shared/components/Parallax";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
 
 export interface GovernanceSectionProps {
-  config?: typeof GOVERNANCE_CONFIG;
+  config?: GovernanceConfig;
 }
 
 export function GovernanceSection({ config = GOVERNANCE_CONFIG }: GovernanceSectionProps = {}) {
@@ -67,17 +68,25 @@ export function GovernanceSection({ config = GOVERNANCE_CONFIG }: GovernanceSect
         </div>
 
         {/* =========================================================================
-            BOTTOM AREA: PARTNER CARDS GRID (3 Columns on Desktop, 1 on Mobile)
+            BOTTOM AREA: PARTNER CARDS GRID
+            - Row 1: Federal Government & MOFI Anchor Card (Spanning all 3 columns)
+            - Row 2: 3 In-country & Multilateral Partners (NSIA, DBN, AfDB)
             ========================================================================= */}
         <Parallax speed={24} className="w-full">
           <div
             ref={cardsRef}
-            className={`grid grid-cols-1 min-[700px]:grid-cols-3 gap-4 sm:gap-5 w-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`grid grid-cols-1 min-[700px]:grid-cols-3 gap-5 sm:gap-6 w-full transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
               isCardsRevealed
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-[22px] motion-reduce:opacity-100 motion-reduce:translate-y-0"
             }`}
           >
+            {/* Top Anchor Partner Card: Federal Government of Nigeria & MOFI */}
+            {config.federalGovernment && (
+              <FederalGovernmentCard data={config.federalGovernment} />
+            )}
+
+            {/* 3 Columns Row: NSIA, DBN, AfDB */}
             {config.partners.map((partner) => (
               <PartnerCard
                 key={partner.id}

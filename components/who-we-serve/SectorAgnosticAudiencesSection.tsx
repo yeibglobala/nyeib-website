@@ -18,7 +18,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
     id: "equity-fund",
     title: "Equity Investment Fund",
     description:
-      "Direct equity and quasi-equity capital deployed to high-potential youth- and women-led MSMEs with proven commercial traction and scalability.",
+      "Provides equity and quasi-equity financing to growth-oriented businesses, directly or through fund managers, helping them access the patient capital needed to expand operations and scale sustainably.",
     ctaText: "Apply for Equity Funding",
     ctaHref: "/apply",
     imageSrc: "/images/sector-agnostic-audiences.png",
@@ -27,7 +27,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
     id: "credit-guarantee-fund",
     title: "Credit Guarantee Fund",
     description:
-      "Risk-sharing mechanisms and partial credit guarantees that unlock debt financing from commercial banks and microfinance institutions.",
+      "Provides risk-sharing guarantees to participating financial institutions, helping reduce lending risks and encourage greater access to finance for eligible youth- and women-led businesses.",
     ctaText: "Explore Credit Guarantees",
     ctaHref: "/apply",
     imageSrc: "/images/credit-guarantee-fund.jpg",
@@ -36,7 +36,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
     id: "ecosystem-fund",
     title: "Ecosystem Development Fund",
     description:
-      "Targeted technical assistance, investor readiness programs, governance training, and digital enablement across partner hubs.",
+      "Supports business development services, capacity-building and ecosystem initiatives that help entrepreneurs strengthen their operations, improve investment readiness and unlock growth opportunities.",
     ctaText: "Explore Ecosystem Support",
     ctaHref: "/apply",
     imageSrc: "/images/ecosystem-development-fund.jpg",
@@ -176,6 +176,11 @@ export function SectorAgnosticAudiencesSection() {
                 <div
                   key={fund.id}
                   onClick={() => setActiveIndex(idx)}
+                  onMouseEnter={() => {
+                    setActiveIndex(idx);
+                    setIsPaused(true);
+                  }}
+                  onMouseLeave={() => setIsPaused(false)}
                   role="tab"
                   aria-selected={isActive}
                   tabIndex={0}
@@ -215,6 +220,16 @@ export function SectorAgnosticAudiencesSection() {
                     </div>
                   ) : (
                     <div className="mt-3 relative w-full h-[1px] bg-transparent" />
+                  )}
+
+                  {/* Active / Hovered Expanded Context Description */}
+                  {isActive && (
+                    <p
+                      className="text-[14px] sm:text-[15px] lg:text-[15.5px] leading-[1.58] text-[#003124]/80 mt-2.5 max-w-[500px] animate-in fade-in slide-in-from-top-1 duration-200"
+                      style={{ fontFamily: "var(--font-body, sans-serif)" }}
+                    >
+                      {fund.description}
+                    </p>
                   )}
                 </div>
               );

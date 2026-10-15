@@ -31,7 +31,8 @@ export const PARTNERS_WAYS_CONFIG = {
       id: "01",
       number: "01",
       title: "Equity Investment Fund",
-      description: "",
+      description:
+        "Provides equity and quasi-equity financing to growth-oriented businesses, directly or through fund managers, helping them access the patient capital needed to expand operations and scale sustainably.",
       chips: [],
       shape: "capital" as PillarShape,
     },
@@ -39,7 +40,8 @@ export const PARTNERS_WAYS_CONFIG = {
       id: "02",
       number: "02",
       title: "Credit Guarantee Facility",
-      description: "",
+      description:
+        "Provides risk-sharing guarantees to participating financial institutions, helping reduce lending risks and encourage greater access to finance for eligible youth- and women-led businesses.",
       chips: [],
       shape: "growth" as PillarShape,
     },
@@ -47,7 +49,8 @@ export const PARTNERS_WAYS_CONFIG = {
       id: "03",
       number: "03",
       title: "Ecosystem Development Fund",
-      description: "",
+      description:
+        "Supports business development services, capacity-building and ecosystem initiatives that help entrepreneurs strengthen their operations, improve investment readiness and unlock growth opportunities.",
       chips: [],
       shape: "ecosystem" as PillarShape,
     },

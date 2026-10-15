@@ -26,7 +26,7 @@ const PARTNER_PATHWAY_DATA: PartnerPathwayItem[] = [
     number: "02",
     title: "Institutionally anchored. Professionally structured.",
     description:
-      "Anchored by NSIA, DBN, and AfDB with dedicated governance, commercial rigor, and robust risk management.",
+      "Sponsored by the Federal Government through the Federal Ministry of Finance / MOFI, and anchored by NSIA, DBN, and AfDB with dedicated governance and commercial rigor.",
     imageSrc: "/images/banks-and-financial-institutions.jpg",
   },
 ];

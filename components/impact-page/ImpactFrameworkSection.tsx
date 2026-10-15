@@ -35,6 +35,20 @@ const FRAMEWORK_CARDS: FrameworkCard[] = [
     description:
       "We monitor financial, portfolio, liquidity, macroeconomic, reputational and ESG risks across the Funds.",
   },
+  {
+    id: "accountability",
+    name: "Accountability",
+    question: "Tracking progress as we grow.",
+    description:
+      "As capital is deployed, we will monitor performance against our impact framework and use what we learn to strengthen implementation over time.",
+  },
+  {
+    id: "catalytic-effect",
+    name: "Catalytic Effect",
+    question: "Crowding in private capital at scale.",
+    description:
+      "By de-risking high-potential youth- and women-led enterprises, NYEIB mobilises commercial lending, private co-investment, and institutional capital at scale.",
+  },
 ];
 
 export function ImpactFrameworkSection() {
@@ -92,8 +106,10 @@ export function ImpactFrameworkSection() {
         </div>
 
         {/* =========================================================================
-            BOTTOM AREA: Figma Stat Flip Framework Cards + 4th Accountability Card
-            On desktop, 3 cards fill row 1; 4th card falls under to row 2.
+            BOTTOM AREA: Figma Stat Flip Framework Cards
+            All 5 cards are flippable with front stat title and back question/details.
+            Row 1: Impact, Additionality, Risk
+            Row 2: Accountability, Catalytic Effect
             ========================================================================= */}
         <Parallax speed={24} className="w-full">
           <div
@@ -104,37 +120,33 @@ export function ImpactFrameworkSection() {
                 : "opacity-0 translate-y-[22px] motion-reduce:opacity-100 motion-reduce:translate-y-0"
             }`}
           >
-            {/* Top 3 Flippable Framework Cards */}
-            {FRAMEWORK_CARDS.map((card) => (
-              <StatFlipCard
-                key={card.id}
-                variant="style1"
-                frontStat={card.name}
-                frontStatClassName="text-[38px] sm:text-[44px] lg:text-[48px] xl:text-[52px] leading-[1.08] tracking-tight font-bold"
-                backStat={card.name}
-                backStatClassName="text-[28px] sm:text-[32px] lg:text-[36px] font-bold leading-[1.12]"
-                backTitle={card.question}
-                backTitleClassName="font-semibold text-[16px] sm:text-[17.5px] leading-[1.35] text-[#00BE93]"
-                backDescription={card.description}
-                backDescriptionClassName="text-[14.5px] sm:text-[15.5px] leading-[1.6] text-white/90"
-                backItems={[]}
-                className="w-full md:w-[calc(33.333%-14px)] lg:w-[calc(33.333%-16px)] max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
-              />
-            ))}
-
-            {/* 4th Card: Accountability (Falls under on desktop, front-only without flip) */}
-            <StatFlipCard
-              key="accountability"
-              variant="style1"
-              frontStat="Accountability"
-              frontStatClassName="text-[34px] sm:text-[38px] lg:text-[42px] xl:text-[46px] leading-[1.1] tracking-tight font-bold"
-              frontTitle="Tracking progress as we grow."
-              frontTitleClassName="font-semibold text-[17px] sm:text-[18.5px] leading-[1.3] text-[#003124] pt-0.5"
-              frontDescription="As capital is deployed, we will monitor performance against our impact framework and use what we learn to strengthen implementation over time."
-              frontDescriptionClassName="text-[14px] sm:text-[15px] leading-[1.55] text-[#2b3d36] pt-0.5"
-              disableFlip={true}
-              className="w-full md:w-[calc(33.333%-14px)] lg:w-[calc(33.333%-16px)] max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
-            />
+            {FRAMEWORK_CARDS.map((card) => {
+              const isLongTitle = card.name.length > 12;
+              return (
+                <StatFlipCard
+                  key={card.id}
+                  variant="style1"
+                  frontStat={card.name}
+                  frontStatClassName={
+                    isLongTitle
+                      ? "text-[32px] sm:text-[38px] lg:text-[42px] xl:text-[46px] leading-[1.08] tracking-tight font-bold"
+                      : "text-[38px] sm:text-[44px] lg:text-[48px] xl:text-[52px] leading-[1.08] tracking-tight font-bold"
+                  }
+                  backStat={card.name}
+                  backStatClassName={
+                    isLongTitle
+                      ? "text-[26px] sm:text-[30px] lg:text-[32px] font-bold leading-[1.12]"
+                      : "text-[28px] sm:text-[32px] lg:text-[36px] font-bold leading-[1.12]"
+                  }
+                  backTitle={card.question}
+                  backTitleClassName="font-semibold text-[16px] sm:text-[17.5px] leading-[1.35] text-[#00BE93]"
+                  backDescription={card.description}
+                  backDescriptionClassName="text-[14.5px] sm:text-[15.5px] leading-[1.6] text-white/90"
+                  backItems={[]}
+                  className="w-full md:w-[calc(33.333%-14px)] lg:w-[calc(33.333%-16px)] max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px]"
+                />
+              );
+            })}
           </div>
         </Parallax>
       </div>

@@ -176,6 +176,12 @@ We monitor financial, portfolio, liquidity, macroeconomic, reputational and ESG 
 
 As capital is deployed, we will monitor performance against our impact framework and use what we learn to strengthen implementation over time.
 
+### **Catalytic Effect**
+
+**Crowding in private capital at scale.**
+
+By de-risking high-potential youth- and women-led enterprises, NYEIB mobilises commercial lending, private co-investment, and institutional capital at scale.
+
 ### **Closing CTA**
 
 **Build growth. Create impact.**
@@ -228,13 +234,13 @@ An in-country sponsor and shareholder, with the credit-guarantee mechanism struc
 
 **African Development Bank (AfDB)**
 
-A key institutional partner supporting the establishment of NYEIB, including the sovereign financing underpinning its initial capitalisation.
+A key institutional partner supporting the establishment of NYEIB, with sovereign financing channeled through the Federal Government of Nigeria via the Federal Ministry of Finance / MOFI.
 
 ### **Broader Institutional Framework**
 
 **Supported by a wider public and regulatory ecosystem.**
 
-NYEIB operates within a broader institutional framework involving relevant government, regulatory and public-sector stakeholders.
+NYEIB operates within a national institutional architecture championed by the Federal Government of Nigeria in partnership with the Federal Ministry of Finance and Ministry of Finance Incorporated (MOFI).
 
 ### **Closing CTA**
 
@@ -330,7 +336,7 @@ For fund managers interested in investment, co-investment or other partnership o
 
 ### **Banks & Licensed Lenders**
 
-For banks, microfinance banks and other licensed lenders interested in risk-sharing arrangements that can help expand lending to eligible businesses.
+For banks, microfinance banks and other licensed lenders interested in risk-sharing arrangements that can help expand lending to eligible businesses. *(All partner applications will be processed and passed through Impact Credit Guarantee Limited - ICGL).*
 
 **CTA: Explore Partnership**
 

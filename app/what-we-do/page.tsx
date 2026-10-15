@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
-import { NigeriaPhotoMap } from "@/components/map/NigeriaPhotoMap";
-import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
+import { PurposeSection } from "@/components/purpose/PurposeSection";
+import { BuiltToExpandAccessSection } from "@/components/what-we-do/BuiltToExpandAccessSection";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
 import { ImpactSection } from "@/components/impact/ImpactSection";
+import { WHAT_WE_DO_GOVERNANCE_CONFIG } from "@/components/governance/config";
 import { CtaCard } from "@/components/cta/CtaCard";
 import { CTA_CONTENT } from "@/src/content/cta";
 
@@ -16,22 +17,22 @@ export const metadata: Metadata = {
 export default function WhatWeDoPage() {
   return (
     <main className="w-full bg-[#003124] flex flex-col">
-      {/* Inner Page Hero */}
+      {/* 1. Hero */}
       <InnerHero slug="what-we-do" />
 
-      {/* Interactive Nigeria Photo Map Purpose Section */}
-      <NigeriaPhotoMap />
+      {/* 2. Problem / Purpose: Cinematic Ambition Video Section */}
+      <PurposeSection />
 
-      {/* Sector Agnostic Growth Focused Funds Showcase */}
-      <SectorAgnosticAudiencesSection />
+      {/* 3. What Makes NYEIB Different? (Built to expand access for sustainable growth: 4 Flip Cards) */}
+      <BuiltToExpandAccessSection />
 
-      {/* Governance Section */}
-      <GovernanceSection />
+      {/* 4. Institutional Relationships */}
+      <GovernanceSection config={WHAT_WE_DO_GOVERNANCE_CONFIG} />
 
-      {/* Impact Section */}
+      {/* 5. Impact (Designed to create measurable economic impact) */}
       <ImpactSection />
 
-      {/* Closing CTA */}
+      {/* 6. Closing CTA */}
       <CtaCard {...CTA_CONTENT.whatWeDo} />
     </main>
   );

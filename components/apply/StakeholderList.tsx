@@ -30,6 +30,7 @@ const STAKEHOLDERS: StakeholderItem[] = [
     subtitle: "Expanding access to finance through risk-sharing.",
     paragraphs: [
       "For commercial banks, microfinance banks and other licensed lenders interested in partnerships that can help manage lending risks and expand financing opportunities for eligible youth-led businesses.",
+      "Please note that all applications will be processed and passed through Impact Credit Guarantee Limited (ICGL).",
     ],
     slug: "banks-lenders",
   },

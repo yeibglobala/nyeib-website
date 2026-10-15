@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
 import { Parallax } from "@/shared/components/Parallax";
 import { PartnerCard } from "@/components/governance/PartnerCard";
+import { FederalGovernmentCard } from "@/components/governance/FederalGovernmentCard";
 
 interface InstitutionalPartner {
   id: string;
@@ -12,6 +13,19 @@ interface InstitutionalPartner {
   logoPath: string;
   description: string;
 }
+
+const FEDERAL_GOVERNMENT_DATA = {
+  id: "fgn-mofi",
+  name: "Federal Government of Nigeria (Federal Ministry of Finance / MOFI)",
+  shortName: "FGN / MOFI",
+  tag: "SOVEREIGN SPONSORSHIP & POLICY MANDATE",
+  coatOfArmPath: "/partner-logo/coat-of-arm-logo.png",
+  mofiLogoPath: "/partner-logo/mofi-logo.png",
+  title: "Federal Government of Nigeria",
+  subtitle: "Federal Ministry of Finance / Ministry of Finance Incorporated (MOFI)",
+  description:
+    "Providing sovereign sponsorship, policy direction and anchor oversight in partnership with the Federal Ministry of Finance and Ministry of Finance Incorporated (MOFI) to establish and steer the NYEIB initiative.",
+};
 
 const INSTITUTIONAL_PARTNERS: InstitutionalPartner[] = [
   {
@@ -35,7 +49,7 @@ const INSTITUTIONAL_PARTNERS: InstitutionalPartner[] = [
     fullName: "African Development Bank",
     logoPath: "/partner-logo/afdb-logo.png",
     description:
-      "A key institutional partner supporting the establishment of NYEIB, including the sovereign financing underpinning its initial capitalisation.",
+      "A key multilateral partner supporting the establishment of NYEIB, with sovereign financing channeled through the Federal Government of Nigeria via the Federal Ministry of Finance / MOFI.",
   },
 ];
 
@@ -50,9 +64,13 @@ export function PartnerInstitutionalGovernanceSection() {
       className="relative w-full bg-[#003124] text-[#eef6f2] py-[clamp(72px,9vw,130px)] px-6 sm:px-10 lg:px-16 overflow-hidden border-t border-[rgba(238,246,242,0.08)]"
     >
       <div className="max-w-[1400px] w-full mx-auto flex flex-col space-y-14 sm:space-y-16">
-        {/* 3 Partner Cards Grid */}
+        {/* Partner Cards Grid: Top Federal Government Card + 3 In-country & Multilateral Partners */}
         <Parallax speed={20} className="w-full">
           <div className="grid grid-cols-1 min-[700px]:grid-cols-3 gap-5 sm:gap-6 w-full">
+            {/* Top Anchor: Federal Government of Nigeria & MOFI */}
+            <FederalGovernmentCard data={FEDERAL_GOVERNMENT_DATA} />
+
+            {/* 3 Columns Row: NSIA, DBN, AfDB */}
             {INSTITUTIONAL_PARTNERS.map((partner) => (
               <PartnerCard
                 key={partner.id}
@@ -72,10 +90,10 @@ export function PartnerInstitutionalGovernanceSection() {
           </div>
         </Parallax>
 
-        {/* Broader Institutional Framework & Disclaimer (Exact MD copy) */}
+        {/* Broader Institutional Framework & Disclaimer */}
         <div className="flex flex-col space-y-8 pt-4 border-t border-[rgba(238,246,242,0.12)]">
           {/* Broader Institutional Framework */}
-          <div className="flex flex-col space-y-2 max-w-3xl">
+          <div className="flex flex-col space-y-3 max-w-4xl">
             <HeaderReveal delay={0} duration={850} mask={false}>
               <h3
                 className="text-[clamp(1.25rem,2vw,1.6rem)] font-bold text-[#eef6f2] m-0"
@@ -89,8 +107,11 @@ export function PartnerInstitutionalGovernanceSection() {
                 className="text-[14.5px] sm:text-[15.5px] leading-[1.65] text-[#a9c2b8] m-0"
                 style={{ fontFamily: "var(--font-body)" }}
               >
-                NYEIB operates within a broader institutional framework involving relevant
-                government, regulatory and public-sector stakeholders.
+                NYEIB operates within a national institutional architecture championed by the Federal
+                Government of Nigeria. Sovereign financing committed by the African Development Bank
+                (AfDB) is structured in direct collaboration with the Federal Ministry of Finance and
+                Ministry of Finance Incorporated (MOFI), ensuring strategic alignment with national economic
+                priorities, transparency, and multilateral accountability across all funds.
               </p>
             </HeaderReveal>
           </div>

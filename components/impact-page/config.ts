@@ -41,5 +41,14 @@ export const IMPACT_MEASUREMENT_FRAMEWORK_CONFIG = {
       description:
         "We monitor financial, portfolio, liquidity, macroeconomic, reputational and ESG risks across the Funds.",
     },
+    {
+      id: "catalytic-effect",
+      name: "Catalytic Effect",
+      shortName: "CATALYTIC EFFECT",
+      logoPath: "/brand/logo-white.png",
+      question: "How has YEIB helped crowd in private and institutional capital?",
+      description:
+        "By de-risking high-potential youth- and women-led enterprises, NYEIB mobilises commercial lending, private co-investment, and institutional capital at scale.",
+    },
   ],
 };

@@ -18,7 +18,7 @@ const FUNDS_DATA: FundItem[] = [
     id: "equity",
     title: "Equity Investment Fund",
     shortDescription:
-      "Direct equity and quasi-equity capital deployed to high-potential youth- and women-led MSMEs with proven commercial traction and scalability.",
+      "Provides equity and quasi-equity financing to growth-oriented businesses, directly or through fund managers, helping them access the patient capital needed to expand operations and scale sustainably.",
     focus: "Growth capital, strategic governance, balance-sheet strengthening",
     href: "/apply",
   },
@@ -26,7 +26,7 @@ const FUNDS_DATA: FundItem[] = [
     id: "credit",
     title: "Credit Guarantee Fund",
     shortDescription:
-      "Risk-sharing mechanisms and partial credit guarantees that unlock debt financing from commercial banks and microfinance institutions.",
+      "Provides risk-sharing guarantees to participating financial institutions, helping reduce lending risks and encourage greater access to finance for eligible youth- and women-led businesses.",
     focus: "De-risking commercial lending, collateral alleviation, lower interest barriers",
     href: "/apply",
   },
@@ -34,7 +34,7 @@ const FUNDS_DATA: FundItem[] = [
     id: "ecosystem",
     title: "Ecosystem Development Fund",
     shortDescription:
-      "Targeted technical assistance, investor readiness programs, governance training, and digital enablement across partner hubs.",
+      "Supports business development services, capacity-building and ecosystem initiatives that help entrepreneurs strengthen their operations, improve investment readiness and unlock growth opportunities.",
     focus: "Capacity building, regulatory compliance, operational resilience",
     href: "/apply",
   },

@@ -21,7 +21,7 @@ const CAPITAL_CARDS: CapitalMobilisationCardData[] = [
     backStat: "US$300 million",
     backTitle: "Catalytic Blended Model",
     backItems: [
-      "Concessional Base (AfDB)",
+      "Concessional Base (AfDB via Federal Ministry of Finance / MOFI)",
       "Private Multiplier",
       "Nationwide Deployment",
     ],
@@ -29,9 +29,9 @@ const CAPITAL_CARDS: CapitalMobilisationCardData[] = [
   {
     frontStat: "US$100 million",
     frontTitle: "Initial sovereign financing from the African Development Bank",
-    frontDescription: "Anchor sovereign financing committed through the African Development Bank.",
+    frontDescription: "Anchor sovereign financing committed by the African Development Bank through the Federal Ministry of Finance / MOFI.",
     backStat: "US$100 million",
-    backTitle: "Initial sovereign financing from the African Development Bank",
+    backTitle: "Initial sovereign financing from the African Development Bank (via Federal Ministry of Finance / MOFI)",
     backItems: [
       "Equity",
       "Guarantees",
