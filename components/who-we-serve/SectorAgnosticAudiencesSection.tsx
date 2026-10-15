@@ -21,7 +21,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
       "Provides equity and quasi-equity financing to growth-oriented businesses, directly or through fund managers, helping them access the patient capital needed to expand operations and scale sustainably.",
     ctaText: "Apply for Equity Funding",
     ctaHref: "/apply",
-    imageSrc: "/images/sector-agnostic-audiences.png",
+    imageSrc: "/images/equity-Investment-fund.jpg",
   },
   {
     id: "credit-guarantee-fund",
@@ -30,7 +30,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
       "Provides risk-sharing guarantees to participating financial institutions, helping reduce lending risks and encourage greater access to finance for eligible youth- and women-led businesses.",
     ctaText: "Explore Credit Guarantees",
     ctaHref: "/apply",
-    imageSrc: "/images/credit-guarantee-fund.jpg",
+    imageSrc: "/images/Credit-guarantee-fund.jpg",
   },
   {
     id: "ecosystem-fund",
