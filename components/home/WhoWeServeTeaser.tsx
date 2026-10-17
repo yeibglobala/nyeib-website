@@ -22,7 +22,7 @@ const AUDIENCE_ITEMS: AudienceItem[] = [
     description:
       "We support growth-oriented businesses with access to capital, capacity-building support and wider ecosystem opportunities that can help them strengthen and scale.",
     imageSrc: "/images/youth-and-women-led.jpg",
-    ctaText: "Apply for Funding",
+    ctaText: "Grow with NYEIB",
     ctaHref: "/apply",
   },
   {
@@ -31,7 +31,7 @@ const AUDIENCE_ITEMS: AudienceItem[] = [
     description:
       "We work with commercial banks, microfinance institutions and development financiers through risk-sharing mechanisms designed to expand lending to eligible youth- and women-led enterprises.",
     imageSrc: "/images/banks-and-financial-institutions.jpg",
-    ctaText: "Apply for Funding",
+    ctaText: "Partner with NYEIB",
     ctaHref: "/apply",
   },
   {
@@ -40,7 +40,7 @@ const AUDIENCE_ITEMS: AudienceItem[] = [
     description:
       "We provide institutional investors, development finance institutions, foundations and global partners with structured opportunities to co-invest alongside a professionally governed platform.",
     imageSrc: "/images/Institutional-investors-and-development-partners.jpg",
-    ctaText: "Apply for Funding",
+    ctaText: "Explore Partnership Opportunities",
     ctaHref: "/apply",
   },
 ];
