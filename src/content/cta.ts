@@ -18,6 +18,12 @@ export const CTA_CONTENT = {
     buttonLabel: "Partner with NYEIB",
     href: "/apply",
   },
+  whoWeServe: {
+    headline: "Different roles with one connected ecosystem.",
+    text: "Whether you are building a growth-oriented business, deploying capital or strengthening Nigeria’s entrepreneurial ecosystem, there is a pathway to work with NYEIB.",
+    buttonLabel: "Partner with NYEIB",
+    href: "/apply",
+  },
   impact: {
     headline: "Build growth. Create impact.",
     text: "Whether you are growing a business or deploying capital, NYEIB offers a pathway to participate in measurable economic progress.",

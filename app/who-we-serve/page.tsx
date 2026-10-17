@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
-import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
 import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
-import { GovernanceSection } from "@/components/governance/GovernanceSection";
+import { CtaCard } from "@/components/cta/CtaCard";
+import { CTA_CONTENT } from "@/src/content/cta";
 
 export const metadata: Metadata = {
   title: "Who We Serve — Nigeria YEIB Investment Funds",
@@ -16,14 +16,11 @@ export default function WhoWeServePage() {
       {/* Inner Hero */}
       <InnerHero slug="who-we-serve" />
 
-      {/* Interactive Sector Agnostic Audiences Showcase */}
-      <SectorAgnosticAudiencesSection />
-
       {/* Interactive Who We Serve Swiper Showcase */}
       <WhoWeServeTeaser />
 
-      {/* Institutional Framework */}
-      <GovernanceSection />
+      {/* Closing CTA */}
+      <CtaCard {...CTA_CONTENT.whoWeServe} />
     </main>
   );
 }
