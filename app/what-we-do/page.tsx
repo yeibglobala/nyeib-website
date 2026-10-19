@@ -3,7 +3,6 @@ import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { PurposeSection } from "@/components/purpose/PurposeSection";
 import { BuiltToExpandAccessSection } from "@/components/what-we-do/BuiltToExpandAccessSection";
 import { GovernanceSection } from "@/components/governance/GovernanceSection";
-import { ImpactSection } from "@/components/impact/ImpactSection";
 import { WHAT_WE_DO_GOVERNANCE_CONFIG } from "@/components/governance/config";
 import { CtaCard } from "@/components/cta/CtaCard";
 import { CTA_CONTENT } from "@/src/content/cta";
@@ -29,10 +28,7 @@ export default function WhatWeDoPage() {
       {/* 4. Institutional Relationships */}
       <GovernanceSection config={WHAT_WE_DO_GOVERNANCE_CONFIG} />
 
-      {/* 5. Impact (Designed to create measurable economic impact) */}
-      <ImpactSection />
-
-      {/* 6. Closing CTA */}
+      {/* 5. Closing CTA */}
       <CtaCard {...CTA_CONTENT.whatWeDo} />
     </main>
   );
