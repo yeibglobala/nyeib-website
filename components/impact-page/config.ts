@@ -46,9 +46,9 @@ export const IMPACT_MEASUREMENT_FRAMEWORK_CONFIG = {
       name: "Catalytic Effect",
       shortName: "CATALYTIC EFFECT",
       logoPath: "/brand/logo-white.png",
-      question: "How has YEIB helped crowd in private and institutional capital?",
+      question: "Attracting more private capital to youth- and women-led businesses.",
       description:
-        "By de-risking high-potential youth- and women-led enterprises, NYEIB mobilises commercial lending, private co-investment, and institutional capital at scale.",
+        "We assess how NYEIB helps crowd in additional private capital by reducing investment risks, strengthening investor confidence and encouraging greater private-sector participation in financing youth- and women-led businesses.",
     },
   ],
 };

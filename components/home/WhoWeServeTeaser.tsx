@@ -21,7 +21,7 @@ const AUDIENCE_ITEMS: AudienceItem[] = [
     title: "Youth- and women-led businesses:",
     description:
       "We support growth-oriented businesses with access to capital, capacity-building support and wider ecosystem opportunities that can help them strengthen and scale.",
-    imageSrc: "/images/youth-and-women-led.jpg",
+    imageSrc: "/images/youth-and-wome led-businesses.jpg",
     ctaText: "Grow with NYEIB",
     ctaHref: "/apply",
   },

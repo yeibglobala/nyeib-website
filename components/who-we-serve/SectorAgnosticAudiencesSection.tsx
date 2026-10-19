@@ -21,7 +21,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
       "Provides equity and quasi-equity financing to growth-oriented businesses, directly or through fund managers, helping them access the patient capital needed to expand operations and scale sustainably.",
     ctaText: "Apply for Equity Funding",
     ctaHref: "/apply",
-    imageSrc: "/images/equity-Investment-fund.jpg",
+    imageSrc: "/images/equity-invesment-fund.jpg",
   },
   {
     id: "credit-guarantee-fund",
@@ -39,7 +39,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
       "Supports business development services, capacity-building and ecosystem initiatives that help entrepreneurs strengthen their operations, improve investment readiness and unlock growth opportunities.",
     ctaText: "Explore Ecosystem Support",
     ctaHref: "/apply",
-    imageSrc: "/images/ecosystem-development-fund.jpg",
+    imageSrc: "/images/ecosystem-development-fun.jpg",
   },
 ];
 

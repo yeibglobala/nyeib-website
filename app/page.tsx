@@ -3,6 +3,7 @@ import { ParticleStoryHero } from "@/components/hero/ParticleStoryHero";
 import { LogoMarquee } from "@/components/home/LogoMarquee";
 import { InstitutionalCredibilitySection } from "@/components/home/InstitutionalCredibilitySection";
 import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
+import { TargetAudienceSection } from "@/components/home/TargetAudienceSection";
 import { SectorAgnosticAudiencesSection } from "@/components/who-we-serve/SectorAgnosticAudiencesSection";
 import { CapitalMobilisation } from "@/components/home/CapitalMobilisation";
 import { ImpactSection } from "@/components/impact/ImpactSection";
@@ -24,6 +25,9 @@ export default function HomePage() {
 
         {/* Who We Serve Overview & Pathways Teaser */}
         <WhoWeServeTeaser />
+
+        {/* Built for Growth-Oriented Businesses - Target Audience Card Marquee */}
+        <TargetAudienceSection />
 
         {/* A Blended Platform for Capital and Growth (Sector Agnostic Growth Focused) */}
         <SectorAgnosticAudiencesSection />

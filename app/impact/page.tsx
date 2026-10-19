@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
-import { ImpactSection } from "@/components/impact/ImpactSection";
+import { ImpactTargetsBentoSection } from "@/components/impact-page/ImpactTargetsBentoSection";
 import { ImpactFrameworkSection } from "@/components/impact-page/ImpactFrameworkSection";
 import { EsgPartnershipsSection } from "@/components/esg/EsgPartnershipsSection";
 import { CtaCard } from "@/components/cta/CtaCard";
@@ -21,8 +21,8 @@ export default function ImpactPage() {
       {/* How We Measure Impact (Color-Coded Impact, Additionality, Risk 3-Card Framework + Accountability) */}
       <ImpactFrameworkSection />
 
-      {/* 20-Year Target Metrics (Pinned Dial Stage) */}
-      <ImpactSection />
+      {/* Our 20-Year Targets (Sovereign Bento Grid) */}
+      <ImpactTargetsBentoSection />
 
       {/* Working together for sustainable growth (Partnerships Collaboration Showcase) */}
       <EsgPartnershipsSection />

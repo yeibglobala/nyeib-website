@@ -33,7 +33,7 @@ export function FederalGovernmentCard({ data }: FederalGovernmentCardProps) {
       onBlur={() => setIsHovered(false)}
       className="group relative col-span-1 min-[700px]:col-span-3 w-full cursor-default select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F2FBF6]"
     >
-      <div className="relative w-full rounded-[22px] overflow-hidden bg-[#F2FBF6] border border-[rgba(0,49,36,0.16)] transition-[box-shadow,transform] duration-300 group-hover:shadow-[0_14px_36px_rgba(0,49,36,0.12)] group-hover:-translate-y-1 will-change-transform p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-6 sm:gap-8">
+      <div className="relative w-full rounded-[22px] overflow-hidden bg-[#F2FBF6] border border-[rgba(0,49,36,0.16)] p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-6 sm:gap-8">
         {/* Top bar: Logos & Badge */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[rgba(0,49,36,0.12)] pb-6">
           {/* Official Sovereign Logos */}

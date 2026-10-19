@@ -45,9 +45,9 @@ const FRAMEWORK_CARDS: FrameworkCard[] = [
   {
     id: "catalytic-effect",
     name: "Catalytic Effect",
-    question: "Crowding in private capital at scale.",
+    question: "Attracting more private capital to youth- and women-led businesses.",
     description:
-      "By de-risking high-potential youth- and women-led enterprises, NYEIB mobilises commercial lending, private co-investment, and institutional capital at scale.",
+      "We assess how NYEIB helps crowd in additional private capital by reducing investment risks, strengthening investor confidence and encouraging greater private-sector participation in financing youth- and women-led businesses.",
   },
 ];
 
