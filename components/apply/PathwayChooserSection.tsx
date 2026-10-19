@@ -53,38 +53,28 @@ export function PathwayChooserSection() {
             href="/apply/business"
             prefetch={true}
             aria-label="Apply for Business Support"
-            className="group block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] rounded-[26px]"
+            className="group relative block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] rounded-[26px] transition-transform duration-300 hover:-translate-y-1.5"
           >
             <StatFlipCard
               variant="style1"
               disableFlip={true}
               flipHint={null}
               frontBg="bg-[#F2FBF6] border border-[#003124]/10"
-              className="!max-w-none w-full !h-full min-h-[500px] sm:min-h-[520px] lg:min-h-[540px] cursor-pointer transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_24px_50px_rgba(0,190,147,0.18)]"
-              frontBadge={
-                <div className="flex flex-col items-start gap-2.5">
-                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border border-[#00BE93]/40 text-[#008f6e] bg-[#00BE93]/10 text-[0.78rem] sm:text-[0.82rem] font-semibold tracking-wide">
-                    For Entrepreneurs & Businesses
-                  </span>
-                  <span className="font-mono text-[0.8rem] tracking-wider text-[#003124]/60 uppercase">
-                    Pathway 1
-                  </span>
-                </div>
-              }
+              className="!max-w-none w-full !h-full min-h-[480px] sm:min-h-[500px] lg:min-h-[520px] cursor-pointer transition-shadow duration-300 group-hover:shadow-[0_24px_50px_rgba(0,190,147,0.18)]"
               frontStat="Apply for Business Support"
-              frontStatClassName="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-bold text-[#003124] leading-[1.15] tracking-tight group-hover:text-[#008f6e] transition-colors"
+              frontStatClassName="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-bold text-[#003124] leading-[1.15] tracking-tight group-hover:text-[#008f6e] transition-colors"
               frontTitle="Building a business with room to grow?"
-              frontTitleClassName="!max-w-xl text-[1.05rem] sm:text-[1.12rem] font-semibold text-[#003124] leading-snug pt-1"
+              frontTitleClassName="!max-w-xl text-[1.05rem] sm:text-[1.15rem] font-semibold text-[#003124] leading-snug pt-1"
               frontDescription="NYEIB supports growth-oriented businesses connected to Nigerian youth and women, with a focus on creating jobs and building stronger, more investable enterprises."
-              frontDescriptionClassName="!max-w-xl text-[0.95rem] sm:text-[1rem] text-[#003124]/80 leading-relaxed font-normal pt-1"
-              frontChildren={
-                <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20">
-                  <div className="w-12 h-12 rounded-full border border-white/50 bg-white/90 text-[#003124] flex items-center justify-center transition-all duration-300 group-hover:bg-[#00BE93] group-hover:border-[#00BE93] group-hover:text-white shadow-md">
-                    <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </div>
-                </div>
-              }
+              frontDescriptionClassName="!max-w-[460px] text-[0.95rem] sm:text-[1.02rem] text-[#003124]/80 leading-relaxed font-normal pt-1.5"
             />
+
+            {/* Bottom-right floating action arrow */}
+            <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-30 pointer-events-none">
+              <div className="w-12 h-12 rounded-full border border-white/50 bg-white/90 text-[#003124] flex items-center justify-center transition-all duration-300 group-hover:bg-[#00BE93] group-hover:border-[#00BE93] group-hover:text-white shadow-md">
+                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </div>
+            </div>
           </Link>
 
           {/* ================= CARD 2: Partner With NYEIB (Orange Style) ================= */}
@@ -92,7 +82,7 @@ export function PathwayChooserSection() {
             href="/apply/partner"
             prefetch={true}
             aria-label="Partner With NYEIB"
-            className="group block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] rounded-[26px]"
+            className="group relative block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] rounded-[26px] transition-transform duration-300 hover:-translate-y-1.5"
           >
             <StatFlipCard
               variant="style1"
@@ -100,31 +90,21 @@ export function PathwayChooserSection() {
               flipHint={null}
               customWave={<OrangeCardWave />}
               frontBg="bg-[#F2FBF6] border border-[#003124]/10"
-              className="!max-w-none w-full !h-full min-h-[500px] sm:min-h-[520px] lg:min-h-[540px] cursor-pointer transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_24px_50px_rgba(248,132,4,0.18)]"
-              frontBadge={
-                <div className="flex flex-col items-start gap-2.5">
-                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border border-[#F88404]/40 text-[#c26200] bg-[#F88404]/10 text-[0.78rem] sm:text-[0.82rem] font-semibold tracking-wide">
-                    For Institutions & Ecosystem Partners
-                  </span>
-                  <span className="font-mono text-[0.8rem] tracking-wider text-[#003124]/60 uppercase">
-                    Pathway 2
-                  </span>
-                </div>
-              }
+              className="!max-w-none w-full !h-full min-h-[480px] sm:min-h-[500px] lg:min-h-[520px] cursor-pointer transition-shadow duration-300 group-hover:shadow-[0_24px_50px_rgba(248,132,4,0.18)]"
               frontStat="Partner With NYEIB"
-              frontStatClassName="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-bold text-[#003124] leading-[1.15] tracking-tight group-hover:text-[#F88404] transition-colors"
+              frontStatClassName="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-bold text-[#F88404] leading-[1.15] tracking-tight group-hover:text-[#cf6900] transition-colors"
               frontTitle="Explore opportunities to invest, collaborate and support business growth."
-              frontTitleClassName="!max-w-xl text-[1.05rem] sm:text-[1.12rem] font-semibold text-[#003124] leading-snug pt-1"
+              frontTitleClassName="!max-w-xl text-[1.05rem] sm:text-[1.15rem] font-semibold text-[#003124] leading-snug pt-1"
               frontDescription="NYEIB works with financial institutions, fund managers, investors, development partners and ecosystem organisations to help expand access to capital, reduce financing barriers and strengthen Nigeria's entrepreneurial ecosystem."
-              frontDescriptionClassName="!max-w-xl text-[0.95rem] sm:text-[1rem] text-[#003124]/80 leading-relaxed font-normal pt-1"
-              frontChildren={
-                <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20">
-                  <div className="w-12 h-12 rounded-full border border-white/50 bg-white/90 text-[#003124] flex items-center justify-center transition-all duration-300 group-hover:bg-[#F88404] group-hover:border-[#F88404] group-hover:text-white shadow-md">
-                    <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </div>
-                </div>
-              }
+              frontDescriptionClassName="!max-w-[460px] text-[0.95rem] sm:text-[1.02rem] text-[#003124]/80 leading-relaxed font-normal pt-1.5"
             />
+
+            {/* Bottom-right floating action arrow */}
+            <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-30 pointer-events-none">
+              <div className="w-12 h-12 rounded-full border border-white/50 bg-white/90 text-[#003124] flex items-center justify-center transition-all duration-300 group-hover:bg-[#F88404] group-hover:border-[#F88404] group-hover:text-white shadow-md">
+                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </div>
+            </div>
           </Link>
         </div>
       </div>
