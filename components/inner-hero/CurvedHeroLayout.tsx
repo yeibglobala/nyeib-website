@@ -48,7 +48,7 @@ export interface CurvedHeroLayoutProps {
 
   /**
    * Background photograph source for desktop.
-   * Default: "/images/african-american-man-woman-home-office-analyzes-online-business-trends.jpg"
+   * Default: "/images/heroes/what-we-do-desktop.webp"
    */
   imageSrc?: string;
 
@@ -121,9 +121,10 @@ export function CurvedHeroLayout({
   const titleSuffix = customTitleSuffix ?? data?.titleSuffix ?? (data ? undefined : " for investable businesses.");
   const headline = customHeadline ?? (titlePrefix ? undefined : data?.headline);
   const description = customDescription ?? subtext ?? data?.subtext ?? "NYEIB connects growth-oriented businesses with the capital, strategic partnerships and practical support they need to become more credible, resilient and investment-ready.";
-  const imageSrc = customImageSrc ?? data?.imageSrc ?? "/images/african-american-man-woman-home-office-analyzes-online-business-trends.jpg";
-  const mobileImageSrc = customMobileImageSrc ?? data?.mobileImageSrc ?? imageSrc;
+  const imageSrc = customImageSrc ?? data?.imageSrc ?? "/images/heroes/what-we-do-desktop.webp";
+  const mobileImage = customMobileImageSrc ?? data?.mobileImageSrc ?? imageSrc;
   const imageAlt = customImageAlt ?? (data?.headline || "We exist to unlock pathways for investable businesses.");
+
   return (
     <section
       id="curved-hero-layout"
@@ -133,29 +134,50 @@ export function CurvedHeroLayout({
           ? headline
           : `${titlePrefix}${highlight}${titleSuffix}`
       }
-      className={`relative w-full overflow-hidden bg-[#003124] h-[100svh] min-h-[620px] lg:h-screen lg:min-h-[680px] xl:min-h-[720px] flex flex-col justify-end select-none ${className}`}
+      className={`relative w-full overflow-hidden bg-[#003124] flex flex-col justify-between min-h-[100svh] pt-[76px] sm:pt-[88px] md:pt-0 md:justify-end md:h-[100svh] md:min-h-[620px] lg:h-screen lg:min-h-[680px] xl:min-h-[720px] select-none ${className}`}
       style={{ backgroundColor: bgColor }}
     >
       {/* =========================================================================
-          1. BACKGROUND PHOTOGRAPHY (Responsive character-aware container)
-          - Mobile (< md): Loads mobileImageSrc with optimal character framing
-          - Desktop (>= md): Loads full-resolution wide landscape image
+          1. MOBILE LANDSCAPE PHOTOGRAPHY (< md)
+          Positioned below the floating navbar (via pt-[76px]) so the navbar never
+          obscures subjects' heads or faces, with full horizontal context visible.
           ========================================================================= */}
-      <div className="absolute inset-0 size-full overflow-hidden pointer-events-none z-0">
-        {/* Mobile crop (< md) */}
-        <div className="relative w-full h-full block md:hidden">
-          <Image
-            src={mobileImageSrc}
-            alt={imageAlt}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-top pointer-events-none"
-          />
-        </div>
+      <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] min-h-[220px] max-h-[360px] shrink-0 overflow-hidden block md:hidden z-0">
+        <Image
+          src={mobileImage}
+          alt={imageAlt}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 1px"
+          className="object-cover object-center pointer-events-none"
+        />
 
-        {/* Desktop photograph (>= md) */}
-        <div className="relative w-full h-full hidden md:block">
+        {/* Bottom Curved Wave Cut */}
+        <div
+          className="absolute inset-x-0 -bottom-[1px] w-full h-[36px] sm:h-[48px] pointer-events-none z-10 overflow-hidden"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 420 1440 400"
+            preserveAspectRatio="none"
+            className="w-full h-full block"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2053.91 555.314C2065.77 548.747 2075 532.987 2075 517.227L2075 -14.6749C2075 -50.135 2036.77 -69.835 2007.76 -52.7617L1175.86 455.5C996.554 565.82 784.293 611.787 573.35 590.774L-141.219 514.6C-167.587 513.287 -190 532.987 -190 559.253L-190 877.081C-190 898.094 -176.816 915.168 -157.04 920.421C56.5395 969.015 278.03 993.968 507.43 993.968C1075.66 996.595 1605.65 836.368 2053.91 555.314Z"
+              fill={bgColor}
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          2. DESKTOP PHOTOGRAPHY & SWEEPING CURVE (>= md)
+          Retains the full-bleed desktop photographic sweep with deep green wave.
+          ========================================================================= */}
+      <div className="absolute inset-0 size-full overflow-hidden pointer-events-none z-0 hidden md:block">
+        <div className="relative w-full h-full">
           <Image
             src={imageSrc}
             alt={imageAlt}
@@ -173,34 +195,7 @@ export function CurvedHeroLayout({
         />
       </div>
 
-      {/* =========================================================================
-          2. SWEEPING CURVED OVERLAYS
-          - Mobile / Tablet (< md): inner-pages-hero-layout-mobile-svg.svg (516 x 1057)
-          - Desktop (>= md): inner-pages-hero-layou-svg.svg (1440 x 819)
-          Fills the bottom area and right slope with solid #003124
-          ========================================================================= */}
-      {/* Mobile Curve (< md) */}
-      <div
-        className="absolute inset-0 size-full pointer-events-none z-10 overflow-hidden block md:hidden"
-        aria-hidden="true"
-      >
-        <svg
-          viewBox="0 0 516 1057"
-          preserveAspectRatio="none"
-          className="w-full h-full block"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1941.72 607.261C1959.31 597.52 1973 574.142 1973 550.764L1973 -238.249C1973 -290.85 1916.3 -320.072 1873.29 -294.746L639.567 459.199C373.663 622.846 58.8783 691.033 -253.951 659.862L-1313.66 546.867C-1352.76 544.919 -1386 574.142 -1386 613.105L-1386 1084.56C-1386 1115.74 -1366.45 1141.06 -1337.12 1148.85C-1020.38 1220.94 -691.911 1257.95 -351.709 1257.95C490.973 1261.85 1276.96 1024.17 1941.72 607.261Z"
-            fill={bgColor}
-          />
-        </svg>
-      </div>
-
-      {/* Desktop Curve (>= md)
-          Anchored to the bottom with elevated height scaling on small desktop viewports (lg)
-          to ensure the dark green wave provides generous headroom above wrapped text. */}
+      {/* Desktop Sweeping Curved Overlay (>= md) */}
       <div
         className="absolute inset-x-0 bottom-0 pointer-events-none z-10 overflow-hidden hidden md:block h-[115%] lg:h-[132%] xl:h-[120%] 2xl:h-full"
         aria-hidden="true"
@@ -220,10 +215,10 @@ export function CurvedHeroLayout({
       </div>
 
       {/* =========================================================================
-          3. CONTENT AREA (Directly positioned on top of the deep green #003124 ground)
-          Responsive typography matching Figma nodes with optimized scaling on laptops
+          3. CONTENT AREA (Positioned on top of the deep green #003124 ground)
+          Responsive typography matching Figma nodes with optimized scaling
           ========================================================================= */}
-      <div className="relative z-20 w-full px-5 sm:px-8 md:px-12 lg:px-16 pt-8 pb-8 sm:pb-10 md:pb-12 lg:pb-10 xl:pb-14 2xl:pb-16">
+      <div className="relative z-20 w-full flex-1 flex flex-col justify-center md:justify-end px-5 sm:px-8 md:px-12 lg:px-16 pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-10 md:pb-12 lg:pb-10 xl:pb-14 2xl:pb-16">
         <div className="max-w-[1320px] w-full mx-auto flex flex-col lg:flex-row items-start justify-between gap-6 sm:gap-8 lg:gap-10 xl:gap-14 2xl:gap-16">
           {/* Left Column / Mobile Top: Bold Asul Editorial Headline */}
           <div className="w-full lg:w-[58%] max-w-[680px]">

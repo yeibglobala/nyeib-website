@@ -41,7 +41,7 @@ export function ApplyLandingHero() {
         {/* Large Rounded Photography Container (80% viewport scaling on mobile) */}
         <div className="w-full relative h-[42svh] sm:h-[340px] md:h-[400px] lg:h-[460px] rounded-[20px] sm:rounded-[36px] lg:rounded-[40px] overflow-hidden shadow-[0_16px_45px_rgba(15,42,32,0.06)] border border-[#E6DCCB] bg-[#EFE7DC]">
           <Image
-            src="/images/nyeib-apply-for-funding.jpg"
+            src="/images/heroes/apply-desktop.webp"
             alt={headline}
             fill
             priority

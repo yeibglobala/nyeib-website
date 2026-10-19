@@ -19,7 +19,7 @@ const PARTNER_PATHWAY_DATA: PartnerPathwayItem[] = [
     title: "More than impact. A stronger investment opportunity.",
     description:
       "Participate in high-growth, investable enterprises delivering measurable economic value and lasting developmental impact.",
-    imageSrc: "/images/nyeib-investors.jpg",
+    imageSrc: "/images/heroes/esg-desktop.webp",
   },
   {
     id: "institutionally-anchored",

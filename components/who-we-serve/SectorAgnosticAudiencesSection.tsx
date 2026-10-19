@@ -30,7 +30,7 @@ const AUDIENCES_DATA: AudienceItem[] = [
       "Provides risk-sharing guarantees to participating financial institutions, helping reduce lending risks and encourage greater access to finance for eligible youth- and women-led businesses.",
     ctaText: "Explore Credit Guarantees",
     ctaHref: "/apply",
-    imageSrc: "/images/Credit-guarantee-fund.jpg",
+    imageSrc: "/images/credit-guarantee-fund.jpg",
   },
   {
     id: "ecosystem-fund",
