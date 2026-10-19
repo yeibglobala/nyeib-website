@@ -3,6 +3,33 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { StatFlipCard } from "@/components/cards/StatFlipCard";
+
+/**
+ * Signature dual-color curved wave in vibrant orange (#F88404) & deep evergreen (#003124)
+ * Matching the exact geometry of Card1SvgWave for visual symmetry.
+ */
+function OrangeCardWave() {
+  return (
+    <svg
+      viewBox="0 0 399 452"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="absolute inset-0 w-full h-full pointer-events-none select-none object-cover"
+      aria-hidden="true"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M452.139 216.003L433.665 393.346C433.118 398.588 429.593 402.636 425.327 405.283C266.109 482.304 84.1838 517.663 -104.426 498.016C-180.747 490.065 -253.526 473.653 -322.855 449.652C-328.859 447.702 -333.047 441.084 -332.319 434.095L-321.307 328.388C-320.397 319.652 -312.258 313.877 -303.576 315.664L-68.3886 364.89C1.01813 379.627 73.3206 370.821 136.751 340.781L431.088 201.005C441.329 196.332 453.322 204.646 452.139 216.003Z"
+        fill="#F88404"
+      />
+      <path
+        d="M523.51 497.348L426.488 347.753C423.62 343.331 418.641 341.326 413.638 340.907C236.807 344.621 58.6755 395.767 -100.423 498.953C-164.802 540.707 -222.182 588.39 -273.041 641.266C-277.504 645.731 -278.228 653.529 -274.405 659.425L-216.574 748.592C-211.795 755.962 -201.92 757.409 -194.998 751.873L-7.84241 601.177C47.2946 556.519 115.706 531.517 185.86 529.464L511.57 520.271C522.817 519.782 529.723 506.928 523.51 497.348Z"
+        fill="#003124"
+      />
+    </svg>
+  );
+}
 
 export function PathwayChooserSection() {
   return (
@@ -20,127 +47,84 @@ export function PathwayChooserSection() {
         </p>
 
         {/* Two large cards grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-          {/* ================= CARD 1: Business Support ================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+          {/* ================= CARD 1: Business Support (Green Style) ================= */}
           <Link
             href="/apply/business"
             prefetch={true}
             aria-label="Apply for Business Support"
-            className="group relative bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_4px_25px_rgba(15,42,32,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(46,183,140,0.12)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2eb78c] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5F0] min-h-[460px] sm:min-h-[500px]"
+            className="group block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] rounded-[26px]"
           >
-            {/* Top Content Area */}
-            <div className="relative z-10 flex flex-col items-start">
-              {/* a. Outlined small pill */}
-              <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border border-[#2eb78c]/35 text-[#1f9d74] bg-[#2eb78c]/5 text-[0.78rem] sm:text-[0.82rem] font-semibold tracking-wide mb-5">
-                For Entrepreneurs & Businesses
-              </span>
-
-              {/* b. Small muted mono text */}
-              <span className="font-mono text-[0.8rem] tracking-wider text-[#0F2A20]/50 uppercase mb-2">
-                Pathway 1
-              </span>
-
-              {/* c. Big title */}
-              <h2
-                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-normal text-[#0F2A20] leading-[1.15] tracking-tight mb-4 group-hover:text-[#1f9d74] transition-colors"
-                style={{ fontFamily: "var(--font-headline, serif)" }}
-              >
-                Apply for Business Support
-              </h2>
-
-              {/* d. Question line */}
-              <p
-                className="text-[1.05rem] sm:text-[1.12rem] font-medium text-[#0F2A20] leading-snug mb-3"
-                style={{ fontFamily: "var(--font-body, sans-serif)" }}
-              >
-                Building a business with room to grow?
-              </p>
-
-              {/* e. Paragraph */}
-              <p
-                className="text-[0.95rem] sm:text-[1rem] text-[#0F2A20]/75 leading-relaxed font-normal max-w-xl"
-                style={{ fontFamily: "var(--font-body, sans-serif)" }}
-              >
-                NYEIB supports growth-oriented businesses connected to Nigerian youth and women, with a focus on creating jobs and building stronger, more investable enterprises.
-              </p>
-            </div>
-
-            {/* Bottom Graphic Pastel Fill (Mint to Pale Teal) & Action Arrow */}
-            <div className="relative z-10 mt-8 pt-8 flex items-center justify-end">
-              <div className="w-12 h-12 rounded-full border border-[#2eb78c]/30 bg-white/80 text-[#0F2A20] flex items-center justify-center transition-all duration-300 group-hover:bg-[#2eb78c] group-hover:border-[#2eb78c] group-hover:text-white shadow-sm">
-                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </div>
-            </div>
-
-            {/* Bottom 35% Soft Pastel Gradient Background with Geometric CSS shapes */}
-            <div
-              aria-hidden="true"
-              className="absolute bottom-0 left-0 right-0 h-[38%] bg-gradient-to-b from-transparent via-[#E3F7F0]/40 to-[#CEEFE4]/70 pointer-events-none overflow-hidden"
-            >
-              {/* Quarter circle shape */}
-              <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-[#2eb78c]/15 transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3" />
-            </div>
+            <StatFlipCard
+              variant="style1"
+              disableFlip={true}
+              flipHint={null}
+              frontBg="bg-[#F2FBF6] border border-[#003124]/10"
+              className="!max-w-none w-full !h-full min-h-[500px] sm:min-h-[520px] lg:min-h-[540px] cursor-pointer transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_24px_50px_rgba(0,190,147,0.18)]"
+              frontBadge={
+                <div className="flex flex-col items-start gap-2.5">
+                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border border-[#00BE93]/40 text-[#008f6e] bg-[#00BE93]/10 text-[0.78rem] sm:text-[0.82rem] font-semibold tracking-wide">
+                    For Entrepreneurs & Businesses
+                  </span>
+                  <span className="font-mono text-[0.8rem] tracking-wider text-[#003124]/60 uppercase">
+                    Pathway 1
+                  </span>
+                </div>
+              }
+              frontStat="Apply for Business Support"
+              frontStatClassName="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-bold text-[#003124] leading-[1.15] tracking-tight group-hover:text-[#008f6e] transition-colors"
+              frontTitle="Building a business with room to grow?"
+              frontTitleClassName="!max-w-xl text-[1.05rem] sm:text-[1.12rem] font-semibold text-[#003124] leading-snug pt-1"
+              frontDescription="NYEIB supports growth-oriented businesses connected to Nigerian youth and women, with a focus on creating jobs and building stronger, more investable enterprises."
+              frontDescriptionClassName="!max-w-xl text-[0.95rem] sm:text-[1rem] text-[#003124]/80 leading-relaxed font-normal pt-1"
+              frontChildren={
+                <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20">
+                  <div className="w-12 h-12 rounded-full border border-white/50 bg-white/90 text-[#003124] flex items-center justify-center transition-all duration-300 group-hover:bg-[#00BE93] group-hover:border-[#00BE93] group-hover:text-white shadow-md">
+                    <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </div>
+                </div>
+              }
+            />
           </Link>
 
-          {/* ================= CARD 2: Partner With NYEIB ================= */}
+          {/* ================= CARD 2: Partner With NYEIB (Orange Style) ================= */}
           <Link
             href="/apply/partner"
             prefetch={true}
             aria-label="Partner With NYEIB"
-            className="group relative bg-white border border-[#E6DCCB] rounded-[28px] p-8 sm:p-10 flex flex-col justify-between overflow-hidden shadow-[0_4px_25px_rgba(15,42,32,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(248,132,4,0.12)] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F7F5F0] min-h-[460px] sm:min-h-[500px]"
+            className="group block w-full h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] rounded-[26px]"
           >
-            {/* Top Content Area */}
-            <div className="relative z-10 flex flex-col items-start">
-              {/* a. Outlined small pill */}
-              <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border border-[#F88404]/35 text-[#c26200] bg-[#F88404]/5 text-[0.78rem] sm:text-[0.82rem] font-semibold tracking-wide mb-5">
-                For Institutions & Ecosystem Partners
-              </span>
-
-              {/* b. Small muted mono text */}
-              <span className="font-mono text-[0.8rem] tracking-wider text-[#0F2A20]/50 uppercase mb-2">
-                Pathway 2
-              </span>
-
-              {/* c. Big title */}
-              <h2
-                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-normal text-[#0F2A20] leading-[1.15] tracking-tight mb-4 group-hover:text-[#F88404] transition-colors"
-                style={{ fontFamily: "var(--font-headline, serif)" }}
-              >
-                Partner With NYEIB
-              </h2>
-
-              {/* d. Question line */}
-              <p
-                className="text-[1.05rem] sm:text-[1.12rem] font-medium text-[#0F2A20] leading-snug mb-3"
-                style={{ fontFamily: "var(--font-body, sans-serif)" }}
-              >
-                Explore opportunities to invest, collaborate and support business growth.
-              </p>
-
-              {/* e. Paragraph */}
-              <p
-                className="text-[0.95rem] sm:text-[1rem] text-[#0F2A20]/75 leading-relaxed font-normal max-w-xl"
-                style={{ fontFamily: "var(--font-body, sans-serif)" }}
-              >
-                NYEIB works with financial institutions, fund managers, investors, development partners and ecosystem organisations to help expand access to capital, reduce financing barriers and strengthen Nigeria&apos;s entrepreneurial ecosystem.
-              </p>
-            </div>
-
-            {/* Bottom Graphic Pastel Fill (Peach to Pale Sand) & Action Arrow */}
-            <div className="relative z-10 mt-8 pt-8 flex items-center justify-end">
-              <div className="w-12 h-12 rounded-full border border-[#F88404]/30 bg-white/80 text-[#0F2A20] flex items-center justify-center transition-all duration-300 group-hover:bg-[#F88404] group-hover:border-[#F88404] group-hover:text-white shadow-sm">
-                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </div>
-            </div>
-
-            {/* Bottom 35% Soft Pastel Gradient Background with Geometric CSS shapes */}
-            <div
-              aria-hidden="true"
-              className="absolute bottom-0 left-0 right-0 h-[38%] bg-gradient-to-b from-transparent via-[#FCECDA]/40 to-[#F7E8D7]/70 pointer-events-none overflow-hidden"
-            >
-              {/* Quarter circle shape */}
-              <div className="absolute -bottom-10 -right-10 w-44 h-44 rounded-full bg-[#F8CFA3]/30 transition-transform duration-500 group-hover:translate-x-3 group-hover:-translate-y-3" />
-            </div>
+            <StatFlipCard
+              variant="style1"
+              disableFlip={true}
+              flipHint={null}
+              customWave={<OrangeCardWave />}
+              frontBg="bg-[#F2FBF6] border border-[#003124]/10"
+              className="!max-w-none w-full !h-full min-h-[500px] sm:min-h-[520px] lg:min-h-[540px] cursor-pointer transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_24px_50px_rgba(248,132,4,0.18)]"
+              frontBadge={
+                <div className="flex flex-col items-start gap-2.5">
+                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border border-[#F88404]/40 text-[#c26200] bg-[#F88404]/10 text-[0.78rem] sm:text-[0.82rem] font-semibold tracking-wide">
+                    For Institutions & Ecosystem Partners
+                  </span>
+                  <span className="font-mono text-[0.8rem] tracking-wider text-[#003124]/60 uppercase">
+                    Pathway 2
+                  </span>
+                </div>
+              }
+              frontStat="Partner With NYEIB"
+              frontStatClassName="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-bold text-[#003124] leading-[1.15] tracking-tight group-hover:text-[#F88404] transition-colors"
+              frontTitle="Explore opportunities to invest, collaborate and support business growth."
+              frontTitleClassName="!max-w-xl text-[1.05rem] sm:text-[1.12rem] font-semibold text-[#003124] leading-snug pt-1"
+              frontDescription="NYEIB works with financial institutions, fund managers, investors, development partners and ecosystem organisations to help expand access to capital, reduce financing barriers and strengthen Nigeria's entrepreneurial ecosystem."
+              frontDescriptionClassName="!max-w-xl text-[0.95rem] sm:text-[1rem] text-[#003124]/80 leading-relaxed font-normal pt-1"
+              frontChildren={
+                <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-20">
+                  <div className="w-12 h-12 rounded-full border border-white/50 bg-white/90 text-[#003124] flex items-center justify-center transition-all duration-300 group-hover:bg-[#F88404] group-hover:border-[#F88404] group-hover:text-white shadow-md">
+                    <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </div>
+                </div>
+              }
+            />
           </Link>
         </div>
       </div>
