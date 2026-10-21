@@ -134,7 +134,7 @@ export function CurvedHeroLayout({
           ? headline
           : `${titlePrefix}${highlight}${titleSuffix}`
       }
-      className={`relative w-full overflow-hidden bg-[#003124] flex flex-col justify-between min-h-[100svh] pt-[76px] sm:pt-[88px] md:pt-0 md:justify-end md:h-[100svh] md:min-h-[620px] lg:h-screen lg:min-h-[680px] xl:min-h-[720px] select-none ${className}`}
+      className={`relative w-full overflow-hidden bg-[#003124] flex flex-col justify-between min-h-[100svh] pt-[76px] sm:pt-[88px] md:pt-0 md:justify-end md:h-[100svh] md:min-h-[660px] lg:h-screen lg:min-h-[700px] xl:min-h-[720px] select-none ${className}`}
       style={{ backgroundColor: bgColor }}
     >
       {/* =========================================================================
@@ -195,35 +195,30 @@ export function CurvedHeroLayout({
         />
       </div>
 
-      {/* Desktop Sweeping Curved Overlay (>= md) */}
+      {/* Desktop Sweeping Curved Overlay (>= md)
+          Anchored to the bottom with elevated height scaling on medium and laptop viewports (md/lg)
+          to ensure the dark green wave provides generous headroom above wrapped text. */}
       <div
-        className="absolute inset-x-0 bottom-0 pointer-events-none z-10 overflow-hidden hidden md:block h-[115%] lg:h-[132%] xl:h-[120%] 2xl:h-full"
+        className="absolute inset-x-0 bottom-0 pointer-events-none z-10 overflow-hidden hidden md:block w-full h-[120%] md:h-[130%] lg:h-[138%] xl:h-[124%] 2xl:h-[114%]"
         aria-hidden="true"
       >
-        <svg
-          viewBox="0 0 1440 819"
-          preserveAspectRatio="none"
-          className="w-full h-full block"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M2053.91 555.314C2065.77 548.747 2075 532.987 2075 517.227L2075 -14.6749C2075 -50.135 2036.77 -69.835 2007.76 -52.7617L1175.86 455.5C996.554 565.82 784.293 611.787 573.35 590.774L-141.219 514.6C-167.587 513.287 -190 532.987 -190 559.253L-190 877.081C-190 898.094 -176.816 915.168 -157.04 920.421C56.5395 969.015 278.03 993.968 507.43 993.968C1075.66 996.595 1605.65 836.368 2053.91 555.314Z"
-            fill={bgColor}
-          />
-        </svg>
+        <img
+          src={svgSrc}
+          alt=""
+          className="w-full h-full block object-fill pointer-events-none select-none"
+        />
       </div>
 
       {/* =========================================================================
           3. CONTENT AREA (Positioned on top of the deep green #003124 ground)
           Responsive typography matching Figma nodes with optimized scaling
           ========================================================================= */}
-      <div className="relative z-20 w-full flex-1 flex flex-col justify-center md:justify-end px-5 sm:px-8 md:px-12 lg:px-16 pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-10 md:pb-12 lg:pb-10 xl:pb-14 2xl:pb-16">
+      <div className="relative z-20 w-full flex-1 flex flex-col justify-center md:justify-end px-5 sm:px-8 md:px-12 lg:px-16 pt-4 sm:pt-6 md:pt-8 pb-8 sm:pb-10 md:pb-9 lg:pb-10 xl:pb-14 2xl:pb-16">
         <div className="max-w-[1320px] w-full mx-auto flex flex-col lg:flex-row items-start justify-between gap-6 sm:gap-8 lg:gap-10 xl:gap-14 2xl:gap-16">
           {/* Left Column / Mobile Top: Bold Asul Editorial Headline */}
-          <div className="w-full lg:w-[58%] max-w-[680px]">
+          <div className="w-full lg:w-[60%] xl:w-[58%] max-w-[700px]">
             <h1
-              className="text-[26px] sm:text-[32px] md:text-[38px] lg:text-[36px] xl:text-[44px] 2xl:text-[48px] font-bold text-[#F2FBF6] tracking-tight leading-[1.2] sm:leading-[1.18] lg:leading-[1.16]"
+              className="text-[26px] sm:text-[30px] md:text-[34px] lg:text-[36px] xl:text-[44px] 2xl:text-[48px] font-bold text-[#F2FBF6] tracking-tight leading-[1.2] sm:leading-[1.18] lg:leading-[1.16]"
               style={{ fontFamily: "var(--font-headline, serif)" }}
             >
               {headline ? (
