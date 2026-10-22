@@ -191,29 +191,13 @@ export function PurposeSection() {
 
         {/* Two Columns Grid directly below the line (Matches banner grid width) */}
         <div className="w-full mt-[clamp(28px,3.5vw,44px)] flex items-start justify-between">
-          {/* Left Column: Purpose Label with 4 Corner Brackets */}
-          <div className="flex-shrink-0">
+          {/* Left Column: Purpose Tag (Standard NYEIB Pill Badge) */}
+          <div className="flex-shrink-0 pt-0.5">
             <HeaderReveal delay={100} duration={800} mask={false}>
-              <div className="relative inline-flex items-center justify-center px-[28px] py-[18px]">
-                {/* Corner Brackets */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#003124]/[0.06] border border-[#003124]/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00875A]" aria-hidden="true" />
                 <span
-                  aria-hidden="true"
-                  className="absolute top-0 left-0 w-[14px] h-[14px] border-t border-l border-[#003124]/30 pointer-events-none"
-                />
-                <span
-                  aria-hidden="true"
-                  className="absolute top-0 right-0 w-[14px] h-[14px] border-t border-r border-[#003124]/30 pointer-events-none"
-                />
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-0 left-0 w-[14px] h-[14px] border-b border-l border-[#003124]/30 pointer-events-none"
-                />
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-0 right-0 w-[14px] h-[14px] border-b border-r border-[#003124]/30 pointer-events-none"
-                />
-                <span
-                  className="text-[16px] font-normal tracking-wider text-[#12201b]"
+                  className="text-[12px] sm:text-[13px] font-semibold tracking-[0.16em] uppercase text-[#003124]"
                   style={{ fontFamily: "var(--font-body)" }}
                 >
                   {PURPOSE_CONFIG.label}
@@ -323,28 +307,13 @@ export function PurposeSection() {
           aria-hidden="true"
         />
 
-        {/* 4. Purpose Label in Corner-Bracket Frame */}
+        {/* 4. Purpose Label (Standard NYEIB Pill Badge) */}
         <div className="self-start">
           <HeaderReveal delay={100} duration={800} mask={false}>
-            <div className="relative inline-flex items-center justify-center px-[24px] py-[14px]">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#003124]/[0.06] border border-[#003124]/10">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00875A]" aria-hidden="true" />
               <span
-                aria-hidden="true"
-                className="absolute top-0 left-0 w-[14px] h-[14px] border-t border-l border-[#003124]/30 pointer-events-none"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute top-0 right-0 w-[14px] h-[14px] border-t border-r border-[#003124]/30 pointer-events-none"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute bottom-0 left-0 w-[14px] h-[14px] border-b border-l border-[#003124]/30 pointer-events-none"
-              />
-              <span
-                aria-hidden="true"
-                className="absolute bottom-0 right-0 w-[14px] h-[14px] border-b border-r border-[#003124]/30 pointer-events-none"
-              />
-              <span
-                className="text-[15px] font-normal tracking-wider text-[#12201b]"
+                className="text-[12px] font-semibold tracking-[0.16em] uppercase text-[#003124]"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 {PURPOSE_CONFIG.label}
