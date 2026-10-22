@@ -3,6 +3,8 @@ export interface CtaCardData {
   text: string;
   buttonLabel: string;
   href: string;
+  imageDesktop?: string;
+  imageMobile?: string;
 }
 
 export const CTA_CONTENT = {
@@ -17,29 +19,39 @@ export const CTA_CONTENT = {
     text: "Whether you are building a growth-oriented business, deploying capital or strengthening Nigeria’s entrepreneurial ecosystem, there is a pathway to work with NYEIB.",
     buttonLabel: "Partner with NYEIB",
     href: "/apply",
+    imageDesktop: "/images/footer/what-we-do-cta-desktop.png",
+    imageMobile: "/images/footer/what-we-do-cta-mobile.png",
   },
   whoWeServe: {
     headline: "Different roles with one connected ecosystem.",
     text: "Whether you are building a growth-oriented business, deploying capital or strengthening Nigeria’s entrepreneurial ecosystem, there is a pathway to work with NYEIB.",
     buttonLabel: "Partner with NYEIB",
     href: "/apply",
+    imageDesktop: "/images/footer/who-we-serve-cta-desktop.png",
+    imageMobile: "/images/footer/who-we-serve-cta-mobile.png",
   },
   impact: {
     headline: "Build growth. Create impact.",
     text: "Whether you are growing a business or deploying capital, NYEIB offers a pathway to participate in measurable economic progress.",
     buttonLabel: "Invest & Partner with NYEIB",
     href: "/apply",
+    imageDesktop: "/images/footer/impact-cta-desktop.png",
+    imageMobile: "/images/footer/impact-cta-mobile.png",
   },
   partners: {
     headline: "Partner for long-term value.",
     text: "If your institution is looking to invest in, co-invest alongside or support growth-oriented businesses in Nigeria, NYEIB offers a structured pathway to participate.",
     buttonLabel: "Partner with NYEIB",
     href: "/apply",
+    imageDesktop: "/images/footer/partners-cta-desktop.png",
+    imageMobile: "/images/footer/partners-cta-mobile.png",
   },
   esg: {
     headline: "Building a more sustainable future takes collaboration.",
     text: "Explore how your organisation can work with NYEIB to advance responsible investment and sustainable business growth across Nigeria.",
     buttonLabel: "Partner With NYEIB",
     href: "/apply/partner",
+    imageDesktop: "/images/footer/esg-cta-desktop.png",
+    imageMobile: "/images/footer/esg-cta-mobile.png",
   },
 } as const satisfies Record<string, CtaCardData>;

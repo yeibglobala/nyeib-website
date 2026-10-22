@@ -8,6 +8,8 @@ export interface CtaCardProps {
   text: string;
   buttonLabel: string;
   href: string;
+  imageDesktop?: string;
+  imageMobile?: string;
   className?: string;
   wrapperClassName?: string;
   sectionId?: string;
@@ -18,6 +20,8 @@ export function CtaCard({
   text,
   buttonLabel,
   href,
+  imageDesktop,
+  imageMobile,
   className = "",
   wrapperClassName = "",
   sectionId = "partner",
@@ -88,9 +92,10 @@ export function CtaCard({
               className="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden"
             >
               <img
-                src="/images/footer-image-desktop.png"
+                src={imageDesktop || "/images/footer-image-desktop.png"}
                 alt=""
-                className="absolute inset-0 w-full h-full object-cover object-right pointer-events-none"
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                style={{ objectPosition: "right bottom" }}
               />
             </div>
 
@@ -153,9 +158,10 @@ export function CtaCard({
             {/* Bottom Mobile Cutout Image */}
             <div className="relative w-full h-[280px] sm:h-[320px] overflow-hidden">
               <img
-                src="/images/footer-image-mobile.png"
+                src={imageMobile || "/images/footer-image-mobile.png"}
                 alt="Entrepreneurs collaborating with NYEIB"
-                className="w-full h-full object-cover object-top pointer-events-none"
+                className="w-full h-full object-cover pointer-events-none"
+                style={{ objectPosition: "center top" }}
               />
             </div>
           </div>
