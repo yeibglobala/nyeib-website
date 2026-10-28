@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero/InnerHero";
 import { WhoWeServeTeaser } from "@/components/home/WhoWeServeTeaser";
+import { SectorsSupportedSection } from "@/components/who-we-serve/SectorsSupportedSection";
 import { CtaCard } from "@/components/cta/CtaCard";
 import { CTA_CONTENT } from "@/src/content/cta";
 
@@ -18,6 +19,9 @@ export default function WhoWeServePage() {
 
       {/* Interactive Who We Serve Swiper Showcase */}
       <WhoWeServeTeaser />
+
+      {/* Sectors We Support (Accordion & Stakeholder Impact) */}
+      <SectorsSupportedSection />
 
       {/* Closing CTA */}
       <CtaCard {...CTA_CONTENT.whoWeServe} />
