@@ -74,6 +74,9 @@ export function VideoStory() {
           ref={videoRef}
           aria-hidden="true"
           playsInline
+          disablePictureInPicture
+          width={1920}
+          height={1080}
           muted
           loop
           preload="metadata"

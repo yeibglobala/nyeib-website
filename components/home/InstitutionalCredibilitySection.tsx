@@ -37,7 +37,7 @@ export function InstitutionalCredibilitySection() {
             {/* Headline */}
             <HeaderReveal delay={120} duration={900}>
               <h2
-                className="text-[clamp(30px,3.8vw,52px)] font-bold leading-[1.12] tracking-tight text-[#003124] m-0"
+                className="text-[clamp(30px,3.8vw,52px)] font-bold leading-[1.2] tracking-tight text-[#003124] m-0"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
               >
                 Institutionally anchored for{" "}

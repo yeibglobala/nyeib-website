@@ -15,7 +15,7 @@ export function WideCardSvg({ className = "" }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={cn(
-        "absolute inset-0 w-full h-full pointer-events-none select-none",
+        "pointer-events-none select-none",
         className
       )}
       preserveAspectRatio="none"
@@ -45,9 +45,11 @@ export function PartnerValuePropSection() {
             STATIC WIDE CARD
             Rounded container matching screenshot with full-bleed /images/card-svg.svg
             ========================================================================= */}
-        <div className="relative w-full min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] rounded-[32px] sm:rounded-[44px] lg:rounded-[56px] overflow-hidden bg-[#F2FBF6] p-8 sm:p-12 md:p-16 lg:p-20 flex flex-col justify-center">
-          {/* Background SVG Wave Filling the Card */}
-          <WideCardSvg className="w-full h-full" />
+        <div className="relative w-full min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] rounded-[32px] sm:rounded-[44px] lg:rounded-[56px] overflow-hidden bg-[#F2FBF6] pt-9 px-7 pb-32 sm:pt-12 sm:px-12 sm:pb-36 md:p-16 lg:p-20 flex flex-col justify-start md:justify-center">
+          {/* Background SVG Wave:
+              - Mobile (<768px): Anchored to the bottom (h-[140px] sm:h-[170px]) so it sits cleanly below the paragraph
+              - Desktop (md+): Full-bleed across the wide card */}
+          <WideCardSvg className="absolute bottom-0 left-0 right-0 w-full h-[140px] sm:h-[170px] md:inset-0 md:h-full" />
 
           {/* Text Content Block */}
           <div className="relative z-10 flex flex-col items-start max-w-[720px]">

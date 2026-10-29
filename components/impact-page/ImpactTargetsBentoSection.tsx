@@ -6,8 +6,31 @@ import { HeaderReveal } from "@/shared/components/HeaderReveal";
 export function ImpactTargetsBentoSection() {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
+  const canHover = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
   const handleCardToggle = (id: string) => {
     setActiveCardId((current) => (current === id ? null : id));
+  };
+
+  const handleCardMouseEnter = (id: string) => {
+    if (canHover()) {
+      setActiveCardId(id);
+    }
+  };
+
+  const handleCardMouseLeave = () => {
+    if (canHover()) {
+      setActiveCardId(null);
+    }
+  };
+
+  const handleCardKeyDown = (e: React.KeyboardEvent, id: string) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleCardToggle(id);
+    }
   };
 
   return (
@@ -71,21 +94,27 @@ export function ImpactTargetsBentoSection() {
               ----------------------------------------------------------------------- */}
           <article
             tabIndex={0}
-            role="region"
+            role="button"
             aria-label="Jobs Created"
+            aria-expanded={activeCardId === "jobs"}
             onClick={() => handleCardToggle("jobs")}
-            onMouseEnter={() => setActiveCardId("jobs")}
-            onMouseLeave={() => setActiveCardId(null)}
-            onFocus={() => setActiveCardId("jobs")}
-            onBlur={() => setActiveCardId(null)}
+            onKeyDown={(e) => handleCardKeyDown(e, "jobs")}
+            onMouseEnter={() => handleCardMouseEnter("jobs")}
+            onMouseLeave={handleCardMouseLeave}
             className={`lg:col-span-7 group relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white border border-[#003124]/12 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col justify-between min-h-[380px] sm:min-h-[420px] lg:min-h-[440px] cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] ${
               activeCardId === "jobs"
                 ? "shadow-[0_24px_54px_rgba(0,49,36,0.18)] -translate-y-2 border-[#00BE93]"
-                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] hover:shadow-[0_24px_54px_rgba(0,49,36,0.18)] hover:-translate-y-2 hover:border-[#00BE93]"
+                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] [@media(hover:hover)]:hover:shadow-[0_24px_54px_rgba(0,49,36,0.18)] [@media(hover:hover)]:hover:-translate-y-2 [@media(hover:hover)]:hover:border-[#00BE93]"
             }`}
           >
             {/* TOP ZONE: Bigger Title and Sub-title */}
-            <div className="relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
+            <div
+              className={`relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                activeCardId === "jobs"
+                  ? "-translate-y-1"
+                  : "[@media(hover:hover)]:group-hover:-translate-y-1"
+              }`}
+            >
               <h3
                 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#003124] tracking-tight leading-[1.12]"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
@@ -103,7 +132,9 @@ export function ImpactTargetsBentoSection() {
             {/* REST STATE BOTTOM HINT: Hover or tap to reveal */}
             <div
               className={`relative z-10 px-8 sm:px-10 lg:px-12 pb-8 flex items-center justify-end w-full transition-opacity duration-300 pointer-events-none ${
-                activeCardId === "jobs" ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                activeCardId === "jobs"
+                  ? "opacity-0"
+                  : "opacity-100 [@media(hover:hover)]:group-hover:opacity-0"
               }`}
             >
               <span
@@ -120,7 +151,7 @@ export function ImpactTargetsBentoSection() {
               className={`absolute bottom-0 left-0 right-0 h-[64%] z-20 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform pointer-events-none ${
                 activeCardId === "jobs"
                   ? "translate-y-0"
-                  : "translate-y-[103%] group-hover:translate-y-0"
+                  : "translate-y-[103%] [@media(hover:hover)]:group-hover:translate-y-0"
               }`}
             >
               {/* Curved Top SVG Path (Mint Leaf #00BE93 Fill) */}
@@ -144,7 +175,7 @@ export function ImpactTargetsBentoSection() {
                   className={`transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "jobs"
                       ? "opacity-100 translate-y-0 delay-[200ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[200ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[200ms]"
                   }`}
                 >
                   <p
@@ -160,7 +191,7 @@ export function ImpactTargetsBentoSection() {
                   className={`pt-3 border-t border-[#003124]/20 flex flex-col gap-2.5 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "jobs"
                       ? "opacity-100 translate-y-0 delay-[280ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[280ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[280ms]"
                   }`}
                 >
                   <div className="w-full h-3 rounded-full bg-[#003124]/15 overflow-hidden flex shadow-inner">
@@ -195,21 +226,27 @@ export function ImpactTargetsBentoSection() {
               ----------------------------------------------------------------------- */}
           <article
             tabIndex={0}
-            role="region"
+            role="button"
             aria-label="Businesses Supported"
+            aria-expanded={activeCardId === "biz"}
             onClick={() => handleCardToggle("biz")}
-            onMouseEnter={() => setActiveCardId("biz")}
-            onMouseLeave={() => setActiveCardId(null)}
-            onFocus={() => setActiveCardId("biz")}
-            onBlur={() => setActiveCardId(null)}
+            onKeyDown={(e) => handleCardKeyDown(e, "biz")}
+            onMouseEnter={() => handleCardMouseEnter("biz")}
+            onMouseLeave={handleCardMouseLeave}
             className={`lg:col-span-5 group relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white border border-[#003124]/12 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col justify-between min-h-[380px] sm:min-h-[420px] lg:min-h-[440px] cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F88404] ${
               activeCardId === "biz"
                 ? "shadow-[0_24px_54px_rgba(248,132,4,0.18)] -translate-y-2 border-[#F88404]"
-                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] hover:shadow-[0_24px_54px_rgba(248,132,4,0.18)] hover:-translate-y-2 hover:border-[#F88404]"
+                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] [@media(hover:hover)]:hover:shadow-[0_24px_54px_rgba(248,132,4,0.18)] [@media(hover:hover)]:hover:-translate-y-2 [@media(hover:hover)]:hover:border-[#F88404]"
             }`}
           >
             {/* TOP ZONE: Bigger Title and Sub-title */}
-            <div className="relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
+            <div
+              className={`relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                activeCardId === "biz"
+                  ? "-translate-y-1"
+                  : "[@media(hover:hover)]:group-hover:-translate-y-1"
+              }`}
+            >
               <h3
                 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#003124] tracking-tight leading-[1.12]"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
@@ -227,7 +264,9 @@ export function ImpactTargetsBentoSection() {
             {/* REST STATE BOTTOM HINT: Hover or tap to reveal */}
             <div
               className={`relative z-10 px-8 sm:px-10 lg:px-12 pb-8 flex items-center justify-end w-full transition-opacity duration-300 pointer-events-none ${
-                activeCardId === "biz" ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                activeCardId === "biz"
+                  ? "opacity-0"
+                  : "opacity-100 [@media(hover:hover)]:group-hover:opacity-0"
               }`}
             >
               <span
@@ -244,7 +283,7 @@ export function ImpactTargetsBentoSection() {
               className={`absolute bottom-0 left-0 right-0 h-[64%] z-20 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform pointer-events-none ${
                 activeCardId === "biz"
                   ? "translate-y-0"
-                  : "translate-y-[103%] group-hover:translate-y-0"
+                  : "translate-y-[103%] [@media(hover:hover)]:group-hover:translate-y-0"
               }`}
             >
               {/* Curved Top SVG Path (Tiger Orange #F88404 Fill) */}
@@ -267,7 +306,7 @@ export function ImpactTargetsBentoSection() {
                   className={`transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "biz"
                       ? "opacity-100 translate-y-0 delay-[200ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[200ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[200ms]"
                   }`}
                 >
                   <p
@@ -283,7 +322,7 @@ export function ImpactTargetsBentoSection() {
                   className={`pt-3 border-t border-[#00241A]/20 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "biz"
                       ? "opacity-100 translate-y-0 delay-[280ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[280ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[280ms]"
                   }`}
                 >
                   <div className="w-full h-2 rounded-full bg-[#00241A]/15 overflow-hidden">
@@ -302,21 +341,27 @@ export function ImpactTargetsBentoSection() {
               ----------------------------------------------------------------------- */}
           <article
             tabIndex={0}
-            role="region"
+            role="button"
             aria-label="Ecosystem Support Organisations"
+            aria-expanded={activeCardId === "eco"}
             onClick={() => handleCardToggle("eco")}
-            onMouseEnter={() => setActiveCardId("eco")}
-            onMouseLeave={() => setActiveCardId(null)}
-            onFocus={() => setActiveCardId("eco")}
-            onBlur={() => setActiveCardId(null)}
+            onKeyDown={(e) => handleCardKeyDown(e, "eco")}
+            onMouseEnter={() => handleCardMouseEnter("eco")}
+            onMouseLeave={handleCardMouseLeave}
             className={`lg:col-span-5 group relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white border border-[#003124]/12 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col justify-between min-h-[380px] sm:min-h-[420px] lg:min-h-[440px] cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] ${
               activeCardId === "eco"
                 ? "shadow-[0_24px_54px_rgba(0,49,36,0.18)] -translate-y-2 border-[#00BE93]"
-                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] hover:shadow-[0_24px_54px_rgba(0,49,36,0.18)] hover:-translate-y-2 hover:border-[#00BE93]"
+                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] [@media(hover:hover)]:hover:shadow-[0_24px_54px_rgba(0,49,36,0.18)] [@media(hover:hover)]:hover:-translate-y-2 [@media(hover:hover)]:hover:border-[#00BE93]"
             }`}
           >
             {/* TOP ZONE: Bigger Title and Sub-title */}
-            <div className="relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
+            <div
+              className={`relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                activeCardId === "eco"
+                  ? "-translate-y-1"
+                  : "[@media(hover:hover)]:group-hover:-translate-y-1"
+              }`}
+            >
               <h3
                 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#003124] tracking-tight leading-[1.12]"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
@@ -334,7 +379,9 @@ export function ImpactTargetsBentoSection() {
             {/* REST STATE BOTTOM HINT: Hover or tap to reveal */}
             <div
               className={`relative z-10 px-8 sm:px-10 lg:px-12 pb-8 flex items-center justify-end w-full transition-opacity duration-300 pointer-events-none ${
-                activeCardId === "eco" ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                activeCardId === "eco"
+                  ? "opacity-0"
+                  : "opacity-100 [@media(hover:hover)]:group-hover:opacity-0"
               }`}
             >
               <span
@@ -351,7 +398,7 @@ export function ImpactTargetsBentoSection() {
               className={`absolute bottom-0 left-0 right-0 h-[64%] z-20 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform pointer-events-none ${
                 activeCardId === "eco"
                   ? "translate-y-0"
-                  : "translate-y-[103%] group-hover:translate-y-0"
+                  : "translate-y-[103%] [@media(hover:hover)]:group-hover:translate-y-0"
               }`}
             >
               {/* Curved Top SVG Path (Mint Leaf #00BE93 Fill) */}
@@ -374,7 +421,7 @@ export function ImpactTargetsBentoSection() {
                   className={`transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "eco"
                       ? "opacity-100 translate-y-0 delay-[200ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[200ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[200ms]"
                   }`}
                 >
                   <p
@@ -390,7 +437,7 @@ export function ImpactTargetsBentoSection() {
                   className={`pt-3 border-t border-[#003124]/20 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "eco"
                       ? "opacity-100 translate-y-0 delay-[280ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[280ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[280ms]"
                   }`}
                 >
                   <div className="w-full h-2 rounded-full bg-[#003124]/15 overflow-hidden">
@@ -409,21 +456,27 @@ export function ImpactTargetsBentoSection() {
               ----------------------------------------------------------------------- */}
           <article
             tabIndex={0}
-            role="region"
+            role="button"
             aria-label="Gender Parity"
+            aria-expanded={activeCardId === "gender"}
             onClick={() => handleCardToggle("gender")}
-            onMouseEnter={() => setActiveCardId("gender")}
-            onMouseLeave={() => setActiveCardId(null)}
-            onFocus={() => setActiveCardId("gender")}
-            onBlur={() => setActiveCardId(null)}
+            onKeyDown={(e) => handleCardKeyDown(e, "gender")}
+            onMouseEnter={() => handleCardMouseEnter("gender")}
+            onMouseLeave={handleCardMouseLeave}
             className={`lg:col-span-7 group relative rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white border border-[#003124]/12 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col justify-between min-h-[380px] sm:min-h-[420px] lg:min-h-[440px] cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BE93] ${
               activeCardId === "gender"
                 ? "shadow-[0_24px_54px_rgba(0,49,36,0.18)] -translate-y-2 border-[#00BE93]"
-                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] hover:shadow-[0_24px_54px_rgba(0,49,36,0.18)] hover:-translate-y-2 hover:border-[#00BE93]"
+                : "shadow-[0_10px_32px_rgba(0,49,36,0.08)] [@media(hover:hover)]:hover:shadow-[0_24px_54px_rgba(0,49,36,0.18)] [@media(hover:hover)]:hover:-translate-y-2 [@media(hover:hover)]:hover:border-[#00BE93]"
             }`}
           >
             {/* TOP ZONE: Bigger Title and Sub-title */}
-            <div className="relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
+            <div
+              className={`relative z-10 p-8 sm:p-10 lg:p-12 pb-4 flex flex-col gap-3 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                activeCardId === "gender"
+                  ? "-translate-y-1"
+                  : "[@media(hover:hover)]:group-hover:-translate-y-1"
+              }`}
+            >
               <h3
                 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#003124] tracking-tight leading-[1.12]"
                 style={{ fontFamily: "var(--font-headline, serif)" }}
@@ -441,7 +494,9 @@ export function ImpactTargetsBentoSection() {
             {/* REST STATE BOTTOM HINT: Hover or tap to reveal */}
             <div
               className={`relative z-10 px-8 sm:px-10 lg:px-12 pb-8 flex items-center justify-end w-full transition-opacity duration-300 pointer-events-none ${
-                activeCardId === "gender" ? "opacity-0" : "opacity-100 group-hover:opacity-0"
+                activeCardId === "gender"
+                  ? "opacity-0"
+                  : "opacity-100 [@media(hover:hover)]:group-hover:opacity-0"
               }`}
             >
               <span
@@ -458,7 +513,7 @@ export function ImpactTargetsBentoSection() {
               className={`absolute bottom-0 left-0 right-0 h-[64%] z-20 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform pointer-events-none ${
                 activeCardId === "gender"
                   ? "translate-y-0"
-                  : "translate-y-[103%] group-hover:translate-y-0"
+                  : "translate-y-[103%] [@media(hover:hover)]:group-hover:translate-y-0"
               }`}
             >
               {/* Curved Top SVG Path (Mint Leaf #00BE93 Fill) */}
@@ -481,7 +536,7 @@ export function ImpactTargetsBentoSection() {
                   className={`transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "gender"
                       ? "opacity-100 translate-y-0 delay-[200ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[200ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[200ms]"
                   }`}
                 >
                   <p
@@ -497,7 +552,7 @@ export function ImpactTargetsBentoSection() {
                   className={`pt-3 border-t border-[#003124]/20 flex flex-col gap-2.5 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     activeCardId === "gender"
                       ? "opacity-100 translate-y-0 delay-[280ms]"
-                      : "opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:delay-[280ms]"
+                      : "opacity-0 translate-y-2 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-y-0 [@media(hover:hover)]:group-hover:delay-[280ms]"
                   }`}
                 >
                   <div className="w-full h-3 rounded-full bg-[#003124]/15 overflow-hidden relative shadow-inner">

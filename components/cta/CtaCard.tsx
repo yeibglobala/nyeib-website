@@ -156,12 +156,11 @@ export function CtaCard({
             </div>
 
             {/* Bottom Mobile Cutout Image */}
-            <div className="relative w-full h-[280px] sm:h-[320px] overflow-hidden">
+            <div className="relative w-full h-[290px] sm:h-[340px] overflow-hidden">
               <img
                 src={imageMobile || "/images/footer-image-mobile.png"}
                 alt="Entrepreneurs collaborating with NYEIB"
-                className="w-full h-full object-cover pointer-events-none"
-                style={{ objectPosition: "center top" }}
+                className="w-full h-full object-contain object-right-bottom pointer-events-none"
               />
             </div>
           </div>

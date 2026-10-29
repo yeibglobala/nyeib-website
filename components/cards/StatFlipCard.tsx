@@ -285,8 +285,16 @@ export function StatFlipCard({
       aria-expanded={disableFlip ? undefined : isFlipped}
       onClick={disableFlip ? undefined : handleToggleFlip}
       onKeyDown={disableFlip ? undefined : handleKeyDown}
-      onMouseEnter={() => !disableFlip && flipOnHover && setIsHovered(true)}
-      onMouseLeave={() => !disableFlip && flipOnHover && setIsHovered(false)}
+      onMouseEnter={() => {
+        if (!disableFlip && flipOnHover && typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          setIsHovered(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (!disableFlip && flipOnHover && typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          setIsHovered(false);
+        }
+      }}
       className={cn(
         "group relative w-full max-w-[390px] lg:max-w-[420px] h-[430px] sm:h-[445px] lg:h-[460px] outline-none select-none",
         disableFlip ? "cursor-default" : "cursor-pointer",

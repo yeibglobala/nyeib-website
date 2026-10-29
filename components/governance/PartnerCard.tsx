@@ -17,21 +17,21 @@ export function PartnerCard({
   onActivate,
   onDeactivate,
 }: PartnerCardProps) {
-  // Support hover, keyboard (Enter/Space), and touch tap toggle
+  const canHover = () =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  // Support hover on desktop pointer devices, keyboard (Enter/Space), and single-tap toggle on touch
   const handleMouseEnter = () => {
-    onActivate();
+    if (canHover()) {
+      onActivate();
+    }
   };
 
   const handleMouseLeave = () => {
-    onDeactivate();
-  };
-
-  const handleFocus = () => {
-    onActivate();
-  };
-
-  const handleBlur = () => {
-    onDeactivate();
+    if (canHover()) {
+      onDeactivate();
+    }
   };
 
   const handleClick = () => {
@@ -61,30 +61,28 @@ export function PartnerCard({
       aria-expanded={isActive}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      className="group relative w-full aspect-[4/5] min-h-[340px] max-[700px]:aspect-auto max-[700px]:min-h-[300px] cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F2FBF6]"
+      className="group relative w-full aspect-[4/5] min-h-[370px] max-[700px]:aspect-auto max-[700px]:min-h-[380px] cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003124] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F2FBF6]"
     >
       {/* =========================================================================
           INNER VISUAL CONTAINER:
           Stationary outer hit boundary prevents edge oscillation jitter loops.
           Hover lift and shadow are applied smoothly to this inner layer.
           ========================================================================= */}
-      <div className="relative w-full h-full rounded-[22px] overflow-hidden bg-[#F2FBF6] border border-[rgba(0,49,36,0.14)] transition-[box-shadow,transform] duration-300 group-hover:shadow-[0_12px_32px_rgba(0,49,36,0.12)] group-hover:-translate-y-1 will-change-transform">
+      <div className="relative w-full h-full rounded-[22px] overflow-hidden bg-[#F2FBF6] border border-[rgba(0,49,36,0.14)] transition-[box-shadow,transform] duration-300 [@media(hover:hover)]:group-hover:shadow-[0_12px_32px_rgba(0,49,36,0.12)] [@media(hover:hover)]:group-hover:-translate-y-1 will-change-transform">
         {/* =========================================================================
             BASE LAYER: Mint Cream (#F2FBF6) card background in ALL states.
             - Never dimmed, never greyed.
             ========================================================================= */}
 
         {/* TOP ZONE (Mint Cream #F2FBF6): Official Partner Logo
-            - Sits completely in the top 42% Mint Cream area
+            - Sits completely in the top 40% Mint Cream area
             - Never recolored, tinted, dimmed or covered by overlays (opacity-100 always)
             - Moves up ~12% on hover/focus/tap as the curved sweep rises
             - Clear space preserved on all sides
         */}
-        <div className="absolute top-0 left-0 right-0 h-[42%] flex items-center justify-center p-6 sm:p-7 z-10 pointer-events-none">
+        <div className="absolute top-0 left-0 right-0 h-[40%] flex items-center justify-center p-6 sm:p-7 z-10 pointer-events-none">
           <div
             className={`w-full h-full flex items-center justify-center transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform ${
               isActive ? "-translate-y-[12%]" : "translate-y-0"
@@ -118,7 +116,7 @@ export function PartnerCard({
 
         {/* =========================================================================
             CURVED SWEEP LAYER:
-            - Mint Leaf (#00BE93) curved sweep rises from bottom (58% card height)
+            - Mint Leaf (#00BE93) curved sweep rises from bottom (60% card height)
             - SVG path with curved top edge
             - translateY from 103% to 0 over 700ms, cubic-bezier(0.22, 1, 0.36, 1)
             - Description fades in 250ms later
@@ -126,7 +124,7 @@ export function PartnerCard({
             ========================================================================= */}
         <div
           aria-hidden={!isActive}
-          className={`absolute bottom-0 left-0 right-0 h-[58%] z-20 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none will-change-transform ${
+          className={`absolute bottom-0 left-0 right-0 h-[62%] sm:h-[60%] z-20 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none will-change-transform ${
             isActive ? "translate-y-0" : "translate-y-[103%]"
           }`}
         >
@@ -145,7 +143,7 @@ export function PartnerCard({
           </svg>
 
           {/* Content on the sweep */}
-          <div className="relative h-full w-full px-6 pb-6 pt-12 sm:px-7 sm:pb-7 sm:pt-14 lg:pt-16 flex flex-col justify-between z-10">
+          <div className="relative h-full w-full px-6 pb-6 pt-11 sm:px-7 sm:pb-7 sm:pt-14 lg:pt-15 flex flex-col justify-between z-10">
             {/* Description: fades in 250ms later in Evergreen #003124 */}
             <div
               className={`transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${

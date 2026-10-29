@@ -118,7 +118,7 @@ export function HeaderReveal({
     );
   }
 
-  const maskClass = mask ? "overflow-hidden" : "";
+  const maskClass = mask ? "overflow-hidden pb-[0.15em] -mb-[0.15em]" : "";
 
   return (
     <Component
@@ -133,7 +133,7 @@ export function HeaderReveal({
           transform: isRevealed
             ? "translate3d(0, 0, 0)"
             : mask
-            ? "translate3d(0, 108%, 0)"
+            ? "translate3d(0, 115%, 0)"
             : "translate3d(0, 24px, 0)",
           opacity: isRevealed ? 1 : mask ? 0.4 : 0,
         }}

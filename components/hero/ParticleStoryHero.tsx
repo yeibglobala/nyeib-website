@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { ArrowButton } from "@/shared/components/ArrowButton";
 import { HeaderReveal } from "@/shared/components/HeaderReveal";
 import { VIDEO_STORY_CONFIG } from "@/components/video-story/config";
@@ -12,6 +12,63 @@ export interface ParticleStoryHeroProps {
 
 export function ParticleStoryHero({ seed, showReplay = false }: ParticleStoryHeroProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const video = videoRef.current;
+    if (!section || !video) return;
+
+    let isVisible = true;
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let isReducedMotion = reducedMotionQuery.matches;
+
+    if (isReducedMotion) {
+      video.pause();
+    }
+
+    const onMotionChange = (e: MediaQueryListEvent) => {
+      isReducedMotion = e.matches;
+      if (isReducedMotion) {
+        video.pause();
+      } else if (isVisible && !document.hidden) {
+        video.play().catch(() => {});
+      }
+    };
+    reducedMotionQuery.addEventListener("change", onMotionChange);
+
+    // Pause video when scrolled out of viewport to free GPU/decoder resources
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !isReducedMotion && !document.hidden) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(section);
+
+    // Pause video when browser tab is hidden
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        video.pause();
+      } else if (isVisible && !isReducedMotion) {
+        video.play().catch(() => {});
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      reducedMotionQuery.removeEventListener("change", onMotionChange);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, []);
 
   return (
     <section
@@ -26,16 +83,20 @@ export function ParticleStoryHero({ seed, showReplay = false }: ParticleStoryHer
           ========================================================================= */}
       <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none select-none">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          preload="auto"
-          poster="/video/poster.jpg"
+          disablePictureInPicture
+          width={1920}
+          height={1080}
+          preload="metadata"
+          poster={VIDEO_STORY_CONFIG.media.poster}
           className="absolute inset-0 w-full h-full object-cover object-center"
         >
-          <source src="/video/hero-video.mp4" type="video/mp4" />
-          <source src="/video/hero-video.webm" type="video/webm" />
+          <source src={VIDEO_STORY_CONFIG.media.videoWebm} type="video/webm" />
+          <source src={VIDEO_STORY_CONFIG.media.videoMp4} type="video/mp4" />
         </video>
 
         {/* Ambient Overlay Gradients */}
