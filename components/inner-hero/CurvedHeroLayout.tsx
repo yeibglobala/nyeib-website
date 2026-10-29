@@ -70,7 +70,7 @@ export interface CurvedHeroLayoutProps {
 
   /**
    * Path to the mobile curve SVG overlay.
-   * Default: "/images/inner-pages-hero-layout-mobile-svg.svg"
+   * Default: "/images/mobile-inner-page-svg.svg"
    */
   mobileSvgSrc?: string;
 
@@ -108,7 +108,7 @@ export function CurvedHeroLayout({
   mobileImageSrc: customMobileImageSrc,
   imageAlt: customImageAlt,
   svgSrc = "/images/inner-pages-hero-layou-svg.svg",
-  mobileSvgSrc = "/images/inner-pages-hero-layout-mobile-svg.svg",
+  mobileSvgSrc = "/images/mobile-inner-page-svg.svg",
   bgColor = "#003124",
   className = "",
   ctaText,
@@ -152,23 +152,16 @@ export function CurvedHeroLayout({
           className="object-cover object-center pointer-events-none"
         />
 
-        {/* Bottom Curved Wave Cut */}
+        {/* Bottom Curved Wave Cut (Orange #F88404 + Evergreen #003124 from mobile-inner-page-svg.svg) */}
         <div
-          className="absolute inset-x-0 -bottom-[1px] w-full h-[36px] sm:h-[48px] pointer-events-none z-10 overflow-hidden"
+          className="absolute inset-x-0 -bottom-[1px] w-full pointer-events-none z-10 overflow-hidden"
           aria-hidden="true"
         >
-          <svg
-            viewBox="0 420 1440 400"
-            preserveAspectRatio="none"
-            className="w-full h-full block"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2053.91 555.314C2065.77 548.747 2075 532.987 2075 517.227L2075 -14.6749C2075 -50.135 2036.77 -69.835 2007.76 -52.7617L1175.86 455.5C996.554 565.82 784.293 611.787 573.35 590.774L-141.219 514.6C-167.587 513.287 -190 532.987 -190 559.253L-190 877.081C-190 898.094 -176.816 915.168 -157.04 920.421C56.5395 969.015 278.03 993.968 507.43 993.968C1075.66 996.595 1605.65 836.368 2053.91 555.314Z"
-              fill={bgColor}
-            />
-          </svg>
+          <img
+            src={mobileSvgSrc}
+            alt=""
+            className="w-full h-auto block translate-y-[42.8%] pointer-events-none select-none"
+          />
         </div>
       </div>
 

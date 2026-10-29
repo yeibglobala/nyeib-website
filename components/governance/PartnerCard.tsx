@@ -104,6 +104,14 @@ export function PartnerCard({
             isActive ? "opacity-0" : "opacity-100"
           }`}
         >
+          <div className="pb-2 flex items-center justify-start w-full">
+            <span
+              className="text-[12px] sm:text-[12.5px] font-medium text-[#003124]/50 tracking-normal"
+              style={{ fontFamily: "var(--font-body, sans-serif)" }}
+            >
+              Hover or tap for details
+            </span>
+          </div>
           <div className="pt-2.5 border-t border-[rgba(0,49,36,0.16)]">
             <span
               className="text-[14.5px] sm:text-[15px] font-bold text-[#003124] tracking-tight block"
